@@ -1,0 +1,32 @@
+# required for all azure_rm inventory plugin configs
+plugin: azure_rm
+
+# forces this plugin to use a CLI auth session instead of the automatic auth source selection (eg, prevents the
+# presence of 'ANSIBLE_AZURE_RM_X' environment variables from overriding CLI auth)
+#auth_source: credential_file
+
+# fetches VMs from an explicit list of resource groups instead of default all (- '*')
+include_vm_resource_groups:
+- "digitransit-aks-{{ az_environment }}"
+- "MC_digitransit-kubernetes-deploy_digitransit-AKS-cluster_westeurope"
+
+# fetches VMs from VMSSs in all resource groups (defaults to no VMSS fetch)
+#include_vmss_resource_groups:
+#- '*'
+
+# groups the resources by naming
+conditional_groups:
+  graylog: "'graylog' in name"
+  docker: "'swarm' in name"
+  swarm: "'swarm' in name"
+  swarm_manager: "'swarm-manager' in name"
+  swarm_worker: "'swarm-worker' in name"
+
+# groups the VMs by tags
+# environment is dev, stage, prod or similar. It should never be empty
+keyed_groups:
+- prefix: environment
+  key: tags.environment | default('none')
+# vm tag is for grouping hosts by use
+#- prefix: vm
+#  key: tags.vm | default('none')

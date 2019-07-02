@@ -1,0 +1,27 @@
+# Avoid committing Vault key
+/.ansible_vault
+
+# Ignore temp, test, log, and retry files
+_tmp
+/*.retry
+/prj/test*
+/env/test*
+/*vars/test*
+/doc/*.html
+/results
+
+# Diffie-Hellman parameters and Mongo shared key should
+# be regenerated per deployment and not persisted
+roles/mongo/key.asc
+roles/nginx/dhparam.pem
+
+# Ignore local tooling
+/docker-compose.yml
+/.env
+/*.tmp
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore cached files
+.cache/
