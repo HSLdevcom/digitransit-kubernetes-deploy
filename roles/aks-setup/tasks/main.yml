@@ -1,10 +1,10 @@
 ---
-- name: "Create resource group digitransit-aks-{{ az_environment }}"
-  command: "az group create --name digitransit-aks-{{ az_environment }} --location westeurope"
+- name: "Create digitransit-{{ az_environment }}-aks-rg"
+  command: "az group create --name digitransit-{{ az_environment }}-aks-rg --location westeurope"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
-- name: "Create digitransit-aks-{{ az_environment }}-cluster"
-  command: "az aks create --resource-group digitransit-aks-{{ az_environment }} --name digitransit-aks-{{ az_environment }}-cluster --node-count 3 --node-vm-size Standard_D4s_v3 --kubernetes-version 1.13.5 --enable-addons monitoring --generate-ssh-keys"
+- name: "Create digitransit-{{ az_environment }}-aks"
+  command: "az aks create --resource-group digitransit-{{ az_environment }}-aks-rg --name digitransit-{{ az_environment }}-aks --node-count 3 --node-vm-size Standard_D4s_v3 --kubernetes-version 1.13.5 --enable-addons monitoring --generate-ssh-keys"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
