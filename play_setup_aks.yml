@@ -1,4 +1,4 @@
-- name: "Setup digitransit-{{ az_environment }}-aks-rg"
+- name: "Setup digitransit-{{ az_environment }}"
   hosts: localhost
   connection: local
   gather_facts: false
