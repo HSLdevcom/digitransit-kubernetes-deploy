@@ -21,7 +21,7 @@ spec:
   selector:
     matchLabels:
       app: digitransit-ui-hsl-next
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:
@@ -41,6 +41,15 @@ spec:
           value: "https://digitransit-dev-cdn-origin.azureedge.net"
         - name: OTP_URL
           value: "http://test.fi/routing/v1/routers/hsl/"
+        - name: NODE_OPTS
+          value: "--max_old_space_size=600"
+        - name: RELAY_FETCH_TIMEOUT
+          value: "3000"
+        resources:
+            requests:
+              memory: "1Gi"
+            limits:
+              memory: "1Gi"
 ---
 
 apiVersion: extensions/v1beta1
