@@ -1,3 +1,6 @@
+# This file includes https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
+# and https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/cloud-generic.yaml
+
 apiVersion: v1
 kind: Namespace
 metadata:
