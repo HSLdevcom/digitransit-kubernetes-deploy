@@ -55,6 +55,10 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "Request-Id: $req_id";
+      more_set_headers "something: asd";
   name: hsl-ui-next-ingress
   namespace: default
 spec:
@@ -66,3 +70,30 @@ spec:
           serviceName: digitransit-ui-hsl-next
           servicePort: 8088
         path: /
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "Request-Id: $req_id";
+      more_set_headers "something: lol";
+      proxy_cache common;
+      proxy_cache_valid 200 5m;
+      proxy_cache_lock on;
+      proxy_cache_key "$host$request_uri";
+      add_header X-Proxy-Cache $upstream_cache_status;
+      proxy_ignore_headers X-Accel-Expires Expires Cache-Control Set-Cookie;
+      proxy_cache_use_stale error timeout http_500 http_502 http_503 http_504;
+  name: hsl-ui-next-ingress-sw
+  namespace: default
+spec:
+  rules:
+  - host: test.fi
+    http:
+      paths:
+      - backend:
+          serviceName: digitransit-ui-hsl-next
+          servicePort: 8088
+        path: /js/929da434e89ea0a6ffcc.js
