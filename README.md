@@ -34,8 +34,6 @@ NOTE: Guidelines are subject to change as project progresses.
 
 * Use folder *env_vars* for variables that DO vary between deployments or environments, such as the number of nodes in an AKS cluster
 
-* In both folders, use separate YAML files for variables used by different resources (e.g. create a file for AKS, for API Management, etc.)
-
 * In folder *group_vars*, use file *all* for generic variables (e.g. Resource Group namings, variables related to subscription etc.)
 
 **Kubernetes definitions**

@@ -1,0 +1,10 @@
+---
+- name: "Create {{ az_key_vault_rg }}"
+  command: "az group create --name {{ az_key_vault_rg }} --location westeurope"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create {{ az_key_vault_name }}"
+  command: "az keyvault create --resource-group {{ az_key_vault_rg }} --name {{ az_key_vault_name }}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
