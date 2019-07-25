@@ -45,21 +45,3 @@ spec:
             memory: "10Gi"
           limits:
             memory: "10Gi"
----
-
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /otp/$1
-  name: rewrite
-  namespace: default
-spec:
-  rules:
-  - host: test.fi
-    http:
-      paths:
-      - backend:
-          serviceName: opentripplanner-hsl-next
-          servicePort: 8080
-        path: /routing/v1/(.*)
