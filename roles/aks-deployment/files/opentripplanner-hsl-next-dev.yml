@@ -4,7 +4,7 @@ metadata:
   name: opentripplanner-hsl-next
 spec:
   ports:
-  - port: 8090
+  - port: 8080
     targetPort: 8080
     name: opentripplanner-hsl-next-service-port
   selector:

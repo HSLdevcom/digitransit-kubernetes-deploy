@@ -4,7 +4,7 @@ metadata:
   name: digitransit-ui-hsl-next
 spec:
   ports:
-  - port: 8088
+  - port: 8080
     targetPort: 8080
     name: digitransit-ui-hsl-next-service-port
   selector:
@@ -40,7 +40,7 @@ spec:
         - name: MAP_URL
           value: "https://digitransit-dev-cdn-origin.azureedge.net"
         - name: OTP_URL
-          value: "http://test.fi/routing/v1/routers/hsl/"
+          value: "http://a-api.digitransit.fi/routing/v1/routers/next-hsl/"
         - name: NODE_OPTS
           value: "--max_old_space_size=600"
         - name: RELAY_FETCH_TIMEOUT
