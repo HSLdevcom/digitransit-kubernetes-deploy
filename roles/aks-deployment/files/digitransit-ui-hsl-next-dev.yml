@@ -17,26 +17,51 @@ metadata:
   name: digitransit-ui-hsl-next
   labels:
     app: digitransit-ui-hsl-next
+    update: auto
 spec:
   selector:
     matchLabels:
       app: digitransit-ui-hsl-next
   replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
   template:
     metadata:
       labels:
         app: digitransit-ui-hsl-next
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: Exists
+              topologyKey: kubernetes.io/hostname
       containers:
       - name: digitransit-ui-hsl-next
         image: hsldevcom/digitransit-ui:latest
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 300
+          periodSeconds: 10
+          failureThreshold: 3
         env:
         - name: CONFIG
           value: "hsl"
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
+        #- name: ASSET_URL
+        #  value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v1/hsl-next"
         - name: MAP_URL
           value: "https://digitransit-dev-cdn-origin.azureedge.net"
         - name: OTP_URL
@@ -46,7 +71,7 @@ spec:
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
         resources:
-            requests:
-              memory: "1Gi"
-            limits:
-              memory: "1Gi"
+          requests:
+            memory: "800Mi"
+          limits:
+            memory: "800Mi"
