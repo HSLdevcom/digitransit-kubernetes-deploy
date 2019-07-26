@@ -39,7 +39,7 @@ spec:
         # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
-        readinessProbe:
+        livenessProbe:
           initialDelaySeconds: 30
           periodSeconds: 20
           failureThreshold: 60
