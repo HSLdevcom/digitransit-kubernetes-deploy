@@ -60,7 +60,7 @@ spec:
             path: "/version.txt"
         resources:
           requests:
-            memory: 200Mi
+            memory: "200Mi"
           limits:
-            memory: 200Mi
-            cpu: <100m
+            memory: "200Mi"
+            cpu: "100m"
