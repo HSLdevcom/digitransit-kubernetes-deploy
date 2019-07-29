@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hsl-timetable-builder
+spec:
+  ports:
+  - port: 10030
+    targetPort: 10030
+    name: hsl-timetable-builder-service-port
+  selector:
+    app: hsl-timetable-builder
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hsl-timetable-builder
+  labels:
+    app: hsl-timetable-builder
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: hsl-timetable-builder
+  template:
+    metadata:
+      labels:
+        app: hsl-timetable-builder
+    spec:
+      containers:
+      - name: hsl-timetable-builder
+        image: hsldevcom/hsl-timetable-builder
+        volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: "docker-sock"
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        # TODO: network: BRIDGE ??
+        ports:
+        - containerPort: 10030
+        livenessProbe:
+          initialDelaySeconds: 30
+          periodSeconds: 20
+          failureThreshold: 2
+          httpGet:
+            port: 10030
+            path: /
+        env:
+        # TODO: Add secret values
+        - name: DOCKER_AUTH
+          value: "dockerauth"
+        - name: DOCKER_TAG
+          value: "latest"
+        - name: DOCKER_USER
+          value: "dockeruser"
+        - name: FONTSTACK_PASSWORD
+          value: "fontstacksecret"
+        - name: SLACK_WEBHOOK_URL
+          value: "slackwebhook"
+        - name: TAKU_API_URL
+          value: "takuapi"
+        - name: TAKU_KEY
+          value: "takukey"
+        - name: TIMETABLE_DAYS_ADVANCE
+          value: "2"
+        resources:
+          requests:
+            memory: 128Mi
+          limits:
+            memory: 128Mi
+            cpu: 1000m
+      volumes:
+        - name: "docker-sock"
+          azureFile: # TODO: do we want volumes on same fileshare?
+            secretName: dev-aks-fileshare
+            shareName: devaksshare
+            readOnly: false      

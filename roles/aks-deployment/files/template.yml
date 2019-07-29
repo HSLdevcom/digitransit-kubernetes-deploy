@@ -54,7 +54,7 @@ spec:
         # TODO: network: BRIDGE ??
         ports:
         - containerPort: <PORT>
-        readinessProbe:
+        readinessProbe: # Or livenessProbe
           initialDelaySeconds: <gracePeriodSeconds>
           periodSeconds: <timeoutSeconds>
           failureThreshold: <maxConsecutiveFailures>
