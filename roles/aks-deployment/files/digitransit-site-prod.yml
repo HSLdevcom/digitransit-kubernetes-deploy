@@ -59,7 +59,7 @@ spec:
             port: 8080
             path: "/"
         resources:
-          requests:
+#          requests:
 #            memory: <mem> TODO: Define for digitransit-site
           limits:
 #            memory: <mem> TODO: Define for digitransit-site
