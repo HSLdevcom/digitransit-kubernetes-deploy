@@ -1,23 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: digitransit-sentry-analytics"
+  name: digitransit-sentry-analytics
 spec:
   ports:
   - port: 10089
     targetPort: 8080
-    name: digitransit-sentry-analytics"-service-port
+    name: digitransit-sentry-analytics-service-port
     protocol: TCP
   selector:
-    app: digitransit-sentry-analytics"
+    app: digitransit-sentry-analytics
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: digitransit-sentry-analytics"
+  name: digitransit-sentry-analytics
   labels:
-    app: digitransit-sentry-analytics"
+    app: digitransit-sentry-analytics
 spec:
   replicas: 1
   strategy:
@@ -27,14 +27,14 @@ spec:
       maxUnavailable: 0 # Rolling update with 1 replica.
   selector:
     matchLabels:
-      app: digitransit-sentry-analytics"
+      app: digitransit-sentry-analytics
   template:
     metadata:
       labels:
-        app: digitransit-sentry-analytics"
+        app: digitransit-sentry-analytics
     spec:
       containers:
-      - name: digitransit-sentry-analytics"
+      - name: digitransit-sentry-analytics
         image: hsldevcom/digitransit-sentry-analytics:latest
         imagePullPolicy: Always
         securityContext:
