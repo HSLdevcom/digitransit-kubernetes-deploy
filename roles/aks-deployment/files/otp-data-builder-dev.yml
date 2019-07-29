@@ -100,10 +100,6 @@ spec:
         - name: "otp-data" 
           hostPath:
             path: /var/lib/docker/otp/data
-          azureFile: # TODO: do we want volumes on same fileshare?
-            secretName: dev-aks-fileshare
-            shareName: devaksshare
-            readOnly: false 
         - name: "persistent"
           persistentVolumeClaim:
             claimName: persistentClaim # TODO: Persistent
