@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: digitransit-proxy
 spec:
+  loadBalancerIP: 40.113.126.198
   type: LoadBalancer
   ports:
   - port: 80
