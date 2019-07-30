@@ -1,23 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: yleisviestipalvelu
+  name: siri2gtfsrt
 spec:
   ports:
-  - port: 10031
+  - port: 10016
     targetPort: 8080
+    name: siri2gtfsrt-service-port
     protocol: TCP
-    name: yleisviestipalvelu-service-port
   selector:
-    app: yleisviestipalvelu
+    app: siri2gtfsrt
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: yleisviestipalvelu
+  name: siri2gtfsrt
   labels:
-    app: yleisviestipalvelu
+    app: siri2gtfsrt
 spec:
   replicas: 1
   strategy:
@@ -27,11 +27,11 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: yleisviestipalvelu
+      app: siri2gtfsrt
   template:
     metadata:
       labels:
-        app: yleisviestipalvelu
+        app: siri2gtfsrt
     spec:
       affinity:
         podAntiAffinity:
@@ -44,38 +44,31 @@ spec:
                   operator: Exists
               topologyKey: kubernetes.io/hostname
       containers:
-      - name: yleisviestipalvelu
-        image: hsldevcom/yleisviestipalvelu #Note: No tag!
-        volumeMounts:
-          - mountPath: /yleisviestipalvelu/messages
-            name: yleisviestipalvelumessages
+      - name: siri2gtfsrt
+        image: hsldevcom/siri2gtfsrt:prod
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
         # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
-        livenessProbe:
-          initialDelaySeconds: 300
-          periodSeconds: 10
-          failureThreshold: 5
-          httpGet:
-            port: 8080
-            path: /
+        # livenessProbe:
+        #   initialDelaySeconds: 300
+        #   periodSeconds: 10
+        #   failureThreshold: 5
+        #   httpGet:
+        #     port: 8080
+        #     path: /
         env:
-        - name: HTPASSWD
-          value: "htuser:htpassword" # TODO
-        - name: PORT
-          value: "8900"
+        - name: HSL_URL
+          value: "http://navigator-server.marathon.l4lb.thisdcos.directory:8080/siriaccess/vm/json?operatorRef=HSL"
+        - name: TRAIN_URL
+          value: "http://raildigitraffic2gtfsrt.marathon.l4lb.thisdcos.directory:8080/hsl"
+        - name: TRIP_UPDATE_URL
+          value: "http://hslalert.marathon.l4lb.thisdcos.directory:8080/"
         resources:
           requests:
             memory: "128Mi"
           limits:
             memory: "128Mi"
-            cpu: "100m"
-      volumes:
-        - name: "yleisviestipalvelumessages"
-          azureFile: 
-            secretName: yleisviesti-secret
-            shareName: yleisviestimsgstorage
-            readOnly: false         
+            cpu: "300m"      

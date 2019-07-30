@@ -40,9 +40,9 @@ spec:
         ports:
         - containerPort: 8080
         livenessProbe:
-          initialDelaySeconds: 30
+          initialDelaySeconds: 1200
           periodSeconds: 20
-          failureThreshold: 60
+          failureThreshold: 3
           httpGet:
             port: 8080
             path: "/otp/routers/hsl/"

@@ -7,6 +7,7 @@ spec:
   - port: <PORT>
     targetPort: <targetPORT>
     name: <NAME>-service-port
+    protocol: TCP
   selector:
     app: <NAME>
 ---
@@ -54,7 +55,7 @@ spec:
         # TODO: network: BRIDGE ??
         ports:
         - containerPort: <PORT>
-        readinessProbe: # Or livenessProbe
+        livenessProbe: # Or readinessProbe
           initialDelaySeconds: <gracePeriodSeconds>
           periodSeconds: <timeoutSeconds>
           failureThreshold: <maxConsecutiveFailures>

@@ -1,23 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: yleisviestipalvelu
+  name: graphiql
 spec:
   ports:
-  - port: 10031
+  - port: 10025
     targetPort: 8080
+    name: graphiql-service-port
     protocol: TCP
-    name: yleisviestipalvelu-service-port
   selector:
-    app: yleisviestipalvelu
+    app: graphiql
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: yleisviestipalvelu
+  name: graphiql
   labels:
-    app: yleisviestipalvelu
+    app: graphiql
 spec:
   replicas: 1
   strategy:
@@ -27,11 +27,11 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: yleisviestipalvelu
+      app: graphiql
   template:
     metadata:
       labels:
-        app: yleisviestipalvelu
+        app: graphiql
     spec:
       affinity:
         podAntiAffinity:
@@ -44,11 +44,8 @@ spec:
                   operator: Exists
               topologyKey: kubernetes.io/hostname
       containers:
-      - name: yleisviestipalvelu
-        image: hsldevcom/yleisviestipalvelu #Note: No tag!
-        volumeMounts:
-          - mountPath: /yleisviestipalvelu/messages
-            name: yleisviestipalvelumessages
+      - name: graphiql
+        image: hsldevcom/graphiql:prod
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -56,26 +53,15 @@ spec:
         ports:
         - containerPort: 8080
         livenessProbe:
-          initialDelaySeconds: 300
+          initialDelaySeconds: 60
           periodSeconds: 10
-          failureThreshold: 5
+          failureThreshold: 1
           httpGet:
             port: 8080
-            path: /
-        env:
-        - name: HTPASSWD
-          value: "htuser:htpassword" # TODO
-        - name: PORT
-          value: "8900"
+            path: "/graphiql/hsl"
         resources:
           requests:
-            memory: "128Mi"
+            memory: "64Mi"
           limits:
-            memory: "128Mi"
-            cpu: "100m"
-      volumes:
-        - name: "yleisviestipalvelumessages"
-          azureFile: 
-            secretName: yleisviesti-secret
-            shareName: yleisviestimsgstorage
-            readOnly: false         
+            memory: "64Mi"
+            cpu: "1000m"    
