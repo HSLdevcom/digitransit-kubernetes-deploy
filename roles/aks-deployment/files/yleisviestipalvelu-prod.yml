@@ -48,7 +48,7 @@ spec:
         image: hsldevcom/yleisviestipalvelu #Note: No tag!
         volumeMounts:
           - mountPath: /yleisviestipalvelu/messages
-            name: <MOUNT_NAME> # TODO
+            name: yleisviestipalvelumessages
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -74,5 +74,8 @@ spec:
             memory: "128Mi"
             cpu: "100m"
       volumes:
-        - name: <MOUNT_NAME> # TODO
-          emptyDir: {}            
+        - name: "yleisviestipalvelumessages"
+          azureFile:
+            secretName: dev-aks-fileshare
+            shareName: devaksshare
+            readOnly: false        
