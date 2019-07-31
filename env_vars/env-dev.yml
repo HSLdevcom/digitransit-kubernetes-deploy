@@ -1,3 +1,4 @@
 ---
 # Add here variables specific to DEV environment
 "az_environment": "dev"
+"az_region": "westeurope"

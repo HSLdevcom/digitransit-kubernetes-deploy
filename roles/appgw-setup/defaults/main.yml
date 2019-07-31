@@ -1,0 +1,24 @@
+---
+# defaults file for digitransit-azure-appgw
+
+
+project: digitransit
+az_environment: dev3
+resource_group_name: "{{project}}-{{az_environment}}-appgw-rg"
+az_region: westeurope
+vnet_prefix: 10.0.0.0/16
+subnet_prefix: 10.0.0.0/28
+#backend_servers: digitransit-devagents.westeurope.cloudapp.azure.com
+backend_servers: "40.113.126.198"
+certfile: /your/cert/file.pfx
+certpass: yourcertpassword
+capacity: 2 
+sku: Standard_v2
+sku_tier: Standard
+fe_port: 443
+http2: Enabled
+http_settings_port: 80
+http_settings_protocol: http
+http_listner_protocol: https
+routing_rule: Basic
+cookie_affinity: Disabled

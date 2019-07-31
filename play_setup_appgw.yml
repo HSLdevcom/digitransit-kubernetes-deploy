@@ -1,0 +1,7 @@
+- name: "Setup digitransit-dev3-appgw"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  roles:
+    - role: appgw-setup

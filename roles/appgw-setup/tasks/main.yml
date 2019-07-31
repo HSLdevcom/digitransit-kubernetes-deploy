@@ -1,0 +1,63 @@
+---
+- name: "Create {{ resource_group_name }}"
+  command: "az group create 
+    --name {{ resource_group_name }}
+    --location {{ az_region }}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create {{ project }}-{{ az_environment }}-appgw-vnet"
+  command: "az network vnet create \
+    --resource-group {{ resource_group_name }} \
+    --name {{ project }}-{{ az_environment }}-appgw-vnet \
+    --address-prefixes {{vnet_prefix}} \
+    --location {{az_region}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create {{project}}-{{az_environment}}-appgw-subnet"
+  command: "az network vnet subnet create \
+    --resource-group {{ resource_group_name }} \
+    --name {{ project }}-{{ az_environment }}-appgw-subnet \
+    --vnet-name {{ project }}-{{ az_environment }}-appgw-vnet \
+    --address-prefix {{subnet_prefix}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create {{project}}-{{ az_environment }}-appgw-pubip"
+  command: "az network public-ip create \
+    --resource-group {{ resource_group_name }} \
+    --name {{project}}-{{ az_environment }}-appgw-pubip \
+    --location {{az_region}} \
+    --sku {{sku_tier}} \
+    --allocation-method Static"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create {{ project }}-{{ az_environment }}-appgw"
+  command: "az network application-gateway create \
+    --resource-group {{resource_group_name}} \
+    --name {{project}}-{{az_environment}}-appgw \
+    --location {{az_region}} \
+    --vnet-name {{project}}-{{az_environment}}-appgw-vnet \                         
+    --subnet {{project}}-{{az_environment}}-appgw-subnet \
+    --public-ip-address {{project}}-{{az_environment}}-appgw-pubip \
+    --servers {{backend_servers}} \
+    --capacity {{capacity}} \
+    --sku {{sku}} \
+    --routing-rule-type {{routing_rule}} \
+    --http2 {{http2}} \
+    --http-settings-cookie-based-affinity {{cookie_affinity}} \
+    --http-settings-port {{http_settings_port}} \
+    --http-settings-protocol {{http_settings_protocol}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create frontend PORT 443"
+  command: "az network application-gateway frontend-port create \
+    --gateway-name {{ project }}-{{ az_environment }}-appgw \
+    --name frontendPort01 \
+    --port {{fe_port}} \
+    --resource-group {{resource_group_name}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
