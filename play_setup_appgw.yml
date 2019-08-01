@@ -1,4 +1,4 @@
-- name: "Setup digitransit-dev3-appgw"
+- name: "Setup {{project}}-{{az_environment}}{{gateway_name_postfix}}-appgw"
   hosts: localhost
   connection: local
   gather_facts: false

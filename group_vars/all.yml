@@ -1,2 +1,2 @@
-"az_key_vault_name": "digitransit-{{az_environment}}-keyvault"
-"az_key_vault_rg": "digitransit-{{az_environment}}-keyvault-rg"
+"project": "digitransit"
+"az_region": "westeurope"

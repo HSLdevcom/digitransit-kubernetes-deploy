@@ -6,44 +6,44 @@
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
-- name: "Create {{ project }}-{{ az_environment }}-appgw-vnet"
+- name: "Create {{gateway_env_prefix}}-appgw-vnet"
   command: "az network vnet create \
     --resource-group {{ resource_group_name }} \
-    --name {{ project }}-{{ az_environment }}-appgw-vnet \
+    --name {{gateway_env_prefix}}-appgw-vnet \
     --address-prefixes {{vnet_prefix}} \
     --location {{az_region}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
-- name: "Create {{project}}-{{az_environment}}-appgw-subnet"
+- name: "Create {{gateway_env_prefix}}-appgw-subnet"
   command: "az network vnet subnet create \
     --resource-group {{ resource_group_name }} \
-    --name {{ project }}-{{ az_environment }}-appgw-subnet \
-    --vnet-name {{ project }}-{{ az_environment }}-appgw-vnet \
+    --name {{gateway_env_prefix}}-appgw-subnet \
+    --vnet-name {{gateway_env_prefix}}-appgw-vnet \
     --address-prefix {{subnet_prefix}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
-- name: "Create {{project}}-{{ az_environment }}-appgw-pubip"
+- name: "Create {{gateway_env_prefix}}-appgw-pubip"
   command: "az network public-ip create \
     --resource-group {{ resource_group_name }} \
-    --name {{project}}-{{ az_environment }}-appgw-pubip \
+    --name {{gateway_env_prefix}}-appgw-pubip \
     --location {{az_region}} \
     --sku {{sku_tier}} \
     --allocation-method Static"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
-- name: "Create {{ project }}-{{ az_environment }}-appgw"
+- name: "Create {{gateway_env_prefix}}-appgw"
   command: "az network application-gateway create \
     --resource-group {{resource_group_name}} \
-    --name {{project}}-{{az_environment}}-appgw \
+    --name {{gateway_env_prefix}}-appgw \
     --location {{az_region}} \
-    --vnet-name {{project}}-{{az_environment}}-appgw-vnet \                         
-    --subnet {{project}}-{{az_environment}}-appgw-subnet \
-    --public-ip-address {{project}}-{{az_environment}}-appgw-pubip \
-    --servers {{backend_servers}} \
-    --capacity {{capacity}} \
+    --vnet-name {{gateway_env_prefix}}-appgw-vnet \                         
+    --subnet {{gateway_env_prefix}}-appgw-subnet \
+    --public-ip-address {{gateway_env_prefix}}-appgw-pubip \
+    --servers {{aks_loadbalancer_ip}} \
+    --capacity {{gateway_capacity}} \
     --sku {{sku}} \
     --routing-rule-type {{routing_rule}} \
     --http2 {{http2}} \
@@ -55,9 +55,9 @@
 
 - name: "Create frontend PORT 443"
   command: "az network application-gateway frontend-port create \
-    --gateway-name {{ project }}-{{ az_environment }}-appgw \
+    --gateway-name {{gateway_env_prefix}}-appgw \
     --name frontendPort01 \
-    --port {{fe_port}} \
+    --port {{frontend_port}} \
     --resource-group {{resource_group_name}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
