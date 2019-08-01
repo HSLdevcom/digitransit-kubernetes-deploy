@@ -1,4 +1,4 @@
-- name: "Setup digitransit-{{ az_environment }}-aks"
+- name: "Setup {{project}}-{{ az_environment }}-aks"
   hosts: localhost
   connection: local
   gather_facts: false

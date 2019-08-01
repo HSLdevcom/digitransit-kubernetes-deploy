@@ -7,8 +7,8 @@ plugin: azure_rm
 
 # fetches VMs from an explicit list of resource groups instead of default all (- '*')
 include_vm_resource_groups:
-- "digitransit-aks-{{ az_environment }}"
-- "MC_digitransit-kubernetes-deploy_digitransit-AKS-cluster_westeurope"
+- "{{project}}-aks-{{ az_environment }}"
+- "MC_{{project}}-kubernetes-deploy_{{project}}-AKS-cluster_westeurope"
 
 # groups the resources by tags
 # environment is dev, stage, prod or similar. It should never be empty

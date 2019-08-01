@@ -1,0 +1,18 @@
+---
+# defaults file for digitransit-azure-appgw
+
+
+gateway_env_prefix: "{{project}}-{{az_environment}}{{gateway_name_postfix}}"
+resource_group_name: "{{gateway_env_prefix}}-appgw-rg"
+vnet_prefix: 10.0.0.0/16
+subnet_prefix: 10.0.0.0/28
+#backend_servers: digitransit-devagents.westeurope.cloudapp.azure.com
+sku: Standard_v2
+sku_tier: Standard
+frontend_port: 443
+http2: Enabled
+http_settings_port: 80
+http_settings_protocol: http
+http_listner_protocol: https
+routing_rule: Basic
+cookie_affinity: Disabled
