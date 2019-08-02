@@ -4,7 +4,7 @@ metadata:
   name: opentripplanner-data-con-next-hsl
 spec:
   ports:
-  - port: 10028
+  - port: 8080
     targetPort: 8080
     name: opentripplanner-data-con-next-hsl-service-port
     protocol: TCP

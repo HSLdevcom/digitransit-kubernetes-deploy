@@ -50,7 +50,7 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: ROUTER_DATA_CONTAINER_URL
-          value: "http://opentripplanner-data-con-next-hsl"
+          value: "https://opentripplanner-data-con-next-hsl"
         - name: ROUTER_NAME
           value: "hsl"
         - name: JAVA_OPTS
