@@ -54,19 +54,37 @@ spec:
         env:
         # TODO: Add secret values
         - name: DOCKER_AUTH
-          value: "dockerauth"
+          valueFrom:
+            secretKeyRef:
+              name: docker-auth
+              key: docker-auth
         - name: DOCKER_TAG
           value: "latest"
         - name: DOCKER_USER
-          value: "dockeruser"
+          valueFrom:
+            secretKeyRef:
+              name: docker-user
+              key: docker-user
         - name: FONTSTACK_PASSWORD
-          value: "fontstacksecret"
+          valueFrom:
+            secretKeyRef:
+              name: fontstack-password
+              key: fontstack-password
         - name: SLACK_WEBHOOK_URL
-          value: "slackwebhook"
+          valueFrom:
+            secretKeyRef:
+              name: slack-webhook
+              key: slack-webhook
         - name: TAKU_API_URL
-          value: "takuapi"
+          valueFrom:
+            secretKeyRef:
+              name: taku-api
+              key: taku-api
         - name: TAKU_KEY
-          value: "takukey"
+          valueFrom:
+            secretKeyRef:
+              name: taku-key
+              key: taku-key
         - name: TIMETABLE_DAYS_ADVANCE
           value: "2"
         resources:

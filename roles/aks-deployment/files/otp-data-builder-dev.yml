@@ -61,11 +61,17 @@ spec:
         - name: DATA
           value: "/opt/otp-data-builder/data"
         - name: DOCKER_AUTH
-          value: "dockerauth"
+          valueFrom:
+            secretKeyRef:
+              name: docker-auth
+              key: docker-auth
         - name: DOCKER_TAG
           value: "latest"
         - name: DOCKER_USER
-          value: "dockeruser"
+          valueFrom:
+            secretKeyRef:
+              name: docker-user
+              key: docker-user
         - name: EXTRA_SRC
           value: "{\"MatkahuoltoKainuu\": {\"url\": \"http://digitransit-proxy:8080/out/minfoapi.matkahuolto.fi/gtfs/kainuu-fi/gtfs.zip\", \"fit\": false, \"routers\": [\"finland\"]}, \"MatkahuoltoSavo\": {\"url\": \"http://digitransit-proxy:8080/out/minfoapi.matkahuolto.fi/gtfs/savo-fi/gtfs.zip\", \"fit\": false, \"routers\": [\"finland\"]}, \"MatkahuoltoKanta\": {\"url\": \"http://digitransit-proxy:8080/out/minfoapi.matkahuolto.fi/gtfs/kanta-fi/gtfs.zip\", \"fit\": false, \"routers\": [\"finland\"]}, \"MatkahuoltoKarjala\": {\"url\": \"http://digitransit-proxy:8080/out/minfoapi.matkahuolto.fi/gtfs/karjala-fi/gtfs.zip\", \"fit\": false, \"routers\": [\"finland\"]}, \"MatkahuoltoKeski\": {\"url\": \"http://digitransit-proxy:8080/out/minfoapi.matkahuolto.fi/gtfs/keski-fi/gtfs.zip\", \"fit\": false, \"routers\": [\"finland\"]}, \"MatkahuoltoKyme\": {\"url\": \"http://digitransit-proxy:8080/out/minfoapi.matkahuolto.fi/gtfs/kyme-fi/gtfs.zip\", \"fit\": false, \"routers\": [\"finland\"]}, \"MatkahuoltoLappi\": {\"url\": \"http://digitransit-proxy:8080/out/minfoapi.matkahuolto.fi/gtfs/lappi-fi/gtfs.zip\", \"fit\": false, \"routers\": [\"finland\"]}, \"MatkahuoltoPohjanmaa\": {\"url\": \"http://digitransit-proxy:8080/out/minfoapi.matkahuolto.fi/gtfs/pohjanmaa-fi/gtfs.zip\", \"fit\": false, \"routers\": [\"finland\"]}, \"MatkahuoltoSatakunta\": {\"url\": \"http://digitransit-proxy:8080/out/minfoapi.matkahuolto.fi/gtfs/satakunta-fi/gtfs.zip\", \"fit\": false, \"routers\": [\"finland\"]}, \"MatkahuoltoVakka\": {\"url\": \"http://digitransit-proxy:8080/out/minfoapi.matkahuolto.fi/gtfs/vakka-fi/gtfs.zip\", \"fit\": false, \"routers\": [\"finland\"]}, \"MatkahuoltoVantaa\": {\"url\": \"http://digitransit-proxy:8080/out/minfoapi.matkahuolto.fi/gtfs/vantaa-fi/gtfs.zip\", \"fit\": false, \"routers\": [\"finland\"]}, \"MatkahuoltoVarsinais\": {\"url\": \"http://digitransit-proxy:8080/out/minfoapi.matkahuolto.fi/gtfs/varsinais-fi/gtfs.zip\", \"fit\": false, \"routers\": [\"finland\"]}}"
         - name: EXTRA_UPDATERS 
@@ -79,7 +85,10 @@ spec:
         - name: SEED_TAG
           value: "latest"
         - name: SLACK_WEBHOOK_URL
-          value: "slackwebhook"
+          valueFrom:
+            secretKeyRef:
+              name: slack-webhook
+              key: slack-webhook
         - name: TOOLS_TAG
           value: "latest"
         resources:

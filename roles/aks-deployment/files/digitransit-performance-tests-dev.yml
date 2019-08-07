@@ -66,7 +66,10 @@ spec:
         - name: FILES_AND_HEADERS
           value: "test_data_otp_external.txt --content-type 'application/graphql',test2.txt,test_data_pelias_external.txt"
         - name: SLACK_WEBHOOK_URL
-          value: "slackwebhook"
+          valueFrom:
+            secretKeyRef:
+              name: slack-webhook
+              key: slack-webhook
         - name: TEST_TIME
           value: "07:25:00"
         resources:

@@ -55,11 +55,20 @@ spec:
         - name: "SENTRY_BASE_URL"
           value: "https://sentry.hsl.fi/api/0/"
         - name: SENTRY_TOKEN
-          value: "sentrytoken"
+          valueFrom:
+            secretKeyRef:
+              name: sentry-token
+              key: sentry-token
         - name: USER_NAME
-          value: "sentryuser"
+          valueFrom:
+            secretKeyRef:
+              name: sentry-user
+              key: sentry-user
         - name: USER_PASS
-          value: "sentrypassword"
+          valueFrom:
+            secretKeyRef:
+              name: sentry-password
+              key: sentry-password
         - name: ZERO_ROUTES_ID
           value: "25"
         resources:
