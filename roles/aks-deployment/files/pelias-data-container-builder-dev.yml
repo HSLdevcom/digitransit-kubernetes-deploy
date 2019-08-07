@@ -56,13 +56,25 @@ spec:
             path: /
         env:
         - name: DOCKER_AUTH
-          value: "dockerauth"
+          valueFrom:
+            secretKeyRef:
+              name: docker-auth
+              key: docker-auth  
         - name: DOCKER_USER
-          value: "dockeruser"
+          valueFrom:
+            secretKeyRef:
+              name: docker-user
+              key: docker-user
         - name: SLACK_WEBHOOK_URL
-          value: "slackwebhook"
+          valueFrom:
+            secretKeyRef:
+              name: slack-webhook
+              key: slack-webhook   
         - name: MMLAPIKEY
-          value: "mmlapikey"
+          valueFrom:
+            secretKeyRef:
+              name: mmlapikey
+              key: mmlapikey  
         resources:
           requests:
             memory: 6Gi
