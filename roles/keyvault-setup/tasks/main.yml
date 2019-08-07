@@ -1,10 +1,16 @@
 ---
 - name: "Create {{ az_key_vault_rg }}"
-  command: "az group create --name {{ az_key_vault_rg }} --location {{ az_region }}"
+  command: "az group create \
+    --name {{ az_key_vault_rg }} \
+    --location {{ az_region }}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
 - name: "Create {{ az_key_vault_name }}"
-  command: "az keyvault create --resource-group {{ az_key_vault_rg }} --name {{ az_key_vault_name }}"
+  command: "az keyvault create \
+    --resource-group {{ az_key_vault_rg }} \
+    --name {{ az_key_vault_name }} \
+    --enable-soft-delete true \
+    --enable-purge-protection true"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
