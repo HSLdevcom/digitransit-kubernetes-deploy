@@ -4,7 +4,7 @@ metadata:
   name: siri2gtfsrt
 spec:
   ports:
-  - port: 10016
+  - port: 8080
     targetPort: 8080
     name: siri2gtfsrt-service-port
     protocol: TCP

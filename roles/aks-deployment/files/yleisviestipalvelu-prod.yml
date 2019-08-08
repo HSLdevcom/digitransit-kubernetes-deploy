@@ -4,7 +4,7 @@ metadata:
   name: yleisviestipalvelu
 spec:
   ports:
-  - port: 10031
+  - port: 8080
     targetPort: 8080
     protocol: TCP
     name: yleisviestipalvelu-service-port

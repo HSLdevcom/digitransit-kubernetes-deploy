@@ -4,7 +4,7 @@ metadata:
   name: raildigitraffic2gtfsrt
 spec:
   ports:
-  - port: 10015
+  - port: 8080
     targetPort: 8080
     name: raildigitraffic2gtfsrt-service-port
     protocol: TCP
