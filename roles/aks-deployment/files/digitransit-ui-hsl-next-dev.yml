@@ -70,6 +70,16 @@ spec:
           value: "--max_old_space_size=600"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
+        - name: SENTRY_DSN
+          valueFrom:
+            secretKeyRef:
+              name: sentry-dsn
+              key: sentry-dsn
+        - name: SENTRY_SECRET_DSN
+          valueFrom:
+            secretKeyRef:
+              name: sentry-secret-dsn
+              key: sentry-secret-dsn
         resources:
           requests:
             memory: "800Mi"

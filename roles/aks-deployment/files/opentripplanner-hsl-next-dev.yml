@@ -54,8 +54,10 @@ spec:
         - name: ROUTER_NAME
           value: "hsl"
         - name: JAVA_OPTS
-          # value missing sentry
-          value: "-XX:+UseParNewGC -Xms7G -Xmx7G -XX:NewRatio=5 -XX:+UseStringDeduplication"
+          valueFrom:
+            secretKeyRef:
+              name: otp-java-opts-dev
+              key: otp-java-opts-dev
         resources:
           requests:
             memory: "9216Mi"
