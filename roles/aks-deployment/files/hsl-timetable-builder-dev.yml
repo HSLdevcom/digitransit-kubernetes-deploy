@@ -43,13 +43,13 @@ spec:
           allowPrivilegeEscalation: false
         # TODO: network: BRIDGE ??
         ports:
-        - containerPort: 10030
+        - containerPort: 8080
         livenessProbe:
           initialDelaySeconds: 30
           periodSeconds: 20
           failureThreshold: 2
           httpGet:
-            port: 10030
+            port: 8080
             path: /
         env:
         # TODO: Add secret values
