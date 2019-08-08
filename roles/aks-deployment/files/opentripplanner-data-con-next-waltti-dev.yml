@@ -4,7 +4,7 @@ metadata:
   name: opentripplanner-data-con-next-waltti
 spec:
   ports:
-  - port: 10090
+  - port: 8080
     targetPort: 8080
     name: opentripplanner-data-con-next-waltti-service-port
     protocol: TCP

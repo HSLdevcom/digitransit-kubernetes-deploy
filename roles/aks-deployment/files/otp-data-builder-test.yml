@@ -4,7 +4,7 @@ metadata:
   name: otp-data-builder
 spec:
   ports:
-  - port: 10070
+  - port: 8080
     protocol: TCP
     name: otp-data-builder-service-port
   selector:
