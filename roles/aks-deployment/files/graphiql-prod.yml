@@ -4,7 +4,7 @@ metadata:
   name: graphiql
 spec:
   ports:
-  - port: 10025
+  - port: 8080
     targetPort: 8080
     name: graphiql-service-port
     protocol: TCP

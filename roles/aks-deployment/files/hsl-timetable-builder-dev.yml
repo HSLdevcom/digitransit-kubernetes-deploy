@@ -4,8 +4,8 @@ metadata:
   name: hsl-timetable-builder
 spec:
   ports:
-  - port: 10030
-    targetPort: 10030
+  - port: 8080
+    targetPort: 8080
     name: hsl-timetable-builder-service-port
   selector:
     app: hsl-timetable-builder

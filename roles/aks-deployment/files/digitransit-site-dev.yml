@@ -4,7 +4,7 @@ metadata:
   name: digitransit-site
 spec:
   ports:
-  - port: 10012
+  - port: 8080
     targetPort: 8080
     name: digitransit-site-service-port
     protocol: TCP

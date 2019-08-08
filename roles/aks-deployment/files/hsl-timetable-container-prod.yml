@@ -4,7 +4,7 @@ metadata:
   name: hsl-timetable-container
 spec:
   ports:
-  - port: 10029
+  - port: 8080
     targetPort: 8080
     name: hsl-timetable-container-service-port
     protocol: TCP

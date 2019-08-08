@@ -4,7 +4,7 @@ metadata:
   name: digitransit-performance-tests
 spec:
   ports:
-  - port: 10026
+  - port: 8080
 #    targetPort: <targetPORT>
     name: digitransit-performance-tests-service-port
     protocol: TCP
