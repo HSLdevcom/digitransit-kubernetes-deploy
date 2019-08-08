@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: <NAME>
+spec:
+  ports:
+  - port: <PORT>
+    targetPort: <targetPORT>
+    name: <NAME>-service-port
+    protocol: TCP
+  selector:
+    app: <NAME>
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <NAME>
+  labels:
+    app: <NAME>
+spec:
+  replicas: <REPLICAS_AMOUNT>
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: <NAME>
+  template:
+    metadata:
+      labels:
+        app: <NAME>
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: Exists
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: <NAME>
+        image: hsldevcom/<IMAGE>:latest
+        volumeMounts:
+          - mountPath: </path/>
+            name: <MOUNT_NAME>
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        # TODO: network: BRIDGE ??
+        ports:
+        - containerPort: <PORT>
+        livenessProbe: # Or readinessProbe
+          initialDelaySeconds: <gracePeriodSeconds>
+          periodSeconds: <timeoutSeconds>
+          failureThreshold: <maxConsecutiveFailures>
+          httpGet:
+            port: <PORT>
+            path: </path/>
+        env:
+        - name: ENV_NAME
+          value: "VALUE"
+        resources:
+          requests:
+            memory: <mem>
+          limits:
+            memory: <mem>
+            cpu: <cpus>
+      volumes:
+        - name: <MOUNT_NAME>
+          emptyDir: {}            

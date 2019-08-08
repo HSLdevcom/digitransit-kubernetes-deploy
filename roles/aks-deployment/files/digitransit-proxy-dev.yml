@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: digitransit-proxy
+spec:
+  loadBalancerIP: 40.113.126.198
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+    name: digitransit-proxy-service-port-1
+  - port: 8080
+    targetPort: 8080
+    name: digitransit-proxy-service-port-2
+  selector:
+    app: digitransit-proxy
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digitransit-proxy
+  labels:
+    app: digitransit-proxy
+spec:
+  selector:
+    matchLabels:
+      app: digitransit-proxy
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: digitransit-proxy
+    spec:
+      containers:
+      - name: digitransit-proxy
+        image: hsldevcom/digitransit-proxy:kubernetes-dev
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        resources:
+            requests:
+              memory: "1Gi"
+            limits:
+              memory: "1Gi"

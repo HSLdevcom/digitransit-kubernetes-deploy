@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: digitransit-site
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: digitransit-site-service-port
+    protocol: TCP
+  selector:
+    app: digitransit-site
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digitransit-site
+  labels:
+    app: digitransit-site
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: digitransit-site
+  template:
+    metadata:
+      labels:
+        app: digitransit-site
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: Exists
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: digitransit-site
+        image: hsldevcom/digitransit-site:prod
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        # TODO: network: BRIDGE ??
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          initialDelaySeconds: 300
+          periodSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/"
+        resources:
+#          requests:
+#            memory: <mem> TODO: Define for digitransit-site
+          limits:
+#            memory: <mem> TODO: Define for digitransit-site
+            cpu: "100m"

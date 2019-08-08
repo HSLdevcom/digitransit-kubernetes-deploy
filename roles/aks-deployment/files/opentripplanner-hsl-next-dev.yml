@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opentripplanner-hsl-next
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: opentripplanner-hsl-next-service-port
+  selector:
+    app: opentripplanner-hsl-next
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentripplanner-hsl-next
+  labels:
+    app: opentripplanner-hsl-next
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: opentripplanner-hsl-next
+  template:
+    metadata:
+      labels:
+        app: opentripplanner-hsl-next
+    spec:
+      containers:
+      - name: opentripplanner-hsl-next
+        image: hsldevcom/opentripplanner:latest
+        imagePullPolicy: Always
+        # TODO: network: BRIDGE ??
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          initialDelaySeconds: 1200
+          periodSeconds: 20
+          failureThreshold: 3
+          httpGet:
+            port: 8080
+            path: "/otp/routers/hsl/"
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: ROUTER_DATA_CONTAINER_URL
+          value: "http://opentripplanner-data-con-next-hsl:8080"
+        - name: ROUTER_NAME
+          value: "hsl"
+        - name: JAVA_OPTS
+          valueFrom:
+            secretKeyRef:
+              name: otp-java-opts-dev
+              key: otp-java-opts-dev
+        resources:
+          requests:
+            memory: "9216Mi"
+          limits:
+            memory: "9216Mi"
+            cpu: "1900m"
