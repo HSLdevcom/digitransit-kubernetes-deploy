@@ -29,6 +29,9 @@ NOTE: This is a living document during the migration project, and subject to fre
 ## Development guidelines
 NOTE: Guidelines are subject to change as project progresses.
 
+**template.yml**
+* Template for kubernetes manifests is prvided in /aks-deployment/files. Use this to create new configurations for deployments and services. 
+
 **Variables**
 * Use folder *group_vars* for variables that do not vary between deployments or environments, such as the naming convention of resources
 
