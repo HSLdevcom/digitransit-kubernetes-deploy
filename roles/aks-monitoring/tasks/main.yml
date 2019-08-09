@@ -55,8 +55,8 @@ spec:
         - name: SLACK_URL
           valueFrom:
             secretKeyRef:
-              name: "slack-aks-webhook"
-              key: "slack-aks-webhook"
+              name: "slack-aks-hook"
+              key: "slack-aks-hook"
         - name: SLACK_CHANNEL
           value: "#aks-monitoring"
         - name: SLACK_USERNAME
