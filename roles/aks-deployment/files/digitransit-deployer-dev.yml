@@ -94,7 +94,7 @@ spec:
           value: "*"
         resources:
           requests:
-            memory: 256Mi
+            memory: 512Mi
           limits:
-            memory: 256Mi
+            memory: 512Mi
             cpu: 1000m
