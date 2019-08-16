@@ -61,9 +61,9 @@ spec:
         - name: API_URL
           value: "https://dev-next-api.digitransit.fi/"
         - name: ASSET_URL
-          value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v1/hsl" # "https://dev-next-api.digitransit.fi/ui/v1/hsl-next"
+          value: "https://digitransit-dev3-cd-origin.azureedge.net/ui/v1/hsl" # "https://dev-next-api.digitransit.fi/ui/v1/hsl-next"
         - name: MAP_URL
-          value: "https://digitransit-dev-cdn-origin.azureedge.net"
+          value: "https://digitransit-dev3-cd-origin.azureedge.net"
         - name: OTP_URL
           value: "https://dev-next-api.digitransit.fi/apis/routing/v1/routers/next-hsl/"
         - name: NODE_OPTS
