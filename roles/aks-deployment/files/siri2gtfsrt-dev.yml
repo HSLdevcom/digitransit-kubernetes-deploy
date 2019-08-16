@@ -32,6 +32,7 @@ spec:
     metadata:
       labels:
         app: siri2gtfsrt
+        update: auto
     spec:
       affinity:
         podAntiAffinity:
@@ -58,7 +59,7 @@ spec:
         #   failureThreshold: 5
         #   httpGet:
         #     port: 8080
-        #     path: /
+        #     path: /HSL
         env:
         - name: HSL_URL
           value: "http://navigator-server.marathon.l4lb.thisdcos.directory:8080/siriaccess/vm/json?operatorRef=HSL"

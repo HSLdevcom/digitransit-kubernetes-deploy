@@ -31,6 +31,9 @@ spec:
     metadata:
       labels:
         app: opentripplanner-hsl-next
+        restart-after-services: /opentripplanner-data-con-next-hsl
+        restart-delay: "1"
+        update: auto          
     spec:
       containers:
       - name: opentripplanner-hsl-next

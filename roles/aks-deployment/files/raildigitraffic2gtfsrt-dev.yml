@@ -32,6 +32,9 @@ spec:
     metadata:
       labels:
         app: raildigitraffic2gtfsrt
+        restart-after-services: opentripplanner-data-con-finland
+        restart-delay: "5"
+        update": auto      
     spec:
       affinity:
         podAntiAffinity:

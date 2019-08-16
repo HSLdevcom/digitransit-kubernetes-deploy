@@ -32,6 +32,7 @@ spec:
     metadata:
       labels:
         app: digitransit-performance-tests
+        update: auto
     spec:
       affinity:
         podAntiAffinity:

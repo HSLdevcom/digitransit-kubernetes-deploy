@@ -18,7 +18,6 @@ metadata:
   name: opentripplanner-data-con-next-hsl
   labels:
     app: opentripplanner-data-con-next-hsl
-    update: auto
 spec:
   selector:
     matchLabels:
@@ -33,6 +32,7 @@ spec:
     metadata:
       labels:
         app: opentripplanner-data-con-next-hsl
+        update: auto
     spec:
       affinity:
         podAntiAffinity:

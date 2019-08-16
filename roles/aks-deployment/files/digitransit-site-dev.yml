@@ -31,6 +31,7 @@ spec:
     metadata:
       labels:
         app: digitransit-site
+        update: auto
     spec:
       affinity:
         podAntiAffinity:
@@ -59,8 +60,8 @@ spec:
             port: 8080
             path: "/"
         resources:
-#          requests:
-#            memory: <mem> TODO: Define for digitransit-site
+          requests:
+            memory: "128Mi" #TODO: Define for digitransit-site
           limits:
-#            memory: <mem> TODO: Define for digitransit-site
+            memory: "128Mi" # TODO: Define for digitransit-site
             cpu: "100m"

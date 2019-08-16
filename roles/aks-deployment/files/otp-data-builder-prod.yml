@@ -31,6 +31,7 @@ spec:
     metadata:
       labels:
         app: otp-data-builder
+        update: auto
     spec:
       containers:
       - name: otp-data-builder

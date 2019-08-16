@@ -31,6 +31,8 @@ spec:
     metadata:
       labels:
         app: digitransit-proxy
+        update: auto
+        #TODO ENVS!
     spec:
       containers:
       - name: digitransit-proxy
@@ -38,8 +40,16 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        livenessProbe: # Or readinessProbe
+          initialDelaySeconds: 300
+          periodSeconds: 20
+          failureThreshold: 3
+          httpGet:
+            port: 8080
+            path: /        
         resources:
             requests:
               memory: "1Gi"
             limits:
               memory: "1Gi"
+   #           cpu: "1500m" # TODO: Limit in prod is 2cpus! Insufficient currently!

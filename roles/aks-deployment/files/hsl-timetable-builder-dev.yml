@@ -31,6 +31,7 @@ spec:
     metadata:
       labels:
         app: hsl-timetable-builder
+        update: auto
     spec:
       containers:
       - name: hsl-timetable-builder
@@ -91,7 +92,7 @@ spec:
           requests:
             memory: 128Mi
           limits:
-            memory: 128Mi
+            memory: 128Mi # TODO We propably need more memory on cluster.. This should be 1500Mi! 
             cpu: 1000m
       volumes:
         - name: "docker-sock"

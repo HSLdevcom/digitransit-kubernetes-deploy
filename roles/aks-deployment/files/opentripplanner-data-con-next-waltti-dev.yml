@@ -32,6 +32,7 @@ spec:
     metadata:
       labels:
         app: opentripplanner-data-con-next-waltti
+        update: auto
     spec:
       affinity:
         podAntiAffinity:

@@ -1,3 +1,16 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pelias-data-container-volume
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: managed-premium
+  resources:
+    requests:
+      storage: 2Gi
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -32,6 +45,7 @@ spec:
     metadata:
       labels:
         app: pelias-data-container-builder
+        update: auto
     spec:
       containers:
       - name: pelias-data-container-builder

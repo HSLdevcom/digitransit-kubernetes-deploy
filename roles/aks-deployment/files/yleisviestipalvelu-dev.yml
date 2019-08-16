@@ -32,6 +32,7 @@ spec:
     metadata:
       labels:
         app: yleisviestipalvelu
+        update: auto
     spec:
       affinity:
         podAntiAffinity:
