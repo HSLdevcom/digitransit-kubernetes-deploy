@@ -34,7 +34,7 @@ spec:
         app: hsl-map-server
     #restart-after-services: "/opentripplanner-finland,/opentripplanner-hsl,/opentripplanner-waltti" #Todo check that works!
     #restart-delay: "5"
-    #update: auto        
+        update: auto        
     spec:
       affinity:
         podAntiAffinity:
