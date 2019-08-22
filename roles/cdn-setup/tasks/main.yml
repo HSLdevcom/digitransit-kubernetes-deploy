@@ -1,0 +1,22 @@
+---
+- name: "Create {{rg_env_prefix}}-cdn"
+  command: "az cdn profile create \
+    --resource-group {{resource_group_name}} \
+    --name {{rg_env_prefix}}-cdn \
+    --location {{az_region}} \
+    --sku {{cdn_sku}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create {{rg_env_prefix}}-cdn-origin"
+  command: "az cdn endpoint create \
+    --origin {{origin_host}} \
+    --resource-group {{resource_group_name}} \
+    --name {{rg_env_prefix}}-cdn-origin \
+    --profile-name {{rg_env_prefix}}-cdn \
+    --content-types-to-compress {{mime_types}} \
+    --enable-compression \
+    --origin-host-header {{origin_header}} \
+    --location {{az_region}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
