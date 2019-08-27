@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pelias-data-container
+spec:
+  ports:
+  - port: 9200
+    targetPort: 9200
+    name: pelias-data-container-service-port-1
+    protocol: TCP
+  - port: 9300
+    targetPort: 9300
+    name: pelias-data-container-service-port-2
+    protocol: TCP
+  selector:
+    app: pelias-data-container
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pelias-data-container
+  labels:
+    app: pelias-data-container
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: pelias-data-container
+  template:
+    metadata:
+      labels:
+        app: pelias-data-container
+        update: auto
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: Exists
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: pelias-data-container
+        image: hsldevcom/pelias-data-container
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        ports:
+        - containerPort: 9200
+          name: vip0
+        - containerPort: 9300
+          name: vip1
+        livenessProbe: # Or readinessProbe
+          initialDelaySeconds: 600
+          periodSeconds: 10
+          failureThreshold: 3
+          httpGet:
+            port: 9200
+            path: /_search?q=name.fi:helsinki
+        env:
+        - name: ES_HEAP_SIZE
+          value: 3g
+        resources:
+          requests:
+            memory: 3584Mi
+          limits:
+            memory: 3584Mi
+            cpu: 500m
