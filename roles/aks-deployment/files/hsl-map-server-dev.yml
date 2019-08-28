@@ -48,7 +48,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: hsl-map-server
-        image: hsldevcom/hsl-map-server #TODO: No tag? 
+        image: hsldevcom/hsl-map-server:kubernetes-dev #TODO: No tag? 
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
