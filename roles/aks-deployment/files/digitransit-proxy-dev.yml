@@ -2,8 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: digitransit-proxy
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
-  loadBalancerIP: 40.113.126.198
+  loadBalancerIP: 10.240.0.9
   type: LoadBalancer
   ports:
   - port: 80
@@ -48,6 +50,8 @@ spec:
             port: 8080
             path: /
         env:
+          - name: HSL_RT_STORAGE_NAME
+            value: "transitdatadev"
           - name: SAMOCAT_TOKEN_AUTH
             valueFrom:
               secretKeyRef:
