@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: raildigitraffic2gtfsrt
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: raildigitraffic2gtfsrt-service-port
+    protocol: TCP
+  selector:
+    app: raildigitraffic2gtfsrt
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: raildigitraffic2gtfsrt
+  labels:
+    app: raildigitraffic2gtfsrt
+    update: auto
+    restartAfterDeployments: "opentripplanner-data-con-finland"
+    restartDelay: "5"  
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: raildigitraffic2gtfsrt
+  template:
+    metadata:
+      labels:
+        app: raildigitraffic2gtfsrt   
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: Exists
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: raildigitraffic2gtfsrt
+        image: hsldevcom/raildigitraffic2gtfsrt
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        # TODO: network: BRIDGE ??
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          initialDelaySeconds: 1800
+          periodSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/hsl"
+        env:
+        - name: ROUTER_ZIP_URL
+          value: "https://dev-api.digitransit.fi/routing-data/v2/finland/router-finland.zip"
+        resources:
+          requests:
+            memory: "1500Mi"
+          limits:
+            memory: "1500Mi"
+            cpu: "100m"        

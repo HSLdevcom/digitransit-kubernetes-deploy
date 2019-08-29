@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pelias-api
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: pelias-api-service-port
+    protocol: TCP
+  selector:
+    app: pelias-api
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pelias-api
+  labels:
+    app: pelias-api
+    update: auto
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: pelias-api
+  template:
+    metadata:
+      labels:
+        app: pelias-api
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: Exists
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: pelias-api
+        image: hsldevcom/pelias-api
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        # TODO: network: BRIDGE ??
+        ports:
+        - containerPort: 8080
+        livenessProbe: # Or readinessProbe
+          initialDelaySeconds: 300
+          periodSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: / # /v1/search?text=helsinki
+        resources:
+          requests:
+            memory: "2560Mi"
+          limits:
+            memory: "2560Mi"
+            cpu: "500m"          

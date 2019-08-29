@@ -1,0 +1,107 @@
+--- #TODO: This shouldn't be in kubernetes kluster? 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pelias-data-container-volume
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: managed-premium
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pelias-data-container-builder
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: pelias-data-container-builder-service-port
+  selector:
+    app: pelias-data-container-builder
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pelias-data-container-builder
+  labels:
+    app: pelias-data-container-builder
+    update: auto
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: pelias-data-container-builder
+  template:
+    metadata:
+      labels:
+        app: pelias-data-container-builder
+    spec:
+      containers:
+      - name: pelias-data-container-builder
+        image: hsldevcom/pelias-data-container-builder
+        volumeMounts:
+          - mountPath: var/run/docker.sock
+            name: "docker-sock"
+          - mountPath: persistent # TODO: need to get path for persistent volume as secret
+            name: "persistent"
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        # TODO: network: BRIDGE ??
+        ports:
+        - containerPort: 8080
+        # livenessProbe:
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 20
+        #   failureThreshold: 2
+        #   httpGet:
+        #     port: 8080
+        #     path: /
+        env:
+        - name: DOCKER_AUTH
+          valueFrom:
+            secretKeyRef:
+              name: docker-auth
+              key: docker-auth  
+        - name: DOCKER_USER
+          valueFrom:
+            secretKeyRef:
+              name: docker-user
+              key: docker-user
+        - name: SLACK_WEBHOOK_URL
+          valueFrom:
+            secretKeyRef:
+              name: slack-webhook
+              key: slack-webhook   
+        - name: MMLAPIKEY
+          valueFrom:
+            secretKeyRef:
+              name: mmlapikey
+              key: mmlapikey  
+        resources:
+          requests:
+            memory: 6Gi
+          limits:
+            memory: 6Gi
+            cpu: 2000m
+      volumes:
+        - name: "docker-sock"
+          azureFile: # TODO: do we want volumes on same fileshare?
+            secretName: dev-aks-fileshare
+            shareName: devaksshare
+            readOnly: false    
+        - name: "persistent"
+          persistentVolumeClaim:
+            claimName: pelias-data-container-volume # TODO: Persistent
+

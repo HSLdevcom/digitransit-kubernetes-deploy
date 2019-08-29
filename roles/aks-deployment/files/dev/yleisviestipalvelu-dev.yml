@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: yleisviestipalvelu
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: yleisviestipalvelu-service-port
+  selector:
+    app: yleisviestipalvelu
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yleisviestipalvelu
+  labels:
+    app: yleisviestipalvelu
+    update: auto
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: yleisviestipalvelu
+  template:
+    metadata:
+      labels:
+        app: yleisviestipalvelu
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: Exists
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: yleisviestipalvelu
+        image: hsldevcom/yleisviestipalvelu #Note: No tag!
+        volumeMounts:
+          - mountPath: /yleisviestipalvelu/messages
+            name: yleisviestipalvelumessages
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        # TODO: network: BRIDGE ??
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          initialDelaySeconds: 300
+          periodSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: /
+        env:
+        - name: HTPASSWD
+          valueFrom:
+            secretKeyRef:
+              name: ht-password
+              key: ht-password   
+        - name: PORT
+          value: "8900"
+        resources:
+          requests:
+            memory: "128Mi"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+      volumes:
+        - name: "yleisviestipalvelumessages"
+          azureFile: 
+            secretName: yleisviesti-secret
+            shareName: yleisviestimsgstorage
+            readOnly: false         
