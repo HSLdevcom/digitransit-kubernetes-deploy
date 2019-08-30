@@ -6,7 +6,7 @@ This role contains setupping Azure key vault and deploying secrets from key vaul
 
 ## Setup
 
-* Run `ansible-playbook play_setup_keyvault.yml -e @vars=env_vars/env-dev.yml`
+* Run `ansible-playbook play_setup_keyvault.yml -e @env_vars/env-dev.yml`
 
 When key vault has been created in Azure
 

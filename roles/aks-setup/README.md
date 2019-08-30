@@ -1,0 +1,21 @@
+# AKS cluster setup
+
+## Create AKS cluster
+
+`ansible-playbook play_setup_aks.yml -e @env_vars/env-dev.yml`
+
+## Setup tiller and install azure key vault controller
+
+Install [Helm](https://helm.sh/docs/using_helm/) to your machine if you don't have it
+
+```
+kubectl apply -f files/
+helm init --service-account tiller
+```
+```
+helm repo add spv-charts http://charts.spvapi.no
+helm repo update
+
+helm install spv-charts/azure-key-vault-controller
+```
+
