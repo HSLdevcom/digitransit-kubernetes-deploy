@@ -6,7 +6,7 @@
 
 ## Setup tiller and install azure key vault controller
 
-Install [Helm](https://helm.sh/docs/using_helm/) to your machine if you don't have it
+Install [Helm](https://helm.sh/docs/using_helm/) if you don't have it
 
 ```
 kubectl apply -f files/
