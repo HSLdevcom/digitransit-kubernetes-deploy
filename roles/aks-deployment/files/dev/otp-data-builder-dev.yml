@@ -32,7 +32,7 @@ metadata:
     app: otp-data-builder
     update: auto
 spec:
-  replicas: 0 # 1
+  replicas: 1 # 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -48,14 +48,10 @@ spec:
     spec:
       containers:
       - name: otp-data-builder
-        image: hsldevcom/hsldevcom/otp-data-builder
+        image: hsldevcom/otp-data-builder:latest
         volumeMounts:
-          - mountPath: /var/run/docker.sock
-            name: "docker-sock"
-          - mountPath: /opt/otp-data-builder/data"
-            name: "otp-data"
-          - mountPath: persistent # TODO: need to get path for persistent volume as secret
-            name: "persistent"
+          - mountPath: var/run/docker.sock
+            name: "docker-sock-volume"        
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -80,7 +76,7 @@ spec:
               name: docker-auth
               key: docker-auth
         - name: DOCKER_TAG
-          value: "latest"
+          value: "notarealtag" #"latest"
         - name: DOCKER_USER
           valueFrom:
             secretKeyRef:
@@ -112,15 +108,8 @@ spec:
             memory: 12Gi
             cpu: 3000m
       volumes:
-        - name: "docker-sock"
-          azureFile: # TODO: do we want volumes on same fileshare?
-            secretName: dev-aks-fileshare
-            shareName: devaksshare
-            readOnly: false    
-        - name: "otp-data" 
+        - name: "docker-sock-volume"
           hostPath:
-            path: /var/lib/docker/otp/data
-        - name: "persistent"
-          persistentVolumeClaim:
-            claimName: persistentClaim # TODO: Persistent
+             # location on host
+            path: /var/run/docker.sock      
 
