@@ -73,9 +73,9 @@ spec:
           value: "8900"
         resources:
           requests:
-            memory: "128Mi"
+            memory: "64Mi"
           limits:
-            memory: "128Mi"
+            memory: "64Mi"
             cpu: "100m"
       volumes:
         - name: "yleisviestipalvelumessages"
