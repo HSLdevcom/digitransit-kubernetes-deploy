@@ -2,7 +2,7 @@
 # Add here variables specific to DEV environment
 "az_environment": "dev"
 
-"aks_loadbalancer_ip": "40.113.126.198"
+"aks_loadbalancer_ip": "10.240.0.9"
 
 "gateway_name_postfix": "3"
 "gateway_capacity": "2" 
