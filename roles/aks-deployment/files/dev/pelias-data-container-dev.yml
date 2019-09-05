@@ -82,4 +82,4 @@ spec:
             memory: 3584Mi
           limits:
             memory: 3584Mi
-            cpu: 500m
+            cpu: 1000m
