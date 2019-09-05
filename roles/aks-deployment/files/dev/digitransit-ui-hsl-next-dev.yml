@@ -18,7 +18,7 @@ metadata:
   labels:
     app: digitransit-ui-hsl-next
     update: auto
-    restartAt: "03.20"
+    restartAt: "03.20_13.20"
     restartLimitInterval: "180"
 spec:
   selector:
