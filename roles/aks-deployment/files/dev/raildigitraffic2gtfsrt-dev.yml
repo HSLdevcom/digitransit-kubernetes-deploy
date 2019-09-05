@@ -52,7 +52,6 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -75,7 +74,7 @@ spec:
           value: "https://dev-api.digitransit.fi/routing-data/v2/finland/router-finland.zip"
         resources:
           requests:
-            memory: "1500Mi"
+            memory: "1244Mi"
           limits:
-            memory: "1500Mi"
+            memory: "1244Mi"
             cpu: "100m"        
