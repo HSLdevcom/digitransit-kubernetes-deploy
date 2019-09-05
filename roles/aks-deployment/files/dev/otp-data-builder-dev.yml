@@ -51,18 +51,20 @@ spec:
         image: hsldevcom/otp-data-builder:latest
         volumeMounts:
           - mountPath: var/run/docker.sock
-            name: "docker-sock-volume"        
+            name: "docker-sock-volume"    
+          - mountPath: opt/otp-data-builder/data    
+            name: otp-data
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
         # TODO: network: BRIDGE ??
-        livenessProbe:
-          initialDelaySeconds: 30
-          periodSeconds: 20
-          failureThreshold: 2
-          httpGet:
-            port: 10027
-            path: /
+        # livenessProbe:
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 20
+        #   failureThreshold: 2
+        #   httpGet:
+        #     port: 10027
+        #     path: /
         env:
         - name: BUILDER_TYPE
           value: "dev"
@@ -111,5 +113,8 @@ spec:
         - name: "docker-sock-volume"
           hostPath:
              # location on host
-            path: /var/run/docker.sock      
+            path: /var/run/docker.sock 
+        - name: otp-data    
+          hostPath:
+            path: /opt/otp-data/
 
