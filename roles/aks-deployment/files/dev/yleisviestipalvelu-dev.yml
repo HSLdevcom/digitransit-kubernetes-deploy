@@ -46,7 +46,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: yleisviestipalvelu
-        image: hsldevcom/yleisviestipalvelu #Note: No tag!
+        image: hsldevcom/yleisviestipalvelu
         volumeMounts:
           - mountPath: /yleisviestipalvelu/messages
             name: yleisviestipalvelumessages
@@ -80,9 +80,9 @@ spec:
           value: "8900"
         resources:
           requests:
-            memory: "64Mi"
+            memory: "128Mi"
           limits:
-            memory: "64Mi"
+            memory: "128Mi"
             cpu: "100m"
       volumes:
         - name: "yleisviestipalvelumessages"
