@@ -53,7 +53,7 @@ spec:
               name: docker-auth
               key: docker-auth
         - name: DOCKER_TAG
-          value: "latest"
+          value: "kube-test"
         - name: DOCKER_USER
           valueFrom:
             secretKeyRef:
@@ -83,9 +83,9 @@ spec:
           value: "2"
         resources:
           requests:
-            memory: 128Mi
+            memory: 1736Mi
           limits:
-            memory: 128Mi # TODO We propably need more memory on cluster.. This should be 1500Mi! 
+            memory: 1736Mi
             cpu: 1000m
       volumes:
         - name: "docker-sock"
