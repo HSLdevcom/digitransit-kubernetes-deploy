@@ -51,7 +51,9 @@ spec:
         image: hsldevcom/otp-data-builder:latest
         volumeMounts:
           - mountPath: var/run/docker.sock
-            name: "docker-sock-volume"        
+            name: "docker-sock-volume"    
+          - mountPath: opt/otp-data-builder/data    
+            name: otp-data
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -103,5 +105,8 @@ spec:
         - name: "docker-sock-volume"
           hostPath:
              # location on host
-            path: /var/run/docker.sock      
+            path: /var/run/docker.sock 
+        - name: otp-data    
+          hostPath:
+            path: /opt/otp-data/
 
