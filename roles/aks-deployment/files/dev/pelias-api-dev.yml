@@ -53,8 +53,15 @@ spec:
         # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
-        livenessProbe: # Or readinessProbe
-          initialDelaySeconds: 300
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 30
+          httpGet:
+            port: 8080
+            path: /v1/search?text=helsinki
+        livenessProbe:
+          initialDelaySeconds: 150
           periodSeconds: 10
           timeoutSeconds: 10
           failureThreshold: 5

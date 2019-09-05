@@ -50,11 +50,18 @@ spec:
         image: hsldevcom/digitransit-ui:latest
         ports:
         - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 30
         livenessProbe:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 300
+          initialDelaySeconds: 150
           periodSeconds: 10
           timeoutSeconds: 10
           failureThreshold: 10

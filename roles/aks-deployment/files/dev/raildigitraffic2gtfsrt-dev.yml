@@ -55,8 +55,15 @@ spec:
         # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 50
+          httpGet:
+            port: 8080
+            path: "/hsl"
         livenessProbe:
-          initialDelaySeconds: 1800
+          initialDelaySeconds: 500
           periodSeconds: 30
           timeoutSeconds: 10
           failureThreshold: 5

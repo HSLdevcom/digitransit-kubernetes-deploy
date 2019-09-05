@@ -53,6 +53,13 @@ spec:
         # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 6
+          httpGet:
+            port: 8080
+            path: "/graphiql/hsl"
         livenessProbe:
           initialDelaySeconds: 60
           periodSeconds: 60

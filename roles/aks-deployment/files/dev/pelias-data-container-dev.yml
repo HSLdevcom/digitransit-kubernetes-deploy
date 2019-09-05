@@ -59,7 +59,14 @@ spec:
           name: vip0
         - containerPort: 9300
           name: vip1
-        livenessProbe: # Or readinessProbe
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 120
+          httpGet:
+            port: 9200
+            path: /_search?q=name.fi:helsinki
+        livenessProbe:
           initialDelaySeconds: 600
           periodSeconds: 10
           timeoutSeconds: 10

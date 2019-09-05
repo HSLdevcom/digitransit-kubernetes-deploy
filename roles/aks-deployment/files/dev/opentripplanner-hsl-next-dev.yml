@@ -39,14 +39,12 @@ spec:
       - name: opentripplanner-hsl-next
         image: hsldevcom/opentripplanner:latest
         imagePullPolicy: Always
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
         readinessProbe:
-          initialDelaySeconds: 1200
-          periodSeconds: 30
+          periodSeconds: 10
           timeoutSeconds: 10
-          failureThreshold: 6
+          failureThreshold: 120 # this needs to be high because otp can build its own graph which takes time
           httpGet:
             port: 8080
             path: "/otp/routers/hsl/"
