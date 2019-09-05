@@ -42,10 +42,11 @@ spec:
         # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
-        livenessProbe:
+        readinessProbe:
           initialDelaySeconds: 1200
-          periodSeconds: 20
-          failureThreshold: 3
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 6
           httpGet:
             port: 8080
             path: "/otp/routers/hsl/"

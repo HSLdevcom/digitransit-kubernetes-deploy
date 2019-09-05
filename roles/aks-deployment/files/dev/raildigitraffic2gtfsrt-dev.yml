@@ -57,7 +57,8 @@ spec:
         - containerPort: 8080
         livenessProbe:
           initialDelaySeconds: 1800
-          periodSeconds: 10
+          periodSeconds: 30
+          timeoutSeconds: 10
           failureThreshold: 5
           httpGet:
             port: 8080

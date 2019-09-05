@@ -56,10 +56,11 @@ spec:
         livenessProbe: # Or readinessProbe
           initialDelaySeconds: 300
           periodSeconds: 10
+          timeoutSeconds: 10
           failureThreshold: 5
           httpGet:
             port: 8080
-            path: / # /v1/search?text=helsinki
+            path: /v1/search?text=helsinki
         resources:
           requests:
             memory: "2560Mi"

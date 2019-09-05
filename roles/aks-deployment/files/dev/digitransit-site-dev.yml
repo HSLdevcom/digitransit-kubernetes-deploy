@@ -55,6 +55,7 @@ spec:
         livenessProbe:
           initialDelaySeconds: 300
           periodSeconds: 10
+          timeoutSeconds: 10
           failureThreshold: 5
           httpGet:
             port: 8080

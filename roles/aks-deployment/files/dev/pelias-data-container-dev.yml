@@ -62,6 +62,7 @@ spec:
         livenessProbe: # Or readinessProbe
           initialDelaySeconds: 600
           periodSeconds: 10
+          timeoutSeconds: 10
           failureThreshold: 3
           httpGet:
             port: 9200

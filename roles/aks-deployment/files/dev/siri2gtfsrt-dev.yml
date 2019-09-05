@@ -53,13 +53,14 @@ spec:
         # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
-        # livenessProbe:
-        #   initialDelaySeconds: 300
-        #   periodSeconds: 10
-        #   failureThreshold: 5
-        #   httpGet:
-        #     port: 8080
-        #     path: /HSL
+        livenessProbe:
+          initialDelaySeconds: 300
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: /HSL
         env:
         - name: HSL_URL
           value: "http://navigator-server.marathon.l4lb.thisdcos.directory:8080/siriaccess/vm/json?operatorRef=HSL"

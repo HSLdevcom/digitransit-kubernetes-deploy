@@ -55,14 +55,6 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        # TODO: network: BRIDGE ??
-        livenessProbe:
-          initialDelaySeconds: 30
-          periodSeconds: 20
-          failureThreshold: 2
-          httpGet:
-            port: 10027
-            path: /
         env:
         - name: BUILDER_TYPE
           value: "dev"
