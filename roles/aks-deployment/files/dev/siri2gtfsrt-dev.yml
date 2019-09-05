@@ -50,7 +50,6 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -73,8 +72,6 @@ spec:
           value: "http://navigator-server.marathon.l4lb.thisdcos.directory:8080/siriaccess/vm/json?operatorRef=HSL"
         - name: TRAIN_URL
           value: "http://raildigitraffic2gtfsrt.marathon.l4lb.thisdcos.directory:8080/hsl"
-        - name: TRIP_UPDATE_URL
-          value: "http://hslalert.marathon.l4lb.thisdcos.directory:8080/"
         resources:
           requests:
             memory: "128Mi"
