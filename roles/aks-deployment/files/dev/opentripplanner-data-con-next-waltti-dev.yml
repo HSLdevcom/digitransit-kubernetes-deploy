@@ -50,7 +50,6 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -70,7 +69,7 @@ spec:
             path: "/version.txt"
         resources:
           requests:
-            memory: "200Mi"
+            memory: "224Mi"
           limits:
-            memory: "200Mi"
+            memory: "224Mi"
             cpu: "100m"
