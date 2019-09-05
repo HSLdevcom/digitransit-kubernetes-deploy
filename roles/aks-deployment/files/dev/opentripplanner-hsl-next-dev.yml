@@ -20,6 +20,8 @@ metadata:
     update: auto
     restartAfterDeployments: "opentripplanner-data-con-next-hsl"
     restartDelay: "1"
+    restartAt: "05:15"
+    restartLimitInterval: "720"
 spec:
   replicas: 2
   strategy:
