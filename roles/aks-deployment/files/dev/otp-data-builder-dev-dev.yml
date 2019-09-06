@@ -2,34 +2,34 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: otp-databuilder-volume
+  name: otp-databuilder-dev-volume
 spec:
   accessModes:
   - ReadWriteOnce
   storageClassName: managed-premium
   resources:
     requests:
-      storage: 5Gi
+      storage: 2Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: otp-data-builder
+  name: otp-data-builder-dev
 spec:
   ports:
   - port: 8080
     protocol: TCP
-    name: otp-data-builder-service-port
+    name: otp-data-builder-dev-service-port
   selector:
-    app: otp-data-builder
+    app: otp-data-builder-dev
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: otp-data-builder
+  name: otp-data-builder-dev
   labels:
-    app: otp-data-builder
+    app: otp-data-builder-dev
     update: auto
 spec:
   replicas: 1
@@ -40,14 +40,14 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: otp-data-builder
+      app: otp-data-builder-dev
   template:
     metadata:
       labels:
-        app: otp-data-builder
+        app: otp-data-builder-dev
     spec:
       containers:
-      - name: otp-data-builder
+      - name: otp-data-builder-dev
         image: hsldevcom/otp-data-builder:latest
         volumeMounts:
           - mountPath: var/run/docker.sock
