@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opentripplanner-finland
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: opentripplanner-finland-service-port
+  selector:
+    app: opentripplanner-finland
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentripplanner-finland
+  labels:
+    app: opentripplanner-finland
+    update: auto
+    restartAfterDeployments: "opentripplanner-data-con-next-finland"
+    restartDelay: "1"
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: opentripplanner-finland
+  template:
+    metadata:
+      labels:
+        app: opentripplanner-finland
+    spec:
+      containers:
+      - name: opentripplanner-finland
+        image: hsldevcom/opentripplanner:latest
+        imagePullPolicy: Always
+        # TODO: network: BRIDGE ??
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          initialDelaySeconds: 1200
+          periodSeconds: 20
+          failureThreshold: 3
+          httpGet:
+            port: 8080
+            path: "/otp/routers/finland/"
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: ROUTER_DATA_CONTAINER_URL
+          value: "https://dev-next-api.digitransit.fi/routing-data/v2/next-finland"
+        - name: ROUTER_NAME
+          value: "finland"
+        - name: JAVA_OPTS
+          valueFrom:
+            secretKeyRef:
+              name: otp-java-opts-dev
+              key: otp-java-opts-dev
+        resources:
+          requests:
+            memory: 9216Mi
+          limits:
+            memory: 9216Mi
+            cpu: 1000m

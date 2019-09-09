@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: digitransit-ui-waltti
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: digitransit-ui-waltti-service-port
+  selector:
+    app: digitransit-ui-waltti
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digitransit-ui-waltti
+  labels:
+    app: digitransit-ui-waltti
+    update: auto
+spec:
+  selector:
+    matchLabels:
+      app: digitransit-ui-waltti
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: digitransit-ui-waltti
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: Exists
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: digitransit-ui-waltti
+        image: hsldevcom/digitransit-ui:next # TODO!! CHANGE
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 300
+          periodSeconds: 10
+          failureThreshold: 3
+        env:
+        - name: CONFIG
+          value: "waltti"
+        - name: API_URL
+          value: "https://dev-next-api.digitransit.fi"
+        - name: ASSET_URL
+          value: "https://digitransit-dev-cdn3-origin.azureedge.net/ui/v1/waltti" # "https://dev-next-api.digitransit.fi/ui/v1/hsl-next"
+        - name: MAP_URL
+          value: "https://digitransit-dev-cdn3-origin.azureedge.net"
+        - name: REALTIME_PATCH
+          value: "{\"tampere\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Joensuu\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Lappeenranta\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Kuopio\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"LINKKI\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}}"
+        - name: NODE_OPTS
+          value: "--max_old_space_size=600"
+        - name: RELAY_FETCH_TIMEOUT
+          value: "3000"
+        - name: SENTRY_DSN
+          valueFrom:
+            secretKeyRef:
+              name: sentry-dsn
+              key: sentry-dsn
+        - name: SENTRY_SECRET_DSN
+          valueFrom:
+            secretKeyRef:
+              name: sentry-secret-dsn
+              key: sentry-secret-dsn
+        resources:
+          requests:
+            memory: "800Mi"
+          limits:
+            memory: "800Mi"
