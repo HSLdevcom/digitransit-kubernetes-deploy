@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: navigator-server
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: navigator-server-service-port
+    protocol: TCP
+  selector:
+    app: navigator-server
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: navigator-server
+  labels:
+    app: navigator-server
+    update: auto
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: navigator-server
+  template:
+    metadata:
+      labels:
+        app: navigator-server
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: Exists
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: navigator-server
+        image: hsldevcom/navigator-server
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        # TODO: network: BRIDGE ??
+        ports:
+        - containerPort: 8080
+        livenessProbe: # Or readinessProbe
+          initialDelaySeconds: 300
+          periodSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: /
+        env:
+        - name: NODE_OPTS 
+          value: --max_old_space_size=400
+        resources:
+          requests:
+            memory: 128Mi
+          limits:
+            memory: 128Mi
+            cpu: 100m        
