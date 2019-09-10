@@ -1,27 +1,29 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: digitransit-ui-default
+  name: digitransit-ui-matka
 spec:
   ports:
   - port: 8080
     targetPort: 8080
-    name: digitransit-ui-default-service-port
+    name: digitransit-ui-matka-service-port
   selector:
-    app: digitransit-ui-default
+    app: digitransit-ui-matka
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: digitransit-ui-default
+  name: digitransit-ui-matka
   labels:
-    app: digitransit-ui-default
+    app: digitransit-ui-matka
     update: auto
+    restartAt: "03.00_13.00"
+    restartLimitInterval: "480"
 spec:
   selector:
     matchLabels:
-      app: digitransit-ui-default
+      app: digitransit-ui-matka
   replicas: 2
   strategy:
     type: RollingUpdate
@@ -31,7 +33,7 @@ spec:
   template:
     metadata:
       labels:
-        app: digitransit-ui-default
+        app: digitransit-ui-matka
     spec:
       affinity:
         podAntiAffinity:
@@ -44,17 +46,25 @@ spec:
                   operator: Exists
               topologyKey: kubernetes.io/hostname
       containers:
-      - name: digitransit-ui-default
-        image: hsldevcom/digitransit-ui:next # TODO!! CHANGE
+      - name: digitransit-ui-matka
+        image: hsldevcom/digitransit-ui:latest
         ports:
         - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 30
         livenessProbe:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 300
+          initialDelaySeconds: 150
           periodSeconds: 10
-          failureThreshold: 3
+          timeoutSeconds: 10
+          failureThreshold: 10
         env:
         - name: CONFIG
           value: "matka"
@@ -80,7 +90,7 @@ spec:
               key: sentry-secret-dsn
         resources:
           requests:
-            memory: 800Mi
+            memory: 1024Mi
           limits:
-            memory: 800Mi
-            cpu: 200m
+            memory: 1024Mi
+            cpu: 1000m
