@@ -55,9 +55,17 @@ spec:
         # TODO: network: BRIDGE ??
         ports:
         - containerPort: <PORT>
-        livenessProbe: # Or readinessProbe
+        readinessProbe: # Some services that dont have external endpoints don't require probes but otherwise readinessProbe should be used
+          periodSeconds: <should be slightly less than intervalSeconds>
+          timeoutSeconds: <timeoutSeconds>
+          failureThreshold: <periodSeconds * maxConsecutiveFailures == gracePeriodSeconds>
+          httpGet: # In theory, this could be different than livenessProbe's httpGet, for example, pod could be taken off load balancer during some maintenance process
+            port: <PORT>
+            path: </path/>
+        livenessProbe: # If service can't get stuck or considerably slow down, livenessprobe is not necessary and could even be harmful
           initialDelaySeconds: <gracePeriodSeconds>
-          periodSeconds: <timeoutSeconds>
+          periodSeconds: <intervalSeconds>
+          timeoutSeconds: <timeoutSeconds>
           failureThreshold: <maxConsecutiveFailures>
           httpGet:
             port: <PORT>

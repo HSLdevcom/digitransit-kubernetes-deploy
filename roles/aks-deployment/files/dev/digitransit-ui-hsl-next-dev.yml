@@ -18,6 +18,8 @@ metadata:
   labels:
     app: digitransit-ui-hsl-next
     update: auto
+    restartAt: "03.20_13.20"
+    restartLimitInterval: "180"
 spec:
   selector:
     matchLabels:
@@ -45,29 +47,37 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: digitransit-ui-hsl-next
-        image: hsldevcom/digitransit-ui:next # TODO!! CHANGE
+        image: hsldevcom/digitransit-ui:latest
         ports:
         - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 30
         livenessProbe:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 300
+          initialDelaySeconds: 150
           periodSeconds: 10
-          failureThreshold: 3
+          timeoutSeconds: 10
+          failureThreshold: 10
         env:
         - name: CONFIG
           value: "hsl"
         - name: API_URL
           value: "https://dev-next-api.digitransit.fi"
         - name: ASSET_URL
-          value: "https://digitransit-dev3-cdn-origin.azureedge.net/ui/v1/hsl-next" # "https://dev-next-api.digitransit.fi/ui/v1/hsl-next"
+          value: "https://digitransit-dev3-cdn-origin.azureedge.net/ui/v1/hsl-next"
         - name: MAP_URL
           value: "https://digitransit-dev3-cdn-origin.azureedge.net"
         - name: OTP_URL
           value: "https://dev-next-api.digitransit.fi/routing/v1/routers/next-hsl/"
         - name: NODE_OPTS
-          value: "--max_old_space_size=600"
+          value: "--max_old_space_size=1000"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
         - name: SENTRY_DSN
@@ -82,6 +92,6 @@ spec:
               key: sentry-secret-dsn
         resources:
           requests:
-            memory: "800Mi"
+            memory: "1536Mi"
           limits:
-            memory: "800Mi"
+            memory: "1536Mi"

@@ -52,12 +52,19 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
-        livenessProbe:
-          initialDelaySeconds: 1800
+        readinessProbe:
           periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 50
+          httpGet:
+            port: 8080
+            path: "/hsl"
+        livenessProbe:
+          initialDelaySeconds: 500
+          periodSeconds: 30
+          timeoutSeconds: 10
           failureThreshold: 5
           httpGet:
             port: 8080
@@ -67,7 +74,7 @@ spec:
           value: "https://dev-api.digitransit.fi/routing-data/v2/finland/router-finland.zip"
         resources:
           requests:
-            memory: "1500Mi"
+            memory: "1244Mi"
           limits:
-            memory: "1500Mi"
+            memory: "1244Mi"
             cpu: "100m"        

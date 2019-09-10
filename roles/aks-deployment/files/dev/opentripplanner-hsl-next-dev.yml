@@ -20,6 +20,8 @@ metadata:
     update: auto
     restartAfterDeployments: "opentripplanner-data-con-next-hsl"
     restartDelay: "1"
+    restartAt: "05:15"
+    restartLimitInterval: "720"
 spec:
   replicas: 2
   strategy:
@@ -39,13 +41,12 @@ spec:
       - name: opentripplanner-hsl-next
         image: hsldevcom/opentripplanner:latest
         imagePullPolicy: Always
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
-        livenessProbe:
-          initialDelaySeconds: 1200
-          periodSeconds: 20
-          failureThreshold: 3
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 120 # this needs to be high because otp can build its own graph which takes time
           httpGet:
             port: 8080
             path: "/otp/routers/hsl/"

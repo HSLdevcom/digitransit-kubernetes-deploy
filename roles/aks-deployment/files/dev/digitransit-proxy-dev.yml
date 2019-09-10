@@ -38,14 +38,22 @@ spec:
     spec:
       containers:
       - name: digitransit-proxy
-        image: hsldevcom/digitransit-proxy:kubernetes-dev
+        image: hsldevcom/digitransit-proxy:kubernetes-dev #TODO use latest at some point
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-        livenessProbe: # Or readinessProbe
-          initialDelaySeconds: 300
-          periodSeconds: 20
-          failureThreshold: 3
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 15
+          httpGet:
+            port: 8080
+            path: /
+        livenessProbe:
+          initialDelaySeconds: 150
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 2
           httpGet:
             port: 8080
             path: /
@@ -149,7 +157,7 @@ spec:
                 key: matkahuolto-kyme-basic-key
         resources:
             requests:
-              memory: "1Gi"
+              memory: "1152Mi"
             limits:
-              memory: "1Gi"
-   #           cpu: "1500m" # TODO: Limit in prod is 2cpus! Insufficient currently!
+              memory: "1152Mi"
+              cpu: "3000m" # TODO: this limit was previously too low as nginx uses 3 workers and allocation was just 2, however not sure if this is enough either

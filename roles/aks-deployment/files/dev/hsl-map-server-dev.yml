@@ -19,8 +19,8 @@ metadata:
   labels:
     app: hsl-map-server
     update: auto
-    # restartAfterDeployments: "opentripplanner-finland_opentripplanner-hsl_opentripplanner-waltti" 
-    # restartDelay: "5" 
+    restartAfterDeployments: "opentripplanner-hsl-next" #TODO replace with dependencies to normal OTPs
+    restartDelay: "5"
 spec:
   replicas: 2
   strategy:
@@ -48,23 +48,30 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: hsl-map-server
-        image: hsldevcom/hsl-map-server:kubernetes-dev #TODO: No tag? 
+        image: hsldevcom/hsl-map-server
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
-        livenessProbe: # Or readinessProbe
-          initialDelaySeconds: 300
-          periodSeconds: 100
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 30
+          httpGet:
+            port: 8080
+            path: /map/v1/hsl-map/index.json
+        livenessProbe:
+          initialDelaySeconds: 150
+          periodSeconds: 10
+          timeoutSeconds: 10
           failureThreshold: 10
           httpGet:
             port: 8080
             path: /map/v1/hsl-map/index.json
         env:
           - name: FINLAND_OTP_URL
-            value: "opentripplanner-finland:8080/otp/routers/finland/index/graphql" # Todo, may need to change this.
+            value: "opentripplanner-finland:8080/otp/routers/finland/index/graphql"
           - name: FONTSTACK_PASSWORD
             valueFrom:
               secretKeyRef:
@@ -75,10 +82,9 @@ spec:
           - name: NODE_OPTS
             value: "--max_old_space_size=2048 --optimize_for_size --max_executable_size=2048 --stack_size=2048 --harmony"
           - name: WALTTI_OTP_URL
-            value: "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql" # Todo, may need to change this
-        resources:
+            value: "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql"
           requests:
             memory: 4096Mi
           limits:
             memory: 4096Mi
-            cpu: 500m         
+            cpu: 2000m # This might actually need 4000m as hsl-map-server has 4 workers

@@ -47,23 +47,29 @@ spec:
       containers:
       - name: opentripplanner-data-con-next-hsl
         image: hsldevcom/opentripplanner-data-container-hsl:latest
-        # TODO: network: BRIDGE ??
-        # TODO: net host ??
         securityContext:
           allowPrivilegeEscalation: false
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 30
+          httpGet:
+            port: 8080
+            path: "/version.txt"
         livenessProbe:
-          initialDelaySeconds: 300
+          initialDelaySeconds: 150
           periodSeconds: 10
+          timeoutSeconds: 10
           failureThreshold: 5
           httpGet:
             port: 8080
             path: "/version.txt"
         resources:
           requests:
-            memory: "200Mi"
+            memory: "224Mi"
           limits:
-            memory: "200Mi"
+            memory: "224Mi"
             cpu: "100m"  

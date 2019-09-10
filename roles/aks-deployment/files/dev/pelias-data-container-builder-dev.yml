@@ -1,4 +1,4 @@
---- #TODO: This shouldn't be in kubernetes kluster? 
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -44,16 +44,8 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
-        # livenessProbe:
-        #   initialDelaySeconds: 30
-        #   periodSeconds: 20
-        #   failureThreshold: 2
-        #   httpGet:
-        #     port: 8080
-        #     path: /
         env:
         # - name: DOCKER_AUTH
         #   valueFrom:

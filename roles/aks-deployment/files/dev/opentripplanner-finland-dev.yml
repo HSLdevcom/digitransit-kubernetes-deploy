@@ -18,8 +18,10 @@ metadata:
   labels:
     app: opentripplanner-finland
     update: auto
-    restartAfterDeployments: "opentripplanner-data-con-next-finland"
+    restartAfterDeployments: "opentripplanner-data-con-next-finland" # TODO remove -next
     restartDelay: "1"
+    restartAt: "05.30"
+    restartLimitInterval: "720"
 spec:
   replicas: 2
   strategy:
@@ -39,13 +41,12 @@ spec:
       - name: opentripplanner-finland
         image: hsldevcom/opentripplanner:latest
         imagePullPolicy: Always
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
-        livenessProbe:
-          initialDelaySeconds: 1200
-          periodSeconds: 20
-          failureThreshold: 3
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 240 # this needs to be high because otp can build its own graph which takes time
           httpGet:
             port: 8080
             path: "/otp/routers/finland/"
@@ -53,7 +54,7 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: ROUTER_DATA_CONTAINER_URL
-          value: "https://dev-next-api.digitransit.fi/routing-data/v2/next-finland"
+          value: "http://opentripplanner-data-con-next-finland:8080" #TODO remove -next
         - name: ROUTER_NAME
           value: "finland"
         - name: JAVA_OPTS
@@ -66,4 +67,4 @@ spec:
             memory: 9216Mi
           limits:
             memory: 9216Mi
-            cpu: 1000m
+            cpu: "1900m"
