@@ -59,7 +59,7 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: BUILDER_TYPE
-          value: "dev"
+          value: "kube-dev" #TODO change this to dev later
         - name: BUILD_TIME
           value: "23:00:00"
         - name: DATA
