@@ -22,7 +22,7 @@ metadata:
     restartAfterDeployments: "opentripplanner-hsl-next" #TODO replace with dependencies to normal OTPs
     restartDelay: "5"
 spec:
-  replicas: 2
+  replicas: 4
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -48,7 +48,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: hsl-map-server
-        image: hsldevcom/hsl-map-server
+        image: hsldevcom/hsl-map-server:kubernetes-dev
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
