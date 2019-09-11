@@ -47,7 +47,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: digitransit-ui-hsl-next
-        image: hsldevcom/digitransit-ui:latest
+        image: hsldevcom/digitransit-ui:next
         ports:
         - containerPort: 8080
         readinessProbe:
