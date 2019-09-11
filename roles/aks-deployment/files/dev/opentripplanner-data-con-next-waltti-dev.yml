@@ -63,7 +63,7 @@ spec:
           initialDelaySeconds: 150
           periodSeconds: 10
           timeoutSeconds: 10
-          failureThreshold: 5
+          failureThreshold: 25
           httpGet:
             port: 8080
             path: "/version.txt"
