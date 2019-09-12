@@ -47,9 +47,6 @@ spec:
       containers:
       - name: digitransit-performance-tests
         image: hsldevcom/digitransit-performance-tests
-        volumeMounts:
-          - mountPath: /var/run/docker.sock
-            name: "docker-sock"
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -79,9 +76,3 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "1000M"
-      volumes:
-        - name: "docker-sock"
-          azureFile:
-            secretName: dev-aks-fileshare
-            shareName: devaksshare
-            readOnly: false

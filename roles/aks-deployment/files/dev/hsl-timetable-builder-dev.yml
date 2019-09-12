@@ -19,7 +19,7 @@ metadata:
     app: hsl-timetable-builder
     update: auto
 spec:
-  replicas: 0
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -39,7 +39,7 @@ spec:
         image: hsldevcom/hsl-timetable-builder
         volumeMounts:
           - mountPath: /var/run/docker.sock
-            name: "docker-sock"
+            name: "docker-sock-volume"
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -88,8 +88,7 @@ spec:
             memory: 1736Mi
             cpu: 1000m
       volumes:
-        - name: "docker-sock"
-          azureFile: # TODO: do we want volumes on same fileshare?
-            secretName: dev-aks-fileshare
-            shareName: devaksshare
-            readOnly: false      
+        - name: "docker-sock-volume"
+          hostPath:
+             # location on host
+            path: /var/run/docker.sock

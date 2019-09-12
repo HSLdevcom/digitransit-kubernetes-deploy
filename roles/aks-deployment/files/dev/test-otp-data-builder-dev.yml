@@ -51,7 +51,7 @@ spec:
         image: hsldevcom/hsldevcom/otp-data-builder:next
         volumeMounts:
           - mountPath: /var/run/docker.sock
-            name: "docker-sock"
+            name: "docker-sock-volume"
           - mountPath: /opt/otp-data-builder/data"
             name: "otp-data"
           - mountPath: persistent # TODO: need to get path for persistent volume as secret
@@ -108,11 +108,10 @@ spec:
             memory: 12Gi
             cpu: 3000m
       volumes:
-        - name: "docker-sock"
-          azureFile: # TODO: do we want volumes on same fileshare?
-            secretName: dev-aks-fileshare
-            shareName: devaksshare
-            readOnly: false    
+        - name: "docker-sock-volume"
+          hostPath:
+             # location on host
+            path: /var/run/docker.sock
         - name: "otp-data" 
           hostPath:
             path: /opt/otp-data/
