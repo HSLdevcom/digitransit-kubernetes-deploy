@@ -48,7 +48,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: hsl-map-server
-        image: hsldevcom/hsl-map-server:kubernetes-dev
+        image: hsldevcom/hsl-map-server:latest
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
