@@ -54,6 +54,8 @@ spec:
               key: docker-auth
         - name: DOCKER_TAG
           value: "kube-test"
+        - name: DOCKER_API_VERSION
+          value: "1.38"
         - name: DOCKER_USER
           valueFrom:
             secretKeyRef:

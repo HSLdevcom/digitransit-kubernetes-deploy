@@ -57,6 +57,8 @@ spec:
         #     secretKeyRef:
         #       name: docker-user
         #       key: docker-user
+        - name: DOCKER_API_VERSION
+          value: "1.38"
         - name: SLACK_WEBHOOK_URL
           valueFrom:
             secretKeyRef:

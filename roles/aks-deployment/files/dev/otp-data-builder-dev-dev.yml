@@ -62,6 +62,8 @@ spec:
           value: "kube-dev" #TODO change this to dev later
         - name: BUILD_TIME
           value: "23:00:00"
+        - name: DOCKER_API_VERSION
+          value: "1.38"
         - name: DATA
           value: "/opt/otp-data-builder/data"
         - name: DOCKER_AUTH
