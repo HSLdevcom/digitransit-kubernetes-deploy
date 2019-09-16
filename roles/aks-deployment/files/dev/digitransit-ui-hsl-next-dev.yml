@@ -90,6 +90,11 @@ spec:
             secretKeyRef:
               name: sentry-secret-dsn
               key: sentry-secret-dsn
+        - name: APIM_SUBSCRIPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: apim-subs-test-key
+              key: apim-subs-test-key
         resources:
           requests:
             memory: "1536Mi"
