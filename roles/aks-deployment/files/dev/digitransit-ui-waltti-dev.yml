@@ -47,7 +47,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: digitransit-ui-waltti
-        image: hsldevcom/digitransit-ui:latest
+        image: hsldevcom/digitransit-ui:next
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -66,12 +66,16 @@ spec:
           timeoutSeconds: 10
           failureThreshold: 10
         env:
+        - name: CONFIG
+          value: "tampere"
         - name: API_URL
           value: "https://dev-next-api.digitransit.fi"
         - name: ASSET_URL
           value: "https://digitransit-dev-cdn3-origin.azureedge.net/ui/v1/waltti"
         - name: MAP_URL
           value: "https://digitransit-dev-cdn3-origin.azureedge.net"
+        - name: OTP_URL
+          value: "https://dev-next-api.digitransit.fi/routing/v1/routers/next-waltti/"
         - name: REALTIME_PATCH
           value: "{\"tampere\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Joensuu\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Lappeenranta\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Kuopio\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"LINKKI\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}}"
         - name: NODE_OPTS
@@ -88,6 +92,11 @@ spec:
             secretKeyRef:
               name: sentry-secret-dsn
               key: sentry-secret-dsn
+        - name: APIM_SUBSCRIPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: apim-subs-test-key
+              key: apim-subs-test-key
         resources:
           requests:
             memory: 1200Mi
