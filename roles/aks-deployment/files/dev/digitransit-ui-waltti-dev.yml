@@ -69,9 +69,13 @@ spec:
         - name: API_URL
           value: "https://dev-next-api.digitransit.fi"
         - name: ASSET_URL
-          value: "https://digitransit-dev-cdn3-origin.azureedge.net/ui/v1/waltti"
+          value: "https://digitransit-dev3-cdn-origin.azureedge.net/ui/v1/waltti"
+        - name: CONFIG 
+          value: turku
+        - name: OTP_URL
+          value: "https://dev-next-api.digitransit.fi/routing/v1/routers/waltti/"          
         - name: MAP_URL
-          value: "https://digitransit-dev-cdn3-origin.azureedge.net"
+          value: "https://digitransit-dev3-cdn-origin.azureedge.net"
         - name: REALTIME_PATCH
           value: "{\"tampere\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Joensuu\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Lappeenranta\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Kuopio\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"LINKKI\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}}"
         - name: NODE_OPTS
