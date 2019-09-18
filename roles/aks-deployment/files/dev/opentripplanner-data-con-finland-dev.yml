@@ -1,23 +1,22 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: opentripplanner-data-con-next-waltti
+  name: opentripplanner-data-con-finland
 spec:
   ports:
   - port: 8080
     targetPort: 8080
-    name: opentripplanner-data-con-next-waltti-service-port
-    protocol: TCP
+    name: opentripplanner-data-con-finland-service-port
   selector:
-    app: opentripplanner-data-con-next-waltti
+    app: opentripplanner-data-con-finland
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: opentripplanner-data-con-next-waltti
+  name: opentripplanner-data-con-finland
   labels:
-    app: opentripplanner-data-con-next-waltti
+    app: opentripplanner-data-con-finland
     update: auto
 spec:
   replicas: 2
@@ -28,11 +27,11 @@ spec:
       maxUnavailable: 25%
   selector:
     matchLabels:
-      app: opentripplanner-data-con-next-waltti
+      app: opentripplanner-data-con-finland
   template:
     metadata:
       labels:
-        app: opentripplanner-data-con-next-waltti
+        app: opentripplanner-data-con-finland
     spec:
       affinity:
         podAntiAffinity:
@@ -45,8 +44,8 @@ spec:
                   operator: Exists
               topologyKey: kubernetes.io/hostname
       containers:
-      - name: opentripplanner-data-con-next-waltti
-        image: hsldevcom/opentripplanner-data-container-waltti:latest
+      - name: opentripplanner-data-con-finland
+        image: hsldevcom/opentripplanner-data-container-finland:prod
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -63,13 +62,13 @@ spec:
           initialDelaySeconds: 150
           periodSeconds: 10
           timeoutSeconds: 10
-          failureThreshold: 25
+          failureThreshold: 5
           httpGet:
             port: 8080
             path: "/version.txt"
         resources:
           requests:
-            memory: "224Mi"
+            memory: "174Mi"
           limits:
-            memory: "224Mi"
+            memory: "174Mi"
             cpu: "100m"
