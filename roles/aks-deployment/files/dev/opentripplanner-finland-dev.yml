@@ -18,7 +18,7 @@ metadata:
   labels:
     app: opentripplanner-finland
     update: auto
-    restartAfterDeployments: "opentripplanner-data-con-next-finland" # TODO remove -next
+    restartAfterDeployments: "opentripplanner-data-con-finland"
     restartDelay: "1"
     restartAt: "05.30"
     restartLimitInterval: "720"
@@ -54,7 +54,7 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: ROUTER_DATA_CONTAINER_URL
-          value: "http://opentripplanner-data-con-next-finland:8080" #TODO remove -next
+          value: "http://opentripplanner-data-con-finland:8080"
         - name: ROUTER_NAME
           value: "finland"
         - name: JAVA_OPTS

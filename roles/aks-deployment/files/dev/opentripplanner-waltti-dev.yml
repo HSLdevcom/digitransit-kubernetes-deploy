@@ -18,7 +18,7 @@ metadata:
   labels:
     app: opentripplanner-waltti
     update: auto
-    restartAfterDeployments: "opentripplanner-data-con-next-waltti" # TODO remove -next
+    restartAfterDeployments: "opentripplanner-data-con-waltti"
     restartDelay: "1"
     restartAt: "05.45"
     restartLimitInterval: "720"
@@ -54,7 +54,7 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: ROUTER_DATA_CONTAINER_URL
-          value: "http://opentripplanner-data-con-next-waltti:8080" # TODO remove -next
+          value: "http://opentripplanner-data-con-waltti:8080"
         - name: ROUTER_NAME
           value: "waltti"
         - name: JAVA_OPTS
