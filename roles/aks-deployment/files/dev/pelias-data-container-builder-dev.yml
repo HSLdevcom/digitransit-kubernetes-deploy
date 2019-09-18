@@ -47,18 +47,22 @@ spec:
         ports:
         - containerPort: 8080
         env:
-        # - name: DOCKER_AUTH
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: docker-auth
-        #       key: docker-auth  
-        # - name: DOCKER_USER
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: docker-user
-        #       key: docker-user
+        - name: DOCKER_AUTH
+          valueFrom:
+            secretKeyRef:
+              name: docker-auth
+              key: docker-auth
+        - name: DOCKER_USER
+          valueFrom:
+            secretKeyRef:
+              name: docker-user
+              key: docker-user
         - name: DOCKER_API_VERSION
           value: "1.38"
+        - name: DOCKER_TAG
+          value: "kube-test"
+        - name: BUILDER_TYPE
+          value: "kube"
         - name: SLACK_WEBHOOK_URL
           valueFrom:
             secretKeyRef:
