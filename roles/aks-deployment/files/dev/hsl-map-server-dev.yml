@@ -22,7 +22,7 @@ metadata:
     restartAfterDeployments: "opentripplanner-hsl-next" #TODO replace with dependencies to normal OTPs
     restartDelay: "5"
 spec:
-  replicas: 4
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
