@@ -78,8 +78,6 @@ spec:
           value: "https://dev-next-api.digitransit.fi/routing/v1/routers/waltti/"          
         - name: MAP_URL
           value: "https://digitransit-dev3-cdn-origin.azureedge.net"
-        - name: OTP_URL
-          value: "https://dev-next-api.digitransit.fi/routing/v1/routers/next-waltti/"
         - name: REALTIME_PATCH
           value: "{\"tampere\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Joensuu\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Lappeenranta\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Kuopio\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"LINKKI\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}}"
         - name: NODE_OPTS
