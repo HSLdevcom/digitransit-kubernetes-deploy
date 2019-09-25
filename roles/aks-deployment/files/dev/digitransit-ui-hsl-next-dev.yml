@@ -10,7 +10,19 @@ spec:
   selector:
     app: digitransit-ui-hsl-next
 ---
-
+apiVersion: v1
+kind: Service
+metadata:
+  name: digitransit-ui-hsl-next
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: digitransit-ui-hsl-next-service-port
+  selector:
+    app: digitransit-ui-hsl
+---
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
