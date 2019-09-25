@@ -11,7 +11,19 @@ spec:
   selector:
     app: opentripplanner-data-con-next-hsl
 ---
-
+apiVersion: v1
+kind: Service
+metadata:
+  name: opentripplanner-data-con-hsl
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: opentripplanner-data-con-hsl-service-port
+    protocol: TCP
+  selector:
+    app: opentripplanner-data-con-next-hsl
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:

@@ -10,7 +10,20 @@ spec:
   selector:
     app: digitransit-ui-matka
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: digitransit-ui-default
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: digitransit-ui-default-service-port
+  selector:
+    app: digitransit-ui-matka
+---
 
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
