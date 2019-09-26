@@ -69,13 +69,13 @@ spec:
         - name: CONFIG
           value: "hsl"
         - name: API_URL
-          value: "https://dev-next-api.digitransit.fi"
+          value: "https://dev-api.digitransit.fi"
         - name: ASSET_URL
-          value: "https://digitransit-dev3-cdn-origin.azureedge.net/ui/v1/hsl"
+          value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v1/hsl"
         - name: MAP_URL
-          value: "https://digitransit-dev3-cdn-origin.azureedge.net"
+          value: "https://digitransit-dev-cdn-origin.azureedge.net"
         - name: OTP_URL
-          value: "https://dev-next-api.digitransit.fi/routing/v1/routers/next-hsl/"
+          value: "https://dev-api.digitransit.fi/routing/v1/routers/next-hsl/"
         - name: NODE_OPTS
           value: "--max_old_space_size=1000"
         - name: RELAY_FETCH_TIMEOUT

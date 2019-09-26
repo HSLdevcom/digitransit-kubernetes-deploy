@@ -82,13 +82,13 @@ spec:
         - name: CONFIG
           value: "matka"
         - name: API_URL
-          value: "https://dev-next-api.digitransit.fi"
+          value: "https://dev-api.digitransit.fi"
         - name: ASSET_URL
-          value: "https://digitransit-dev3-cdn-origin.azureedge.net/ui/v1/finland"
+          value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v1/finland"
         - name: MAP_URL
-          value: "https://digitransit-dev3-cdn-origin.azureedge.net"
+          value: "https://digitransit-dev-cdn-origin.azureedge.net"
         - name: OTP_URL
-          value: "https://dev-next-api.digitransit.fi/routing/v1/routers/finland/"
+          value: "https://dev-api.digitransit.fi/routing/v1/routers/finland/"
         - name: NODE_OPTS
           value: "--max_old_space_size=600"
         - name: RELAY_FETCH_TIMEOUT
