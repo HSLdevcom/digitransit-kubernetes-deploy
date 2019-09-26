@@ -66,8 +66,6 @@ spec:
           timeoutSeconds: 10
           failureThreshold: 10
         env:
-        - name: CONFIG
-          value: "tampere"
         - name: API_URL
           value: "https://dev-next-api.digitransit.fi"
         - name: ASSET_URL
