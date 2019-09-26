@@ -11,8 +11,8 @@
     --resource-group {{project}}-{{ az_environment }}-aks-rg \
     --name {{project}}-{{ az_environment }}-aks \
     --node-count 3 \
-    --node-vm-size Standard_D4s_v3 \
-    --kubernetes-version 1.13.5 \
+    --node-vm-size Standard_D8_v3 \
+    --kubernetes-version 1.14.6 \
     --enable-addons monitoring \
     --generate-ssh-keys"
   delegate_to: localhost
