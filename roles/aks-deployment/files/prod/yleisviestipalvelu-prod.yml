@@ -46,14 +46,13 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: yleisviestipalvelu
-        image: hsldevcom/yleisviestipalvelu #Note: No tag!
+        image: hsldevcom/yleisviestipalvelu:prod
         volumeMounts:
           - mountPath: /yleisviestipalvelu/messages
             name: yleisviestipalvelumessages
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
         livenessProbe:
@@ -78,7 +77,7 @@ spec:
             memory: "64Mi"
             cpu: "100m"
       volumes:
-        - name: "yleisviestipalvelumessages"
+        - name: "yleisviestipalvelumessages" # TODO: Change this
           azureFile:
             secretName: dev-aks-fileshare
             shareName: devaksshare

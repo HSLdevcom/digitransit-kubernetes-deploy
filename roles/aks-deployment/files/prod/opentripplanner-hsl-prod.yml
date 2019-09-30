@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opentripplanner-hsl-next
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: opentripplanner-hsl-next-service-port
+  selector:
+    app: opentripplanner-hsl-next
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: opentripplanner-hsl
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: opentripplanner-hsl-service-port
+  selector:
+    app: opentripplanner-hsl-next
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentripplanner-hsl-next
+  labels:
+    app: opentripplanner-hsl-next
+    update: auto
+    restartAfterDeployments: "opentripplanner-data-con-next-hsl"
+    restartDelay: "1"
+    restartAt: "05.15"
+    restartLimitInterval: "720"
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: opentripplanner-hsl-next
+  template:
+    metadata:
+      labels:
+        app: opentripplanner-hsl-next
+    spec:
+      containers:
+      - name: opentripplanner-hsl-next
+        image: hsldevcom/opentripplanner:prod
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 120 # this needs to be high because otp can build its own graph which takes time
+          httpGet:
+            port: 8080
+            path: "/otp/routers/hsl/"
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: ROUTER_DATA_CONTAINER_URL
+          value: "http://opentripplanner-data-con-next-hsl:8080"
+        - name: ROUTER_NAME
+          value: "hsl"
+        - name: JAVA_OPTS
+          valueFrom:
+            secretKeyRef:
+              name: otp-next-java-opts
+              key: otp-next-java-opts
+        resources:
+          requests:
+            memory: "9216Mi"
+          limits:
+            memory: "9216Mi"
+            cpu: "1900m"

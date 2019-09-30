@@ -1,25 +1,27 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: opentripplanner-hsl-next
+  name: opentripplanner-waltti
 spec:
   ports:
   - port: 8080
     targetPort: 8080
-    name: opentripplanner-hsl-next-service-port
+    name: opentripplanner-waltti-service-port
   selector:
-    app: opentripplanner-hsl-next
+    app: opentripplanner-waltti
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: opentripplanner-hsl-next
+  name: opentripplanner-waltti
   labels:
-    app: opentripplanner-hsl-next
+    app: opentripplanner-waltti
     update: auto
-    restartAfterDeployments: "opentripplanner-data-con-next-hsl"
+    restartAfterDeployments: "opentripplanner-data-con-waltti"
     restartDelay: "1"
+    restartAt: "05.45"
+    restartLimitInterval: "720"
 spec:
   replicas: 2
   strategy:
@@ -29,41 +31,40 @@ spec:
       maxUnavailable: 25%
   selector:
     matchLabels:
-      app: opentripplanner-hsl-next
+      app: opentripplanner-waltti
   template:
     metadata:
       labels:
-        app: opentripplanner-hsl-next   
+        app: opentripplanner-waltti
     spec:
       containers:
-      - name: opentripplanner-hsl-next
+      - name: opentripplanner-waltti
         image: hsldevcom/opentripplanner:prod
         imagePullPolicy: Always
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
         readinessProbe:
-          initialDelaySeconds: 1200
-          periodSeconds: 20
-          failureThreshold: 3
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 600 # this needs to be high because otp can build its own graph which takes time
           httpGet:
             port: 8080
-            path: "/otp/routers/hsl/"
+            path: "/otp/routers/waltti/"
         securityContext:
           allowPrivilegeEscalation: false
         env:
         - name: ROUTER_DATA_CONTAINER_URL
-          value: "https://api.digitransit.fi/routing-data/v2/hsl"
+          value: "http://opentripplanner-data-con-waltti:8080"
         - name: ROUTER_NAME
-          value: "hsl"
+          value: "waltti"
         - name: JAVA_OPTS
           valueFrom:
             secretKeyRef:
-              name: otp-next-java-opts
-              key: otp-next-java-opts
+              name: otp-waltti-java-opts
+              key: otp-waltti-java-opts
         resources:
           requests:
-            memory: "9216Mi"
+            memory: "11240Mi"
           limits:
-            memory: "9216Mi"
+            memory: "11240Mi"
             cpu: "1900m"

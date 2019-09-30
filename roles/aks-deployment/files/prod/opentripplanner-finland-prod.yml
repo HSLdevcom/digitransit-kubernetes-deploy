@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opentripplanner-finland
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: opentripplanner-finland-service-port
+  selector:
+    app: opentripplanner-finland
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentripplanner-finland
+  labels:
+    app: opentripplanner-finland
+    update: auto
+    restartAfterDeployments: "opentripplanner-data-con-finland"
+    restartDelay: "1"
+    restartAt: "05.30"
+    restartLimitInterval: "720"
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: opentripplanner-finland
+  template:
+    metadata:
+      labels:
+        app: opentripplanner-finland
+    spec:
+      containers:
+      - name: opentripplanner-finland
+        image: hsldevcom/opentripplanner:prod
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 240 # this needs to be high because otp can build its own graph which takes time
+          httpGet:
+            port: 8080
+            path: "/otp/routers/finland/"
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: ROUTER_DATA_CONTAINER_URL
+          value: "http://opentripplanner-data-con-finland:8080"
+        - name: ROUTER_NAME
+          value: "finland"
+        - name: JAVA_OPTS
+          valueFrom:
+            secretKeyRef:
+              name: otp-finland-java-opts
+              key: otp-finland-java-opts
+        resources:
+          requests:
+            memory: 11264Mi
+          limits:
+            memory: 11264Mi
+            cpu: "1900m"

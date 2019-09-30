@@ -49,11 +49,17 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 30
+          httpGet:
+            port: 8080
+            path: "/"
         livenessProbe:
-          initialDelaySeconds: 300
+          initialDelaySeconds: 150
           periodSeconds: 10
           timeoutSeconds: 10
           failureThreshold: 5
@@ -61,8 +67,8 @@ spec:
             port: 8080
             path: "/"
         resources:
-#          requests:
-#            memory: <mem> TODO: Define for digitransit-site
+          requests:
+            memory: "128Mi"
           limits:
-#            memory: <mem> TODO: Define for digitransit-site
+            memory: "128Mi"
             cpu: "100m"

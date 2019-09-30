@@ -1,0 +1,161 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: digitransit-proxy
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8080
+    name: digitransit-proxy-service-port-1
+  - port: 8080
+    targetPort: 8080
+    name: digitransit-proxy-service-port-2
+  selector:
+    app: digitransit-proxy
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digitransit-proxy
+  labels:
+    app: digitransit-proxy
+    update: auto
+spec:
+  selector:
+    matchLabels:
+      app: digitransit-proxy
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: digitransit-proxy
+    spec:
+      containers:
+      - name: digitransit-proxy
+        image: hsldevcom/digitransit-proxy:prod
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 15
+          httpGet:
+            port: 8080
+            path: /
+        livenessProbe:
+          initialDelaySeconds: 150
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: /
+        env:
+          - name: HSL_RT_STORAGE_NAME
+            value: "transitdataprod"
+          - name: SAMOCAT_TOKEN_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: samocat-token-key
+                key: samocat-token-key
+          - name: JOJO_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: jojo-basic-key
+                key: jojo-basic-key
+          - name: LINKKI_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: linkki-basic-key
+                key: linkki-basic-key
+          - name: VILKKU_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: vilkku-basic-key
+                key: vilkku-basic-key
+          - name: NEW_LISSU_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: new-lissu-basic-key
+                key: new-lissu-basic-key
+          - name: LAPPEENRANTA_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: lappeenranta-basic-key
+                key: lappeenranta-basic-key
+          - name: LAHTI_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: lahti-basic-key
+                key: lahti-basic-key
+          - name: MATKAHUOLTO_KAINUU_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: matkahuolto-kainuu-basic-key
+                key: matkahuolto-kainuu-basic-key
+          - name: MATKAHUOLTO_LAPPI_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: matkahuolto-lappi-basic-key
+                key: matkahuolto-lappi-basic-key
+          - name: MATKAHUOLTO_VANTAA_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: matkahuolto-vantaa-basic-key
+                key: matkahuolto-vantaa-basic-key
+          - name: MATKAHUOLTO_VARSINAIS_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: matkahuolto-varsinais-basic-key
+                key: matkahuolto-varsinais-basic-key
+          - name: MATKAHUOLTO_SATAKUNTA_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: matkahuolto-satakunta-basic-key
+                key: matkahuolto-satakunta-basic-key
+          - name: MATKAHUOLTO_KARJALA_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: matkahuolto-karjala-basic-key
+                key: matkahuolto-karjala-basic-key
+          - name: MATKAHUOLTO_POHJANMAA_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: matkahuolto-pohjanmaa-basic-key
+                key: matkahuolto-pohjanmaa-basic-key
+          - name: MATKAHUOLTO_SAVO_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: matkahuolto-savo-basic-key
+                key: matkahuolto-savo-basic-key
+          - name: MATKAHUOLTO_KANTA_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: matkahuolto-kanta-basic-key
+                key: matkahuolto-kanta-basic-key
+          - name: MATKAHUOLTO_VAKKA_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: matkahuolto-vakka-basic-key
+                key: matkahuolto-vakka-basic-key
+          - name: MATKAHUOLTO_KESKI_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: matkahuolto-keski-basic-key
+                key: matkahuolto-keski-basic-key
+          - name: MATKAHUOLTO_KYME_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: matkahuolto-kyme-basic-key
+                key: matkahuolto-kyme-basic-key
+        resources:
+            requests:
+              memory: "1152Mi"
+            limits:
+              memory: "1152Mi"
+              cpu: "3000m"

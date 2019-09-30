@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: digitransit-sentry-analytics
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: digitransit-sentry-analytics-service-port
+    protocol: TCP
+  selector:
+    app: digitransit-sentry-analytics
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digitransit-sentry-analytics
+  labels:
+    app: digitransit-sentry-analytics
+    update: auto
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0 # Rolling update with 1 replica.
+  selector:
+    matchLabels:
+      app: digitransit-sentry-analytics
+  template:
+    metadata:
+      labels:
+        app: digitransit-sentry-analytics
+    spec:
+      containers:
+      - name: digitransit-sentry-analytics
+        image: hsldevcom/digitransit-sentry-analytics:prod
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DISABLE_CACHE
+          value: "true"
+        - name: "SENTRY_BASE_URL"
+          value: "https://sentry.hsl.fi/api/0/"
+        - name: SENTRY_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: sentry-token
+              key: sentry-token
+        - name: USER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: sentry-user
+              key: sentry-user
+        - name: USER_PASS
+          valueFrom:
+            secretKeyRef:
+              name: sentry-password
+              key: sentry-password
+        - name: ZERO_ROUTES_ID
+          value: "25"
+        resources:
+          requests:
+            memory: "256Mi"
+          limits:
+            memory: "256Mi"
+            cpu: "100m"
