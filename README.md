@@ -48,3 +48,15 @@ NOTE: Guidelines are subject to change as project progresses.
 
 ## How to contribute
 To be added
+
+
+## Peering vnets
+Following commands create peering connections between AKS cluster and application gateway. Peering connections has to be created so that application gateway can connect to AKS cluster using internal ip.
+
+```
+az network vnet peering create -g <appgw_resource_group> -n <peering_name> --vnet-name <appgw_vnet_name> --remote-vnet <aks_vnet_resource_id> --allow-vnet-access
+```
+
+```
+az network vnet peering create -g <aks_resource_group> -n <peering_name> --vnet-name <aks_vnet_name> --remote-vnet <appgw_vnet_resource_id> --allow-vnet-access
+```
