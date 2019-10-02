@@ -52,7 +52,6 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: <PORT>
         readinessProbe: # Some services that dont have external endpoints don't require probes but otherwise readinessProbe should be used

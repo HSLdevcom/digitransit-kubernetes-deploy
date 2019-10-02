@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
       - name: digitransit-proxy
-        image: hsldevcom/digitransit-proxy:latest #TODO use latest at some point
+        image: hsldevcom/digitransit-proxy:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
