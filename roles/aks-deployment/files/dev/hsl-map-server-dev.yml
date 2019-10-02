@@ -19,7 +19,7 @@ metadata:
   labels:
     app: hsl-map-server
     update: auto
-    restartAfterDeployments: "opentripplanner-hsl-next" #TODO replace with dependencies to normal OTPs
+    restartAfterDeployments: "opentripplanner-hsl"
     restartDelay: "5"
 spec:
   replicas: 2

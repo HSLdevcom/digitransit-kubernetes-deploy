@@ -10,18 +10,6 @@ spec:
   selector:
     app: opentripplanner-hsl
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: opentripplanner-hsl
-spec:
-  ports:
-  - port: 8080
-    targetPort: 8080
-    name: opentripplanner-hsl-service-port
-  selector:
-    app: opentripplanner-hsl
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -71,8 +59,8 @@ spec:
         - name: JAVA_OPTS
           valueFrom:
             secretKeyRef:
-              name: otp-next-java-opts
-              key: otp-next-java-opts
+              name: otp-hsl-java-opts
+              key: otp-hsl-java-opts
         resources:
           requests:
             memory: "9216Mi"
