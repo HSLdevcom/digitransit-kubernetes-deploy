@@ -46,7 +46,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: opentripplanner-data-con-waltti
-        image: hsldevcom/opentripplanner-data-container-waltti:notarealtag #TODO use latest
+        image: hsldevcom/opentripplanner-data-container-waltti:latest
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false

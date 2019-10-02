@@ -46,7 +46,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: hsl-timetable-container
-        image: hsldevcom/hsl-timetable-container:kube-test #TODO use latest
+        image: hsldevcom/hsl-timetable-container:latest
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false

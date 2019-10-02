@@ -58,7 +58,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: opentripplanner-data-con-next-hsl
-        image: hsldevcom/opentripplanner-data-container-hsl:notarealtag #TODO use latest
+        image: hsldevcom/opentripplanner-data-container-hsl:latest
         securityContext:
           allowPrivilegeEscalation: false
         imagePullPolicy: Always

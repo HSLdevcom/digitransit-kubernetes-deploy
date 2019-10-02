@@ -50,7 +50,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: pelias-data-container
-        image: hsldevcom/pelias-data-container:kube-test
+        image: hsldevcom/pelias-data-container:latest
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
