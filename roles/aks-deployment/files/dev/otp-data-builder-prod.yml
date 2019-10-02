@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: otp-databuilder-dev-volume
+  name: otp-databuilder-prod-volume
 spec:
   accessModes:
   - ReadWriteOnce
@@ -48,7 +48,7 @@ spec:
     spec:
       containers:
       - name: otp-data-builder-prod
-        image: hsldevcom/otp-data-builder:latest
+        image: hsldevcom/otp-data-builder:prod
         volumeMounts:
           - mountPath: var/run/docker.sock
             name: "docker-sock-volume"    
@@ -59,7 +59,7 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: BUILDER_TYPE
-          value: "prod" #TODO change this to dev later
+          value: "prod"
         - name: BUILD_TIME
           value: "23:00:00"
         - name: DOCKER_API_VERSION
