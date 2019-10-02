@@ -57,7 +57,7 @@ spec:
         readinessProbe:
           periodSeconds: 10
           timeoutSeconds: 10
-          failureThreshold: 120 # this needs to be high because otp can build its own graph which takes time
+          failureThreshold: 5
           httpGet:
             port: 8080
             path: "/otp/routers/hsl/"
