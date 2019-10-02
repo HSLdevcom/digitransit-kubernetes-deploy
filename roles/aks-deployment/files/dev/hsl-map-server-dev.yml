@@ -78,7 +78,7 @@ spec:
                 name: fontstack-password
                 key: fontstack-password
           - name: HSL_OTP_URL
-            value: "opentripplanner-hsl-next:8080/otp/routers/hsl/index/graphql" # Todo, may need to change this
+            value: "opentripplanner-hsl:8080/otp/routers/hsl/index/graphql"
           - name: NODE_OPTS
             value: "--max_old_space_size=2048 --optimize_for_size --max_executable_size=2048 --stack_size=2048 --harmony"
           - name: WALTTI_OTP_URL
