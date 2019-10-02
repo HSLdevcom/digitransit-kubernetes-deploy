@@ -1,18 +1,6 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: opentripplanner-hsl-next
-spec:
-  ports:
-  - port: 8080
-    targetPort: 8080
-    name: opentripplanner-hsl-next-service-port
-  selector:
-    app: opentripplanner-hsl-next
----
-apiVersion: v1
-kind: Service
-metadata:
   name: opentripplanner-hsl
 spec:
   ports:
@@ -20,16 +8,16 @@ spec:
     targetPort: 8080
     name: opentripplanner-hsl-service-port
   selector:
-    app: opentripplanner-hsl-next
+    app: opentripplanner-hsl
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: opentripplanner-hsl-next
+  name: opentripplanner-hsl
   labels:
-    app: opentripplanner-hsl-next
+    app: opentripplanner-hsl
     update: auto
-    restartAfterDeployments: "opentripplanner-data-con-next-hsl"
+    restartAfterDeployments: "opentripplanner-data-con-hsl"
     restartDelay: "1"
     restartAt: "05.15"
     restartLimitInterval: "720"
@@ -42,14 +30,14 @@ spec:
       maxUnavailable: 25%
   selector:
     matchLabels:
-      app: opentripplanner-hsl-next
+      app: opentripplanner-hsl
   template:
     metadata:
       labels:
-        app: opentripplanner-hsl-next
+        app: opentripplanner-hsl
     spec:
       containers:
-      - name: opentripplanner-hsl-next
+      - name: opentripplanner-hsl
         image: hsldevcom/opentripplanner:prod
         imagePullPolicy: Always
         ports:
@@ -65,14 +53,14 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: ROUTER_DATA_CONTAINER_URL
-          value: "http://opentripplanner-data-con-next-hsl:8080"
+          value: "http://opentripplanner-data-con-hsl:8080"
         - name: ROUTER_NAME
           value: "hsl"
         - name: JAVA_OPTS
           valueFrom:
             secretKeyRef:
-              name: otp-next-java-opts
-              key: otp-next-java-opts
+              name: otp-hsl-java-opts
+              key: otp-hsl-java-opts
         resources:
           requests:
             memory: "9216Mi"
