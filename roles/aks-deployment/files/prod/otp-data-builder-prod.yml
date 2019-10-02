@@ -14,22 +14,22 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: otp-data-builder-dev
+  name: otp-data-builder-prod
 spec:
   ports:
   - port: 8080
     protocol: TCP
-    name: otp-data-builder-dev-service-port
+    name: otp-data-builder-prod-service-port
   selector:
-    app: otp-data-builder-dev
+    app: otp-data-builder-prod
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: otp-data-builder-dev
+  name: otp-data-builder-prod
   labels:
-    app: otp-data-builder-dev
+    app: otp-data-builder-prod
     update: auto
 spec:
   replicas: 1
@@ -40,14 +40,14 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: otp-data-builder-dev
+      app: otp-data-builder-prod
   template:
     metadata:
       labels:
-        app: otp-data-builder-dev
+        app: otp-data-builder-prod
     spec:
       containers:
-      - name: otp-data-builder-dev
+      - name: otp-data-builder-prod
         image: hsldevcom/otp-data-builder:latest
         volumeMounts:
           - mountPath: var/run/docker.sock
@@ -93,8 +93,6 @@ spec:
               key: slack-webhook
         - name: TOOLS_TAG
           value: "prod"
-        - name: CONTAINER_LOGGER_LOGROTATE_STDOUT_OPTIONS
-          value: "rotate 18"
         resources:
           requests:
             memory: 12Gi

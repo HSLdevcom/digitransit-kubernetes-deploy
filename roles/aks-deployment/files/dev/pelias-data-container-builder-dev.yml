@@ -59,10 +59,10 @@ spec:
               key: docker-user
         - name: DOCKER_API_VERSION #TODO this should be removed from code and it should use default
           value: "1.38"
-        - name: DOCKER_TAG #TODO eventually this can be changed to latest and replace existing builder
-          value: "kube-test"
-        - name: BUILDER_TYPE #TODO eventually this can be changed to latest and replace existing builder
-          value: "kube"
+        - name: DOCKER_TAG
+          value: "latest"
+        - name: BUILDER_TYPE 
+          value: "prod"
         - name: SLACK_WEBHOOK_URL
           valueFrom:
             secretKeyRef:

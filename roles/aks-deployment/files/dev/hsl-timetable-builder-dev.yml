@@ -43,7 +43,6 @@ spec:
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        # TODO: network: BRIDGE ??
         ports:
         - containerPort: 8080
         env:
@@ -53,7 +52,7 @@ spec:
               name: docker-auth
               key: docker-auth
         - name: DOCKER_TAG
-          value: "kube-test"
+          value: "latest"
         - name: DOCKER_API_VERSION
           value: "1.38"
         - name: DOCKER_USER

@@ -55,15 +55,15 @@ spec:
         readinessProbe:
           periodSeconds: 5
           timeoutSeconds: 10
-          failureThreshold: 30
+          failureThreshold: 2
           httpGet:
             port: 8080
             path: "/version.txt"
         livenessProbe:
-          initialDelaySeconds: 150
+          initialDelaySeconds: 300
           periodSeconds: 10
           timeoutSeconds: 10
-          failureThreshold: 25
+          failureThreshold: 2
           httpGet:
             port: 8080
             path: "/version.txt"

@@ -58,7 +58,7 @@ spec:
         readinessProbe:
           periodSeconds: 5
           timeoutSeconds: 10
-          failureThreshold: 12
+          failureThreshold: 2
           httpGet:
             port: 8080
             path: /
