@@ -35,7 +35,7 @@ spec:
   selector:
     matchLabels:
       app: opentripplanner-data-con-next-hsl
-  replicas: 2
+  replicas: 0
   strategy:
     type: RollingUpdate
     rollingUpdate:
