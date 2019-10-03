@@ -62,7 +62,7 @@ spec:
         readinessProbe:
           periodSeconds: 5
           timeoutSeconds: 10
-          failureThreshold: 120
+          failureThreshold: 2
           httpGet:
             port: 9200
             path: /_search?q=name.fi:helsinki

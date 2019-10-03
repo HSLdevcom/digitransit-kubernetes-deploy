@@ -57,7 +57,7 @@ spec:
         readinessProbe:
           periodSeconds: 10
           timeoutSeconds: 10
-          failureThreshold: 50
+          failureThreshold: 2
           httpGet:
             port: 8080
             path: "/hsl"
