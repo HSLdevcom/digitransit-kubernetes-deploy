@@ -47,6 +47,7 @@ spec:
       labels:
         app: digitransit-ui-hsl-next
     spec:
+      priorityClassName: medium-priority
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

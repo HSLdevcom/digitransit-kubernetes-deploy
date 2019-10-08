@@ -46,6 +46,7 @@ spec:
       labels:
         app: otp-data-builder-dev
     spec:
+      priorityClassName: high-priority
       containers:
       - name: otp-data-builder-dev
         image: hsldevcom/otp-data-builder:latest

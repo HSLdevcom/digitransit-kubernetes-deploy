@@ -48,6 +48,7 @@ spec:
       labels:
         app: digitransit-ui-matka
     spec:
+      priorityClassName: medium-priority
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

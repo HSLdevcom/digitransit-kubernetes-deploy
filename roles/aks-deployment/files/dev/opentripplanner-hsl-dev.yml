@@ -36,6 +36,7 @@ spec:
       labels:
         app: opentripplanner-hsl
     spec:
+      priorityClassName: medium-priority
       containers:
       - name: opentripplanner-hsl
         image: hsldevcom/opentripplanner:latest

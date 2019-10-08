@@ -35,6 +35,7 @@ spec:
       labels:
         app: pelias-data-container-builder
     spec:
+      priorityClassName: high-priority
       containers:
       - name: pelias-data-container-builder
         image: hsldevcom/pelias-data-container-builder

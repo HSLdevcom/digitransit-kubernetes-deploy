@@ -37,6 +37,7 @@ spec:
       labels:
         app: opentripplanner-waltti
     spec:
+      priorityClassName: medium-priority
       containers:
       - name: opentripplanner-waltti
         image: hsldevcom/opentripplanner:latest

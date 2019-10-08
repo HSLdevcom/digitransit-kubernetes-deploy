@@ -37,6 +37,7 @@ spec:
       labels:
         app: opentripplanner-finland
     spec:
+      priorityClassName: medium-priority
       containers:
       - name: opentripplanner-finland
         image: hsldevcom/opentripplanner:latest

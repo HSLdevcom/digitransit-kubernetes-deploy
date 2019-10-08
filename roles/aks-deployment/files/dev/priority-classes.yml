@@ -1,0 +1,16 @@
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: medium-priority
+value: 50
+globalDefault: false
+description: "Use this class for OTP, pelias and ui."
+
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: default-priority
+value: 10
+globalDefault: true

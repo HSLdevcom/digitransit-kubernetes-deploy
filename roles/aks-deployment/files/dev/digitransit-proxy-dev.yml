@@ -36,6 +36,7 @@ spec:
       labels:
         app: digitransit-proxy
     spec:
+      priorityClassName: high-priority
       containers:
       - name: digitransit-proxy
         image: hsldevcom/digitransit-proxy:latest

@@ -34,6 +34,7 @@ spec:
         app: hsl-timetable-builder
 
     spec:
+      priorityClassName: high-priority
       containers:
       - name: hsl-timetable-builder
         image: hsldevcom/hsl-timetable-builder
