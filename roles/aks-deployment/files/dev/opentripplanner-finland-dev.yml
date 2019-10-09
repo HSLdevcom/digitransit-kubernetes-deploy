@@ -46,7 +46,7 @@ spec:
         - containerPort: 8080
         readinessProbe:
           periodSeconds: 10
-          timeoutSeconds: 10
+          timeoutSeconds: 15
           failureThreshold: 2
           httpGet:
             port: 8080
