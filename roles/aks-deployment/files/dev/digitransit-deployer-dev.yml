@@ -93,13 +93,13 @@ spec:
         - name: DEBUG
           value: "*"
         # TODO enable these envs
-        # - name: ENVIRONMENT_TYPE
-        #   value: "DEV"
-        # - name: SLACK_WEBHOOK_URL
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: slack-webhook
-        #       key: slack-webhook
+        - name: ENVIRONMENT_TYPE
+          value: "DEV"
+        - name: SLACK_WEBHOOK_URL
+          valueFrom:
+            secretKeyRef:
+              name: slack-webhook
+              key: slack-webhook
         resources:
           requests:
             memory: 512Mi
