@@ -68,4 +68,4 @@ spec:
             memory: 11264Mi
           limits:
             memory: 11264Mi
-            cpu: "1900m"
+            cpu: "6000m"
