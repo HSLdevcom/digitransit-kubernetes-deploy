@@ -24,7 +24,7 @@ spec:
   selector:
     matchLabels:
       app: digitransit-ui-waltti
-  replicas: 2
+  replicas: 6
   strategy:
     type: RollingUpdate
     rollingUpdate:

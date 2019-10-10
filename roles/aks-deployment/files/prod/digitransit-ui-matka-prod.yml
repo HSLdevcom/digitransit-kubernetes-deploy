@@ -37,7 +37,7 @@ spec:
   selector:
     matchLabels:
       app: digitransit-ui-matka
-  replicas: 2
+  replicas: 4
   strategy:
     type: RollingUpdate
     rollingUpdate:
