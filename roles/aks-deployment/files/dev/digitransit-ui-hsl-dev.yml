@@ -35,6 +35,7 @@ spec:
       labels:
         app: digitransit-ui-hsl
     spec:
+      priorityClassName: medium-priority
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
