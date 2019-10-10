@@ -1,6 +1,6 @@
 ---
 # Add here variables specific to DEV environment
-"az_environment": "dev"
+"az_environment": "development"
 
 "aks_loadbalancer_ip": "10.240.0.9"
 
