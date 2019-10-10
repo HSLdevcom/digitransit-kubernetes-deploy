@@ -2,7 +2,7 @@
 
 ## Create AKS cluster
 
-`ansible-playbook play_setup_aks.yml -e @env_vars/env-dev.yml`
+`ansible-playbook play_setup_aks.yml -e "service_principal=<service_principal_id> client_secret=<client_secret>" -e @env_vars/env-dev.yml`
 
 ## Setup tiller and install azure key vault controller
 
