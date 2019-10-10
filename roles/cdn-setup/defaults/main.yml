@@ -1,16 +1,7 @@
 ---
 # defaults file for digitransit-azure-cdn
-rg_env_prefix: "{{project}}-{{az_environment}}{{gateway_name_postfix}}"
-resource_group_name: "{{rg_env_prefix}}-appgw-rg"
+resource_group_name: "{{project}}-{{az_environment}}-cdn"
 cdn_sku: Standard_Verizon
 origin_host: dev-api.digitransit.fi
 origin_header: dev-api.digitransit.fi
-origin_path: /
-compression: true
 mime_types: "text/plain text/html text/css text/javascript application/x-javascript application/javascript application/json application/xml"
-https: false
-http: false
-http_port: 80
-https_port: 443
-#this is more for logical naming of the object its pointing to i.e the endpoint
-endpoint: origin
