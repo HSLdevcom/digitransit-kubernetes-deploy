@@ -1,5 +1,4 @@
 ---
 resource_group_name: "{{project}}-{{az_environment}}-aks-rg"
-node_count: "12"
 node_vm_size: "Standard_F8s_v2"
 kubernetes_version: "1.14.6"
