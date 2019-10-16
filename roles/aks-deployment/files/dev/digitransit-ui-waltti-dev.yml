@@ -75,8 +75,6 @@ spec:
           value: "https://dev-api.digitransit.fi/routing/v1/routers/waltti/"
         - name: MAP_URL
           value: "https://digitransit-dev-cdn-origin.azureedge.net"
-        - name: REALTIME_PATCH
-          value: "{\"tampere\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Joensuu\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Lappeenranta\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"Kuopio\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}, \"LINKKI\": {\"mqtt\": \"wss://dev-mqtt.lmj.fi:8443/mqtt\"}}"
         - name: NODE_OPTS
           value: "--max_old_space_size=900"
         - name: RELAY_FETCH_TIMEOUT
