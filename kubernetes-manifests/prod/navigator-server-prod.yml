@@ -69,7 +69,7 @@ spec:
             path: /
         env:
         - name: NODE_OPTS 
-          value: --max_old_space_size=400
+          value: --max_old_space_size=100
         resources:
           requests:
             memory: 128Mi
