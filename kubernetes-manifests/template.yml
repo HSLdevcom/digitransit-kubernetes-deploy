@@ -22,9 +22,9 @@ spec:
   replicas: <REPLICAS_AMOUNT>
   strategy:
     type: RollingUpdate
-    rollingUpdate:
+    rollingUpdate: # Depends on number of replicas and if it is prod or dev, prod should always have 0 maxUnavaiblable, in dev there should always be at least on replica running
       maxSurge: 1
-      maxUnavailable: 25%
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: <NAME>

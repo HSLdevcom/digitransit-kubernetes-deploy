@@ -24,8 +24,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 25%
+      maxSurge: 25%
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: pelias-api
