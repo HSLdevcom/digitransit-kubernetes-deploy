@@ -24,7 +24,7 @@ spec:
   selector:
     matchLabels:
       app: digitransit-ui-hsl
-  replicas: 2
+  replicas: 8
   strategy:
     type: RollingUpdate
     rollingUpdate:

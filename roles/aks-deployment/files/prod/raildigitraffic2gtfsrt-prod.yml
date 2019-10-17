@@ -22,7 +22,7 @@ metadata:
     restartAfterDeployments: "opentripplanner-data-con-finland"
     restartDelay: "5"  
 spec:
-  replicas: 0
+  replicas: 4
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -74,7 +74,7 @@ spec:
           value: "https://api.digitransit.fi/routing-data/v2/finland/router-finland.zip"
         resources:
           requests:
-            memory: "1244Mi"
+            memory: "1536Mi"
           limits:
-            memory: "1244Mi"
+            memory: "1536Mi"
             cpu: "100m"        

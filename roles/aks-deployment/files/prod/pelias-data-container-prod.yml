@@ -24,7 +24,7 @@ metadata:
     app: pelias-data-container
     update: auto
 spec:
-  replicas: 1
+  replicas: 9
   strategy:
     type: RollingUpdate
     rollingUpdate:

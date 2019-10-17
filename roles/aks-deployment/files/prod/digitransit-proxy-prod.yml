@@ -28,7 +28,7 @@ spec:
   selector:
     matchLabels:
       app: digitransit-proxy
-  replicas: 2
+  replicas: 10
   template:
     metadata:
       labels:

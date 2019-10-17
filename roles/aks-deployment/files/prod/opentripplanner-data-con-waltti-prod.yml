@@ -60,7 +60,7 @@ spec:
             port: 8080
             path: "/version.txt"
         livenessProbe:
-          initialDelaySeconds: 150
+          initialDelaySeconds: 500
           periodSeconds: 10
           timeoutSeconds: 10
           failureThreshold: 25
