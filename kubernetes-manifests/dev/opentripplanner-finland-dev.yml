@@ -40,7 +40,7 @@ spec:
       priorityClassName: medium-priority
       containers:
       - name: opentripplanner-finland
-        image: hsldevcom/opentripplanner:latest
+        image: hsldevcom/opentripplanner:prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
