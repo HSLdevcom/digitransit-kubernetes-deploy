@@ -92,7 +92,6 @@ spec:
         env:
         - name: DEBUG
           value: "*"
-        # TODO enable these envs
         - name: ENVIRONMENT_TYPE
           value: "DEV"
         - name: SLACK_WEBHOOK_URL

@@ -93,7 +93,7 @@ spec:
         - name: DEBUG
           value: "*"
         - name: ENVIRONMENT_TYPE
-          value: "DEV"
+          value: "PROD"
         - name: SLACK_WEBHOOK_URL
           valueFrom:
             secretKeyRef:
