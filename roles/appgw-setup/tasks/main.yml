@@ -42,7 +42,6 @@
     --vnet-name {{gateway_env_prefix}}-appgw-vnet \                         
     --subnet {{gateway_env_prefix}}-appgw-subnet \
     --public-ip-address {{gateway_env_prefix}}-appgw-pubip \
-    --servers {{aks_loadbalancer_ip}} \
     --capacity {{gateway_capacity}} \
     --sku {{sku}} \
     --routing-rule-type {{routing_rule}} \

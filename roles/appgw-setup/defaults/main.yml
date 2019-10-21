@@ -3,7 +3,7 @@
 
 
 gateway_env_prefix: "{{project}}-{{az_environment}}{{gateway_name_postfix}}"
-resource_group_name: "{{gateway_env_prefix}}-appgw-rg"
+resource_group_name: "{{gateway_env_prefix}}-gateway-rg"
 vnet_prefix: 11.0.0.0/16
 subnet_prefix: 11.0.0.0/28
 #backend_servers: digitransit-devagents.westeurope.cloudapp.azure.com
