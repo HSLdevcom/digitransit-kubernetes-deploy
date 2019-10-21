@@ -86,7 +86,5 @@ spec:
             cpu: "100m"
       volumes:
         - name: "yleisviestipalvelumessages"
-          azureFile:
-            secretName: prod-aks-fileshare
-            shareName: prodaksshare
-            readOnly: false        
+          persistentVolumeClaim:
+            claimName: yleisviesti-fileshare
