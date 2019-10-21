@@ -24,7 +24,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
+      maxSurge: 0
+      maxUnavailable: 50%
   selector:
     matchLabels:
       app: digitransit-site
@@ -68,7 +69,7 @@ spec:
             path: "/"
         resources:
           requests:
-            memory: "128Mi" #TODO: Define for digitransit-site
+            memory: "128Mi"
           limits:
-            memory: "128Mi" # TODO: Define for digitransit-site
+            memory: "128Mi"
             cpu: "100m"

@@ -29,6 +29,11 @@ spec:
     matchLabels:
       app: digitransit-proxy
   replicas: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 0
   template:
     metadata:
       labels:

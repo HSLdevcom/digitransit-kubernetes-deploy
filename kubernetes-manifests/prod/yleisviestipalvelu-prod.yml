@@ -55,9 +55,17 @@ spec:
           allowPrivilegeEscalation: false
         ports:
         - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: /
         livenessProbe:
-          initialDelaySeconds: 300
+          initialDelaySeconds: 12
           periodSeconds: 10
+          timeoutSeconds: 10
           failureThreshold: 5
           httpGet:
             port: 8080
@@ -77,8 +85,8 @@ spec:
             memory: "64Mi"
             cpu: "100m"
       volumes:
-        - name: "yleisviestipalvelumessages" # TODO: Change this
+        - name: "yleisviestipalvelumessages"
           azureFile:
-            secretName: dev-aks-fileshare
-            shareName: devaksshare
+            secretName: prod-aks-fileshare
+            shareName: prodaksshare
             readOnly: false        

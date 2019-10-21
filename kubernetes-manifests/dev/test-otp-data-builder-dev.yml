@@ -48,7 +48,7 @@ spec:
     spec:
       containers:
       - name: otp-data-builder
-        image: hsldevcom/hsldevcom/otp-data-builder:next
+        image: hsldevcom/otp-data-builder:next
         volumeMounts:
           - mountPath: /var/run/docker.sock
             name: "docker-sock-volume"

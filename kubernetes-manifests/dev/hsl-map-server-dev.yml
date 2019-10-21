@@ -19,15 +19,15 @@ metadata:
   labels:
     app: hsl-map-server
     update: auto
-    restartAfterDeployments: "opentripplanner-hsl"
+    restartAfterDeployments: "opentripplanner-hsl_opentripplanner-waltti_opentripplanner-finland"
     restartDelay: "5"
 spec:
   replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 25%
+      maxSurge: 0
+      maxUnavailable: 50%
   selector:
     matchLabels:
       app: hsl-map-server
@@ -89,4 +89,4 @@ spec:
             memory: 4096Mi
           limits:
             memory: 4096Mi
-            cpu: 2000m # This might actually need 4000m as hsl-map-server has 4 workers
+            cpu: 4000m

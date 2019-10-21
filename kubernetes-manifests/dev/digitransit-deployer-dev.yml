@@ -63,7 +63,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 25%
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: digitransit-deployer
@@ -92,7 +92,6 @@ spec:
         env:
         - name: DEBUG
           value: "*"
-        # TODO enable these envs
         - name: ENVIRONMENT_TYPE
           value: "DEV"
         - name: SLACK_WEBHOOK_URL

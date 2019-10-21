@@ -70,8 +70,8 @@ spec:
         env:
         - name: HSL_URL
           value: "http://navigator-server:8080/siriaccess/vm/json?operatorRef=HSL"
-      #  - name: TRAIN_URL
-       #   value: "http://raildigitraffic2gtfsrt.marathon.l4lb.thisdcos.directory:8080/hsl"
+        - name: TRAIN_URL
+          value: "http://raildigitraffic2gtfsrt:8080/hsl"
         resources:
           requests:
             memory: "128Mi"

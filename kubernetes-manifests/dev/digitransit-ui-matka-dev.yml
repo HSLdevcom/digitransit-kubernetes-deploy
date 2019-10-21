@@ -41,8 +41,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 25%
+      maxSurge: 0
+      maxUnavailable: 50%
   template:
     metadata:
       labels:
@@ -88,8 +88,6 @@ spec:
           value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v1/finland"
         - name: MAP_URL
           value: "https://digitransit-dev-cdn-origin.azureedge.net"
-        - name: OTP_URL
-          value: "https://dev-api.digitransit.fi/routing/v1/routers/finland/"
         - name: NODE_OPTS
           value: "--max_old_space_size=600"
         - name: RELAY_FETCH_TIMEOUT
@@ -104,11 +102,6 @@ spec:
             secretKeyRef:
               name: sentry-secret-dsn
               key: sentry-secret-dsn
-        - name: APIM_SUBSCRIPTION_KEY
-          valueFrom:
-            secretKeyRef:
-              name: apim-subs-test-key
-              key: apim-subs-test-key
         resources:
           requests:
             memory: 1024Mi

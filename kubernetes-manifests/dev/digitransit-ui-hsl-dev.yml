@@ -28,8 +28,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 25%
+      maxSurge: 0
+      maxUnavailable: 50%
   template:
     metadata:
       labels:
@@ -89,11 +89,6 @@ spec:
             secretKeyRef:
               name: sentry-secret-dsn
               key: sentry-secret-dsn
-        - name: APIM_SUBSCRIPTION_KEY
-          valueFrom:
-            secretKeyRef:
-              name: apim-subs-test-key
-              key: apim-subs-test-key
         resources:
           requests:
             memory: "1536Mi"
