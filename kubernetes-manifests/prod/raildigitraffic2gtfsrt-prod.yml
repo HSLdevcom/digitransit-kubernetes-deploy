@@ -62,7 +62,7 @@ spec:
             port: 8080
             path: "/hsl"
         livenessProbe:
-          initialDelaySeconds: 500
+          initialDelaySeconds: 1000
           periodSeconds: 30
           timeoutSeconds: 10
           failureThreshold: 5
