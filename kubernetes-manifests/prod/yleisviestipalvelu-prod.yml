@@ -46,7 +46,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: yleisviestipalvelu
-        image: hsldevcom/yleisviestipalvelu
+        image: hsldevcom/yleisviestipalvelu:prod
         volumeMounts:
           - mountPath: /yleisviestipalvelu/messages
             name: yleisviestipalvelumessages
