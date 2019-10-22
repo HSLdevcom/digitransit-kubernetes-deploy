@@ -50,7 +50,56 @@ NOTE: Guidelines are subject to change as project progresses.
 To be added
 
 
-## Peering vnets
+# AKS cluster setup
+
+## Create AKS cluster
+
+`ansible-playbook play_setup_aks.yml -e "service_principal=<service_principal_id> client_secret=<client_secret>" -e @env_vars/env-<dev or prod>.yml`
+
+## Setup tiller and install azure key vault controller
+
+Install [Helm](https://helm.sh/docs/using_helm/) if you don't have it
+
+```
+kubectl apply -f ./kubernetes-manifests/assets/tiller-setup.yml
+helm init --service-account tiller
+```
+```
+helm repo add spv-charts http://charts.spvapi.no
+helm repo update
+
+helm install spv-charts/azure-key-vault-controller
+```
+
+## Azure Key Vault Setup
+
+Creating Azure key vault if you don't existing one already.
+* Run `ansible-playbook play_setup_keyvault.yml -e @env_vars/env-<dev or prod>.yml`
+
+When key vault has been created
+
+* Run following commands to give AKS-cluster permissions to read from key vault
+```
+az role assignment create --role Reader --assignee <service_principal_clientid> --scope <keyvault_resource_id>
+
+az keyvault set-policy -n <keyvault_name> --key-permissions get --spn <YOUR SPN CLIENT ID>
+az keyvault set-policy -n <keyvault_name> --secret-permissions get --spn <YOUR SPN CLIENT ID>
+az keyvault set-policy -n <keyvault_name> --certificate-permissions get --spn <YOUR SPN CLIENT ID>
+```
+
+When AKS-cluster has permissions to read from key vault, you can following command to add kube-secrets
+
+```
+kubectl apply -f ./kubernetes-manifests/assets/keyvaultsecrets.yml
+```
+
+When secrets have been added to AKS cluster, you can start deploying services to cluster.
+
+## Application Gateway setup
+
+* Run `ansible-playbook play_setup_appgw.yml -e @env_vars/env-<dev or prod>.yml`
+
+### Peering vnets
 Following commands create peering connections between AKS cluster and application gateway. Peering connections has to be created so that application gateway can connect to AKS cluster using internal ip.
 
 ```
