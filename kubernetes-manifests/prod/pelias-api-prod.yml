@@ -46,7 +46,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: pelias-api
-        image: hsldevcom/pelias-api
+        image: hsldevcom/pelias-api:prod
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
