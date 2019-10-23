@@ -99,8 +99,16 @@ When secrets have been added to AKS cluster, you can start deploying services to
 
 * Run `ansible-playbook play_setup_appgw.yml -e @env_vars/env-<dev or prod>.yml`
 
+## Azure Api Management setup
+* Read the docs: [Create Azure Api Management](https://docs.microsoft.com/en-us/azure/api-management/get-started-create-service-instance)
+
+
+## Integrate Api Management and Application Gateway
+
+Configure Api Management's vnet to internal mode so it is accessible only through Application Gateway. [Read here for more information](https://docs.microsoft.com/en-us/azure/api-management/get-started-create-service-instance)
+
 ### Peering vnets
-Following commands create peering connections between AKS cluster and application gateway. Peering connections has to be created so that application gateway can connect to AKS cluster using internal ip.
+Following commands create peering connections between AKS cluster and application gateway and Api Management. Peering connections has to be created so that application gateway can connect to AKS cluster using internal ip.
 
 ```
 az network vnet peering create -g <appgw_resource_group> -n <peering_name> --vnet-name <appgw_vnet_name> --remote-vnet <aks_vnet_resource_id> --allow-vnet-access
