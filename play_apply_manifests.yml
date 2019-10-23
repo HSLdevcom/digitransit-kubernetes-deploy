@@ -1,0 +1,7 @@
+- name: "Apply manifest(s) to {{project}}-{{ az_environment }}-aks"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  roles:
+    - role: aks-apply
