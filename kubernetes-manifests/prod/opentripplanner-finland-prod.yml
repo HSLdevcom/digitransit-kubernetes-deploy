@@ -63,7 +63,7 @@ spec:
               key: otp-finland-java-opts-prod
         resources:
           requests:
-            memory: 9216Mi
+            memory: 11216Mi
           limits:
-            memory: 9216Mi
+            memory: 11216Mi
             cpu: "6000m"
