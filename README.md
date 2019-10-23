@@ -29,20 +29,17 @@ NOTE: This is a living document during the migration project, and subject to fre
 ## Development guidelines
 NOTE: Guidelines are subject to change as project progresses.
 
-**template.yml**
-* Template for kubernetes manifests is prvided in /aks-deployment/files. Use this to create new configurations for deployments and services. 
-
 **Variables**
 * Use folder *group_vars* for variables that do not vary between deployments or environments, such as the naming convention of resources
+    * In folder *group_vars*, use file *all* for generic variables (e.g. Resource Group namings, variables related to subscription etc.)
 
 * Use folder *env_vars* for variables that DO vary between deployments or environments, such as the number of nodes in an AKS cluster
 
-* In folder *group_vars*, use file *all* for generic variables (e.g. Resource Group namings, variables related to subscription etc.)
-
-**Kubernetes definitions**
-* Use a similar folder structure as currently with https://github.com/HSLdevcom/digitransit-mesos-deploy/tree/master/digitransit-azure-deploy 
-    * All deployment definitions go under one role (to be specified)
-    * Create a separate YAML file for deploying each service (folder to be specified)
+**Kubernetes manifest definitions**
+* Reside under /roles/aks-apply/files/
+    * Use assets directory for files that should always be the same in both environments
+    * Use environment named directories for rest of files that are or can be different in each environment
+    * template.yml in the root defines a basic structure for a manifest
 
 * By default use Kubernetes YAML's for service and deployment definitions instead of Helm charts
 
@@ -54,50 +51,11 @@ To be added
 
 ## Create AKS cluster
 
-`ansible-playbook play_setup_aks.yml -e "service_principal=<service_principal_id> client_secret=<client_secret>" -e @env_vars/env-<dev or prod>.yml`
-
-## Setup tiller and install azure key vault controller
-
-Install [Helm](https://helm.sh/docs/using_helm/) if you don't have it
-
-```
-kubectl apply -f ./kubernetes-manifests/assets/tiller-setup.yml
-helm init --service-account tiller
-```
-```
-helm repo add spv-charts http://charts.spvapi.no
-helm repo update
-
-helm install spv-charts/azure-key-vault-controller
-```
-
-## Azure Key Vault Setup
-
-Creating Azure key vault if you don't existing one already.
-* Run `ansible-playbook play_setup_keyvault.yml -e @env_vars/env-<dev or prod>.yml`
-
-When key vault has been created
-
-* Run following commands to give AKS-cluster permissions to read from key vault
-```
-az role assignment create --role Reader --assignee <service_principal_clientid> --scope <keyvault_resource_id>
-
-az keyvault set-policy -n <keyvault_name> --key-permissions get --spn <YOUR SPN CLIENT ID>
-az keyvault set-policy -n <keyvault_name> --secret-permissions get --spn <YOUR SPN CLIENT ID>
-az keyvault set-policy -n <keyvault_name> --certificate-permissions get --spn <YOUR SPN CLIENT ID>
-```
-
-When AKS-cluster has permissions to read from key vault, you can following command to add kube-secrets
-
-```
-kubectl apply -f ./kubernetes-manifests/assets/keyvaultsecrets.yml
-```
-
-When secrets have been added to AKS cluster, you can start deploying services to cluster.
+`ansible-playbook play_setup_aks.yml -e "service_principal=<service_principal_id> client_secret=<client_secret>" -e @env_vars/<dev or prod>.yml`
 
 ## Application Gateway setup
 
-* Run `ansible-playbook play_setup_appgw.yml -e @env_vars/env-<dev or prod>.yml`
+* Run `ansible-playbook play_setup_appgw.yml -e @env_vars/<dev or prod>.yml`
 
 ## Azure Api Management setup
 * Read the docs: [Create Azure Api Management](https://docs.microsoft.com/en-us/azure/api-management/get-started-create-service-instance)
@@ -117,3 +75,42 @@ az network vnet peering create -g <appgw_resource_group> -n <peering_name> --vne
 ```
 az network vnet peering create -g <aks_resource_group> -n <peering_name> --vnet-name <aks_vnet_name> --remote-vnet <appgw_vnet_resource_id> --allow-vnet-access
 ```
+
+## Setup tiller and install azure key vault controller
+
+Install [Helm](https://helm.sh/docs/using_helm/) if you don't have it
+
+```
+kubectl apply -f ./kubernetes-manifests/assets/tiller-setup.yml
+helm init --service-account tiller
+```
+```
+helm repo add spv-charts http://charts.spvapi.no
+helm repo update
+
+helm install spv-charts/azure-key-vault-controller
+```
+
+## Azure Key Vault Setup
+
+Creating Azure key vault if you don't existing one already.
+* Run `ansible-playbook play_setup_keyvault.yml -e @env_vars/<dev or prod>.yml`
+
+When key vault has been created
+
+* Run following commands to give AKS-cluster permissions to read from key vault
+```
+az role assignment create --role Reader --assignee <service_principal_clientid> --scope <keyvault_resource_id>
+
+az keyvault set-policy -n <keyvault_name> --key-permissions get --spn <YOUR SPN CLIENT ID>
+az keyvault set-policy -n <keyvault_name> --secret-permissions get --spn <YOUR SPN CLIENT ID>
+az keyvault set-policy -n <keyvault_name> --certificate-permissions get --spn <YOUR SPN CLIENT ID>
+```
+
+## Deploy kubernetes manifests
+
+Applying all manifests into an environment (**Note you should have done all the earlier steps first**)
+* Run `ansible-playbook play_apply_manifests.yml -e @env_vars/<dev or prod>.yml`
+
+Applying a specific manifest into an environment
+* Run `ansible-playbook play_apply_manifests.yml -e @env_vars/<dev or prod>.yml -e service=<filename without -env.yml postfix>`
