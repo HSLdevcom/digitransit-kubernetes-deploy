@@ -81,7 +81,7 @@ az network vnet peering create -g <aks_resource_group> -n <peering_name> --vnet-
 Install [Helm](https://helm.sh/docs/using_helm/) if you don't have it
 
 ```
-kubectl apply -f ./kubernetes-manifests/assets/tiller-setup.yml
+kubectl apply -f ./roles/aks-apply/files/assets/tiller-setup.yml
 helm init --service-account tiller
 ```
 ```
