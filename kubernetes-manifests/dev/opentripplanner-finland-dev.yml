@@ -61,8 +61,8 @@ spec:
         - name: JAVA_OPTS
           valueFrom:
             secretKeyRef:
-              name: otp-finland-java-opts
-              key: otp-finland-java-opts
+              name: otp-finland-java-opts-dev
+              key: otp-finland-java-opts-dev
         resources:
           requests:
             memory: 11264Mi

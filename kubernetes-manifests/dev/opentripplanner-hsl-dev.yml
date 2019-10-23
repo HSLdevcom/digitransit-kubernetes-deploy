@@ -60,8 +60,8 @@ spec:
         - name: JAVA_OPTS
           valueFrom:
             secretKeyRef:
-              name: otp-hsl-java-opts
-              key: otp-hsl-java-opts
+              name: otp-hsl-java-opts-dev
+              key: otp-hsl-java-opts-dev
         resources:
           requests:
             memory: "9216Mi"

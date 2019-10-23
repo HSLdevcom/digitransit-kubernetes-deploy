@@ -61,8 +61,8 @@ spec:
         - name: JAVA_OPTS
           valueFrom:
             secretKeyRef:
-              name: otp-waltti-java-opts
-              key: otp-waltti-java-opts
+              name: otp-waltti-java-opts-dev
+              key: otp-waltti-java-opts-dev
         resources:
           requests:
             memory: "11240Mi"
