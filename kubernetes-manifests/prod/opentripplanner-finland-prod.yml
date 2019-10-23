@@ -17,9 +17,8 @@ metadata:
   name: opentripplanner-finland
   labels:
     app: opentripplanner-finland
-    update: auto
     restartAfterDeployments: "opentripplanner-data-con-finland"
-    restartDelay: "1"
+    restartDelay: "5"
     restartAt: "05.30"
     restartLimitInterval: "720"
 spec:
