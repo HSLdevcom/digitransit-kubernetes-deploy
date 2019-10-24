@@ -164,7 +164,7 @@ spec:
         resources:
             requests:
               memory: "1152Mi"
-              cpu: "3000m"
+              cpu: "2000m"
             limits:
               memory: "1152Mi"
-              cpu: "4000m" # TODO: this limit was previously too low as nginx uses 3 workers and allocation was just 2, however not sure if this is enough either
+              cpu: "3000m" # TODO: this limit was previously too low as nginx uses 3 workers and allocation was just 2, however not sure if this is enough either
