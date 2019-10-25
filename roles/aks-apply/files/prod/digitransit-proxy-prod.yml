@@ -41,7 +41,7 @@ spec:
     spec:
       containers:
       - name: digitransit-proxy
-        image: hsldevcom/digitransit-proxy:prod
+        image: hsldevcom/digitransit-proxy:remove-caches #TODO use more standard tag when available
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -161,6 +161,7 @@ spec:
         resources:
             requests:
               memory: "1152Mi"
+              cpu: "2000m"
             limits:
               memory: "1152Mi"
               cpu: "3000m"

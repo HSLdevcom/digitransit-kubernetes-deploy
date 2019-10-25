@@ -40,7 +40,7 @@ spec:
       priorityClassName: medium-priority
       containers:
       - name: opentripplanner-finland
-        image: hsldevcom/opentripplanner:prod
+        image: hsldevcom/opentripplanner:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -65,7 +65,8 @@ spec:
               key: otp-finland-java-opts-dev
         resources:
           requests:
-            memory: 11264Mi
-          limits:
-            memory: 11264Mi
+            memory: 12364Mi
             cpu: "6000m"
+          limits:
+            memory: 12364Mi
+            cpu: "7000m"

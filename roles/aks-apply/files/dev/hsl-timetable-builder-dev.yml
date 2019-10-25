@@ -86,9 +86,10 @@ spec:
         resources:
           requests:
             memory: 1736Mi
+            cpu: 1000m
           limits:
             memory: 1736Mi
-            cpu: 1000m
+            cpu: 4000m
       volumes:
         - name: "docker-sock-volume"
           hostPath:

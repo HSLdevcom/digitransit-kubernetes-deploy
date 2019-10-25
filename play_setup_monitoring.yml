@@ -1,7 +1,0 @@
-- name: "Setup {{project}}-{{ az_environment }}-aks monitoring"
-  hosts: localhost
-  connection: local
-  gather_facts: false
-
-  roles:
-    - role: aks-monitoring
