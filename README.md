@@ -50,8 +50,17 @@ To be added
 # AKS cluster setup
 
 ## Create AKS cluster
+First create service principal for the AKS cluster.
+```
+az ad sp create-for-rbac -n <service_principal_name> --skip-assignment
+```
 
-`ansible-playbook play_setup_aks.yml -e "service_principal=<service_principal_id> client_secret=<client_secret>" -e @env_vars/<dev or prod>.yml`
+When service principal has been created, you'll need to create client secret from Azure portal. In portal go to `Azure Active Directory` and then `App registrations` to find your just created service principal. Open your service principal and create client secret from `Certificates & Secrets` tab.
+
+Run following command to create AKS cluster.
+```
+ansible-playbook play_setup_aks.yml -e "service_principal=<service_principal_id> client_secret=<client_secret>" -e @env_vars/<dev or prod>.yml
+```
 
 ## Application Gateway setup
 
