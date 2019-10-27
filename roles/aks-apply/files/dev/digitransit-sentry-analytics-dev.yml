@@ -54,7 +54,7 @@ spec:
         - name: DISABLE_CACHE
           value: "true"
         - name: "SENTRY_BASE_URL"
-          value: "https://sentry.hsl.fi/api/0/"
+          value: "https://sentry.io/api/0/"
         - name: SENTRY_TOKEN
           valueFrom:
             secretKeyRef:
@@ -71,7 +71,7 @@ spec:
               name: sentry-password
               key: sentry-password
         - name: ZERO_ROUTES_ID
-          value: "25"
+          value: "1136449258"
         resources:
           requests:
             memory: "256Mi"
