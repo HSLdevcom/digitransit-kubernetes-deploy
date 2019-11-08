@@ -1,4 +1,4 @@
-- name: "Apply manifest(s) to {{project}}-{{ az_environment }}-aks"
+- name: "Apply manifest(s)"
   hosts: localhost
   connection: local
   gather_facts: false

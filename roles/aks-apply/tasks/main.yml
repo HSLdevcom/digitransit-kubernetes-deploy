@@ -1,5 +1,5 @@
 ---
-- name: "Configure kubectl to use {project}}-{{ az_environment }}-aks"
+- name: "Configure kubectl to use {{project}}-{{ az_environment }}-aks"
   command: "az aks get-credentials \
     --resource-group {{project}}-{{az_environment}}-aks-rg \
     --name {{project}}-{{ az_environment }}-aks"
