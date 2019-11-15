@@ -62,7 +62,7 @@ spec:
         - name: BUILDER_TYPE
           value: "prod"
         - name: BUILD_TIME
-          value: "00:00:00"
+          value: "00:30:00"
         - name: DOCKER_API_VERSION
           value: "1.38"
         - name: DATA
