@@ -48,7 +48,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: raildigitraffic2gtfsrt
-        image: hsldevcom/raildigitraffic2gtfsrt
+        image: hsldevcom/raildigitraffic2gtfsrt:tampere-test #TODO change tag back to normal
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -62,7 +62,7 @@ spec:
             port: 8080
             path: "/hsl"
         livenessProbe:
-          initialDelaySeconds: 1000
+          initialDelaySeconds: 1400
           periodSeconds: 30
           timeoutSeconds: 10
           failureThreshold: 5
@@ -70,8 +70,11 @@ spec:
             port: 8080
             path: "/hsl"
         env:
-        - name: ROUTER_ZIP_URL
-          value: "https://dev-api.digitransit.fi/routing-data/v2/finland/router-finland.zip"
+        - name: API_BASE_URL
+          value: "https://dev-api.digitransit.fi/routing-data/v2/"
+        # TODO remove this
+        # - name: ROUTER_ZIP_URL
+        #   value: "https://dev-api.digitransit.fi/routing-data/v2/finland/router-finland.zip"
         resources:
           requests:
             memory: "1536Mi"
