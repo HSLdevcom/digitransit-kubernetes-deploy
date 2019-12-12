@@ -23,7 +23,6 @@ spec:
     app: digitransit-ui-matka
 ---
 
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -101,6 +100,11 @@ spec:
             secretKeyRef:
               name: sentry-secret-dsn
               key: sentry-secret-dsn
+        - name: GTM_ID
+          valueFrom:
+            secretKeyRef:
+              name: gtm-id
+              key: gtm-id
         resources:
           requests:
             memory: 1024Mi
