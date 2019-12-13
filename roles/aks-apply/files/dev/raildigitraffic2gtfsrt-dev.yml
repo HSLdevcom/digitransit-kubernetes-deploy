@@ -19,7 +19,7 @@ metadata:
   labels:
     app: raildigitraffic2gtfsrt
     update: auto
-    restartAfterDeployments: "opentripplanner-data-con-finland"
+    restartAfterDeployments: "opentripplanner-data-con-finland_opentripplanner-data-con-hsl"
     restartDelay: "5"  
 spec:
   replicas: 1
@@ -48,7 +48,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: raildigitraffic2gtfsrt
-        image: hsldevcom/raildigitraffic2gtfsrt:tampere-test #TODO change tag back to normal
+        image: hsldevcom/raildigitraffic2gtfsrt:latest
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -72,9 +72,6 @@ spec:
         env:
         - name: API_BASE_URL
           value: "https://dev-api.digitransit.fi/routing-data/v2/"
-        # TODO remove this
-        # - name: ROUTER_ZIP_URL
-        #   value: "https://dev-api.digitransit.fi/routing-data/v2/finland/router-finland.zip"
         resources:
           requests:
             memory: "1536Mi"
