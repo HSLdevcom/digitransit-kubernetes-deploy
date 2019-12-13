@@ -19,7 +19,7 @@ metadata:
   labels:
     app: raildigitraffic2gtfsrt
     update: auto
-    restartAfterDeployments: "opentripplanner-data-con-finland"
+    restartAfterDeployments: "opentripplanner-data-con-finland_opentripplanner-data-con-hsl"
     restartDelay: "5"  
 spec:
   replicas: 4
@@ -62,7 +62,7 @@ spec:
             port: 8080
             path: "/hsl"
         livenessProbe:
-          initialDelaySeconds: 1000
+          initialDelaySeconds: 1400
           periodSeconds: 30
           timeoutSeconds: 10
           failureThreshold: 5
@@ -70,6 +70,8 @@ spec:
             port: 8080
             path: "/hsl"
         env:
+        - name: API_BASE_URL
+          value: "https://api.digitransit.fi/routing-data/v2/"
         - name: ROUTER_ZIP_URL
           value: "https://api.digitransit.fi/routing-data/v2/finland/router-finland.zip"
         resources:
