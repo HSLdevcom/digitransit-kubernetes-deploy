@@ -70,8 +70,6 @@ ansible-playbook play_setup_aks.yml -e "service_principal=<service_principal_id>
 * Read the docs: [Create Azure Api Management](https://docs.microsoft.com/en-us/azure/api-management/get-started-create-service-instance)
 
 
-## Integrate Api Management and Application Gateway
-
 ## Connecting Api Mangement and Application Gateway to AKS cluster
 
 ### OPTION 1: Network security group (**Basic** or **Standard** tier of Api Management)
