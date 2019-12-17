@@ -82,7 +82,7 @@ To connect Api Management and Application Gateway to AKS cluster, you'll need to
 
 1. Allow traffic via TCP from Application Gateway's IP address to AKS cluster.
 2. Allow traffic via TCP from API Management's IP address to AKS cluster.
-3. Deny everything else.
+3. Deny connection from internet to AKS cluster's public ip address. This rule should have lower priority than previous rules.
 
 ### Option 2: Peering vnets (**Premium** tier of Api Management)
 Following commands create peering connections between AKS cluster and application gateway and Api Management. Peering connections has to be created so that application gateway can connect to AKS cluster using internal ip.
