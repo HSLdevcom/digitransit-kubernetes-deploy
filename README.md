@@ -72,8 +72,6 @@ ansible-playbook play_setup_aks.yml -e "service_principal=<service_principal_id>
 
 ## Integrate Api Management and Application Gateway
 
-Configure Api Management's vnet to internal mode so it is accessible only through Application Gateway. [Read here for more information](https://docs.microsoft.com/en-us/azure/api-management/get-started-create-service-instance)
-
 ## Connecting Api Mangement and Application Gateway to AKS cluster
 
 ### OPTION 1: Network security group (**Basic** or **Standard** tier of Api Management)
@@ -85,6 +83,8 @@ To connect Api Management and Application Gateway to AKS cluster, you'll need to
 3. Deny connection from internet to AKS cluster's public ip address. This rule should have lower priority than previous rules.
 
 ### Option 2: Peering vnets (**Premium** tier of Api Management)
+Configure Api Management's vnet to internal mode so it is accessible only through Application Gateway. [Read here for more information](https://docs.microsoft.com/en-us/azure/api-management/get-started-create-service-instance)
+
 Following commands create peering connections between AKS cluster and application gateway and Api Management. Peering connections has to be created so that application gateway can connect to AKS cluster using internal ip.
 
 ```
