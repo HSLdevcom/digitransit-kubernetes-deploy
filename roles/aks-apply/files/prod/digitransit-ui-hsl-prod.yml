@@ -48,6 +48,7 @@ spec:
       containers:
       - name: digitransit-ui-hsl
         image: hsldevcom/digitransit-ui:prod
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         readinessProbe:
