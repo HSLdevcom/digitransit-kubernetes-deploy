@@ -61,6 +61,7 @@ spec:
       containers:
       - name: digitransit-ui-matka
         image: hsldevcom/digitransit-ui:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         readinessProbe:
