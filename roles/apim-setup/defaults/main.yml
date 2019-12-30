@@ -1,0 +1,7 @@
+# defaults file for digitransit-<dev/prod>-apim
+
+gateway_env_prefix: "{{project}}-{{az_environment}}{{gateway_name_postfix}}"
+resource_group_name: "{{gateway_env_prefix}}-gateway-rg"
+apim_name: "{{project}}-{{az_environment}}-apim"
+sku_capacity: 1
+sku_name: Standard

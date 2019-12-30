@@ -1,0 +1,20 @@
+---
+- name: "Create {{ resource_group_name }}"
+  command: "az group create \
+    --name {{ resource_group_name }} \
+    --location {{ az_region }}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create {{apim_name}}"
+  command: "az apim create \
+    --resource-group {{resource_group_name}} \
+    --name {{apim_name}} \
+    --publisher-email {{pub_email}} \
+    --publisher-name {{pub_name}} \
+    --sku-capacity {{sku_capacity}} \
+    --sku-name {{sku_name}} \
+    --location {{az_region}} \
+    --no-wait"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
