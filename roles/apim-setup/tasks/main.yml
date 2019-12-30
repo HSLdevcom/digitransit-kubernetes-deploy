@@ -10,8 +10,8 @@
   command: "az apim create \
     --resource-group {{resource_group_name}} \
     --name {{apim_name}} \
-    --publisher-email {{pub_email}} \
-    --publisher-name {{pub_name}} \
+    --publisher-email {{publisher_email}} \
+    --publisher-name {{publisher_name}} \
     --sku-capacity {{sku_capacity}} \
     --sku-name {{sku_name}} \
     --location {{az_region}} \
