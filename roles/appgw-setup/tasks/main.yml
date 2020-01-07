@@ -1,7 +1,7 @@
 ---
 - name: "Create {{ resource_group_name }}"
-  command: "az group create 
-    --name {{ resource_group_name }}
+  command: "az group create \
+    --name {{ resource_group_name }} \
     --location {{ az_region }}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"

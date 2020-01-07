@@ -64,11 +64,17 @@ ansible-playbook play_setup_aks.yml -e "service_principal=<service_principal_id>
 
 ## Application Gateway setup
 
-* Run `ansible-playbook play_setup_appgw.yml -e @env_vars/<dev or prod>.yml`
+Run following command to create Application Gateway.
+```
+ansible-playbook play_setup_appgw.yml -e @env_vars/<dev or prod>.yml
+```
 
 ## Azure Api Management setup
-* Read the docs: [Create Azure Api Management](https://docs.microsoft.com/en-us/azure/api-management/get-started-create-service-instance)
 
+Run following command to create Api Management.
+```
+ansible-playbook play_setup_apim.yml -e "publisher_email=<email_address> publisher_name=<name>" -e @env_vars/<dev or prod>.yml
+```
 
 ## Connecting Api Mangement and Application Gateway to AKS cluster
 
