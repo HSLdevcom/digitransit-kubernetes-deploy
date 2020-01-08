@@ -2,10 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: digitransit-proxy
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  #annotations:
+   # service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
- # loadBalancerIP: 10.240.0.25
+  loadBalancerIP: 52.157.206.53
   #loadBalancerIP: 13.80.24.199 #otp-cluster-public-ip
   type: LoadBalancer
   ports:
