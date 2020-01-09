@@ -44,7 +44,7 @@ spec:
       priorityClassName: high-priority
       containers:
       - name: digitransit-proxy
-        image: hsldevcom/digitransit-proxy:remove-caches #TODO change to latest
+        image: hsldevcom/digitransit-proxy:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
