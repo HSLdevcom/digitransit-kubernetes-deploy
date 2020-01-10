@@ -9,6 +9,7 @@ spec:
   failedJobsHistoryLimit: 4
   jobTemplate:
     spec:
+      backoffLimit: 2 # max two retries
       template:
         spec:
           priorityClassName: high-priority
