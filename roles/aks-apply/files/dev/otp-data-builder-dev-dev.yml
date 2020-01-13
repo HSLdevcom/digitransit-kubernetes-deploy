@@ -31,8 +31,6 @@ spec:
             env:
             - name: BUILDER_TYPE
               value: "dev"
-            - name: DOCKER_API_VERSION
-              value: "1.38"
             - name: DATA
               value: "/opt/otp-data-builder/data"
             - name: DOCKER_AUTH
