@@ -17,7 +17,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: hsl-timetable-builder
-            image: hsldevcom/hsl-timetable-builder:single-run-test #TODO Fix this
+            image: hsldevcom/hsl-timetable-builder:latest
             volumeMounts:
               - mountPath: /var/run/docker.sock
                 name: "docker-sock-volume"
