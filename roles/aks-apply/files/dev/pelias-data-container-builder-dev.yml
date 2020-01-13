@@ -35,8 +35,6 @@ spec:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
-            - name: DOCKER_API_VERSION #TODO this should be removed from code and it should use default
-              value: "1.38"
             - name: DOCKER_TAG
               value: "latest"
             - name: BUILDER_TYPE
