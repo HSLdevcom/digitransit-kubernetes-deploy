@@ -1,97 +1,75 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: hsl-timetable-builder
-spec:
-  ports:
-  - port: 8080
-    targetPort: 8080
-    name: hsl-timetable-builder-service-port
-  selector:
-    app: hsl-timetable-builder
 ---
-
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
   name: hsl-timetable-builder
-  labels:
-    app: hsl-timetable-builder
-    update: auto
 spec:
-  replicas: 1
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
-  selector:
-    matchLabels:
-      app: hsl-timetable-builder
-  template:
-    metadata:
-      labels:
-        app: hsl-timetable-builder
-
+  schedule: "00 23 * * *" # schedule in UTC time
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 4
+  jobTemplate:
     spec:
-      priorityClassName: high-priority
-      containers:
-      - name: hsl-timetable-builder
-        image: hsldevcom/hsl-timetable-builder
-        volumeMounts:
-          - mountPath: /var/run/docker.sock
-            name: "docker-sock-volume"
-        imagePullPolicy: Always
-        securityContext:
-          allowPrivilegeEscalation: false
-        ports:
-        - containerPort: 8080
-        env:
-        - name: DOCKER_AUTH
-          valueFrom:
-            secretKeyRef:
-              name: docker-auth
-              key: docker-auth
-        - name: DOCKER_TAG
-          value: "latest"
-        - name: DOCKER_API_VERSION
-          value: "1.38"
-        - name: DOCKER_USER
-          valueFrom:
-            secretKeyRef:
-              name: docker-user
-              key: docker-user
-        - name: FONTSTACK_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: fontstack-password
-              key: fontstack-password
-        - name: SLACK_WEBHOOK_URL
-          valueFrom:
-            secretKeyRef:
-              name: slack-webhook
-              key: slack-webhook
-        - name: TAKU_API_URL
-          valueFrom:
-            secretKeyRef:
-              name: taku-api
-              key: taku-api
-        - name: TAKU_KEY
-          valueFrom:
-            secretKeyRef:
-              name: taku-key
-              key: taku-key
-        - name: TIMETABLE_DAYS_ADVANCE
-          value: "2"
-        resources:
-          requests:
-            memory: 1736Mi
-            cpu: 1000m
-          limits:
-            memory: 1736Mi
-            cpu: 4000m
-      volumes:
-        - name: "docker-sock-volume"
-          hostPath:
-             # location on host
-            path: /var/run/docker.sock
+      backoffLimit: 2 # max two retries
+      template:
+        spec:
+          priorityClassName: high-priority
+          activeDeadlineSeconds: 18000 # build(s) can take max 5 hours in total
+          restartPolicy: OnFailure
+          containers:
+          - name: hsl-timetable-builder
+            image: hsldevcom/hsl-timetable-builder:latest
+            volumeMounts:
+              - mountPath: /var/run/docker.sock
+                name: "docker-sock-volume"
+            imagePullPolicy: Always
+            securityContext:
+              allowPrivilegeEscalation: false
+            env:
+            - name: DOCKER_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: docker-auth
+                  key: docker-auth
+            - name: DOCKER_TAG
+              value: "latest"
+            - name: DOCKER_USER
+              valueFrom:
+                secretKeyRef:
+                  name: docker-user
+                  key: docker-user
+            - name: FONTSTACK_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fontstack-password
+                  key: fontstack-password
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: slack-webhook
+                  key: slack-webhook
+            - name: TAKU_API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: taku-api
+                  key: taku-api
+            - name: TAKU_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: taku-key
+                  key: taku-key
+            - name: TIMETABLE_DAYS_ADVANCE
+              value: "2"
+            - name: BUILD_INTERVAL
+              value: "-1" # don't run build in a loop
+            resources:
+              requests:
+                memory: 1736Mi
+                cpu: 1000m
+              limits:
+                memory: 1736Mi
+                cpu: 4000m
+          volumes:
+            - name: "docker-sock-volume"
+              hostPath:
+                # location on host
+                path: /var/run/docker.sock
