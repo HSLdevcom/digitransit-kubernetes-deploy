@@ -63,8 +63,8 @@ spec:
               key: otp-waltti-java-opts-prod
         resources:
           requests:
-            memory: "11240Mi"
+            memory: "10240Mi"
             cpu: "6000m"
           limits:
-            memory: "11240Mi"
+            memory: "10240Mi"
             cpu: "7000m"
