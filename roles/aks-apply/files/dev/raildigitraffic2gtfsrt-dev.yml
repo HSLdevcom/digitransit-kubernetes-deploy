@@ -74,8 +74,8 @@ spec:
           value: "https://dev-api.digitransit.fi/routing-data/v2/"
         resources:
           requests:
-            memory: "1536Mi"
+            memory: "1200Mi"
             cpu: "500m"
           limits:
-            memory: "1536Mi"
+            memory: "1200Mi"
             cpu: "500m"        

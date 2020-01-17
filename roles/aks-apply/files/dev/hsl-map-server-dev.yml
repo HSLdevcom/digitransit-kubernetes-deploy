@@ -86,8 +86,8 @@ spec:
             value: "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql"
         resources:
           requests:
-            memory: 4096Mi
+            memory: 5120Mi
             cpu: 2000m
           limits:
-            memory: 4096Mi
+            memory: 5120Mi
             cpu: 4000m

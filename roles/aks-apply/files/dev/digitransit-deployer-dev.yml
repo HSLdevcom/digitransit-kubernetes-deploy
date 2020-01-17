@@ -101,8 +101,8 @@ spec:
               key: slack-webhook
         resources:
           requests:
-            memory: 512Mi
+            memory: 1024Mi
             cpu: 500m
           limits:
-            memory: 512Mi
+            memory: 1024Mi
             cpu: 1000m
