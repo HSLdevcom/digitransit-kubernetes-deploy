@@ -6,7 +6,7 @@ gateway_env_prefix: "{{project}}-{{az_environment}}{{gateway_name_postfix}}"
 resource_group_name: "{{gateway_env_prefix}}-gateway-rg"
 vnet_prefix: 11.0.0.0/16
 subnet_prefix: 11.0.0.0/28
-sku: WAF_v2
+sku: Standard_v2
 sku_tier: Standard
 frontend_port: 443
 http2: Enabled

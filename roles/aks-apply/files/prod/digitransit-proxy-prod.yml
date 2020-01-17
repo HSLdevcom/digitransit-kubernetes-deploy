@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
       - name: digitransit-proxy
-        image: hsldevcom/digitransit-proxy:remove-caches #TODO use more standard tag when available
+        image: hsldevcom/digitransit-proxy:prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

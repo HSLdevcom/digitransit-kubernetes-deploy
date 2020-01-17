@@ -85,7 +85,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: digitransit-deployer
-        image: hsldevcom/digitransit-deployer:kubernetes #TODO use prod later
+        image: hsldevcom/digitransit-deployer:prod
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
