@@ -76,8 +76,8 @@ spec:
           value: "https://api.digitransit.fi/routing-data/v2/finland/router-finland.zip"
         resources:
           requests:
-            memory: "1024Mi"
+            memory: "1536Mi"
             cpu: "500m"
           limits:
-            memory: "1024Mi"
+            memory: "1536Mi"
             cpu: "500m"        
