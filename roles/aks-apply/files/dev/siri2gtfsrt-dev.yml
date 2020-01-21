@@ -67,11 +67,6 @@ spec:
           httpGet:
             port: 8080
             path: /FOLI
-        env:
-        - name: HSL_URL
-          value: "http://navigator-server:8080/siriaccess/vm/json?operatorRef=HSL"
-        - name: TRAIN_URL
-          value: "http://raildigitraffic2gtfsrt:8080/hsl"
         resources:
           requests:
             memory: "128Mi"
