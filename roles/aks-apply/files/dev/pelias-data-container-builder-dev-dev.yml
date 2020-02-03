@@ -2,9 +2,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: pelias-data-container-builder
+  name: pelias-data-container-builder-dev
 spec:
-  schedule: "0 23 * * *" # schedule in UTC time
+  schedule: "0 1 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -16,7 +16,7 @@ spec:
           activeDeadlineSeconds: 18000 # build(s) can take max 5 hours in total
           restartPolicy: OnFailure
           containers:
-          - name: pelias-data-container-builder
+          - name: pelias-data-container-builder-dev
             image: hsldevcom/pelias-data-container-builder
             volumeMounts:
               - mountPath: var/run/docker.sock
