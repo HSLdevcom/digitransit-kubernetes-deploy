@@ -35,10 +35,8 @@ spec:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
-            - name: DOCKER_TAG
-              value: "latest"
             - name: BUILDER_TYPE
-              value: "prod"
+              value: "dev"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
