@@ -2,9 +2,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: otp-data-builder-prod
+  name: pelias-data-container-builder
 spec:
-  schedule: "0 1 * * *" # schedule in UTC time
+  schedule: "0 23 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -13,65 +13,51 @@ spec:
       template:
         spec:
           priorityClassName: high-priority
-          activeDeadlineSeconds: 19800 # build(s) can take max 5 hours and 30 minutes in total
+          activeDeadlineSeconds: 18000 # build(s) can take max 5 hours in total
           restartPolicy: OnFailure
           containers:
-          - name: otp-data-builder-prod
-            image: hsldevcom/otp-data-builder:prod
-            command: ["timeout"]
-            args: ["18000", "node", "index.js", "once"]
+          - name: pelias-data-container-builder
+            image: hsldevcom/pelias-data-container-builder:prod
             volumeMounts:
               - mountPath: var/run/docker.sock
                 name: "docker-sock-volume"
-              - mountPath: opt/otp-data-builder/data
-                name: otp-data
             imagePullPolicy: Always
             securityContext:
               allowPrivilegeEscalation: false
             env:
-            - name: BUILDER_TYPE
-              value: "prod"
-            - name: DATA
-              value: "/opt/otp-data-builder/data"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
-            - name: DOCKER_TAG
-              value: "prod"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
-            - name: HOST_DATA
-              value: "/opt/otp-data"
-            - name: OTP_TAG
-              value: "prod"
-            - name: ROUTERS
-              value: "finland, waltti, hsl"
-            - name: SEED_TAG
+            - name: BUILDER_TYPE
               value: "prod"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: slack-webhook
                   key: slack-webhook
-            - name: TOOLS_TAG
-              value: "prod"
+            - name: MMLAPIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: mmlapikey
+                  key: mmlapikey
+            - name: BUILD_INTERVAL
+              value: "-1" # builder shuts down after first build
             resources:
               requests:
-                memory: 12Gi
-                cpu: 3000m
+                memory: 6Gi
+                cpu: 2000m
               limits:
-                memory: 12Gi
-                cpu: 6000m
+                memory: 6Gi
+                cpu: 7000m
           volumes:
             - name: "docker-sock-volume"
               hostPath:
                 # location on host
                 path: /var/run/docker.sock
-            - name: otp-data
-              hostPath:
-                path: /opt/otp-data/
