@@ -81,9 +81,17 @@ spec:
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
         - name: REDIS_HOST
-          value: "redis-hsl"
+          valueFrom:
+            secretKeyRef:
+              name: redis-host
+              key: redis-host
         - name: REDIS_PORT
-          value: "8080"
+          value: "6380"
+        - name: REDIS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: redis-key
+              key: redis-key
         - name: SENTRY_DSN
           valueFrom:
             secretKeyRef:
