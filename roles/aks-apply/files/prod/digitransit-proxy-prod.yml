@@ -26,7 +26,7 @@ spec:
   selector:
     matchLabels:
       app: digitransit-proxy
-  replicas: 10
+  replicas: 7
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -159,7 +159,7 @@ spec:
         resources:
             requests:
               memory: "1152Mi"
-              cpu: "2000m"
+              cpu: "1000m"
             limits:
               memory: "1152Mi"
               cpu: "3000m"
