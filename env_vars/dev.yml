@@ -1,7 +1,7 @@
 ---
 # Add here variables specific to DEV environment
 "az_environment": "dev"
-"node_count": "14"
+"node_count": "12"
 
 "gateway_name_postfix": "3"
 "gateway_capacity": "2" 
