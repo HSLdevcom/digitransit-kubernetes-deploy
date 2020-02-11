@@ -22,7 +22,7 @@ metadata:
     restartAt: "05.30"
     restartLimitInterval: "720"
 spec:
-  replicas: 7
+  replicas: 8
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -64,7 +64,7 @@ spec:
         resources:
           requests:
             memory: 11216Mi
-            cpu: "6000m"
+            cpu: "7000m"
           limits:
             memory: 11216Mi
-            cpu: "7000m"
+            cpu: "7600m"
