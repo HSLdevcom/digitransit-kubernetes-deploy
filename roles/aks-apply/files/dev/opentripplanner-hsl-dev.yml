@@ -35,6 +35,7 @@ spec:
     metadata:
       labels:
         app: opentripplanner-hsl
+        lastRestartDate: dummy-value
     spec:
       priorityClassName: medium-priority
       containers:

@@ -33,6 +33,7 @@ spec:
     metadata:
       labels:
         app: digitransit-ui-hsl-next
+        lastRestartDate: dummy-value
     spec:
       priorityClassName: medium-priority
       affinity:
