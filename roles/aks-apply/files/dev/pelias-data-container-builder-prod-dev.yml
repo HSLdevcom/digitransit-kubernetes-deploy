@@ -13,7 +13,7 @@ spec:
       template:
         spec:
           priorityClassName: high-priority
-          activeDeadlineSeconds: 18000 # build(s) can take max 5 hours in total
+          activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 mins
           restartPolicy: OnFailure
           containers:
           - name: pelias-data-container-builder-prod
