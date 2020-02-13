@@ -13,13 +13,13 @@ spec:
       template:
         spec:
           priorityClassName: high-priority
-          activeDeadlineSeconds: 19800 # build(s) can take max 5 hours and 30 minutes in total
+          activeDeadlineSeconds: 12600 # one build can take max 3 hours and 30 minutes
           restartPolicy: OnFailure
           containers:
           - name: otp-data-builder-dev
             image: hsldevcom/otp-data-builder:latest
             command: ["timeout"]
-            args: ["18000", "node", "index.js", "once"]
+            args: ["12600", "node", "index.js", "once"]
             volumeMounts:
               - mountPath: var/run/docker.sock
                 name: "docker-sock-volume"
