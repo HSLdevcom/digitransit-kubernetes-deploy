@@ -33,6 +33,7 @@ spec:
     metadata:
       labels:
         app: navigator-server
+        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:

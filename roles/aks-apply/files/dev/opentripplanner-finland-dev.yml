@@ -36,6 +36,7 @@ spec:
     metadata:
       labels:
         app: opentripplanner-finland
+        lastRestartDate: dummy-value
     spec:
       priorityClassName: medium-priority
       containers:

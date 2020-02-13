@@ -40,6 +40,7 @@ spec:
     metadata:
       labels:
         app: digitransit-proxy
+        lastRestartDate: dummy-value
     spec:
       priorityClassName: high-priority
       containers:

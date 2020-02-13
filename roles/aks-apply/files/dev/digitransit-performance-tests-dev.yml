@@ -33,6 +33,7 @@ spec:
     metadata:
       labels:
         app: digitransit-performance-tests
+        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:

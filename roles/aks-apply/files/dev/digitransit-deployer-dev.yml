@@ -71,6 +71,7 @@ spec:
     metadata:
       labels:
         app: digitransit-deployer
+        lastRestartDate: dummy-value
     spec:
       serviceAccountName: digitransit-deployer
       affinity:
