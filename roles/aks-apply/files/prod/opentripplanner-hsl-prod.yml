@@ -34,6 +34,7 @@ spec:
     metadata:
       labels:
         app: opentripplanner-hsl
+        lastRestartDate: dummy-value
     spec:
       containers:
       - name: opentripplanner-hsl

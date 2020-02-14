@@ -33,6 +33,7 @@ spec:
     metadata:
       labels:
         app: opentripplanner-data-con-waltti
+        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:

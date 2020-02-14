@@ -32,6 +32,7 @@ spec:
     metadata:
       labels:
         app: <NAME>
+        lastRestartDate: dummy-value #needed for deployer
     spec:
       affinity:
         podAntiAffinity:

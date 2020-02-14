@@ -39,6 +39,7 @@ spec:
     metadata:
       labels:
         app: pelias-data-container
+        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:

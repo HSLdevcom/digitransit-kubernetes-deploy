@@ -34,7 +34,8 @@ spec:
   template:
     metadata:
       labels:
-        app: hsl-map-server  
+        app: hsl-map-server
+        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:
