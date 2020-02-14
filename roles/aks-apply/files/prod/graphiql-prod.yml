@@ -33,6 +33,7 @@ spec:
     metadata:
       labels:
         app: graphiql
+        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:

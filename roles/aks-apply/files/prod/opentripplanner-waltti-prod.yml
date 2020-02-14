@@ -35,6 +35,7 @@ spec:
     metadata:
       labels:
         app: opentripplanner-waltti
+        lastRestartDate: dummy-value
     spec:
       containers:
       - name: opentripplanner-waltti

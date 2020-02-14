@@ -36,6 +36,7 @@ spec:
     metadata:
       labels:
         app: digitransit-proxy
+        lastRestartDate: dummy-value
     spec:
       containers:
       - name: digitransit-proxy

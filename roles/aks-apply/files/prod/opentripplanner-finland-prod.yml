@@ -35,6 +35,7 @@ spec:
     metadata:
       labels:
         app: opentripplanner-finland
+        lastRestartDate: dummy-value
     spec:
       containers:
       - name: opentripplanner-finland

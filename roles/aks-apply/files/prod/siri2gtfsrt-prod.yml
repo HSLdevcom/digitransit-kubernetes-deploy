@@ -33,6 +33,7 @@ spec:
     metadata:
       labels:
         app: siri2gtfsrt
+        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:

@@ -34,7 +34,8 @@ spec:
   template:
     metadata:
       labels:
-        app: raildigitraffic2gtfsrt   
+        app: raildigitraffic2gtfsrt
+        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:

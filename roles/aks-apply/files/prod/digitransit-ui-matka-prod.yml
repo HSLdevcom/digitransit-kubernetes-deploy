@@ -46,6 +46,7 @@ spec:
     metadata:
       labels:
         app: digitransit-ui-matka
+        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:
