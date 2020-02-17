@@ -62,11 +62,6 @@ spec:
         env:
           - name: HSL_RT_STORAGE_NAME
             value: "transitdataprod"
-          - name: SAMOCAT_TOKEN_AUTH
-            valueFrom:
-              secretKeyRef:
-                name: samocat-token-key
-                key: samocat-token-key
           - name: JOJO_BASIC_AUTH
             valueFrom:
               secretKeyRef:
