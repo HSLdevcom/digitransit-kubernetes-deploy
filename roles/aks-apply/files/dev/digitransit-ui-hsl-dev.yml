@@ -125,6 +125,8 @@ spec:
             secretKeyRef:
               name: oidc-client-secret
               key: oidc-client-secret
+        - name: REALTIME_PATCH
+          value: "{\"HSL\": {\"mqtt\": \"wss://hsl-mqtt-lab-d.cinfra.fi\"}}"
         resources:
           requests:
             memory: "1536Mi"
