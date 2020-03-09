@@ -3,7 +3,6 @@ service_name: "{{project}}-{{az_environment}}-fav-service"
 resource_group_name: "{{service_name}}-rg"
 storage_account_name: "{{az_environment}}favservice"
 storage_sku: Standard_LRS
-functions_version: 2
 runtime_stack: node
 runtime_version: 10
-os_type: Linux
+os_type: Windows
