@@ -137,3 +137,17 @@ Applying all manifests into an environment (**Note you should have done all the 
 
 Applying a specific manifest into an environment
 * Run `ansible-playbook play_apply_manifests.yml -e @env_vars/<dev or prod>.yml -e service=<filename without -env.yml postfix>`
+
+## Deploy fav-service
+
+Run following command to create Azure function app
+
+```
+ansible-playbook play_setup_fav_service.yml -e @env_vars/dev.yml
+```
+
+Copy the previously created function app's object id and use it in the next command.
+Following command gives the function app permission to read from keyvault so make sure you have appropriate permission to do so.
+```
+az keyvault set-policy -n digitransit-dev-keyvault --secret-permissions get --object-id <fav_service_object_id>
+```
