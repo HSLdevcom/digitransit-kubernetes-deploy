@@ -26,3 +26,12 @@
     --runtime-version {{runtime_version}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Assign identity"
+  command: "az functionapp identity assign \
+    --resource-group {{resource_group_name}} \
+    --name {{service_name}} \
+     --role Reader \
+     --scope {{resource_id}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
