@@ -1,0 +1,7 @@
+- name: "Setup {{project}}-{{az_environment}}-fav-service"
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  roles:
+    - role: fav-service
