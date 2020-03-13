@@ -46,7 +46,7 @@ spec:
                   name: docker-user
                   key: docker-user
             - name: EXTRA_SRC
-              value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"finland\", \"waltti\"]}, \"Salo\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/239.zip\", \"fit\": true, \"routers\": [\"waltti\"]}}"
+              value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"finland\", \"waltti\"]}, \"Salo\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/239.zip\", \"fit\": true, \"routers\": [\"waltti\"]}, \"Kuopio\": {\"url\": \"https://gtfsdata.blob.core.windows.net/kuopio/Lippuhinnat.zip\", \"routers\": [\"waltti\"]}}"
             - name: EXTRA_UPDATERS
               value: "{\"foli-alerts\": {\"url\": \"https://foli-beta.nanona.fi/gtfs-rt/reittiopas\", \"routers\": [\"waltti\"]}, \"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"routers\": [\"hsl\", \"finland\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"hsl\", \"finland\"]}}"
             - name: HOST_DATA
