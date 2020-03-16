@@ -15,4 +15,4 @@ redisHost: digitransit-dev-redis.redis.cache.windows.net
 redisPort: 6380
 redisPass: "@Microsoft.KeyVault(SecretUri=https://digitransit-dev-keyvault.vault.azure.net/secrets/redis-dev-primary-key/1d0f78cf35c2471aad28d0d4a7a67d54)"
 clientId:  "@Microsoft.KeyVault(SecretUri=https://digitransit-dev-keyvault.vault.azure.net/secrets/dev-management-api-client-id/e6edc7df47b344f2b109d5086d6ca6a0)"
-clientCredentials: "@Microsoft.KeyVault(SecretUri=https://digitransit-dev-keyvault.vault.azure.net/secrets/dev-management-api-client-credentials/bb28af86d2f14812b484031dbc652568)"
+clientCredentials: "@Microsoft.KeyVault(SecretUri=https://digitransit-dev-keyvault.vault.azure.net/secrets/dev-management-api-client-credentials/607beeac7c7c43b58ff9147ac65d11f0)"
