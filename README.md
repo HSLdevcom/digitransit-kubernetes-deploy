@@ -143,7 +143,7 @@ Applying a specific manifest into an environment
 Run following command to create Azure function app
 
 ```
-ansible-playbook play_setup_fav_service.yml -e @env_vars/dev.yml
+ansible-playbook play_setup_fav_service.yml -e @env_vars/dev.yml -e "resource_id=<keyvault_resource_id>"
 ```
 
 Copy the previously created function app's object id and use it in the next command.
