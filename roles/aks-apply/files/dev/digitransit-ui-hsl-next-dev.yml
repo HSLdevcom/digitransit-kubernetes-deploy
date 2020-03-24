@@ -126,13 +126,6 @@ spec:
             secretKeyRef:
               name: oidc-client-secret
               key: oidc-client-secret
-        - name: FAVOURITE_HOST
-          value: "https://digitransit-dev-fav-service.azurewebsites.net"
-        - name: FAVOURITE_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: favourite-secret
-              key: favourite-secret
         resources:
           requests:
             memory: "1536Mi"

@@ -127,13 +127,6 @@ spec:
               key: oidc-client-secret
         - name: REALTIME_PATCH
           value: "{\"HSL\": {\"mqtt\": \"wss://hsl-mqtt-lab-d.cinfra.fi\"}}"
-        - name: FAVOURITE_HOST
-          value: "https://digitransit-dev-fav-service.azurewebsites.net"
-        - name: FAVOURITE_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: favourite-secret
-              key: favourite-secret
         resources:
           requests:
             memory: "1536Mi"
