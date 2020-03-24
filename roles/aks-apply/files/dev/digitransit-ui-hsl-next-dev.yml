@@ -110,7 +110,7 @@ spec:
               name: gtm-id
               key: gtm-id
         - name: OIDC_CLIENT_CALLBACK
-          value: "https://dev.reittiopas.fi/oid_callback"
+          value: "https://next-dev.digitransit.fi/oid_callback"
         - name: SESSION_SECRET
           valueFrom:
             secretKeyRef:

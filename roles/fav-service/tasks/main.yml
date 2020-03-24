@@ -1,0 +1,109 @@
+---
+- name: "Create {{resource_group_name}}"
+  command: "az group create \
+    --name {{resource_group_name}} \
+    --location {{az_region}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create storage account {{storage_account_name}}"
+  command: "az storage account create \
+    --resource-group {{resource_group_name}} \
+    --name {{storage_account_name}} \
+    --location {{az_region}} \
+    --sku {{storage_sku}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create {{service_name}}"
+  command: "az functionapp create \
+    --resource-group {{resource_group_name}} \
+    --name {{service_name}} \
+    --storage-account {{storage_account_name}} \
+    --consumption-plan-location {{az_region}} \
+    --os-type {{os_type}} \
+    --runtime {{runtime_stack}} \
+    --runtime-version {{runtime_version}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- block:
+  - name: "Assign identity"
+    command: "az functionapp identity assign \
+      --resource-group {{resource_group_name}} \
+      --name {{service_name}} \
+      --role Reader \
+      --scope {{resource_id}}"
+    delegate_to: localhost
+    ignore_errors: "{{ ansible_check_mode }}"
+    register: out
+
+  - set_fact:
+      json: "{{(out.stdout|from_json)}}"
+
+  - name: "Give permission to read from key vault"
+    command: "az keyvault set-policy \
+      --name digitransit-dev-keyvault \
+      --secret-permissions get \
+      --object-id {{item}}"
+    delegate_to: localhost
+    ignore_errors: "{{ ansible_check_mode }}"
+    with_items: "{{json.principalId}}"
+
+  when: resource_id is defined
+
+- name: "Add favourite host configuration"
+  command: "az functionapp config appsettings set \
+    --resource-group {{resource_group_name}} \
+    --name {{service_name}} \
+    --settings \"FAVORITES_HOST={{FAVORITES_HOST}}\""
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Add hslIdUrl configuration"
+  command: "az functionapp config appsettings set \
+    --resource-group {{resource_group_name}} \
+    --name {{service_name}} \
+    --settings \"hslIdUrl={{hslIdUrl}}\""
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Add redisHost configuration"
+  command: "az functionapp config appsettings set \
+    --resource-group {{resource_group_name}} \
+    --name {{service_name}} \
+    --settings \"redisHost={{redisHost}}\""
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Add redisPort configuration"
+  command: "az functionapp config appsettings set \
+    --resource-group {{resource_group_name}} \
+    --name {{service_name}} \
+    --settings \"redisPort={{redisPort}}\""
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Add redisPass configuration"
+  command: "az functionapp config appsettings set \
+    --resource-group {{resource_group_name}} \
+    --name {{service_name}} \
+    --settings \"redisPass={{redisPass}}\""
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Add clientId configuration"
+  command: "az functionapp config appsettings set \
+    --resource-group {{resource_group_name}} \
+    --name {{service_name}} \
+    --settings \"clientId={{clientId}}\""
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Add clientCredentials configuration"
+  command: "az functionapp config appsettings set \
+    --resource-group {{resource_group_name}} \
+    --name {{service_name}} \
+    --settings \"clientCredentials={{clientCredentials}}\""
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
