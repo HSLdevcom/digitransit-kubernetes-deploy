@@ -2,9 +2,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: otp-data-builder-finland-dev
+  name: otp-data-builder-hsl-prod
 spec:
-  schedule: "0 4 * * *" # schedule in UTC time
+  schedule: "0 1 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -13,13 +13,13 @@ spec:
       template:
         spec:
           priorityClassName: high-priority
-          activeDeadlineSeconds: 12600 # one build can take max 3 hours and 30 minutes
+          activeDeadlineSeconds: 3600 # one build can take max 1 hour
           restartPolicy: OnFailure
           containers:
-          - name: otp-data-builder-finland-dev
-            image: hsldevcom/otp-data-builder:latest
+          - name: otp-data-builder-hsl-prod
+            image: hsldevcom/otp-data-builder:prod
             command: ["timeout"]
-            args: ["12600", "node", "index.js", "once"]
+            args: ["3600", "node", "index.js", "once"]
             volumeMounts:
               - mountPath: var/run/docker.sock
                 name: "docker-sock-volume"
@@ -30,7 +30,7 @@ spec:
               allowPrivilegeEscalation: false
             env:
             - name: BUILDER_TYPE
-              value: "Finland dev"
+              value: "HSL prod"
             - name: DATA
               value: "/opt/otp-data-builder/data"
             - name: DOCKER_AUTH
@@ -39,31 +39,27 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "latest"
+              value: "prod"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
-            - name: EXTRA_SRC
-              value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"finland\"]}}"
-            - name: EXTRA_UPDATERS
-              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"routers\": [\"finland\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"finland\"]}}"
             - name: HOST_DATA
               value: "/opt/otp-data"
             - name: OTP_TAG
-              value: "latest"
+              value: "prod"
             - name: ROUTERS
-              value: "finland"
+              value: "hsl"
             - name: SEED_TAG
-              value: "latest"
+              value: "prod"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: slack-webhook
                   key: slack-webhook
             - name: TOOLS_TAG
-              value: "latest"
+              value: "prod"
             resources:
               requests:
                 memory: 12Gi

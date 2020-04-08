@@ -2,7 +2,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: otp-data-builder-prod
+  name: otp-data-builder-finland-prod
 spec:
   schedule: "0 0 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
@@ -16,7 +16,7 @@ spec:
           activeDeadlineSeconds: 12600 # one build can take max 3 hours and 30 minutes
           restartPolicy: OnFailure
           containers:
-          - name: otp-data-builder-prod
+          - name: otp-data-builder-finland-prod
             image: hsldevcom/otp-data-builder:prod
             command: ["timeout"]
             args: ["12600", "node", "index.js", "once"]
@@ -30,7 +30,7 @@ spec:
               allowPrivilegeEscalation: false
             env:
             - name: BUILDER_TYPE
-              value: "prod"
+              value: "Finland prod"
             - name: DATA
               value: "/opt/otp-data-builder/data"
             - name: DOCKER_AUTH
@@ -50,7 +50,7 @@ spec:
             - name: OTP_TAG
               value: "prod"
             - name: ROUTERS
-              value: "finland, waltti, hsl"
+              value: "finland"
             - name: SEED_TAG
               value: "prod"
             - name: SLACK_WEBHOOK_URL
