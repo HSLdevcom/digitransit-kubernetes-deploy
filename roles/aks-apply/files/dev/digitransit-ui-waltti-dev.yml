@@ -94,6 +94,8 @@ spec:
             secretKeyRef:
               name: gtm-id
               key: gtm-id
+        - name: BASE_CONFIG
+          value: "waltti"
         resources:
           requests:
             memory: 1200Mi
