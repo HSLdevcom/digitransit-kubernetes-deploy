@@ -20,6 +20,8 @@ metadata:
     update: auto
     restartAt: "03.20_13.20"
     restartLimitInterval: "180"
+    restartAfterDeployments: "opentripplanner-hsl_hsl-timetable-container"
+    restartDelay: "5"
 spec:
   selector:
     matchLabels:
