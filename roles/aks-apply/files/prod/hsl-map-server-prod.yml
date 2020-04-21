@@ -49,7 +49,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: hsl-map-server
-        image: hsldevcom/hsl-map-server:665488187 #TODO change back to prod when new version is tested
+        image: hsldevcom/hsl-map-server:prod
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
