@@ -60,6 +60,8 @@ spec:
                   key: slack-webhook
             - name: TOOLS_TAG
               value: "prod"
+            - name: VERSION_CHECK
+              value: "HSL"
             resources:
               requests:
                 memory: 12Gi
