@@ -22,7 +22,7 @@ metadata:
     restartAfterDeployments: "opentripplanner-hsl_opentripplanner-waltti" #TODO include finland when we figure out best way to circumvent label length restriction _opentripplanner-finland
     restartDelay: "5"
 spec:
-  replicas: 8
+  replicas: 4
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -87,7 +87,7 @@ spec:
         resources:
           requests:
             memory: 4096Mi
-            cpu: 1500m
+            cpu: 4000m
           limits:
             memory: 4096Mi
-            cpu: 4000m
+            cpu: 7900m
