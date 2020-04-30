@@ -49,6 +49,13 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        startupProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 30
+          httpGet:
+            port: 8080
+            path: /
         readinessProbe:
           periodSeconds: 10
           timeoutSeconds: 10
@@ -57,7 +64,6 @@ spec:
             port: 8080
             path: /
         livenessProbe:
-          initialDelaySeconds: 150
           periodSeconds: 30
           timeoutSeconds: 10
           failureThreshold: 2
