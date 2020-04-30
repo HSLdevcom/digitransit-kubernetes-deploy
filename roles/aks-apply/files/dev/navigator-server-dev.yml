@@ -53,6 +53,13 @@ spec:
           allowPrivilegeEscalation: false
         ports:
         - containerPort: 8080
+        startupProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 30
+          httpGet:
+            port: 8080
+            path: /
         readinessProbe:
           periodSeconds: 5
           timeoutSeconds: 10
@@ -61,7 +68,6 @@ spec:
             port: 8080
             path: /
         livenessProbe:
-          initialDelaySeconds: 150
           periodSeconds: 10
           failureThreshold: 5
           timeoutSeconds: 10
