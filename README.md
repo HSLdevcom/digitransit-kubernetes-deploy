@@ -99,14 +99,10 @@ az network vnet peering create -g <appgw_resource_group> -n <peering_name> --vne
 az network vnet peering create -g <aks_resource_group> -n <peering_name> --vnet-name <aks_vnet_name> --remote-vnet <appgw_vnet_resource_id> --allow-vnet-access
 ```
 
-## Setup tiller and install azure key vault controller
+## Install azure key vault controller
 
-Install [Helm](https://helm.sh/docs/using_helm/) if you don't have it
+Install [Helm](https://helm.sh/docs/using_helm/) v3 if you don't have it
 
-```
-kubectl apply -f ./roles/aks-apply/files/assets/tiller-setup.yml
-helm init --service-account tiller
-```
 ```
 helm repo add spv-charts http://charts.spvapi.no
 helm repo update
