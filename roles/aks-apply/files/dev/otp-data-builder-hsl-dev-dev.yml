@@ -45,8 +45,6 @@ spec:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
-            - name: EXTRA_SRC
-              value: "{\"HSL\": {\"url\": \"https://gtfsdata.blob.core.windows.net/hsl/hsl.zip\", \"routers\": [\"hsl\"]}}"
             - name: EXTRA_UPDATERS
               value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"routers\": [\"hsl\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"hsl\"]}}"
             - name: HOST_DATA
