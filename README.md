@@ -50,16 +50,31 @@ To be added
 # AKS cluster setup
 
 ## Create AKS cluster
-First create service principal for the AKS cluster.
-```
-az ad sp create-for-rbac -n <service_principal_name> --skip-assignment
-```
-
-When service principal has been created, you'll need to create client secret from Azure portal. In portal go to `Azure Active Directory` and then `App registrations` to find your just created service principal. Open your service principal and create client secret from `Certificates & Secrets` tab.
 
 Run following command to create AKS cluster.
 ```
-ansible-playbook play_setup_aks.yml -e "service_principal=<service_principal_id> client_secret=<client_secret>" -e @env_vars/<dev or prod>.yml
+ansible-playbook play_setup_aks.yml -e @env_vars/<dev or prod>.yml
+```
+
+### Install azure key vault controller
+
+Install [Helm](https://helm.sh/docs/using_helm/) v3 if you don't have it
+
+```
+helm repo add spv-charts http://charts.spvapi.no
+
+helm repo update
+
+helm install spv-charts/azure-key-vault-controller --generate-name
+```
+
+Run following commands to give AKS-cluster permissions to read from key vault
+```
+az role assignment create --role Reader --assignee <service_principal_clientid> --scope <keyvault_resource_id>
+
+az keyvault set-policy -n <keyvault_name> --key-permissions get --spn <YOUR SPN CLIENT ID>
+az keyvault set-policy -n <keyvault_name> --secret-permissions get --spn <YOUR SPN CLIENT ID>
+az keyvault set-policy -n <keyvault_name> --certificate-permissions get --spn <YOUR SPN CLIENT ID>
 ```
 
 ## Application Gateway setup
@@ -99,33 +114,10 @@ az network vnet peering create -g <appgw_resource_group> -n <peering_name> --vne
 az network vnet peering create -g <aks_resource_group> -n <peering_name> --vnet-name <aks_vnet_name> --remote-vnet <appgw_vnet_resource_id> --allow-vnet-access
 ```
 
-## Install azure key vault controller
-
-Install [Helm](https://helm.sh/docs/using_helm/) v3 if you don't have it
-
-```
-helm repo add spv-charts http://charts.spvapi.no
-
-helm repo update
-
-helm install spv-charts/azure-key-vault-controller --generate-name
-```
-
 ## Azure Key Vault Setup
 
 Creating Azure key vault if you don't existing one already.
 * Run `ansible-playbook play_setup_keyvault.yml -e @env_vars/<dev or prod>.yml`
-
-When key vault has been created
-
-* Run following commands to give AKS-cluster permissions to read from key vault
-```
-az role assignment create --role Reader --assignee <service_principal_clientid> --scope <keyvault_resource_id>
-
-az keyvault set-policy -n <keyvault_name> --key-permissions get --spn <YOUR SPN CLIENT ID>
-az keyvault set-policy -n <keyvault_name> --secret-permissions get --spn <YOUR SPN CLIENT ID>
-az keyvault set-policy -n <keyvault_name> --certificate-permissions get --spn <YOUR SPN CLIENT ID>
-```
 
 ## Deploy kubernetes manifests
 
