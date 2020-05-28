@@ -35,3 +35,10 @@
     ignore_errors: "{{ ansible_check_mode }}"
     with_items:
       - { appId: "{{json.appId}}", password: "{{json.password}}" }
+
+- name: "Configure kubectl to use {{project}}-{{az_environment}}{{az_environment_postfix}}-aks"
+  command: "az aks get-credentials \
+    --resource-group {{project}}-{{az_environment}}{{az_environment_postfix}}-aks-rg \
+    --name {{project}}-{{az_environment}}{{az_environment_postfix}}-aks"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
