@@ -105,9 +105,10 @@ Install [Helm](https://helm.sh/docs/using_helm/) v3 if you don't have it
 
 ```
 helm repo add spv-charts http://charts.spvapi.no
+
 helm repo update
 
-helm install spv-charts/azure-key-vault-controller
+helm install spv-charts/azure-key-vault-controller --generate-name
 ```
 
 ## Azure Key Vault Setup
