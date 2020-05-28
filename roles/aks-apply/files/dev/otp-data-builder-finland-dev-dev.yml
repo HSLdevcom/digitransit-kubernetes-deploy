@@ -48,7 +48,7 @@ spec:
             - name: EXTRA_SRC
               value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"finland\"]}}"
             - name: EXTRA_UPDATERS
-              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"routers\": [\"finland\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"finland\"]}}"
+              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://185.134.103.235\", \"routers\": [\"finland\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"finland\"]}}"
             - name: HOST_DATA
               value: "/opt/otp-data"
             - name: OTP_TAG
