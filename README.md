@@ -65,7 +65,7 @@ helm repo add spv-charts http://charts.spvapi.no
 
 helm repo update
 
-helm install spv-charts/azure-key-vault-controller --generate-name
+helm install spv-charts/azure-key-vault-controller --generate-name --version 1.0.2
 ```
 
 Run following commands to give AKS-cluster permissions to read from key vault
