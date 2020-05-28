@@ -1,22 +1,44 @@
 ---
-- name: "Create {{resource_group_name}}"
-  command: "az group create \
-    --name {{resource_group_name}} \
-    --location {{ az_region }}"
-  delegate_to: localhost
-  ignore_errors: "{{ ansible_check_mode }}"
+- block:
+  - name: "Create service principal"
+    command: "az ad sp create-for-rbac \
+      -n {{project}}-{{az_environment_with_postfix}}-aks \
+      --skip-assignment \
+      --years 100"
+    delegate_to: localhost
+    ignore_errors: "{{ ansible_check_mode }}"
+    register: out
 
-- name: "Create {{project}}-{{ az_environment }}-aks"
-  command: "az aks create \
-    --resource-group {{resource_group_name}} \
-    --name {{project}}-{{ az_environment }}-aks \
-    --node-count {{node_count}} \
-    --node-vm-size {{node_vm_size}} \
-    --kubernetes-version {{kubernetes_version}} \
-    --enable-addons monitoring \
-    --generate-ssh-keys \
-    --service-principal {{service_principal}} \
-    --client-secret {{client_secret}} \
-    --no-wait"
+  - set_fact:
+      json: "{{(out.stdout|from_json)}}"
+
+  - name: "Create {{resource_group_name}}"
+    command: "az group create \
+      --name {{resource_group_name}} \
+      --location {{ az_region }}"
+    delegate_to: localhost
+    ignore_errors: "{{ ansible_check_mode }}"
+
+  - name: "Create {{project}}-{{az_environment_with_postfix}}-aks"
+    command: "az aks create \
+      --resource-group {{resource_group_name}} \
+      --name {{project}}-{{az_environment_with_postfix}}-aks \
+      --node-count {{node_count}} \
+      --node-vm-size {{node_vm_size}} \
+      --kubernetes-version {{kubernetes_version}} \
+      --enable-addons monitoring \
+      --generate-ssh-keys \
+      --service-principal {{item.appId}} \
+      --client-secret {{item.password}} \
+      --no-wait"
+    delegate_to: localhost
+    ignore_errors: "{{ ansible_check_mode }}"
+    with_items:
+      - { appId: "{{json.appId}}", password: "{{json.password}}" }
+
+- name: "Configure kubectl to use {{project}}-{{az_environment}}{{az_environment_postfix}}-aks"
+  command: "az aks get-credentials \
+    --resource-group {{project}}-{{az_environment}}{{az_environment_postfix}}-aks-rg \
+    --name {{project}}-{{az_environment}}{{az_environment_postfix}}-aks"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
