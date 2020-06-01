@@ -46,7 +46,7 @@ spec:
                   name: docker-user
                   key: docker-user
             - name: EXTRA_SRC
-              value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"waltti\"]}, \"Salo\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/239.zip\", \"fit\": true, \"routers\": [\"waltti\"]}, \"Kuopio\": {\"url\": \"https://gtfsdata.blob.core.windows.net/kuopio/Lippuhinnat.zip\", \"routers\": [\"waltti\"]}}"
+              value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"waltti\"]}}"
             - name: EXTRA_UPDATERS
               value: "{\"foli-alerts\": {\"url\": \"https://foli-beta.nanona.fi/gtfs-rt/reittiopas\", \"routers\": [\"waltti\"]}}"
             - name: HOST_DATA
