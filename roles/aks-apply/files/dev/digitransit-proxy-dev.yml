@@ -5,8 +5,6 @@ metadata:
   #annotations:
    # service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
-  loadBalancerIP: 52.157.206.53
-  #loadBalancerIP: 13.80.24.199 #otp-cluster-public-ip
   type: LoadBalancer
   ports:
   - port: 80
