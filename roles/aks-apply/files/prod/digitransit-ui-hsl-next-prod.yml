@@ -8,3 +8,101 @@ spec:
     name: digitransit-ui-hsl-next-service-port
   selector:
     app: digitransit-ui-hsl-next
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digitransit-ui-hsl-next
+  labels:
+    app: digitransit-ui-hsl-next
+    update: auto
+    restartAt: "04.20_14.20"
+    restartLimitInterval: "180"
+    restartAfterDeployments: "opentripplanner-hsl_hsl-timetable-container"
+    restartDelay: "5"
+spec:
+  selector:
+    matchLabels:
+      app: digitransit-ui-hsl-next
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: digitransit-ui-hsl-next
+        lastRestartDate: dummy-value
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: Exists
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: digitransit-ui-hsl-next
+        image: hsldevcom/digitransit-ui:next # TODO create release tag from next
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 150
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 10
+        env:
+        - name: CONFIG
+          value: "hsl"
+        - name: API_URL
+          value: "https://api.digitransit.fi"
+        - name: ASSET_URL
+          value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v1/hsl-next"
+        - name: MAP_URL
+          value: "https://digitransit-prod-cdn-origin.azureedge.net"
+        - name: NODE_OPTS
+          value: "--max_old_space_size=1000"
+        - name: RELAY_FETCH_TIMEOUT
+          value: "3000"
+        - name: STATIC_MESSAGE_URL
+          value: "https://yleisviesti.hsl.fi"
+        - name: SENTRY_DSN
+          valueFrom:
+            secretKeyRef:
+              name: sentry-dsn
+              key: sentry-dsn
+        - name: SENTRY_SECRET_DSN
+          valueFrom:
+            secretKeyRef:
+              name: sentry-secret-dsn
+              key: sentry-secret-dsn
+        - name: GTM_ID
+          valueFrom:
+            secretKeyRef:
+              name: gtm-id
+              key: gtm-id
+        resources:
+          requests:
+            memory: "1536Mi"
+            cpu: 600m
+          limits:
+            memory: "1536Mi"
+            cpu: 2000m
