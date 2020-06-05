@@ -26,7 +26,6 @@
       --node-count {{node_count}} \
       --node-vm-size {{node_vm_size}} \
       --kubernetes-version {{kubernetes_version}} \
-      --enable-addons monitoring \
       --generate-ssh-keys \
       --service-principal {{item.appId}} \
       --client-secret {{item.password}} \
@@ -35,6 +34,16 @@
     ignore_errors: "{{ ansible_check_mode }}"
     with_items:
       - { appId: "{{json.appId}}", password: "{{json.password}}" }
+
+  - name: "Enable addons for {{project}}-{{az_environment_with_postfix}}-aks"
+    command: "az aks enable-addons \
+      --resource-group {{resource_group_name}}
+      --name {{project}}-{{az_environment_with_postfix}}-aks \
+      --addons monitoring \
+      --workspace-resource-id {{log_analytics_workspace}}"
+    delegate_to: localhost
+    ignore_errors: "{{ ansible_check_mode }}"
+    when: ("{{az_environment}}" == "prod")
 
 - name: "Configure kubectl to use {{project}}-{{az_environment}}{{az_environment_postfix}}-aks"
   command: "az aks get-credentials \
