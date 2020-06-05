@@ -9,8 +9,6 @@ This repository contains the service definitions for Digitransit's API backend, 
 
 Folders in this repository might contain separate instruction files as needed.
 
-NOTE: This is a living document during the migration project, and subject to frequent updates.
-
 ## Prerequisites to using this repository
 * Access to an Azure subscription
 * Docker installed on your local environment
