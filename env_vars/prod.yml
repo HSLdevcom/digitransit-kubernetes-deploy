@@ -8,3 +8,6 @@
 "gateway_capacity": "2" 
 
 "sku_name": "Standard"
+
+"addons": "monitoring"
+"log_analytics_workspace_rg": "oms-prod-rg"
