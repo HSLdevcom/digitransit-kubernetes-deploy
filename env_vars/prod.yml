@@ -9,4 +9,5 @@
 
 "sku_name": "Standard"
 
-"log_analytics_workspace": "@Microsoft.KeyVault(SecretUri=https://digitransit-dev-keyvault.vault.azure.net/secrets/prod-log-analytics-resource-id/b385ce53049748879958dd3e6f0342d6)"
+"addons": "monitoring"
+"log_analytics_workspace_rg": "oms-prod-rg"
