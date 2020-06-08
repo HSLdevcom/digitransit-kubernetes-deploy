@@ -80,8 +80,6 @@ spec:
           value: "--max_old_space_size=1000"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
-        - name: RELAY_FETCH_TIMEOUT
-          value: "3000"
         - name: REDIS_HOST
           valueFrom:
             secretKeyRef:
