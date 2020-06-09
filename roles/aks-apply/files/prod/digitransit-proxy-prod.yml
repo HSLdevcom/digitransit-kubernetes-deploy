@@ -152,6 +152,11 @@ spec:
               secretKeyRef:
                 name: matkahuolto-kyme-basic-key
                 key: matkahuolto-kyme-basic-key
+          - name: HAMEENLINNA_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: hameenlinna-basic-key
+                key: hameenlinna-basic-key
         resources:
             requests:
               memory: "1152Mi"
