@@ -51,7 +51,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: digitransit-ui-hsl-next
-        image: hsldevcom/digitransit-ui:next # TODO create release tag from next
+        image: hsldevcom/digitransit-ui:next-prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
