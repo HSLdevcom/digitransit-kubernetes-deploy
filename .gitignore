@@ -29,4 +29,4 @@ roles/nginx/dhparam.pem
 .cache/
 
 #Other
-roles/aks-apply/files/.DS_Store
+**/.DS_Store
