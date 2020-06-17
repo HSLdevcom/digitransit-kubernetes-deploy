@@ -27,3 +27,6 @@ roles/nginx/dhparam.pem
 
 # Ignore cached files
 .cache/
+
+#Other
+**/.DS_Store
