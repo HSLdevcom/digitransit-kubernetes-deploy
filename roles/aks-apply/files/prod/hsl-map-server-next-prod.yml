@@ -5,7 +5,7 @@ metadata:
 spec:
   ports:
   - port: 8080
-    targetPort: 8080
+    # targetPort: 8080
     name: hsl-map-server-next-service-port
     protocol: TCP
   selector:

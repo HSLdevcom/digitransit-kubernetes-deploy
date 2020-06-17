@@ -5,7 +5,7 @@ metadata:
 spec:
   ports:
   - port: 8080
-    # targetPort: 8080
+    targetPort: 8080
     name: digitransit-ui-hsl-next-service-port
   selector:
     app: digitransit-ui-hsl-next
