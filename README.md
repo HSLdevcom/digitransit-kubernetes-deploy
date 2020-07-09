@@ -130,5 +130,5 @@ Applying a specific manifest into an environment
 Run following command to create Azure function app
 
 ```
-ansible-playbook play_setup_fav_service.yml -e @env_vars/dev.yml -e "resource_id=<keyvault_resource_id>"
+ansible-playbook play_setup_fav_service.yml -e @env_vars/dev.yml -e "hslIdUrl=<hslid_url> clientId=<clientID> clientCredentials=<Base64 encoded credentials>"
 ```
