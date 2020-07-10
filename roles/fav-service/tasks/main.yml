@@ -2,7 +2,8 @@
 - name: "Create {{resource_group_name}}"
   command: "az group create \
     --name {{resource_group_name}} \
-    --location {{az_region}}"
+    --location {{az_region}} \
+    --subscription {{fav_service_subscription}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
@@ -11,7 +12,19 @@
     --resource-group {{resource_group_name}} \
     --name {{storage_account_name}} \
     --location {{az_region}} \
-    --sku {{storage_sku}}"
+    --sku {{storage_sku}} \
+    --subscription {{fav_service_subscription}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create {{redis_name}}"
+  command: "az redis create \
+    --resource-group {{resource_group_name}} \
+    --name {{redis_name}} \
+    --location {{az_region}} \
+    --subscription {{fav_service_subscription}} \
+    --sku {{redis_sku}} \
+    --vm-size {{redis_vm_size}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
@@ -23,87 +36,50 @@
     --consumption-plan-location {{az_region}} \
     --os-type {{os_type}} \
     --runtime {{runtime_stack}} \
-    --runtime-version {{runtime_version}}"
+    --runtime-version {{runtime_version}} \
+    --subscription {{fav_service_subscription}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
-- block:
-  - name: "Assign identity"
-    command: "az functionapp identity assign \
-      --resource-group {{resource_group_name}} \
-      --name {{service_name}} \
-      --role Reader \
-      --scope {{resource_id}}"
-    delegate_to: localhost
-    ignore_errors: "{{ ansible_check_mode }}"
-    register: out
-
-  - set_fact:
-      json: "{{(out.stdout|from_json)}}"
-
-  - name: "Give permission to read from key vault"
-    command: "az keyvault set-policy \
-      --name digitransit-dev-keyvault \
-      --secret-permissions get \
-      --object-id {{item}}"
-    delegate_to: localhost
-    ignore_errors: "{{ ansible_check_mode }}"
-    with_items: "{{json.principalId}}"
-
-  when: resource_id is defined
-
-- name: "Add favourite host configuration"
-  command: "az functionapp config appsettings set \
-    --resource-group {{resource_group_name}} \
-    --name {{service_name}} \
-    --settings \"FAVORITES_HOST={{FAVORITES_HOST}}\""
+- name: "Get redis key"
+  shell: az redis list-keys
+    --resource-group {{resource_group_name}}
+    --name {{redis_name}}
+    --subscription {{fav_service_subscription}} | jq -M -j '.primaryKey'
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
+  register: redis_key
 
-- name: "Add hslIdUrl configuration"
-  command: "az functionapp config appsettings set \
-    --resource-group {{resource_group_name}} \
-    --name {{service_name}} \
-    --settings \"hslIdUrl={{hslIdUrl}}\""
+- name: Get redis hostname
+  shell: az redis show
+    --resource-group {{resource_group_name}}
+    --name {{redis_name}}
+    --subscription {{fav_service_subscription}} | jq -M -j '.hostName'
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
+  register: redis_hostname
 
-- name: "Add redisHost configuration"
-  command: "az functionapp config appsettings set \
-    --resource-group {{resource_group_name}} \
-    --name {{service_name}} \
-    --settings \"redisHost={{redisHost}}\""
+- name: Get redis port
+  shell: az redis show
+    --resource-group {{resource_group_name}}
+    --name {{redis_name}}
+    --subscription {{fav_service_subscription}} | jq -M -j '.sslPort'
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
+  register: redis_port
 
-- name: "Add redisPort configuration"
-  command: "az functionapp config appsettings set \
-    --resource-group {{resource_group_name}} \
-    --name {{service_name}} \
-    --settings \"redisPort={{redisPort}}\""
-  delegate_to: localhost
-  ignore_errors: "{{ ansible_check_mode }}"
-
-- name: "Add redisPass configuration"
-  command: "az functionapp config appsettings set \
-    --resource-group {{resource_group_name}} \
-    --name {{service_name}} \
-    --settings \"redisPass={{redisPass}}\""
-  delegate_to: localhost
-  ignore_errors: "{{ ansible_check_mode }}"
-
-- name: "Add clientId configuration"
-  command: "az functionapp config appsettings set \
-    --resource-group {{resource_group_name}} \
-    --name {{service_name}} \
-    --settings \"clientId={{clientId}}\""
-  delegate_to: localhost
-  ignore_errors: "{{ ansible_check_mode }}"
-
-- name: "Add clientCredentials configuration"
-  command: "az functionapp config appsettings set \
-    --resource-group {{resource_group_name}} \
-    --name {{service_name}} \
-    --settings \"clientCredentials={{clientCredentials}}\""
+- name: "Add configurations"
+  command: az functionapp config appsettings set
+    --resource-group {{resource_group_name}}
+    --name {{service_name}}
+    --subscription {{fav_service_subscription}}
+    --settings
+    FAVORITES_HOST={{service_name}}.azurewebsites.net
+    redisHost={{redis_hostname.stdout}}
+    redisPort={{redis_port.stdout}}
+    redisPass={{redis_key.stdout}}
+    hslIdUrl={{hslIdUrl}}
+    clientId={{clientId}}
+    clientCredentials="{{clientCredentials}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"

@@ -1,18 +1,15 @@
 ---
 service_name: "{{project}}-{{az_environment}}-fav-service"
 resource_group_name: "{{service_name}}-rg"
+
+# Redis
+redis_name: "{{project}}-{{az_environment}}-redis"
+redis_sku: Standard
+redis_vm_size: c0
+
+# Function app
 storage_account_name: "{{az_environment}}favservice"
 storage_sku: Standard_LRS
 runtime_stack: node
 runtime_version: 10
 os_type: Windows
-
-# Application settings
-
-FAVORITES_HOST: digitransit-dev-fav-service.azurewebsites.net
-hslIdUrl: https://hslid-dev.t5.fi
-redisHost: digitransit-dev-redis.redis.cache.windows.net
-redisPort: 6380
-redisPass: "@Microsoft.KeyVault(SecretUri=https://digitransit-dev-keyvault.vault.azure.net/secrets/redis-dev-primary-key/1d0f78cf35c2471aad28d0d4a7a67d54)"
-clientId:  "@Microsoft.KeyVault(SecretUri=https://digitransit-dev-keyvault.vault.azure.net/secrets/dev-management-api-client-id/e6edc7df47b344f2b109d5086d6ca6a0)"
-clientCredentials: "@Microsoft.KeyVault(SecretUri=https://digitransit-dev-keyvault.vault.azure.net/secrets/dev-management-api-client-credentials/607beeac7c7c43b58ff9147ac65d11f0)"
