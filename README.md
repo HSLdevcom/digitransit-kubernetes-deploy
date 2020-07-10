@@ -127,8 +127,16 @@ Applying a specific manifest into an environment
 
 ## Deploy fav-service
 
+Create a file fav_service_secrets.yml, and add following secrets to it.
+
+```
+"hslIdUrl": "<hslIdUrl>"
+"clientId": "<clientId>"
+"clientCredentials": "Basic <Base64 encoded clientCredentials (clienId:clientSecret)>"
+```
+
 Run following command to create Azure function app
 
 ```
-ansible-playbook play_setup_fav_service.yml -e @env_vars/dev.yml -e "hslIdUrl=<hslid_url> clientId=<clientID> clientCredentials=<Base64 encoded credentials>"
+ansible-playbook play_setup_fav_service.yml -e @env_vars/<dev or prod>.yml -e @fav_service_secrets.yml
 ```
