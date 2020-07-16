@@ -8,3 +8,5 @@
 "gateway_capacity": "2"
 
 "sku_name": "Developer"
+
+"kubernetes_version": "1.17.7"
