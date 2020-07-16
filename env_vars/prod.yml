@@ -12,4 +12,4 @@
 "addons": "monitoring"
 "log_analytics_workspace_rg": "OMS-PROD-RG"
 
-"kubernetes_version": "1.16.10"
+"kubernetes_version": "1.17.7"
