@@ -10,6 +10,6 @@
 "sku_name": "Standard"
 
 "addons": "monitoring"
-"log_analytics_workspace_rg": "oms-prod-rg"
+"log_analytics_workspace_rg": "OMS-PROD-RG"
 
 "kubernetes_version": "1.16.10"

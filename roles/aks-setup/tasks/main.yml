@@ -54,7 +54,7 @@
       --workspace-resource-id {{item}}"
     delegate_to: localhost
     ignore_errors: "{{ ansible_check_mode }}"
-    with_items: "json[0].id"
+    with_items: "{{json[0].id}}"
 
   when:
     - log_analytics_workspace_rg is defined
