@@ -1,15 +1,21 @@
 ---
-# Add here variables specific to DEV environment
+# Add here variables specific to the prod environment
 "az_environment": "prod"
-"az_environment_postfix": "2"
-"node_count": "53"
 
+# AKS variables
+"aks_environment_postfix": "2"
+"aks_environment_with_postfix": "{{az_environment}}{{aks_environment_postfix}}"
+"aks_name": "{{project}}-{{aks_environment_with_postfix}}-aks"
+"aks_resource_group_name": "{{aks_name}}-rg"
+"node_count": "53"
+"addons_to_add": "monitoring"
+"addons_to_remove": "kube-dashboard"
+"log_analytics_workspace_rg": "OMS-PROD-RG"
+"kubernetes_version": "1.17.7"
+
+# Application Gateway variables
 "gateway_name_postfix": ""
 "gateway_capacity": "2"
 
+# Api Management variables
 "sku_name": "Standard"
-
-"addons": "monitoring"
-"log_analytics_workspace_rg": "OMS-PROD-RG"
-
-"kubernetes_version": "1.17.7"

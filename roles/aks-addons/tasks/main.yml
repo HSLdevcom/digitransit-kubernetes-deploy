@@ -1,0 +1,37 @@
+---
+- block:
+  - name: "Get log analytics workspace's resource id"
+    command: "az monitor log-analytics workspace list \
+      --resource-group {{log_analytics_workspace_rg}}"
+    delegate_to: localhost
+    ignore_errors: "{{ ansible_check_mode }}"
+    register: out
+
+  - set_fact:
+      json: "{{(out.stdout|from_json)}}"
+
+  - name: "Enable addons for {{aks_name}}"
+    command: "az aks enable-addons \
+      --resource-group {{aks_resource_group_name}} \
+      --name {{aks_name}} \
+      --addons {{addons_to_add}} \
+      --workspace-resource-id {{item}}"
+    delegate_to: localhost
+    ignore_errors: "{{ ansible_check_mode }}"
+    with_items: "{{json[0].id}}"
+
+  when:
+    - log_analytics_workspace_rg is defined
+    - addons_to_add is defined
+
+- block:
+  - name: "Disable addons for {{aks_name}}"
+    command: "az aks disable-addons \
+      --resource-group {{aks_resource_group_name}} \
+      --name {{aks_name}} \
+      --addons {{addons_to_remove}}"
+    delegate_to: localhost
+    ignore_errors: "{{ ansible_check_mode }}"
+
+  when:
+    - addons_to_remove is defined
