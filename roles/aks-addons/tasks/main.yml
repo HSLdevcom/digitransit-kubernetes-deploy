@@ -35,3 +35,10 @@
 
   when:
     - addons_to_remove is defined
+
+- name: "Configure kubectl to use {{aks_name}}"
+  command: "az aks get-credentials \
+    --resource-group {{aks_resource_group_name}} \
+    --name {{aks_name}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"

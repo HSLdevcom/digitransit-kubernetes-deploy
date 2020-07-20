@@ -1,43 +1,35 @@
 ---
-- block:
-  - name: "Create service principal"
-    command: "az ad sp create-for-rbac \
-      -n {{aks_name}} \
-      --skip-assignment \
-      --years 100"
-    delegate_to: localhost
-    ignore_errors: "{{ ansible_check_mode }}"
-    register: out
-
-  - set_fact:
-      json: "{{(out.stdout|from_json)}}"
-
-  - name: "Create {{aks_resource_group_name}}"
-    command: "az group create \
-      --name {{aks_resource_group_name}} \
-      --location {{ az_region }}"
-    delegate_to: localhost
-    ignore_errors: "{{ ansible_check_mode }}"
-
-  - name: "Create {{aks_name}}"
-    command: "az aks create \
-      --resource-group {{aks_resource_group_name}} \
-      --name {{aks_name}} \
-      --node-count {{node_count}} \
-      --node-vm-size {{node_vm_size}} \
-      --kubernetes-version {{kubernetes_version}} \
-      --generate-ssh-keys \
-      --service-principal {{item.appId}} \
-      --client-secret {{item.password}} \
-      --no-wait"
-    delegate_to: localhost
-    ignore_errors: "{{ ansible_check_mode }}"
-    with_items:
-      - { appId: "{{json.appId}}", password: "{{json.password}}" }
-
-- name: "Configure kubectl to use {{aks_name}}"
-  command: "az aks get-credentials \
-    --resource-group {{aks_resource_group_name}} \
-    --name {{aks_name}}"
+- name: "Create service principal"
+  command: "az ad sp create-for-rbac \
+    -n {{aks_name}} \
+    --skip-assignment \
+    --years 100"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
+  register: out
+
+- set_fact:
+    json: "{{(out.stdout|from_json)}}"
+
+- name: "Create {{aks_resource_group_name}}"
+  command: "az group create \
+    --name {{aks_resource_group_name}} \
+    --location {{ az_region }}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create {{aks_name}}"
+  command: "az aks create \
+    --resource-group {{aks_resource_group_name}} \
+    --name {{aks_name}} \
+    --node-count {{node_count}} \
+    --node-vm-size {{node_vm_size}} \
+    --kubernetes-version {{kubernetes_version}} \
+    --generate-ssh-keys \
+    --service-principal {{item.appId}} \
+    --client-secret {{item.password}} \
+    --no-wait"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+  with_items:
+    - { appId: "{{json.appId}}", password: "{{json.password}}" }
