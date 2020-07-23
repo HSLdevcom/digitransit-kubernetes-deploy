@@ -1,7 +1,7 @@
-- name: "Setup {{aks_name}}"
+- name: "Configure addons for {{aks_name}}"
   hosts: localhost
   connection: local
   gather_facts: false
 
   roles:
-    - role: aks-setup
+    - role: aks-addons

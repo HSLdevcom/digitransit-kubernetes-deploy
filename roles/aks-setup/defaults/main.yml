@@ -1,4 +1,2 @@
 ---
-az_environment_with_postfix: "{{az_environment}}{{az_environment_postfix}}"
-resource_group_name: "{{project}}-{{az_environment_with_postfix}}-aks-rg"
 node_vm_size: "Standard_F8s_v2"
