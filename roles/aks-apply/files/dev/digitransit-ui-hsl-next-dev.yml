@@ -107,6 +107,14 @@ spec:
             secretKeyRef:
               name: gtm-id
               key: gtm-id
+        - name: REALTIME_PATCH
+          value: "{\"HSL\": {\"mqtt\": \"wss://test92.rt.hsl.fi\"}}"
+        - name: MAP_PATH_PREFIX
+          value: "next-"
+        - name: MAP_URL
+          value: "https://dev-api.digitransit.fi"
+        - name: OIDCHOST
+          value: "https://hslid-uat.cinfra.fi"
         - name: OIDC_CLIENT_CALLBACK
           value: "https://next-dev.digitransit.fi/oid_callback"
         - name: SESSION_SECRET
@@ -117,19 +125,13 @@ spec:
         - name: OIDC_CLIENT_ID
           valueFrom:
             secretKeyRef:
-              name: oidc-client-id
-              key: oidc-client-id
+              name: uat-oidc-client-id
+              key: uat-oidc-client-id
         - name: OIDC_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              name: oidc-client-secret
-              key: oidc-client-secret
-        - name: REALTIME_PATCH
-          value: "{\"HSL\": {\"mqtt\": \"wss://test92.rt.hsl.fi\"}}"
-        - name: MAP_PATH_PREFIX
-          value: "next-"
-        - name: MAP_URL
-          value: "https://dev-api.digitransit.fi"
+              name: uat-oidc-client-secret
+              key: uat-oidc-client-secret
         resources:
           requests:
             memory: "1536Mi"
