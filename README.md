@@ -54,6 +54,13 @@ Run following command to create AKS cluster.
 ansible-playbook play_setup_aks.yml -e @env_vars/<dev or prod>.yml
 ```
 
+It takes a bit before the AKS cluster is ready. The next command will configure addons for aks.
+If the node pool for AKS is not yet properly deployed, running this command will fail.
+Retry a bit later if that happens.
+```
+ansible-playbook play_configure_addons.yml -e @env_vars/<dev or prod>.yml
+```
+
 ### Install azure key vault controller
 
 Install [Helm](https://helm.sh/docs/using_helm/) v3 if you don't have it
@@ -127,8 +134,16 @@ Applying a specific manifest into an environment
 
 ## Deploy fav-service
 
+Create a file fav_service_secrets.yml, and add following secrets to it.
+
+```
+"hslIdUrl": "<hslIdUrl>"
+"clientId": "<clientId>"
+"clientCredentials": "Basic <Base64 encoded clientCredentials (clienId:clientSecret)>"
+```
+
 Run following command to create Azure function app
 
 ```
-ansible-playbook play_setup_fav_service.yml -e @env_vars/dev.yml -e "resource_id=<keyvault_resource_id>"
+ansible-playbook play_setup_fav_service.yml -e @env_vars/<dev or prod>.yml -e @fav_service_secrets.yml
 ```

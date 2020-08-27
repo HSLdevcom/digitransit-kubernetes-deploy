@@ -1,8 +1,8 @@
 ---
-- name: "Configure kubectl to use {{project}}-{{az_environment}}{{az_environment_postfix}}-aks"
+- name: "Configure kubectl to use {{aks_name}}"
   command: "az aks get-credentials \
-    --resource-group {{project}}-{{az_environment}}{{az_environment_postfix}}-aks-rg \
-    --name {{project}}-{{az_environment}}{{az_environment_postfix}}-aks"
+    --resource-group {{aks_resource_group_name}} \
+    --name {{aks_name}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 

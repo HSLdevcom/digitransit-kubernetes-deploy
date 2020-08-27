@@ -1,6 +1,6 @@
-# Avoid committing Vault key
+# Avoid committing these files
 /.ansible_vault
-
+/fav_service_secrets.yml
 # Ignore temp, test, log, and retry files
 _tmp
 /*.retry
