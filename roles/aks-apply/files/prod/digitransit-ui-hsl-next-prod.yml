@@ -79,6 +79,8 @@ spec:
           value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v1/hsl-next"
         - name: MAP_URL
           value: "https://digitransit-prod-cdn-origin.azureedge.net"
+        - name: MAP_PATH_PREFIX
+          value: "next-"
         - name: NODE_OPTS
           value: "--max_old_space_size=1000"
         - name: RELAY_FETCH_TIMEOUT

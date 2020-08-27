@@ -12,82 +12,82 @@ spec:
     app: hsl-map-server-next
 ---
 
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: hsl-map-server-next
-#   labels:
-#     app: hsl-map-server-next
-#     update: auto
-#     restartAfterDeployments: "opentripplanner-hsl_opentripplanner-waltti" #TODO include finland when we figure out best way to circumvent label length restriction _opentripplanner-finland
-#     restartDelay: "5"
-# spec:
-#   replicas: 4
-#   strategy:
-#     type: RollingUpdate
-#     rollingUpdate:
-#       maxSurge: 25%
-#       maxUnavailable: 0
-#   selector:
-#     matchLabels:
-#       app: hsl-map-server-next
-#   template:
-#     metadata:
-#       labels:
-#         app: hsl-map-server-next
-#         lastRestartDate: dummy-value
-#     spec:
-#       affinity:
-#         podAntiAffinity:
-#           preferredDuringSchedulingIgnoredDuringExecution:
-#           - weight: 100
-#             podAffinityTerm:
-#               labelSelector:
-#                 matchExpressions:
-#                 - key: app
-#                   operator: Exists
-#               topologyKey: kubernetes.io/hostname
-#       containers:
-#       - name: hsl-map-server-next
-#         image: hsldevcom/hsl-map-server:prod # TODO Correct this 
-#         imagePullPolicy: Always
-#         securityContext:
-#           allowPrivilegeEscalation: false
-#         ports:
-#         - containerPort: 8080
-#         readinessProbe:
-#           periodSeconds: 5
-#           timeoutSeconds: 10
-#           failureThreshold: 2
-#           httpGet:
-#             port: 8080
-#             path: /map/v1/hsl-map/index.json
-#         livenessProbe:
-#           initialDelaySeconds: 150
-#           periodSeconds: 10
-#           timeoutSeconds: 10
-#           failureThreshold: 10
-#           httpGet:
-#             port: 8080
-#             path: /map/v1/hsl-map/index.json
-#         env:
-#           - name: FINLAND_OTP_URL
-#             value: "opentripplanner-finland:8080/otp/routers/finland/index/graphql"
-#           - name: FONTSTACK_PASSWORD
-#             valueFrom:
-#               secretKeyRef:
-#                 name: fontstack-password
-#                 key: fontstack-password
-#           - name: HSL_OTP_URL
-#             value: "opentripplanner-hsl:8080/otp/routers/hsl/index/graphql"
-#           - name: NODE_OPTS
-#             value: "--max_old_space_size=2048 --optimize_for_size --max_executable_size=2048 --stack_size=2048 --harmony"
-#           - name: WALTTI_OTP_URL
-#             value: "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql"
-#         resources:
-#           requests:
-#             memory: 4096Mi
-#             cpu: 4000m
-#           limits:
-#             memory: 4096Mi
-#             cpu: 7900m
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hsl-map-server-next
+  labels:
+    app: hsl-map-server-next
+    update: auto
+    restartAfterDeployments: "opentripplanner-hsl_opentripplanner-waltti" #TODO include finland when we figure out best way to circumvent label length restriction _opentripplanner-finland
+    restartDelay: "5"
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: hsl-map-server-next
+  template:
+    metadata:
+      labels:
+        app: hsl-map-server-next
+        lastRestartDate: dummy-value
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: Exists
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: hsl-map-server-next
+        image: hsldevcom/hsl-map-server:next-prod
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: /map/v1/hsl-map/index.json
+        livenessProbe:
+          initialDelaySeconds: 150
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 10
+          httpGet:
+            port: 8080
+            path: /map/v1/hsl-map/index.json
+        env:
+          - name: FINLAND_OTP_URL
+            value: "opentripplanner-finland:8080/otp/routers/finland/index/graphql"
+          - name: FONTSTACK_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: fontstack-password
+                key: fontstack-password
+          - name: HSL_OTP_URL
+            value: "opentripplanner-hsl:8080/otp/routers/hsl/index/graphql"
+          - name: NODE_OPTS
+            value: "--max_old_space_size=2048 --optimize_for_size --max_executable_size=2048 --stack_size=2048 --harmony"
+          - name: WALTTI_OTP_URL
+            value: "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql"
+        resources:
+          requests:
+            memory: 4096Mi
+            cpu: 4000m
+          limits:
+            memory: 4096Mi
+            cpu: 7900m
