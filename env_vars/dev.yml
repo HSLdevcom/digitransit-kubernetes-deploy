@@ -17,3 +17,5 @@
 
 # Api Management variables
 "sku_name": "Developer"
+
+"redis_vm_size": "c0"

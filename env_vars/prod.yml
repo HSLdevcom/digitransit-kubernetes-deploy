@@ -19,3 +19,6 @@
 
 # Api Management variables
 "sku_name": "Standard"
+
+# Favourites service
+"redis_vm_size": "c2"

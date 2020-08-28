@@ -5,7 +5,6 @@ resource_group_name: "{{service_name}}-rg"
 # Redis
 redis_name: "{{project}}-{{az_environment}}-redis-fav-service"
 redis_sku: Standard
-redis_vm_size: c0
 
 # Function app
 storage_account_name: "{{az_environment}}favservice"
