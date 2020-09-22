@@ -1,0 +1,77 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: otp-data-builder-waltti-next-dev
+spec:
+  schedule: "0 22 * * *" # schedule in UTC time
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 4
+  jobTemplate:
+    spec:
+      backoffLimit: 2 # max two retries
+      template:
+        spec:
+          priorityClassName: high-priority
+          activeDeadlineSeconds: 12600 # one build can take max 3 hours and 30 minutes
+          restartPolicy: OnFailure
+          containers:
+          - name: otp-data-builder-waltti-next-dev
+            image: hsldevcom/otp-data-builder:otp2
+            command: ["timeout"]
+            args: ["12600", "node", "index.js", "once"]
+            volumeMounts:
+              - mountPath: var/run/docker.sock
+                name: "docker-sock-volume"
+              - mountPath: opt/otp-data-builder/data
+                name: otp-data
+            imagePullPolicy: Always
+            securityContext:
+              allowPrivilegeEscalation: false
+            env:
+            - name: BUILDER_TYPE
+              value: "Waltti next dev"
+            - name: DATA
+              value: "/opt/otp-data-builder/data"
+            - name: DOCKER_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: docker-auth
+                  key: docker-auth
+            - name: DOCKER_TAG
+              value: "otp2"
+            - name: DOCKER_USER
+              valueFrom:
+                secretKeyRef:
+                  name: docker-user
+                  key: docker-user
+            - name: HOST_DATA
+              value: "/opt/otp-data"
+            - name: OTP_TAG
+              value: "otp2"
+            - name: ROUTERS
+              value: "waltti"
+            - name: SEED_TAG
+              value: "otp2"
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: slack-webhook
+                  key: slack-webhook
+            - name: TOOLS_TAG
+              value: "latest"
+            resources:
+              requests:
+                memory: 12Gi
+                cpu: 3000m
+              limits:
+                memory: 12Gi
+                cpu: 6000m
+          volumes:
+            - name: "docker-sock-volume"
+              hostPath:
+                # location on host
+                path: /var/run/docker.sock
+            - name: otp-data
+              hostPath:
+                path: /opt/otp-data/
