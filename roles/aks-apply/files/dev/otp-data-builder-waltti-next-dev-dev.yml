@@ -59,7 +59,7 @@ spec:
                   name: slack-webhook
                   key: slack-webhook
             - name: TOOLS_TAG
-              value: "latest"
+              value: "otp2"
             resources:
               requests:
                 memory: 12Gi
