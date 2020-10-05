@@ -23,7 +23,7 @@ metadata:
     restartAt: "05.45"
     restartLimitInterval: "720"
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -38,10 +38,9 @@ spec:
         app: opentripplanner-next-waltti
         lastRestartDate: dummy-value
     spec:
-      priorityClassName: medium-priority
       containers:
       - name: opentripplanner-next-waltti
-        image: hsldevcom/opentripplanner:otp2
+        image: hsldevcom/opentripplanner:otp2-prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -62,8 +61,8 @@ spec:
         - name: JAVA_OPTS
           valueFrom:
             secretKeyRef:
-              name: otp-next-waltti-java-opts-dev
-              key: otp-next-waltti-java-opts-dev
+              name: otp-next-waltti-java-opts-prod
+              key: otp-next-waltti-java-opts-prod
         resources:
           requests:
             memory: "7168Mi"
