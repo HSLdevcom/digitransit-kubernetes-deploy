@@ -79,6 +79,8 @@ spec:
           limits:
             memory: <mem>
             cpu: <cpus>
+      imagePullSecrets:
+        - name: hsldevcomkey
       volumes:
         - name: <MOUNT_NAME>
           emptyDir: {}            
