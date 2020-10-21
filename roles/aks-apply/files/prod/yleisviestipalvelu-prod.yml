@@ -86,6 +86,8 @@ spec:
           limits:
             memory: "64Mi"
             cpu: "200m"
+      imagePullSecrets:
+        - name: hsldevcomkey
       volumes:
         - name: "yleisviestipalvelumessages"
           persistentVolumeClaim:
