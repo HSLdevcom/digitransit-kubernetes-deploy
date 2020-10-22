@@ -136,13 +136,13 @@ spec:
         - name: OIDC_CLIENT_ID
           valueFrom:
             secretKeyRef:
-              name: uat-oidc-client-id
-              key: uat-oidc-client-id
+              name: prod-oidc-client-id
+              key: prod-oidc-client-id
         - name: OIDC_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              name: uat-oidc-client-secret
-              key: uat-oidc-client-secret
+              name: prod-oidc-client-secret
+              key: prod-oidc-client-secret
         resources:
           requests:
             memory: "1536Mi"
