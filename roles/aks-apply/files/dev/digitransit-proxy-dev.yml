@@ -65,6 +65,8 @@ spec:
         env:
           - name: HSL_RT_STORAGE_NAME
             value: "transitdatadev"
+          - name: NEW_HSL_FI_URL
+            value: "dev.hslfi.hsldev.com"
           - name: JOJO_BASIC_AUTH
             valueFrom:
               secretKeyRef:
@@ -167,3 +169,5 @@ spec:
             limits:
               memory: "1152Mi"
               cpu: "3000m"
+      imagePullSecrets:
+        - name: hsldevcomkey

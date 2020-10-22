@@ -62,6 +62,8 @@ spec:
         env:
           - name: HSL_RT_STORAGE_NAME
             value: "transitdataprod"
+          - name: NEW_HSL_FI_URL
+            value: "uusi.hsl.fi"
           - name: JOJO_BASIC_AUTH
             valueFrom:
               secretKeyRef:

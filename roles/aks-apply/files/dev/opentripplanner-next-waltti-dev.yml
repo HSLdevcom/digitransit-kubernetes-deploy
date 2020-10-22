@@ -1,29 +1,29 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: opentripplanner-finland
+  name: opentripplanner-next-waltti
 spec:
   ports:
   - port: 8080
     targetPort: 8080
-    name: opentripplanner-finland-service-port
+    name: opentripplanner-next-waltti-service-port
   selector:
-    app: opentripplanner-finland
+    app: opentripplanner-next-waltti
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: opentripplanner-finland
+  name: opentripplanner-next-waltti
   labels:
-    app: opentripplanner-finland
+    app: opentripplanner-next-waltti
     update: auto
-    restartAfterDeployments: "opentripplanner-data-con-finland"
+    restartAfterDeployments: "opentripplanner-data-con-next-waltti"
     restartDelay: "1"
-    restartAt: "05.30"
+    restartAt: "05.45"
     restartLimitInterval: "720"
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -31,45 +31,45 @@ spec:
       maxUnavailable: 50%
   selector:
     matchLabels:
-      app: opentripplanner-finland
+      app: opentripplanner-next-waltti
   template:
     metadata:
       labels:
-        app: opentripplanner-finland
+        app: opentripplanner-next-waltti
         lastRestartDate: dummy-value
     spec:
       priorityClassName: medium-priority
       containers:
-      - name: opentripplanner-finland
-        image: hsldevcom/opentripplanner:latest
+      - name: opentripplanner-next-waltti
+        image: hsldevcom/opentripplanner:otp2
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
         readinessProbe:
           periodSeconds: 10
-          timeoutSeconds: 15
+          timeoutSeconds: 10
           failureThreshold: 2
           httpGet:
             port: 8080
-            path: "/otp/routers/finland/"
+            path: "/otp/routers/default/"
         securityContext:
           allowPrivilegeEscalation: false
         env:
         - name: ROUTER_DATA_CONTAINER_URL
-          value: "http://opentripplanner-data-con-finland:8080"
+          value: "http://opentripplanner-data-con-next-waltti:8080"
         - name: ROUTER_NAME
-          value: "finland"
+          value: "waltti"
         - name: JAVA_OPTS
           valueFrom:
             secretKeyRef:
-              name: otp-finland-java-opts-dev
-              key: otp-finland-java-opts-dev
+              name: otp-next-waltti-java-opts-dev
+              key: otp-next-waltti-java-opts-dev
         resources:
           requests:
-            memory: 11216Mi
+            memory: "7168Mi"
             cpu: "7000m"
           limits:
-            memory: 11216Mi
+            memory: "7168Mi"
             cpu: "7600m"
       imagePullSecrets:
         - name: hsldevcomkey

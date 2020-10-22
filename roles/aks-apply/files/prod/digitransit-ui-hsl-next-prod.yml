@@ -73,8 +73,12 @@ spec:
         env:
         - name: CONFIG
           value: "hsl"
+        - name: HOSTNAME
+          value: "https://uusi.reittiopas.hsl.fi"
         - name: API_URL
           value: "https://api.digitransit.fi"
+        - name: FAVOURITE_HOST
+          value: "https://api.digitransit.fi/favourites"
         - name: ASSET_URL
           value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v1/hsl-next"
         - name: ROOTLINK
@@ -110,6 +114,37 @@ spec:
               key: gtm-id
         - name: REALTIME_PATCH
           value: "{\"HSL\": {\"mqtt\": \"wss://test92.rt.hsl.fi\"}}"
+        - name: REDIS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: redis-host
+              key: redis-host
+        - name: REDIS_PORT
+          value: "6380"
+        - name: REDIS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: redis-key
+              key: redis-key
+        - name: OIDCHOST
+          value: "https://id.hsl.fi"
+        - name: OIDC_CLIENT_CALLBACK
+          value: "https://uusi.reittiopas.hsl.fi/oid_callback"
+        - name: SESSION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: session-secret
+              key: session-secret
+        - name: OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: prod-oidc-client-id
+              key: prod-oidc-client-id
+        - name: OIDC_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: prod-oidc-client-secret
+              key: prod-oidc-client-secret
         resources:
           requests:
             memory: "1536Mi"

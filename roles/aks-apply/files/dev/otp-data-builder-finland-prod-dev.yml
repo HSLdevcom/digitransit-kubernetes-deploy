@@ -67,6 +67,8 @@ spec:
               limits:
                 memory: 12Gi
                 cpu: 6000m
+          imagePullSecrets:
+            - name: hsldevcomkey
           volumes:
             - name: "docker-sock-volume"
               hostPath:

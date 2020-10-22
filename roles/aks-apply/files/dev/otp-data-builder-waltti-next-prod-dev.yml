@@ -2,9 +2,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: otp-data-builder-waltti-next-dev
+  name: otp-data-builder-waltti-next-prod
 spec:
-  schedule: "0 22 * * *" # schedule in UTC time
+  schedule: "0 21 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -16,8 +16,8 @@ spec:
           activeDeadlineSeconds: 12600 # one build can take max 3 hours and 30 minutes
           restartPolicy: OnFailure
           containers:
-          - name: otp-data-builder-waltti-next-dev
-            image: hsldevcom/otp-data-builder:otp2
+          - name: otp-data-builder-waltti-next-prod
+            image: hsldevcom/otp-data-builder:otp2-prod
             command: ["timeout"]
             args: ["12600", "node", "index.js", "once"]
             volumeMounts:
@@ -30,7 +30,7 @@ spec:
               allowPrivilegeEscalation: false
             env:
             - name: BUILDER_TYPE
-              value: "Waltti next dev"
+              value: "Waltti next prod"
             - name: DATA
               value: "/opt/otp-data-builder/data"
             - name: DOCKER_AUTH
@@ -39,7 +39,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "otp2"
+              value: "otp2-prod"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -48,18 +48,18 @@ spec:
             - name: HOST_DATA
               value: "/opt/otp-data"
             - name: OTP_TAG
-              value: "otp2"
+              value: "otp2-prod"
             - name: ROUTERS
               value: "waltti"
             - name: SEED_TAG
-              value: "otp2"
+              value: "otp2-prod"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: slack-webhook
                   key: slack-webhook
             - name: TOOLS_TAG
-              value: "otp2"
+              value: "otp2-prod"
             resources:
               requests:
                 memory: 12Gi

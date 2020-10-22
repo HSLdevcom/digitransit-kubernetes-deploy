@@ -70,6 +70,8 @@ spec:
         env:
         - name: CONFIG
           value: "hsl"
+        - name: HOSTNAME
+          value: "https://next-dev.digitransit.fi"
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
         - name: ASSET_URL
@@ -139,3 +141,5 @@ spec:
           limits:
             memory: "1536Mi"
             cpu: 2000m
+      imagePullSecrets:
+        - name: hsldevcomkey
