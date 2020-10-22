@@ -77,6 +77,8 @@ spec:
           value: "https://api.digitransit.fi"
         - name: ASSET_URL
           value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v1/hsl-next"
+        - name: ROOTLINK
+          value: "https://uusi.hsl.fi"
         - name: LOCALSTORAGEEMITTER
           value: "https://uusi.hsl.fi/local-storage-emitter"
         - name: LOCALSTORAGETARGET
