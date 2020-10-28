@@ -61,6 +61,13 @@ Retry a bit later if that happens.
 ansible-playbook play_configure_addons.yml -e @env_vars/<dev or prod>.yml
 ```
 
+### Add Docker login to Kubernetes secrets
+
+Run following command to create the secret for Docker login. Use the correct login credentials.
+```
+kubectl create secret docker-registry hsldevcomkey --docker-server=docker.io --docker-username=<username> --docker-password=<password>
+```
+
 ### Install azure key vault controller
 
 Install [Helm](https://helm.sh/docs/using_helm/) v3 if you don't have it
