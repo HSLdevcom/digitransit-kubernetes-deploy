@@ -97,6 +97,8 @@ spec:
               key: gtm-id
         - name: BASE_CONFIG
           value: "waltti"
+        - name: REALTIME_PATCH
+          value: "{\"tampere\": {\"mqtt\": \"wss://mqtt.waltti.fi/mqtt\"}, \"LINKKI\": {\"mqtt\": \"wss://mqtt.waltti.fi/mqtt\"}, \"Lappeenranta\": {\"mqtt\": \"wss://mqtt.waltti.fi/mqtt\"}, \"Joensuu\": {\"mqtt\": \"wss://mqtt.waltti.fi/mqtt\"}, \"Kuopio\": {\"mqtt\": \"wss://mqtt.waltti.fi/mqtt\"}, \"FOLI\": {\"mqtt\": \"wss://mqtt.waltti.fi/mqtt\"}, \"OULU\": {\"mqtt\": \"wss://mqtt.waltti.fi/mqtt\"}}"
         resources:
           requests:
             memory: 1200Mi
