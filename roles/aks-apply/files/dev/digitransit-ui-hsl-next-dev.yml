@@ -99,11 +99,11 @@ spec:
             secretKeyRef:
               name: sentry-dsn
               key: sentry-dsn
-        - name: SENTRY_SECRET_DSN
-          valueFrom:
-            secretKeyRef:
-              name: sentry-secret-dsn
-              key: sentry-secret-dsn
+        # - name: SENTRY_SECRET_DSN
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: sentry-secret-dsn
+        #       key: sentry-secret-dsn
         - name: GTM_ID
           valueFrom:
             secretKeyRef:
