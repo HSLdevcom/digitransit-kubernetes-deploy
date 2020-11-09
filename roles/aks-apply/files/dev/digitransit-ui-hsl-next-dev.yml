@@ -109,8 +109,6 @@ spec:
             secretKeyRef:
               name: gtm-id
               key: gtm-id
-        - name: REALTIME_PATCH
-          value: "{\"HSL\": {\"mqtt\": \"wss://test92.rt.hsl.fi\"}}"
         - name: MAP_PATH_PREFIX
           value: "next-"
         - name: MAP_URL
