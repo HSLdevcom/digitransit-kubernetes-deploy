@@ -83,10 +83,6 @@ spec:
           value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v1/hsl-next"
         - name: ROOTLINK
           value: "https://uusi.hsl.fi"
-        - name: LOCALSTORAGEEMITTER
-          value: "https://uusi.hsl.fi/local-storage-emitter"
-        - name: LOCALSTORAGETARGET
-          value: "https://uusi.hsl.fi"
         - name: MAP_URL
           value: "https://digitransit-prod-cdn-origin.azureedge.net"
         - name: MAP_PATH_PREFIX
@@ -126,8 +122,6 @@ spec:
               key: redis-key
         - name: OIDCHOST
           value: "https://id.hsl.fi"
-        - name: OIDC_CLIENT_CALLBACK
-          value: "https://uusi.reittiopas.hsl.fi/oid_callback"
         - name: SESSION_SECRET
           valueFrom:
             secretKeyRef:
