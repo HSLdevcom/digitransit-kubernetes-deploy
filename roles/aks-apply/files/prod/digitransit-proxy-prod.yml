@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
       - name: digitransit-proxy
-        image: hsldevcom/digitransit-proxy:prod
+        image: hsldevcom/digitransit-proxy:prod-2020-10-23T16.16.00-b8594c1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
