@@ -115,8 +115,6 @@ spec:
           value: "https://dev-api.digitransit.fi"
         - name: OIDCHOST
           value: "https://hslid-uat.cinfra.fi"
-        - name: OIDC_CLIENT_CALLBACK
-          value: "https://next-dev.digitransit.fi/oid_callback"
         - name: SESSION_SECRET
           valueFrom:
             secretKeyRef:
