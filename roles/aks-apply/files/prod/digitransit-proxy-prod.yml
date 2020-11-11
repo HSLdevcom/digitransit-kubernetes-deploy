@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
       - name: digitransit-proxy
-        image: hsldevcom/digitransit-proxy:prod-2020-10-23T16.16.00-b8594c1
+        image: hsldevcom/digitransit-proxy:prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -63,7 +63,7 @@ spec:
           - name: HSL_RT_STORAGE_NAME
             value: "transitdataprod"
           - name: NEW_HSL_FI_URL
-            value: "uusi.hsl.fi"
+            value: "www.hsl.fi"
           - name: JOJO_BASIC_AUTH
             valueFrom:
               secretKeyRef:
