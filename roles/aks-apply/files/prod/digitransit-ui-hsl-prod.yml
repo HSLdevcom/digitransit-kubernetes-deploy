@@ -84,21 +84,6 @@ spec:
           value: "3000"
         - name: STATIC_MESSAGE_URL
           value: "https://yleisviesti.hsl.fi"
-        - name: SENTRY_DSN
-          valueFrom:
-            secretKeyRef:
-              name: sentry-dsn
-              key: sentry-dsn
-        - name: SENTRY_SECRET_DSN
-          valueFrom:
-            secretKeyRef:
-              name: sentry-secret-dsn
-              key: sentry-secret-dsn
-        - name: GTM_ID
-          valueFrom:
-            secretKeyRef:
-              name: gtm-id
-              key: gtm-id
         resources:
           requests:
             memory: "1536Mi"
