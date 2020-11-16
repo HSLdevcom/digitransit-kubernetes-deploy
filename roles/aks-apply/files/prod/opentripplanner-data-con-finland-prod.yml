@@ -46,7 +46,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: opentripplanner-data-con-finland
-        image: hsldevcom/opentripplanner-data-container-finland:prod-2020-11-16T00.41.27
+        image: hsldevcom/opentripplanner-data-container-finland:prod
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
