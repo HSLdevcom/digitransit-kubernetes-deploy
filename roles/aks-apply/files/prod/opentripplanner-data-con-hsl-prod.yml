@@ -47,7 +47,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: opentripplanner-data-con-hsl
-        image: hsldevcom/opentripplanner-data-container-hsl:prod
+        image: hsldevcom/opentripplanner-data-container-hsl:prod-2020-11-17T01.20.15
         securityContext:
           allowPrivilegeEscalation: false
         imagePullPolicy: Always
