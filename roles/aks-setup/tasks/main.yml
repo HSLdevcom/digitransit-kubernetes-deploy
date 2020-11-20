@@ -28,6 +28,7 @@
     --generate-ssh-keys \
     --service-principal {{item.appId}} \
     --client-secret {{item.password}} \
+    --uptime-sla \
     --no-wait"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
