@@ -1,28 +1,29 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: digitransit-ui-hsl-next
+  name: digitransit-ui-waltti-next
 spec:
   ports:
   - port: 8080
     targetPort: 8080
-    name: digitransit-ui-hsl-next-service-port
+    name: digitransit-ui-waltti-next-service-port
   selector:
-    app: digitransit-ui-hsl-next
+    app: digitransit-ui-waltti-next
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: digitransit-ui-hsl-next
+  name: digitransit-ui-waltti-next
   labels:
-    app: digitransit-ui-hsl-next
+    app: digitransit-ui-waltti-next
     update: auto
-    restartAt: "03.20_13.20"
-    restartLimitInterval: "180"
+    restartAfterDeployments: "opentripplanner-waltti"
+    restartDelay: "5"
 spec:
   selector:
     matchLabels:
-      app: digitransit-ui-hsl-next
+      app: digitransit-ui-waltti-next
   replicas: 2
   strategy:
     type: RollingUpdate
@@ -32,7 +33,7 @@ spec:
   template:
     metadata:
       labels:
-        app: digitransit-ui-hsl-next
+        app: digitransit-ui-waltti-next
         lastRestartDate: dummy-value
     spec:
       priorityClassName: medium-priority
@@ -47,63 +48,42 @@ spec:
                   operator: Exists
               topologyKey: kubernetes.io/hostname
       containers:
-      - name: digitransit-ui-hsl-next
+      - name: digitransit-ui-waltti-next
         image: hsldevcom/digitransit-ui:next
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
         readinessProbe:
           httpGet:
-            path: /etusivu
+            path: /
             port: 8080
           periodSeconds: 5
           timeoutSeconds: 10
           failureThreshold: 2
         livenessProbe:
           httpGet:
-            path: /etusivu
+            path: /
             port: 8080
           initialDelaySeconds: 150
           periodSeconds: 10
           timeoutSeconds: 10
           failureThreshold: 10
         env:
-        - name: CONFIG
-          value: "hsl"
-        - name: HOSTNAME
-          value: "https://next-dev.digitransit.fi"
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
         - name: ASSET_URL
-          value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v1/hsl-next"
+          value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v1/waltti-next"
         - name: MAP_URL
           value: "https://digitransit-dev-cdn-origin.azureedge.net"
         - name: NODE_OPTS
-          value: "--max_old_space_size=1000"
+          value: "--max_old_space_size=900"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
-        - name: REDIS_HOST
-          valueFrom:
-            secretKeyRef:
-              name: redis-host
-              key: redis-host
-        - name: REDIS_PORT
-          value: "6380"
-        - name: REDIS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: redis-key
-              key: redis-key
         - name: SENTRY_DSN
           valueFrom:
             secretKeyRef:
               name: sentry-dsn
               key: sentry-dsn
-        # - name: SENTRY_SECRET_DSN
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: sentry-secret-dsn
-        #       key: sentry-secret-dsn
         - name: GTM_ID
           valueFrom:
             secretKeyRef:
@@ -111,29 +91,14 @@ spec:
               key: gtm-id
         - name: MAP_PATH_PREFIX
           value: "next-"
-        - name: OIDCHOST
-          value: "https://hslid-uat.cinfra.fi"
-        - name: SESSION_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: session-secret
-              key: session-secret
-        - name: OIDC_CLIENT_ID
-          valueFrom:
-            secretKeyRef:
-              name: uat-oidc-client-id
-              key: uat-oidc-client-id
-        - name: OIDC_CLIENT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: uat-oidc-client-secret
-              key: uat-oidc-client-secret
+        - name: BASE_CONFIG
+          value: "waltti"
         resources:
           requests:
-            memory: "1536Mi"
-            cpu: 600m
+            memory: 1200Mi
+            cpu: 500m
           limits:
-            memory: "1536Mi"
+            memory: 1200Mi
             cpu: 2000m
       imagePullSecrets:
         - name: hsldevcomkey
