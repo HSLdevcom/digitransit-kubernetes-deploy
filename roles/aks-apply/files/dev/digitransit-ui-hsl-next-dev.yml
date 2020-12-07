@@ -111,8 +111,6 @@ spec:
               key: gtm-id
         - name: MAP_PATH_PREFIX
           value: "next-"
-        - name: MAP_URL
-          value: "https://dev-api.digitransit.fi"
         - name: OIDCHOST
           value: "https://hslid-uat.cinfra.fi"
         - name: SESSION_SECRET
