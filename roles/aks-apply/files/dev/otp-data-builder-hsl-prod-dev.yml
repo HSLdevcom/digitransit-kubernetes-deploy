@@ -11,6 +11,9 @@ spec:
     spec:
       backoffLimit: 2 # max two retries
       template:
+        metadata:
+          labels:
+            type: data-builder
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 3600 # one build can take max 1 hour

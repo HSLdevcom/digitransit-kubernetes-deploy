@@ -11,6 +11,9 @@ spec:
     spec:
       backoffLimit: 2 # max two retries
       template:
+        metadata:
+          labels:
+            type: data-builder
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
@@ -63,10 +66,10 @@ spec:
               value: "-1" # don't run build in a loop
             resources:
               requests:
-                memory: 1736Mi
+                memory: 2736Mi
                 cpu: 1000m
               limits:
-                memory: 1736Mi
+                memory: 2736Mi
                 cpu: 4000m
           imagePullSecrets:
             - name: hsldevcomkey
