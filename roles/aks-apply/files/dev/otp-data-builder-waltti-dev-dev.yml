@@ -13,7 +13,7 @@ spec:
       template:
         metadata:
           labels:
-            type: data-builder
+            app: otp-data-builder-waltti-dev
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 12600 # one build can take max 3 hours and 30 minutes
@@ -84,3 +84,14 @@ spec:
             - name: otp-data
               hostPath:
                 path: /opt/otp-data/
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: otp-data-builder-waltti-dev-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: otp-data-builder-waltti-dev
