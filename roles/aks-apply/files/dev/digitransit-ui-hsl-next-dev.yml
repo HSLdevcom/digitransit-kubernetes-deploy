@@ -137,3 +137,15 @@ spec:
             cpu: 2000m
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: digitransit-ui-hsl-next-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: digitransit-ui-hsl-next
