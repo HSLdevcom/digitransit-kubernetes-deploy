@@ -13,7 +13,7 @@ spec:
       template:
         metadata:
           labels:
-            type: data-builder
+            app: hsl-timetable-builder
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
@@ -78,3 +78,15 @@ spec:
               hostPath:
                 # location on host
                 path: /var/run/docker.sock
+
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: hsl-timetable-builder-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: hsl-timetable-builder

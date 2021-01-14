@@ -13,7 +13,7 @@ spec:
       template:
         metadata:
           labels:
-            type: data-builder
+            app: otp-data-builder-hsl-dev
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 3600 # one build can take max 1 hour
@@ -84,3 +84,14 @@ spec:
             - name: otp-data
               hostPath:
                 path: /opt/otp-data/
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: otp-data-builder-hsl-dev-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: otp-data-builder-hsl-dev

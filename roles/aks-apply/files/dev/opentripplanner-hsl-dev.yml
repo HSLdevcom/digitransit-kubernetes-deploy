@@ -72,3 +72,15 @@ spec:
             cpu: "7600m"
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-hsl-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: opentripplanner-hsl
