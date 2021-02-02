@@ -77,3 +77,15 @@ spec:
             cpu: "3000m"
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: pelias-api-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: pelias-api

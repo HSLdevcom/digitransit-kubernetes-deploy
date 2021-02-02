@@ -84,3 +84,15 @@ spec:
             cpu: "1000m"
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: raildigitraffic2gtfsrt-pdb
+spec:
+  minAvailable: 75%
+  selector:
+    matchLabels:
+      app: raildigitraffic2gtfsrt

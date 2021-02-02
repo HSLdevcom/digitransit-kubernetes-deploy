@@ -80,3 +80,14 @@ spec:
             cpu: 100m
       imagePullSecrets:
         - name: hsldevcomkey
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: navigator-server-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: navigator-server

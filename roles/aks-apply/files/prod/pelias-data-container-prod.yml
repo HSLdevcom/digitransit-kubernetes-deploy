@@ -89,3 +89,15 @@ spec:
             cpu: 4000m
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: pelias-data-container-pdb
+spec:
+  minAvailable: 75%
+  selector:
+    matchLabels:
+      app: pelias-data-container
