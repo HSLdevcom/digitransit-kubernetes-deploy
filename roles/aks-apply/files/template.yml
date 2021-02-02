@@ -84,3 +84,15 @@ spec:
       volumes:
         - name: <MOUNT_NAME>
           emptyDir: {}
+
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: <NAME>-pdb
+spec:
+  minAvailable: 50% #no disruption budget if 1 replica, 50% if 2-3, 75% for >3
+  selector:
+    matchLabels:
+      app: <NAME>
