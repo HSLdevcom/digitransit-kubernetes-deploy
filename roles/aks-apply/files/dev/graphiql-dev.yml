@@ -53,6 +53,13 @@ spec:
           allowPrivilegeEscalation: false
         ports:
         - containerPort: 8080
+        startupProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 12
+          httpGet:
+            port: 8080
+            path: "/graphiql/hsl"
         readinessProbe:
           periodSeconds: 10
           timeoutSeconds: 10
@@ -61,7 +68,6 @@ spec:
             port: 8080
             path: "/graphiql/hsl"
         livenessProbe:
-          initialDelaySeconds: 60
           periodSeconds: 60
           timeoutSeconds: 10
           failureThreshold: 2
