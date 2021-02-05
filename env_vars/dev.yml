@@ -9,7 +9,7 @@
 "aks_resource_group_name": "{{aks_name}}-rg"
 "node_count": "13"
 "addons_to_remove": "kube-dashboard"
-"kubernetes_version": "1.17.7"
+"kubernetes_version": "1.18.10"
 
 # Application Gateway variables
 "gateway_name_postfix": "3"
