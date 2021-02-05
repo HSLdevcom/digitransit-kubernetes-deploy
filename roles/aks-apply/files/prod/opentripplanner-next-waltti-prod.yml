@@ -72,3 +72,15 @@ spec:
             cpu: "7600m"
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-next-waltti-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-next-waltti
