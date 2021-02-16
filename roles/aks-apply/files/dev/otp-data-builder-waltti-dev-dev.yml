@@ -51,7 +51,7 @@ spec:
             - name: EXTRA_SRC
               value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"waltti\"]}}"
             - name: EXTRA_UPDATERS
-              value: "{\"foli-alerts\": {\"url\": \"https://foli-beta.nanona.fi/gtfs-rt/reittiopas\", \"routers\": [\"waltti\"]}}"
+              value: "{\"foli-alerts\": {\"url\": \"https://foli-beta.nanona.fi/gtfs-rt/reittiopas\", \"routers\": [\"waltti\"]}, \"tampere-trip-updates\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/tripupdate\", \"routers\": [\"waltti\"]}, \"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"routers\": [\"waltti\"]}}"
             - name: HOST_DATA
               value: "/opt/otp-data"
             - name: OTP_TAG
