@@ -22,7 +22,7 @@ metadata:
     restartAfterDeployments: "opentripplanner-data-con-finland_opentripplanner-data-con-hsl"
     restartDelay: "5"  
 spec:
-  replicas: 4
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
