@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: otp-data-builder-waltti-linjasto2021-prod
 spec:
-  schedule: "30 20 * * *" # schedule in UTC time
+  schedule: "30 12 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -20,7 +20,7 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: otp-data-builder-waltti-linjasto2021-prod
-            image: hsldevcom/otp-data-builder:linjasto2021-prod
+            image: hsldevcom/otp-data-builder:linjasto2021
             command: ["timeout"]
             args: ["12600", "node", "index.js", "once"]
             volumeMounts:
@@ -51,18 +51,18 @@ spec:
             - name: HOST_DATA
               value: "/opt/otp-data"
             - name: OTP_TAG
-              value: "latest"
+              value: "prod"
             - name: ROUTERS
               value: "waltti"
             - name: SEED_TAG
-              value: "linjasto2021-prod"
+              value: "linjasto2021"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: slack-webhook
                   key: slack-webhook
             - name: TOOLS_TAG
-              value: "linjasto2021-prod"
+              value: "linjasto2021"
             resources:
               requests:
                 memory: 12Gi

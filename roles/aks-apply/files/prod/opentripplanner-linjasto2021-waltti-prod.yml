@@ -23,7 +23,7 @@ metadata:
     restartAt: "05.45"
     restartLimitInterval: "720"
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
       - name: opentripplanner-linjasto2021-waltti
-        image: hsldevcom/opentripplanner:otp2-prod
+        image: hsldevcom/opentripplanner:prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -61,8 +61,8 @@ spec:
         - name: JAVA_OPTS
           valueFrom:
             secretKeyRef:
-              name: otp-linjasto2021-waltti-java-opts-prod
-              key: otp-linjasto2021-waltti-java-opts-prod
+              name: otp-waltti-java-opts-prod
+              key: otp-waltti-java-opts-prod
         resources:
           requests:
             memory: "7168Mi"

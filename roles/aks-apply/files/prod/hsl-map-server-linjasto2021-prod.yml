@@ -19,10 +19,10 @@ metadata:
   labels:
     app: hsl-map-server-linjasto2021
     update: auto
-    restartAfterDeployments: "opentripplanner-hsl_opentripplanner-waltti" #TODO include finland when we figure out best way to circumvent label length restriction _opentripplanner-finland
+    restartAfterDeployments: "opentripplanner-linjasto2021-waltti" #TODO include finland when we figure out best way to circumvent label length restriction _opentripplanner-finland
     restartDelay: "5"
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -49,7 +49,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: hsl-map-server-linjasto2021
-        image: hsldevcom/hsl-map-server:linjasto2021-prod
+        image: hsldevcom/hsl-map-server:prod
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false

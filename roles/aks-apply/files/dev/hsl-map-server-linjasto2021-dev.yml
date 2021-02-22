@@ -19,7 +19,7 @@ metadata:
   labels:
     app: hsl-map-server-linjasto2021
     update: auto
-    restartAfterDeployments: "opentripplanner-hsl_opentripplanner-linjasto2021-waltti" #TODO include finland when we figure out best way to circumvent label length restriction
+    restartAfterDeployments: "opentripplanner-linjasto2021-waltti" #TODO include finland when we figure out best way to circumvent label length restriction
     restartDelay: "5"
 spec:
   replicas: 1
