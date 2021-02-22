@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opentripplanner-linjasto2021-waltti
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: opentripplanner-linjasto2021-waltti-service-port
+  selector:
+    app: opentripplanner-linjasto2021-waltti
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentripplanner-linjasto2021-waltti
+  labels:
+    app: opentripplanner-linjasto2021-waltti
+    update: auto
+    restartAfterDeployments: "opentripplanner-data-con-linjasto2021-waltti"
+    restartDelay: "1"
+    restartAt: "05.45"
+    restartLimitInterval: "720"
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-linjasto2021-waltti
+  template:
+    metadata:
+      labels:
+        app: opentripplanner-linjasto2021-waltti
+        lastRestartDate: dummy-value
+    spec:
+      containers:
+      - name: opentripplanner-linjasto2021-waltti
+        image: hsldevcom/opentripplanner:otp2-prod
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: ROUTER_DATA_CONTAINER_URL
+          value: "http://opentripplanner-data-con-linjasto2021-waltti:8080"
+        - name: ROUTER_NAME
+          value: "waltti"
+        - name: JAVA_OPTS
+          valueFrom:
+            secretKeyRef:
+              name: otp-linjasto2021-waltti-java-opts-prod
+              key: otp-linjasto2021-waltti-java-opts-prod
+        resources:
+          requests:
+            memory: "7168Mi"
+            cpu: "7000m"
+          limits:
+            memory: "7168Mi"
+            cpu: "7600m"
+      imagePullSecrets:
+        - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-linjasto2021-waltti-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-linjasto2021-waltti
