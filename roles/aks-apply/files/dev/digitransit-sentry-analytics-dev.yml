@@ -20,7 +20,7 @@ metadata:
     app: digitransit-sentry-analytics
     update: auto
 spec:
-  replicas: 1
+  replicas: 0
   strategy:
     type: RollingUpdate
     rollingUpdate:
