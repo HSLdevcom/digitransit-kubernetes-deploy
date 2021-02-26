@@ -48,8 +48,6 @@ spec:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
-            - name: EXTRA_UPDATERS
-              value: "{\"tampere-trip-updates\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/tripupdate\", \"routers\": [\"waltti\"]}, \"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"routers\": [\"waltti\"]}}"
             - name: HOST_DATA
               value: "/opt/otp-data"
             - name: OTP_TAG
