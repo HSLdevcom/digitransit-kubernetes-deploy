@@ -18,6 +18,8 @@ spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 12600 # one build can take max 3 hours and 30 minutes
           restartPolicy: OnFailure
+          nodeSelector:
+            pool: superpool
           containers:
           - name: otp-data-builder-finland-dev
             image: hsldevcom/otp-data-builder:latest

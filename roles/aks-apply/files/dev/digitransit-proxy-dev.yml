@@ -40,6 +40,8 @@ spec:
         app: digitransit-proxy
         lastRestartDate: dummy-value
     spec:
+      nodeSelector:
+        pool: defaultpool
       priorityClassName: high-priority
       containers:
       - name: digitransit-proxy

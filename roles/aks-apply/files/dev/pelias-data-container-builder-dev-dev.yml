@@ -18,6 +18,8 @@ spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 mins
           restartPolicy: OnFailure
+          nodeSelector:
+            pool: superpool
           containers:
           - name: pelias-data-container-builder-dev
             image: hsldevcom/pelias-data-container-builder

@@ -39,6 +39,8 @@ spec:
         lastRestartDate: dummy-value
     spec:
       priorityClassName: medium-priority
+      nodeSelector:
+        pool: superpool
       containers:
       - name: opentripplanner-next-waltti
         image: hsldevcom/opentripplanner:otp2

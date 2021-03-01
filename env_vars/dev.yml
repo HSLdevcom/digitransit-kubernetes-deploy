@@ -3,13 +3,18 @@
 "az_environment": "dev"
 
 # AKS variables
-"aks_environment_postfix": "3"
+"aks_environment_postfix": "5"
 "aks_environment_with_postfix": "{{az_environment}}{{aks_environment_postfix}}"
 "aks_name": "{{project}}-{{aks_environment_with_postfix}}-aks"
 "aks_resource_group_name": "{{aks_name}}-rg"
-"node_count": "13"
+"default_node_count": "5"
+"worker_node_count": "9"
 "addons_to_remove": "kube-dashboard"
 "kubernetes_version": "1.18.10"
+"default_nodepool_name": "defaultpool"
+"worker_nodepool_name": "superpool"
+"default_labels": "pool=defaultpool"
+"worker_labels": "pool=superpool"
 
 # Application Gateway variables
 "gateway_name_postfix": "3"
