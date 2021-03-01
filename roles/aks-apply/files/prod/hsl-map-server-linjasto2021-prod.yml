@@ -1,28 +1,28 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hsl-map-server-next
+  name: hsl-map-server-linjasto2021
 spec:
   ports:
   - port: 8080
     # targetPort: 8080
-    name: hsl-map-server-next-service-port
+    name: hsl-map-server-linjasto2021-service-port
     protocol: TCP
   selector:
-    app: hsl-map-server-next
+    app: hsl-map-server-linjasto2021
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hsl-map-server-next
+  name: hsl-map-server-linjasto2021
   labels:
-    app: hsl-map-server-next
+    app: hsl-map-server-linjasto2021
     update: auto
-    restartAfterDeployments: "opentripplanner-hsl_opentripplanner-waltti" #TODO include finland when we figure out best way to circumvent label length restriction _opentripplanner-finland
+    restartAfterDeployments: "opentripplanner-linjasto2021-waltti" #TODO include finland when we figure out best way to circumvent label length restriction _opentripplanner-finland
     restartDelay: "5"
 spec:
-  replicas: 6
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -30,11 +30,11 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: hsl-map-server-next
+      app: hsl-map-server-linjasto2021
   template:
     metadata:
       labels:
-        app: hsl-map-server-next
+        app: hsl-map-server-linjasto2021
         lastRestartDate: dummy-value
     spec:
       affinity:
@@ -50,8 +50,8 @@ spec:
       nodeSelector:
         pool: defaultpool
       containers:
-      - name: hsl-map-server-next
-        image: hsldevcom/hsl-map-server:next-prod
+      - name: hsl-map-server-linjasto2021
+        image: hsldevcom/hsl-map-server:prod
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -101,9 +101,9 @@ spec:
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: hsl-map-server-next-pdb
+  name: hsl-map-server-linjasto2021-pdb
 spec:
   minAvailable: 50%
   selector:
     matchLabels:
-      app: hsl-map-server-next
+      app: hsl-map-server-linjasto2021
