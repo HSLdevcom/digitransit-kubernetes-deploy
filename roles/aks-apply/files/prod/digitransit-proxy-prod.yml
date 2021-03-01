@@ -159,6 +159,11 @@ spec:
               secretKeyRef:
                 name: hameenlinna-basic-key
                 key: hameenlinna-basic-key
+          - name: LMJ_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: lmj-basic-key
+                key: lmj-basic-key
         resources:
             requests:
               memory: "1152Mi"
