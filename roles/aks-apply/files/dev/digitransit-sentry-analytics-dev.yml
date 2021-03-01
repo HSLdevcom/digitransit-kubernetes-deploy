@@ -35,6 +35,8 @@ spec:
         app: digitransit-sentry-analytics
         lastRestartDate: dummy-value
     spec:
+      nodeSelector:
+        pool: defaultpool
       containers:
       - name: digitransit-sentry-analytics
         image: hsldevcom/digitransit-sentry-analytics:latest
