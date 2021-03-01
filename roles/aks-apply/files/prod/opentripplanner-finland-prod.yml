@@ -37,6 +37,8 @@ spec:
         app: opentripplanner-finland
         lastRestartDate: dummy-value
     spec:
+      nodeSelector:
+        pool: superpool
       containers:
       - name: opentripplanner-finland
         image: hsldevcom/opentripplanner:prod

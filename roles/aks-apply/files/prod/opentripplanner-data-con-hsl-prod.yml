@@ -45,6 +45,8 @@ spec:
                 - key: app
                   operator: Exists
               topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: superpool
       containers:
       - name: opentripplanner-data-con-hsl
         image: hsldevcom/opentripplanner-data-container-hsl:prod

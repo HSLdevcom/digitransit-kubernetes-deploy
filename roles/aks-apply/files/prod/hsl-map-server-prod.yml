@@ -47,6 +47,8 @@ spec:
                 - key: app
                   operator: Exists
               topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: defaultpool
       containers:
       - name: hsl-map-server
         image: hsldevcom/hsl-map-server:prod

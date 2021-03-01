@@ -37,6 +37,8 @@ spec:
         app: opentripplanner-waltti
         lastRestartDate: dummy-value
     spec:
+      nodeSelector:
+        pool: superpool
       containers:
       - name: opentripplanner-waltti
         image: hsldevcom/opentripplanner:prod

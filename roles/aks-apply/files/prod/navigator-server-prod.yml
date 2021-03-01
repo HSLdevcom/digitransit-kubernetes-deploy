@@ -45,6 +45,8 @@ spec:
                 - key: app
                   operator: Exists
               topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: defaultpool
       containers:
       - name: navigator-server
         image: hsldevcom/navigator-server:prod

@@ -36,6 +36,8 @@ spec:
         app: opentripplanner-hsl
         lastRestartDate: dummy-value
     spec:
+      nodeSelector:
+        pool: superpool
       containers:
       - name: opentripplanner-hsl
         image: hsldevcom/opentripplanner:prod
