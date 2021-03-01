@@ -47,7 +47,7 @@ spec:
                   operator: Exists
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: superpool
       containers:
       - name: pelias-api
         image: hsldevcom/pelias-api
