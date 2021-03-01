@@ -2,9 +2,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: otp-data-builder-waltti-dev
+  name: otp-data-builder-waltti-linjasto2021-dev
 spec:
-  schedule: "15 5 * * *" # schedule in UTC time
+  schedule: "15 19 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -13,14 +13,14 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-waltti-dev
+            app: otp-data-builder-waltti-linjasto2021-dev
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 12600 # one build can take max 3 hours and 30 minutes
           restartPolicy: OnFailure
           containers:
-          - name: otp-data-builder-waltti-dev
-            image: hsldevcom/otp-data-builder:latest
+          - name: otp-data-builder-waltti-linjasto2021-dev
+            image: hsldevcom/otp-data-builder:linjasto2021
             command: ["timeout"]
             args: ["12600", "node", "index.js", "once"]
             volumeMounts:
@@ -33,7 +33,7 @@ spec:
               allowPrivilegeEscalation: false
             env:
             - name: BUILDER_TYPE
-              value: "Waltti dev"
+              value: "Waltti linjasto 2021 dev"
             - name: DATA
               value: "/opt/otp-data-builder/data"
             - name: DOCKER_AUTH
@@ -42,16 +42,12 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "latest"
+              value: "linjasto2021"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
-            - name: EXTRA_SRC
-              value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"waltti\"]}}"
-            - name: EXTRA_UPDATERS
-              value: "{\"foli-alerts\": {\"url\": \"https://foli-beta.nanona.fi/gtfs-rt/reittiopas\", \"routers\": [\"waltti\"]}, \"tampere-trip-updates\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/tripupdate\", \"routers\": [\"waltti\"]}, \"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"routers\": [\"waltti\"]}}"
             - name: HOST_DATA
               value: "/opt/otp-data"
             - name: OTP_TAG
@@ -59,14 +55,14 @@ spec:
             - name: ROUTERS
               value: "waltti"
             - name: SEED_TAG
-              value: "latest"
+              value: "linjasto2021"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: slack-webhook
                   key: slack-webhook
             - name: TOOLS_TAG
-              value: "latest"
+              value: "linjasto2021"
             resources:
               requests:
                 memory: 12Gi
@@ -89,9 +85,9 @@ spec:
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-waltti-dev-pdb
+  name: otp-data-builder-waltti-linjasto2021-dev-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-waltti-dev
+      app: otp-data-builder-waltti-linjasto2021-dev
