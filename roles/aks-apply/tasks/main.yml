@@ -15,16 +15,7 @@
       register: out
 
     - debug: var=out.stdout_lines
-    
-    - name: "Apply yleisviestipalvelu-assets"
-      command: "kubectl apply -f \
-        {{ role_path }}/files/assets/yleisviestipalvelu-assets.yml"
-      delegate_to: localhost
-      ignore_errors: "{{ ansible_check_mode }}"
-      register: out
 
-    - debug: var=out.stdout_lines
-    
     - name: "Apply rest of manifests"
       command: "kubectl apply -f \
         {{ role_path }}/files/{{ az_environment }}/"

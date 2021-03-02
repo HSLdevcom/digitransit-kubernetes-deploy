@@ -22,15 +22,27 @@
   command: "az aks create \
     --resource-group {{aks_resource_group_name}} \
     --name {{aks_name}} \
-    --node-count {{node_count}} \
-    --node-vm-size {{node_vm_size}} \
+    --node-count {{default_node_count}} \
+    --node-vm-size {{default_node_vm_size}} \
     --kubernetes-version {{kubernetes_version}} \
     --generate-ssh-keys \
     --service-principal {{item.appId}} \
     --client-secret {{item.password}} \
     --uptime-sla \
-    --no-wait"
+    --nodepool-name {{default_nodepool_name}} \
+    --nodepool-labels {{default_labels}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
   with_items:
     - { appId: "{{json.appId}}", password: "{{json.password}}" }
+
+- name: "Create nodepool {{worker_nodepool_name}}"
+  command: "az aks nodepool add \
+    --resource-group {{aks_resource_group_name}} \
+    --cluster-name {{aks_name}} \
+    --name {{worker_nodepool_name}} \
+    --node-count {{worker_node_count}} \
+    --node-vm-size {{worker_node_vm_size}} \
+    --labels {{worker_labels}}"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"

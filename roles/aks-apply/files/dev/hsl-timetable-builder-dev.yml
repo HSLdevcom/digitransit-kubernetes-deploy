@@ -18,6 +18,8 @@ spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
+          nodeSelector:
+            pool: superpool
           containers:
           - name: hsl-timetable-builder
             image: hsldevcom/hsl-timetable-builder:latest
