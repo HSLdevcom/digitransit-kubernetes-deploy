@@ -19,7 +19,7 @@ spec:
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            pool: superpool
+            pool: defaultpool
           containers:
           - name: hsl-timetable-builder
             image: hsldevcom/hsl-timetable-builder:latest
