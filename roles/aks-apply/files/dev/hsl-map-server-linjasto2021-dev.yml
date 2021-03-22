@@ -48,6 +48,8 @@ spec:
                 - key: app
                   operator: Exists
               topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: defaultpool
       containers:
       - name: hsl-map-server-linjasto2021
         image: hsldevcom/hsl-map-server:latest
@@ -88,9 +90,9 @@ spec:
         resources:
           requests:
             memory: 4096Mi
-            cpu: 4000m
+            cpu: 1000m
           limits:
             memory: 4096Mi
-            cpu: 7900m
+            cpu: 3900m
       imagePullSecrets:
         - name: hsldevcomkey

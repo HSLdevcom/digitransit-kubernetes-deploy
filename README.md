@@ -60,13 +60,10 @@ Retry a bit later if that happens.
 ```
 ansible-playbook play_configure_addons.yml -e @env_vars/<dev or prod>.yml
 ```
+## Azure Key Vault Setup
 
-### Add Docker login to Kubernetes secrets
-
-Run following command to create the secret for Docker login. Use the correct login credentials.
-```
-kubectl create secret docker-registry hsldevcomkey --docker-server=docker.io --docker-username=<username> --docker-password=<password>
-```
+Creating Azure key vault if you don't existing one already.
+* Run `ansible-playbook play_setup_keyvault.yml -e @env_vars/<dev or prod>.yml`
 
 ### Install azure key vault controller
 
@@ -88,6 +85,15 @@ az keyvault set-policy -n <keyvault_name> --key-permissions get --spn <YOUR SPN 
 az keyvault set-policy -n <keyvault_name> --secret-permissions get --spn <YOUR SPN CLIENT ID>
 az keyvault set-policy -n <keyvault_name> --certificate-permissions get --spn <YOUR SPN CLIENT ID>
 ```
+
+## Deploy kubernetes manifests
+
+Applying all manifests into an environment (**Note you should have done all the earlier steps first**)
+* Run `ansible-playbook play_apply_manifests.yml -e @env_vars/<dev or prod>.yml`
+
+Applying a specific manifest into an environment
+* Run `ansible-playbook play_apply_manifests.yml -e @env_vars/<dev or prod>.yml -e service=<filename without -env.yml postfix>`
+
 
 ## Application Gateway setup
 
@@ -125,20 +131,6 @@ az network vnet peering create -g <appgw_resource_group> -n <peering_name> --vne
 ```
 az network vnet peering create -g <aks_resource_group> -n <peering_name> --vnet-name <aks_vnet_name> --remote-vnet <appgw_vnet_resource_id> --allow-vnet-access
 ```
-
-## Azure Key Vault Setup
-
-Creating Azure key vault if you don't existing one already.
-* Run `ansible-playbook play_setup_keyvault.yml -e @env_vars/<dev or prod>.yml`
-
-## Deploy kubernetes manifests
-
-Applying all manifests into an environment (**Note you should have done all the earlier steps first**)
-* Run `ansible-playbook play_apply_manifests.yml -e @env_vars/<dev or prod>.yml`
-
-Applying a specific manifest into an environment
-* Run `ansible-playbook play_apply_manifests.yml -e @env_vars/<dev or prod>.yml -e service=<filename without -env.yml postfix>`
-
 ## Deploy fav-service
 
 Create a file fav_service_secrets.yml, and add following secrets to it.
