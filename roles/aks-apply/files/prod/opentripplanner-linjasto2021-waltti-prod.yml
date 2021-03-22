@@ -67,10 +67,10 @@ spec:
               key: otp-waltti-java-opts-prod
         resources:
           requests:
-            memory: "7168Mi"
+            memory: "10240Mi"
             cpu: "7000m"
           limits:
-            memory: "7168Mi"
+            memory: "10240Mi"
             cpu: "7600m"
       imagePullSecrets:
         - name: hsldevcomkey
