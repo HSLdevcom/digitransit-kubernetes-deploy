@@ -46,7 +46,7 @@ spec:
                   operator: Exists
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: superpool
+        pool: defaultpool
       containers:
       - name: opentripplanner-data-con-waltti
         image: hsldevcom/opentripplanner-data-container-waltti:prod

@@ -46,7 +46,7 @@ spec:
                   operator: Exists
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: superpool
+        pool: defaultpool
       containers:
       - name: hsl-timetable-container
         image: hsldevcom/hsl-timetable-container
