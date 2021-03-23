@@ -70,7 +70,7 @@ spec:
             cpu: "7000m"
           limits:
             memory: 11216Mi
-            cpu: "7600m"
+            cpu: "8000m"
       imagePullSecrets:
         - name: hsldevcomkey
 
