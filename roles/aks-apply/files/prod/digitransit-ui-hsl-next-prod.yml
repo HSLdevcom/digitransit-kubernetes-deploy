@@ -156,7 +156,7 @@ kind: PodDisruptionBudget
 metadata:
   name: digitransit-ui-hsl-next-pdb
 spec:
-  minAvailable: 75%
+  minAvailable: 50%
   selector:
     matchLabels:
       app: digitransit-ui-hsl-next
