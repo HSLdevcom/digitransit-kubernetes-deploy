@@ -47,7 +47,6 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
-      priorityClassName: medium-priority
       containers:
       - name: siri2gtfsrt
         image: hsldevcom/siri2gtfsrt:prod

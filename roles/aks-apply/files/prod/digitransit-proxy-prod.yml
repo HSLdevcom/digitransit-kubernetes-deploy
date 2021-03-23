@@ -40,7 +40,6 @@ spec:
     spec:
       nodeSelector:
         pool: defaultpool
-      priorityClassName: high-priority
       containers:
       - name: digitransit-proxy
         image: hsldevcom/digitransit-proxy:prod

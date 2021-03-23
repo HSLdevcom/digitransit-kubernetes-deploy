@@ -47,7 +47,6 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
-      priorityClassName: medium-priority
       containers:
       - name: opentripplanner-data-con-hsl
         image: hsldevcom/opentripplanner-data-container-hsl:prod

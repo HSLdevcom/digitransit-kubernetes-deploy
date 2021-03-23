@@ -47,7 +47,6 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
-      priorityClassName: default-priority
       containers:
       - name: navigator-server
         image: hsldevcom/navigator-server:prod

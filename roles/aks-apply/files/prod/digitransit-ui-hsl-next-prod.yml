@@ -51,7 +51,6 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
-      priorityClassName: medium-priority
       containers:
       - name: digitransit-ui-hsl-next
         image: hsldevcom/digitransit-ui:next-prod
