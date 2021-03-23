@@ -47,6 +47,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
+      priorityClassName: default-priority
       containers:
       - name: hsl-timetable-container
         image: hsldevcom/hsl-timetable-container

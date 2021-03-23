@@ -47,6 +47,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
+      priorityClassName: medium-priority
       containers:
       - name: opentripplanner-data-con-waltti
         image: hsldevcom/opentripplanner-data-container-waltti:prod

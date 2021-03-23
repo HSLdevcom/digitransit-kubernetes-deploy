@@ -49,6 +49,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
+      priorityClassName: high-priority
       containers:
       - name: hsl-map-server-next
         image: hsldevcom/hsl-map-server:next-prod

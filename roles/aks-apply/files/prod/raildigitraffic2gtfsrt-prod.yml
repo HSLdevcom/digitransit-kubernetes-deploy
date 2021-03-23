@@ -49,6 +49,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
+      priorityClassName: medium-priority
       containers:
       - name: raildigitraffic2gtfsrt
         image: hsldevcom/raildigitraffic2gtfsrt:prod

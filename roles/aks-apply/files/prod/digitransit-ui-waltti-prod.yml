@@ -50,6 +50,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
+      priorityClassName: medium-priority
       containers:
       - name: digitransit-ui-waltti
         image: hsldevcom/digitransit-ui:prod

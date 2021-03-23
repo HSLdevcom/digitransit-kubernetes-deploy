@@ -86,6 +86,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
+      priorityClassName: medium-priority
       containers:
       - name: digitransit-deployer
         image: hsldevcom/digitransit-deployer:prod
