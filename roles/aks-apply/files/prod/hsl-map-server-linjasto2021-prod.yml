@@ -93,15 +93,3 @@ spec:
             cpu: 7900m
       imagePullSecrets:
         - name: hsldevcomkey
-
----
-
-apiVersion: policy/v1beta1
-kind: PodDisruptionBudget
-metadata:
-  name: hsl-map-server-linjasto2021-pdb
-spec:
-  minAvailable: 50%
-  selector:
-    matchLabels:
-      app: hsl-map-server-linjasto2021
