@@ -46,6 +46,7 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: <POOL_NAME>
+      priorityClassName: <PRIORITY_NAME>
       containers:
       - name: <NAME>
         image: hsldevcom/<IMAGE>:latest
