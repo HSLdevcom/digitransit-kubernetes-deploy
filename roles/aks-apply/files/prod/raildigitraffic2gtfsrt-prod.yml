@@ -92,7 +92,7 @@ kind: PodDisruptionBudget
 metadata:
   name: raildigitraffic2gtfsrt-pdb
 spec:
-  minAvailable: 75%
+  minAvailable: 50%
   selector:
     matchLabels:
       app: raildigitraffic2gtfsrt

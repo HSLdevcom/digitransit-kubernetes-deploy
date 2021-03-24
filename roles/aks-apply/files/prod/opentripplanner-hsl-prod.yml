@@ -21,7 +21,7 @@ metadata:
     restartAt: "05.15"
     restartLimitInterval: "720"
 spec:
-  replicas: 28
+  replicas: 32
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -43,7 +43,7 @@ spec:
         ports:
         - containerPort: 8080
         readinessProbe:
-          periodSeconds: 10
+          periodSeconds: 2
           timeoutSeconds: 10
           failureThreshold: 2
           httpGet:
