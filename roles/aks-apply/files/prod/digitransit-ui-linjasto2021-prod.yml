@@ -10,6 +10,7 @@ spec:
   selector:
     app: digitransit-ui-linjasto2021
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,8 +18,10 @@ metadata:
   labels:
     app: digitransit-ui-linjasto2021
     update: auto
-    restartAt: "03.20_13.20"
-    restartLimitInterval: "180"
+    restartAt: "03.10_13.10"
+    restartLimitInterval: "480"
+    restartAfterDeployments: "opentripplanner-linjasto2021-waltti"
+    restartDelay: "5"
 spec:
   selector:
     matchLabels:
@@ -27,15 +30,14 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 0
-      maxUnavailable: 50%
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
         app: digitransit-ui-linjasto2021
         lastRestartDate: dummy-value
     spec:
-      priorityClassName: medium-priority
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -69,11 +71,11 @@ spec:
           failureThreshold: 10
         env:
         - name: API_URL
-          value: "https://dev-api.digitransit.fi"
+          value: "https://api.digitransit.fi"
         - name: ASSET_URL
-          value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v1/linjasto2021"
+          value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v1/linjasto2021"
         - name: MAP_URL
-          value: "https://digitransit-dev-cdn-origin.azureedge.net"
+          value: "https://digitransit-prod-cdn-origin.azureedge.net"
         - name: NODE_OPTS
           value: "--max_old_space_size=900"
         - name: RELAY_FETCH_TIMEOUT
