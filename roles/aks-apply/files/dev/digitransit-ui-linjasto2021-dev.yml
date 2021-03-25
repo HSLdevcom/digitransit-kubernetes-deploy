@@ -68,10 +68,6 @@ spec:
           timeoutSeconds: 10
           failureThreshold: 10
         env:
-        - name: CONFIG
-          value: "linjasto2021"
-        - name: HOSTNAME
-          value: "https://dev-linjasto2021.digitransit.fi"
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
         - name: ASSET_URL
@@ -79,7 +75,7 @@ spec:
         - name: MAP_URL
           value: "https://digitransit-dev-cdn-origin.azureedge.net"
         - name: NODE_OPTS
-          value: "--max_old_space_size=1000"
+          value: "--max_old_space_size=900"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
         - name: GTM_ID
@@ -87,12 +83,14 @@ spec:
             secretKeyRef:
               name: gtm-id
               key: gtm-id
+        - name: BASE_CONFIG
+          value: "waltti"
         resources:
           requests:
-            memory: "1536Mi"
-            cpu: 600m
+            memory: 1200Mi
+            cpu: 500m
           limits:
-            memory: "1536Mi"
+            memory: 1200Mi
             cpu: 2000m
       imagePullSecrets:
         - name: hsldevcomkey
