@@ -27,7 +27,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 25%
-      maxUnavailable: 0
+      maxUnavailable: 25%
   selector:
     matchLabels:
       app: hsl-map-server
