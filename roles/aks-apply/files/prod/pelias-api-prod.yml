@@ -34,6 +34,7 @@ spec:
       labels:
         app: pelias-api
         lastRestartDate: dummy-value
+        restartAfterDeployments: "pelias-data-container"
     spec:
       affinity:
         podAntiAffinity:
@@ -43,8 +44,21 @@ spec:
               labelSelector:
                 matchExpressions:
                 - key: app
-                  operator: Exists
+                  operator: In
+                  values:
+                  - pelias-api
               topologyKey: kubernetes.io/hostname
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - pelias-data-container
+            topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: superpool
       containers:
       - name: pelias-api
         image: hsldevcom/pelias-api:prod
@@ -73,8 +87,8 @@ spec:
             memory: "2560Mi"
             cpu: "500m"
           limits:
-            memory: "2560Mi"
-            cpu: "3000m"
+            memory: "4560Mi"
+            cpu: "4000m"
       imagePullSecrets:
         - name: hsldevcomkey
 

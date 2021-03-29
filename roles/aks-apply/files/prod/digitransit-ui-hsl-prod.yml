@@ -48,6 +48,8 @@ spec:
                 - key: app
                   operator: Exists
               topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: defaultpool
       containers:
       - name: digitransit-ui-hsl
         image: hsldevcom/digitransit-ui:prod

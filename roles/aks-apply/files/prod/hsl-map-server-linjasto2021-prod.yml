@@ -47,6 +47,8 @@ spec:
                 - key: app
                   operator: Exists
               topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: defaultpool
       containers:
       - name: hsl-map-server-linjasto2021
         image: hsldevcom/hsl-map-server:prod
@@ -86,10 +88,10 @@ spec:
             value: "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql"
         resources:
           requests:
-            memory: 4096Mi
-            cpu: 4000m
+            memory: 3800Mi
+            cpu: 1000m
           limits:
-            memory: 4096Mi
-            cpu: 7900m
+            memory: 3800Mi
+            cpu: 3900m
       imagePullSecrets:
         - name: hsldevcomkey

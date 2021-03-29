@@ -38,6 +38,8 @@ spec:
         app: opentripplanner-linjasto2021-waltti
         lastRestartDate: dummy-value
     spec:
+      nodeSelector:
+        pool: superpool
       containers:
       - name: opentripplanner-linjasto2021-waltti
         image: hsldevcom/opentripplanner:prod
@@ -69,6 +71,6 @@ spec:
             cpu: "7000m"
           limits:
             memory: "10168Mi"
-            cpu: "7600m"
+            cpu: "8000m"
       imagePullSecrets:
         - name: hsldevcomkey

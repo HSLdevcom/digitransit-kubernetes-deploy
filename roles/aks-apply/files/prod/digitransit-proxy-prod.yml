@@ -38,6 +38,8 @@ spec:
         app: digitransit-proxy
         lastRestartDate: dummy-value
     spec:
+      nodeSelector:
+        pool: defaultpool
       containers:
       - name: digitransit-proxy
         image: hsldevcom/digitransit-proxy:prod

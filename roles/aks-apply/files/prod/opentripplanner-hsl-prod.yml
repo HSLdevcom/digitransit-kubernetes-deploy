@@ -21,7 +21,7 @@ metadata:
     restartAt: "05.15"
     restartLimitInterval: "720"
 spec:
-  replicas: 32
+  replicas: 30
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -36,6 +36,8 @@ spec:
         app: opentripplanner-hsl
         lastRestartDate: dummy-value
     spec:
+      nodeSelector:
+        pool: superpool
       containers:
       - name: opentripplanner-hsl
         image: hsldevcom/opentripplanner:prod
@@ -64,10 +66,10 @@ spec:
         resources:
           requests:
             memory: "9216Mi"
-            cpu: "6000m"
+            cpu: "7000m"
           limits:
             memory: "9216Mi"
-            cpu: "7600m"
+            cpu: "8000m"
       imagePullSecrets:
         - name: hsldevcomkey
 

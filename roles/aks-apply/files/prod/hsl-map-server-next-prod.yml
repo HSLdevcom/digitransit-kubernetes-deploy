@@ -26,8 +26,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 0
+      maxSurge: 50%
+      maxUnavailable: 50%
   selector:
     matchLabels:
       app: hsl-map-server-next
@@ -47,6 +47,8 @@ spec:
                 - key: app
                   operator: Exists
               topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: defaultpool
       containers:
       - name: hsl-map-server-next
         image: hsldevcom/hsl-map-server:next-prod
@@ -86,11 +88,11 @@ spec:
             value: "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql"
         resources:
           requests:
-            memory: 4096Mi
-            cpu: 4000m
+            memory: 3800Mi
+            cpu: 1000m
           limits:
-            memory: 4096Mi
-            cpu: 7900m
+            memory: 3800Mi
+            cpu: 3900m
       imagePullSecrets:
         - name: hsldevcomkey
 

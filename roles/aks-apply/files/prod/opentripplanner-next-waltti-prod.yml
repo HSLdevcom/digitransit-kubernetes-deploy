@@ -38,6 +38,8 @@ spec:
         app: opentripplanner-next-waltti
         lastRestartDate: dummy-value
     spec:
+      nodeSelector:
+        pool: superpool
       containers:
       - name: opentripplanner-next-waltti
         image: hsldevcom/opentripplanner:otp2-prod
@@ -69,7 +71,7 @@ spec:
             cpu: "7000m"
           limits:
             memory: "7168Mi"
-            cpu: "7600m"
+            cpu: "8000m"
       imagePullSecrets:
         - name: hsldevcomkey
 

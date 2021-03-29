@@ -44,6 +44,8 @@ spec:
                 - key: app
                   operator: Exists
               topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: defaultpool
       containers:
       - name: opentripplanner-data-con-finland
         image: hsldevcom/opentripplanner-data-container-finland:prod
