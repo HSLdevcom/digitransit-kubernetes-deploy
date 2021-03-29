@@ -45,7 +45,9 @@ spec:
               labelSelector:
                 matchExpressions:
                 - key: app
-                  operator: Exists
+                  operator: In
+                  values:
+                  - digitransit-ui-waltti-next
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
