@@ -19,6 +19,7 @@ metadata:
   labels:
     app: pelias-api
     update: auto
+    restartAfterDeployments: "pelias-data-container"
 spec:
   replicas: 1
   strategy:
@@ -44,8 +45,19 @@ spec:
               labelSelector:
                 matchExpressions:
                 - key: app
-                  operator: Exists
+                  operator: In
+                  values:
+                  - pelias-api
               topologyKey: kubernetes.io/hostname
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - pelias-data-container
+            topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: superpool
       containers:
