@@ -42,7 +42,9 @@ spec:
               labelSelector:
                 matchExpressions:
                 - key: app
-                  operator: Exists
+                  operator: In
+                  values:
+                  - opentripplanner-data-con-finland
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
