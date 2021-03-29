@@ -88,10 +88,10 @@ spec:
             value: "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql"
         resources:
           requests:
-            memory: 4096Mi
+            memory: 3800Mi
             cpu: 1000m
           limits:
-            memory: 4096Mi
+            memory: 3800Mi
             cpu: 3900m
       imagePullSecrets:
         - name: hsldevcomkey
