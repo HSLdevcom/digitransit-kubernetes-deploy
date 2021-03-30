@@ -20,7 +20,7 @@ metadata:
     app: digitransit-site
     update: auto
 spec:
-  replicas: 2
+  replicas: 0
   strategy:
     type: RollingUpdate
     rollingUpdate:
