@@ -98,10 +98,10 @@ spec:
         resources:
           requests:
             memory: 2048Mi
-            cpu: 1000m
+            cpu: 3000m
           limits:
             memory: 4048Mi
-            cpu: 4000m
+            cpu: 6000m
       imagePullSecrets:
         - name: hsldevcomkey
 
