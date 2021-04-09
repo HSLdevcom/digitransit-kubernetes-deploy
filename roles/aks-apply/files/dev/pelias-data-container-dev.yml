@@ -78,6 +78,7 @@ spec:
         - containerPort: 9300
           name: vip1
         readinessProbe:
+          initialDelaySeconds: 60
           periodSeconds: 5
           timeoutSeconds: 10
           failureThreshold: 2
