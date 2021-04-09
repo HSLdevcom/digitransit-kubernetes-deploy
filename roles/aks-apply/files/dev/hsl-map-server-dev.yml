@@ -52,7 +52,7 @@ spec:
         pool: defaultpool
       containers:
       - name: hsl-map-server
-        image: hsldevcom/hsl-map-server:dev
+        image: hsldevcom/hsl-map-server:openmaptiles
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
