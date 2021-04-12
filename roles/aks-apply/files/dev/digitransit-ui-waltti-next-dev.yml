@@ -95,6 +95,8 @@ spec:
           value: "next-"
         - name: BASE_CONFIG
           value: "waltti"
+        - name: REALTIME_PATCH
+          value: "{\"tampere\": {\"topicFeedId\": \"tampereTram\"}}"
         resources:
           requests:
             memory: 1200Mi
