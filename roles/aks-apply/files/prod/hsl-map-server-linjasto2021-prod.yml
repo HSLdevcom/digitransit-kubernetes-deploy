@@ -45,7 +45,9 @@ spec:
               labelSelector:
                 matchExpressions:
                 - key: app
-                  operator: Exists
+                  operator: In
+                  values:
+                  - hsl-map-server-linjasto2021
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool

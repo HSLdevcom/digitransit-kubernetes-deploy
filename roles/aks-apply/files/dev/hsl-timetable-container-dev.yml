@@ -43,7 +43,9 @@ spec:
               labelSelector:
                 matchExpressions:
                 - key: app
-                  operator: Exists
+                  operator: In
+                  values:
+                  - hsl-timetable-container
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool

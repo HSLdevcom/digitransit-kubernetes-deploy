@@ -43,7 +43,9 @@ spec:
               labelSelector:
                 matchExpressions:
                 - key: app
-                  operator: Exists
+                  operator: In
+                  values:
+                  - digitransit-performance-tests
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool

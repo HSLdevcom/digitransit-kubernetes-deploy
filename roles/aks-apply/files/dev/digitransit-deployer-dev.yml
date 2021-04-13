@@ -82,7 +82,9 @@ spec:
               labelSelector:
                 matchExpressions:
                 - key: app
-                  operator: Exists
+                  operator: In
+                  values:
+                  - digitransit-deployer
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool

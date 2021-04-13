@@ -42,7 +42,9 @@ spec:
               labelSelector:
                 matchExpressions:
                 - key: app
-                  operator: Exists
+                  operator: In
+                  values:
+                  - <NAME>
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: <POOL_NAME>
