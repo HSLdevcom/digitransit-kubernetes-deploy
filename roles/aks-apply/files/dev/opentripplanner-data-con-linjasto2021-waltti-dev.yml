@@ -20,7 +20,7 @@ metadata:
     app: opentripplanner-data-con-linjasto2021-waltti
     update: auto
 spec:
-  replicas: 1
+  replicas: 0
   strategy:
     type: RollingUpdate
     rollingUpdate:

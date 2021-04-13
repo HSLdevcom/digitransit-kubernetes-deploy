@@ -22,7 +22,7 @@ metadata:
     restartAfterDeployments: "opentripplanner-linjasto2021-waltti" #TODO include finland when we figure out best way to circumvent label length restriction _opentripplanner-finland
     restartDelay: "5"
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -97,3 +97,15 @@ spec:
             cpu: 3900m
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: hsl-map-server-linjasto2021-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: hsl-map-server-linjasto2021

@@ -26,7 +26,7 @@ spec:
   selector:
     matchLabels:
       app: digitransit-ui-linjasto2021
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -100,3 +100,15 @@ spec:
             cpu: 2000m
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: digitransit-ui-linjasto2021-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: digitransit-ui-linjasto2021

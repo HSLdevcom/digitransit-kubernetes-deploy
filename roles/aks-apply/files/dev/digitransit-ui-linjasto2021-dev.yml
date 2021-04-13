@@ -23,7 +23,7 @@ spec:
   selector:
     matchLabels:
       app: digitransit-ui-linjasto2021
-  replicas: 1
+  replicas: 0
   strategy:
     type: RollingUpdate
     rollingUpdate:
