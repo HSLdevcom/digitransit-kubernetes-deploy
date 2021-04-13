@@ -22,7 +22,7 @@ metadata:
     restartAfterDeployments: "opentripplanner-linjasto2021-waltti" #TODO include finland when we figure out best way to circumvent label length restriction _opentripplanner-finland
     restartDelay: "5"
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
