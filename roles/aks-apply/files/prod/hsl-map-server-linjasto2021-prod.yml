@@ -103,7 +103,7 @@ kind: PodDisruptionBudget
 metadata:
   name: hsl-map-server-linjasto2021-pdb
 spec:
-  minAvailable: 75%
+  minAvailable: 50%
   selector:
     matchLabels:
       app: hsl-map-server-linjasto2021

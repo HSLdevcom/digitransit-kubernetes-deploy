@@ -82,7 +82,7 @@ kind: PodDisruptionBudget
 metadata:
   name: opentripplanner-linjasto2021-waltti-pdb
 spec:
-  minAvailable: 75%
+  minAvailable: 50%
   selector:
     matchLabels:
       app: opentripplanner-linjasto2021-waltti

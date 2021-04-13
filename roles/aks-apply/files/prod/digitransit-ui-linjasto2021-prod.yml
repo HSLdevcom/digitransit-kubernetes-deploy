@@ -106,7 +106,7 @@ kind: PodDisruptionBudget
 metadata:
   name: digitransit-ui-linjasto2021-pdb
 spec:
-  minAvailable: 75%
+  minAvailable: 50%
   selector:
     matchLabels:
       app: digitransit-ui-linjasto2021
