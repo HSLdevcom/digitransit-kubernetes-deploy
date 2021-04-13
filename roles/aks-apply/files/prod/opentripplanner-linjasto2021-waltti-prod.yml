@@ -74,3 +74,15 @@ spec:
             cpu: "8000m"
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-linjasto2021-waltti-pdb
+spec:
+  minAvailable: 75%
+  selector:
+    matchLabels:
+      app: opentripplanner-linjasto2021-waltti
