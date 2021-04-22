@@ -99,6 +99,35 @@ spec:
           value: "waltti"
         - name: REALTIME_PATCH
           value: "{\"tampere\": {\"topicFeedId\": \"tampereTram\"}}"
+        - name: REDIS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: redis-host
+              key: redis-host
+        - name: REDIS_PORT
+          value: "6380"
+        - name: REDIS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: redis-key
+              key: redis-key
+        - name: OIDCHOST
+          value: "https://walttiid-dev7.t5.fi"
+        - name: SESSION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: session-secret
+              key: session-secret
+        - name: OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: dev-waltti-oidc-client-id
+              key: dev-waltti-oidc-client-id
+        - name: OIDC_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: dev-waltti-oidc-client-secret
+              key: dev-waltti-oidc-client-secret
         resources:
           requests:
             memory: 1200Mi
