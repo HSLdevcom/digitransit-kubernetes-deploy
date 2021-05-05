@@ -21,11 +21,11 @@ metadata:
     restartAt: "05.15"
     restartLimitInterval: "720"
 spec:
-  replicas: 31
+  replicas: 35
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 25%
+      maxSurge: 20%
       maxUnavailable: 0
   selector:
     matchLabels:
