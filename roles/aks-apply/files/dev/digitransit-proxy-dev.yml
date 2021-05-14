@@ -169,6 +169,11 @@ spec:
               secretKeyRef:
                 name: lmj-basic-key
                 key: lmj-basic-key
+          - name: MIKKELI_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: mikkeli-basic-key
+                key: mikkeli-basic-key
         resources:
             requests:
               memory: "1152Mi"
