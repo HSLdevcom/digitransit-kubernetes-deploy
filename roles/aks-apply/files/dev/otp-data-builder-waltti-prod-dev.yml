@@ -50,6 +50,8 @@ spec:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
+            - name: EXTRA_UPDATERS
+              value: "{\"kuopio-bike-rental\": {\"frequencySec\": 300, \"routers\": [\"waltti\"]}}"
             - name: HOST_DATA
               value: "/opt/otp-data"
             - name: OTP_TAG
