@@ -53,7 +53,7 @@ spec:
         pool: defaultpool
       containers:
       - name: raildigitraffic2gtfsrt
-        image: hsldevcom/raildigitraffic2gtfsrt:latest
+        image: hsldevcom/raildigitraffic2gtfsrt:latest-2020-10-13T08.38.10-6d17739
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
