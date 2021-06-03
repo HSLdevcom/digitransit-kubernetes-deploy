@@ -51,7 +51,7 @@ spec:
                   name: docker-user
                   key: docker-user
             - name: EXTRA_UPDATERS
-              value: "{\"kuopio-bike-rental\": {\"frequencySec\": 300, \"routers\": [\"waltti\"]}}"
+              value: "{\"mikkeli-trip-updates\": {\"remove\": true, \"routers\": [\"waltti\"]}, \"mikkeli-alerts\": {\"remove\": true, \"routers\": [\"waltti\"]}}"
             - name: HOST_DATA
               value: "/opt/otp-data"
             - name: OTP_TAG
