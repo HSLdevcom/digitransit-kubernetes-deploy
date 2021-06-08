@@ -23,6 +23,8 @@ spec:
           containers:
           - name: pelias-data-container-builder-dev
             image: hsldevcom/pelias-data-container-builder
+            securityContext:
+              privileged: true
             volumeMounts:
               - mountPath: var/run/docker.sock
                 name: "docker-sock-volume"
