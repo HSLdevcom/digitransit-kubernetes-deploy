@@ -179,6 +179,11 @@ spec:
               secretKeyRef:
                 name: vaasa-basic-key
                 key: vaasa-basic-key
+          - name: SALO_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: salo-basic-key
+                key: salo-basic-key
         resources:
             requests:
               memory: "1152Mi"
