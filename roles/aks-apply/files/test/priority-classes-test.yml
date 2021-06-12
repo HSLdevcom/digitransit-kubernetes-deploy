@@ -1,0 +1,25 @@
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority
+value: 75
+globalDefault: false
+description: "Use this class for proxy and databuilders."
+
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: medium-priority
+value: 50
+globalDefault: false
+description: "Use this class for OTP, pelias and ui."
+
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: default-priority
+value: 10
+globalDefault: true
