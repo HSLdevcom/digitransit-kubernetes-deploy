@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: pelias-data-container-builder-dev
 spec:
-  schedule: "5 5 * * *" # schedule in UTC time
+  schedule: "5 13 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -16,7 +16,7 @@ spec:
             app: pelias-data-container-builder-dev
         spec:
           priorityClassName: high-priority
-          activeDeadlineSeconds: 9000 # one build can take 2 and half hours
+          activeDeadlineSeconds: 14400 # one build can take max 4 hours
           restartPolicy: OnFailure
           nodeSelector:
             pool: superpool
