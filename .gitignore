@@ -5,7 +5,6 @@
 _tmp
 /*.retry
 /prj/test*
-/env/test*
 /*vars/test*
 /doc/*.html
 /results
