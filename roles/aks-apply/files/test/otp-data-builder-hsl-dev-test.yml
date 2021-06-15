@@ -1,0 +1,97 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: otp-data-builder-hsl-dev
+spec:
+  schedule: "40 12 * * *" # schedule in UTC time
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 4
+  jobTemplate:
+    spec:
+      backoffLimit: 2 # max two retries
+      template:
+        metadata:
+          labels:
+            app: otp-data-builder-hsl-dev
+        spec:
+          priorityClassName: high-priority
+          activeDeadlineSeconds: 3600 # one build can take max 1 hour
+          restartPolicy: OnFailure
+          nodeSelector:
+            pool: superpool
+          containers:
+          - name: otp-data-builder-hsl-dev
+            image: hsldevcom/otp-data-builder:latest
+            command: ["timeout"]
+            args: ["3600", "node", "index.js", "once"]
+            volumeMounts:
+              - mountPath: opt/otp-data-builder/data
+                name: otp-data
+            imagePullPolicy: Always
+            securityContext:
+              privileged: true
+              capabilities:
+                add:
+                 - NET_ADMIN
+                 - SYS_ADMIN
+            env:
+            - name: BUILDER_TYPE
+              value: "HSL dev"
+            - name: DATA
+              value: "/opt/otp-data-builder/data"
+            - name: DOCKER_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: docker-auth
+                  key: docker-auth
+            - name: DOCKER_TAG
+              value: "latest"
+            - name: DOCKER_USER
+              valueFrom:
+                secretKeyRef:
+                  name: docker-user
+                  key: docker-user
+            - name: EXTRA_UPDATERS
+              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi\", \"routers\": [\"hsl\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"hsl\"]}}"
+            - name: HOST_DATA
+              value: "/opt/otp-data"
+            - name: OTP_TAG
+              value: "latest"
+            - name: ROUTERS
+              value: "hsl"
+            - name: SEED_TAG
+              value: "latest"
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: slack-webhook
+                  key: slack-webhook
+            - name: TOOLS_TAG
+              value: "latest"
+            - name: VERSION_CHECK
+              value: "HSL"
+            resources:
+              requests:
+                memory: 12Gi
+                cpu: 3000m
+              limits:
+                memory: 12Gi
+                cpu: 6000m
+          imagePullSecrets:
+            - name: hsldevcomkey
+          volumes:
+            - name: otp-data
+              hostPath:
+                path: /opt/otp-data/
+---
+
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: otp-data-builder-hsl-dev-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: otp-data-builder-hsl-dev
