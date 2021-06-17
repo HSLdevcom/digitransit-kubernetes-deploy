@@ -23,12 +23,13 @@ spec:
           containers:
           - name: pelias-data-container-builder-prod
             image: hsldevcom/pelias-data-container-builder:prod
-            volumeMounts:
-              - mountPath: var/run/docker.sock
-                name: "docker-sock-volume"
             imagePullPolicy: Always
             securityContext:
-              allowPrivilegeEscalation: false
+              privileged: true
+              capabilities:
+                add:
+                 - NET_ADMIN
+                 - SYS_ADMIN
             env:
             - name: DOCKER_AUTH
               valueFrom:
@@ -63,11 +64,6 @@ spec:
                 cpu: 7000m
           imagePullSecrets:
             - name: hsldevcomkey
-          volumes:
-            - name: "docker-sock-volume"
-              hostPath:
-                # location on host
-                path: /var/run/docker.sock
 
 ---
 

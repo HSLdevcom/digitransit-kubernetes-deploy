@@ -23,13 +23,13 @@ spec:
           containers:
           - name: pelias-data-container-builder-dev
             image: hsldevcom/pelias-data-container-builder
+            imagePullPolicy: Always
             securityContext:
               privileged: true
               capabilities:
                 add:
                  - NET_ADMIN
                  - SYS_ADMIN
-            imagePullPolicy: Always
             env:
             - name: DOCKER_AUTH
               valueFrom:

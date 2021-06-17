@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: otp-data-builder-finland-dev
 spec:
-  schedule: "30 7 * * *" # schedule in UTC time
+  schedule: "35 7 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -64,10 +64,10 @@ spec:
               value: "latest"
             resources:
               requests:
-                memory: 14Gi
+                memory: 12Gi
                 cpu: 3000m
               limits:
-                memory: 14Gi
+                memory: 12Gi
                 cpu: 6000m
           imagePullSecrets:
             - name: hsldevcomkey
