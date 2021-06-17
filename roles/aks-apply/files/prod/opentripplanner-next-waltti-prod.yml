@@ -17,7 +17,6 @@ metadata:
   name: opentripplanner-next-waltti
   labels:
     app: opentripplanner-next-waltti
-    update: auto
     restartAfterDeployments: "opentripplanner-data-con-next-waltti"
     restartDelay: "1"
     restartAt: "05.45"
