@@ -16,27 +16,49 @@ spec:
             app: hsl-timetable-builder
         spec:
           priorityClassName: high-priority
-          activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
+          activeDeadlineSeconds: 7200 # one build can take max 2 hours
           restartPolicy: OnFailure
           nodeSelector:
-            pool: defaultpool
+            pool: superpool
           containers:
-          - name: hsl-timetable-builder
-            image: hsldevcom/hsl-timetable-builder:latest
+          - name: dind
+            image: docker:20.10.7-dind
+            securityContext:
+              privileged: true
+            env:
+            - name: DOCKER_TLS_CERTDIR
+              value: ''
             volumeMounts:
-              - mountPath: /var/run/docker.sock
-                name: "docker-sock-volume"
+            - name: dind-storage
+              mountPath: /var/lib/docker
+            resources:
+              requests:
+                memory: 3Gi
+                cpu: 1000m
+              limits:
+                memory: 3Gi
+                cpu: 4000m
+          - name: hsl-timetable-builder
+            image: hsldevcom/hsl-timetable-builder:test
             imagePullPolicy: Always
             securityContext:
-              allowPrivilegeEscalation: false
+              privileged: true
+              capabilities:
+                add:
+                 - NET_ADMIN
+                 - SYS_ADMIN
             env:
+            - name: DOCKER_BUILDKIT
+              value: '1'
+            - name: DOCKER_HOST
+              value: tcp://localhost:2375
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "latest"
+              value: "test"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -68,18 +90,20 @@ spec:
               value: "-1" # don't run build in a loop
             resources:
               requests:
-                memory: 2736Mi
+                memory: 3Gi
                 cpu: 1000m
               limits:
-                memory: 2736Mi
+                memory: 3Gi
                 cpu: 4000m
           imagePullSecrets:
             - name: hsldevcomkey
           volumes:
-            - name: "docker-sock-volume"
-              hostPath:
-                # location on host
-                path: /var/run/docker.sock
+          - name: dind-storage
+            emptyDir: {}
+          - name: docker-socket-volume
+            hostPath:
+              path: /var/run/docker.sock
+              type: File
 
 ---
 
