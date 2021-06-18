@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: hsl-timetable-builder
 spec:
-  schedule: "40 5 * * *" # schedule in UTC time
+  schedule: "50 5 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -19,9 +19,9 @@ spec:
           activeDeadlineSeconds: 7200 # one build can take max 2 hours
           restartPolicy: OnFailure
           nodeSelector:
-            pool: defaultpool
+            pool: superpool
           containers:
-	  - name: dind
+          - name: dind
             image: docker:20.10.7-dind
             securityContext:
               privileged: true
@@ -97,7 +97,7 @@ spec:
                 cpu: 4000m
           imagePullSecrets:
             - name: hsldevcomkey
-	  volumes:
+          volumes:
           - name: dind-storage
             emptyDir: {}
           - name: docker-socket-volume
