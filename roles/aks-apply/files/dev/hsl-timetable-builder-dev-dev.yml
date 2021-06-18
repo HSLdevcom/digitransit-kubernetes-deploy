@@ -39,7 +39,7 @@ spec:
                 memory: 3Gi
                 cpu: 4000m
           - name: hsl-timetable-builder
-            image: hsldevcom/hsl-timetable-builder:test
+            image: hsldevcom/hsl-timetable-builder:latest
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -58,7 +58,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "test"
+              value: "latest"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
