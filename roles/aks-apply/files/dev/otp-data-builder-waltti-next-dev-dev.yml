@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: otp-data-builder-waltti-next-dev
 spec:
-  schedule: "45 20 * * *" # schedule in UTC time
+  schedule: "50 21 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:

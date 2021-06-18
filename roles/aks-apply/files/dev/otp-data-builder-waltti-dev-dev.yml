@@ -16,28 +16,23 @@ spec:
             app: otp-data-builder-waltti-dev
         spec:
           priorityClassName: high-priority
-          activeDeadlineSeconds: 12600 # one build can take max 3 hours and 30 minutes
+          activeDeadlineSeconds: 7200 # one build can take max 2 hours
           restartPolicy: OnFailure
           nodeSelector:
             pool: superpool
           containers:
           - name: otp-data-builder-waltti-dev
             image: hsldevcom/otp-data-builder:latest
-            command: ["timeout"]
-            args: ["12600", "node", "index.js", "once"]
-            volumeMounts:
-              - mountPath: var/run/docker.sock
-                name: "docker-sock-volume"
-              - mountPath: opt/otp-data-builder/data
-                name: otp-data
             imagePullPolicy: Always
             securityContext:
-              allowPrivilegeEscalation: false
+              privileged: true
+              capabilities:
+                add:
+                 - NET_ADMIN
+                 - SYS_ADMIN
             env:
             - name: BUILDER_TYPE
               value: "Waltti dev"
-            - name: DATA
-              value: "/opt/otp-data-builder/data"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
@@ -54,8 +49,6 @@ spec:
               value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"waltti\"]}}"
             - name: EXTRA_UPDATERS
               value: "{\"foli-alerts\": {\"url\": \"https://foli-beta.nanona.fi/gtfs-rt/reittiopas\", \"routers\": [\"waltti\"]}, \"tampere-trip-updates\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/tripupdate\", \"routers\": [\"waltti\"]}, \"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"routers\": [\"waltti\"]}}"
-            - name: HOST_DATA
-              value: "/opt/otp-data"
             - name: OTP_TAG
               value: "latest"
             - name: ROUTERS
@@ -78,14 +71,6 @@ spec:
                 cpu: 6000m
           imagePullSecrets:
             - name: hsldevcomkey
-          volumes:
-            - name: "docker-sock-volume"
-              hostPath:
-                # location on host
-                path: /var/run/docker.sock
-            - name: otp-data
-              hostPath:
-                path: /opt/otp-data/
 ---
 
 apiVersion: policy/v1beta1
