@@ -26,7 +26,7 @@ spec:
   selector:
     matchLabels:
       app: digitransit-ui-waltti
-  replicas: 3
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -118,7 +118,7 @@ kind: PodDisruptionBudget
 metadata:
   name: digitransit-ui-waltti-pdb
 spec:
-  minAvailable: 75%
+  minAvailable: 50%
   selector:
     matchLabels:
       app: digitransit-ui-waltti
