@@ -45,6 +45,8 @@ spec:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
+            - name: EXTRA_SRC
+              value: "{\"tampere\": {\"url\": \"https://gtfsrt.blob.core.windows.net/tampere/tamperefeed_faret.zip\", \"routers\": [\"waltti\"]}}"
             - name: OTP_TAG
               value: "otp2"
             - name: ROUTERS
