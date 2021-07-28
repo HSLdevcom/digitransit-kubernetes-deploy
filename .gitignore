@@ -8,7 +8,7 @@ _tmp
 /*vars/test*
 /doc/*.html
 /results
-
+.idea/*
 *~
 
 # Diffie-Hellman parameters and Mongo shared key should
