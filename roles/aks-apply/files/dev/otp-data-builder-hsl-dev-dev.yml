@@ -1,5 +1,5 @@
 ---
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: otp-data-builder-hsl-dev
@@ -73,7 +73,7 @@ spec:
             - name: hsldevcomkey
 ---
 
-apiVersion: policy/v1beta1
+apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: otp-data-builder-hsl-dev-pdb
