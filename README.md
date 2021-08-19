@@ -1,13 +1,10 @@
-# Digitransit AKS (Azure Kubernetes Service) API backend
+# Digitransit AKS (Azure Kubernetes Service)
 
 ## Contents
-This repository contains the service definitions for Digitransit's API backend, specifically the following:
+This repository contains the service definitions for Digitransit's backend, specifically the following:
 * Deployment scripts for Azure Kubernetes Service (AKS)
-* Kubernetes service and deployment definition YAML's for Digitransit API's
+* Kubernetes service and deployment definition YAML's for Digitransit services
 * Azure API Management deployment scripts
-* API product definitions
-
-Folders in this repository might contain separate instruction files as needed.
 
 ## Prerequisites to using this repository
 * Access to an Azure subscription
