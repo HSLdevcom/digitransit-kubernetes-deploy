@@ -181,6 +181,11 @@ spec:
               secretKeyRef:
                 name: salo-basic-key
                 key: salo-basic-key
+          - name: KOUVOLA_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: kouvola-basic-key
+                key: kouvola-basic-key
         resources:
             requests:
               memory: "1152Mi"
