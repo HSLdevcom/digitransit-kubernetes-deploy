@@ -189,6 +189,11 @@ spec:
               secretKeyRef:
                 name: kouvola-basic-key
                 key: kouvola-basic-key
+          - name: PERILLE_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: perille-basic-key
+                key: perille-basic-key
         resources:
             requests:
               memory: "1152Mi"
