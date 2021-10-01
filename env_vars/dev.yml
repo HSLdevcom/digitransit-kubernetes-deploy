@@ -7,7 +7,7 @@
 "aks_environment_with_postfix": "{{az_environment}}{{aks_environment_postfix}}"
 "aks_name": "{{project}}-{{aks_environment_with_postfix}}-aks"
 "aks_resource_group_name": "{{aks_name}}-rg"
-"default_node_count": "8"
+"default_node_count": "9"
 "worker_node_count": "10"
 "addons_to_remove": "kube-dashboard"
 "kubernetes_version": "1.21.2"
