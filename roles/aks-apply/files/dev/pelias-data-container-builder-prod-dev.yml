@@ -57,10 +57,10 @@ spec:
               value: "-1" # builder shuts down after first build
             resources:
               requests:
-                memory: 8Gi
+                memory: 10Gi
                 cpu: 2000m
               limits:
-                memory: 8Gi
+                memory: 10Gi
                 cpu: 7000m
           imagePullSecrets:
             - name: hsldevcomkey
