@@ -34,6 +34,7 @@
     --name {{service_name}} \
     --storage-account {{storage_account_name}} \
     --consumption-plan-location {{az_region}} \
+    --functions-version {{functions_version}} \
     --os-type {{os_type}} \
     --runtime {{runtime_stack}} \
     --runtime-version {{runtime_version}} \
