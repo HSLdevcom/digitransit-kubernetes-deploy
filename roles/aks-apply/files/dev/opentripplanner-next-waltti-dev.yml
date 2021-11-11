@@ -68,10 +68,10 @@ spec:
               key: otp-next-waltti-java-opts-dev
         resources:
           requests:
-            memory: "7168Mi"
+            memory: "11Gi"
             cpu: "7000m"
           limits:
-            memory: "7168Mi"
+            memory: "11Gi"
             cpu: "8000m"
       imagePullSecrets:
         - name: hsldevcomkey
