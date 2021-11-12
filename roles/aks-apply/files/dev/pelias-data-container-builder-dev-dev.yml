@@ -41,6 +41,11 @@ spec:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
+            - name: GTFS_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: next-waltti-basic
+                  key: next-waltti-basic
             - name: BUILDER_TYPE
               value: "dev"
             - name: SLACK_WEBHOOK_URL
