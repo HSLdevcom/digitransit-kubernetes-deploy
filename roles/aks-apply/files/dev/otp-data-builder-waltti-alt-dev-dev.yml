@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-waltti-next-dev
+  name: otp-data-builder-waltti-alt-dev
 spec:
-  schedule: "7 22 * * *" # schedule in UTC time
+  schedule: "30 15 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -13,7 +13,7 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-waltti-next-dev
+            app: otp-data-builder-waltti-alt-dev
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
@@ -21,7 +21,7 @@ spec:
           nodeSelector:
             pool: superpool
           containers:
-          - name: otp-data-builder-waltti-next-dev
+          - name: otp-data-builder-waltti-alt-dev
             image: hsldevcom/otp-data-builder:otp2
             imagePullPolicy: Always
             securityContext:
@@ -32,7 +32,7 @@ spec:
                  - SYS_ADMIN
             env:
             - name: BUILDER_TYPE
-              value: "Waltti next dev"
+              value: "Waltti alt dev"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
@@ -48,7 +48,7 @@ spec:
             - name: OTP_TAG
               value: "otp2"
             - name: ROUTERS
-              value: "waltti"
+              value: "waltti-alt"
             - name: SEED_TAG
               value: "otp2"
             - name: SLACK_WEBHOOK_URL
@@ -73,9 +73,9 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-waltti-next-dev-pdb
+  name: otp-data-builder-waltti-alt-dev-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-waltti-next-dev
+      app: otp-data-builder-waltti-alt-dev
