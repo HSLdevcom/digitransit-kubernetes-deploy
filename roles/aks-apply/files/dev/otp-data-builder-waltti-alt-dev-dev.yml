@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: otp-data-builder-waltti-alt-dev
 spec:
-  schedule: "30 15 * * *" # schedule in UTC time
+  schedule: "7 22 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -58,6 +58,8 @@ spec:
                   key: slack-webhook
             - name: TOOLS_TAG
               value: "otp2"
+            - name: SLACK_CHANNEL
+              value: "topic-ci-otp2"
             resources:
               requests:
                 memory: 12Gi
