@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-waltti-alt-dev
+  name: otp-data-builder-waltti-alt-dev-v2
 spec:
   schedule: "7 22 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
@@ -13,7 +13,7 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-waltti-alt-dev
+            app: otp-data-builder-waltti-alt-dev-v2
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
@@ -21,7 +21,7 @@ spec:
           nodeSelector:
             pool: superpool
           containers:
-          - name: otp-data-builder-waltti-alt-dev
+          - name: otp-data-builder-waltti-alt-dev-v2
             image: hsldevcom/otp-data-builder:otp2
             imagePullPolicy: Always
             securityContext:
@@ -75,9 +75,9 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-waltti-alt-dev-pdb
+  name: otp-data-builder-waltti-alt-dev-v2-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-waltti-alt-dev
+      app: otp-data-builder-waltti-alt-dev-v2
