@@ -26,7 +26,7 @@ metadata:
     restartAt: "05.00"
     restartLimitInterval: "720"
 spec:
-  replicas: 9
+  replicas: 7
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -98,10 +98,10 @@ spec:
           value: 3g
         resources:
           requests:
-            memory: 2048Mi
-            cpu: 3000m
+            memory: 4Gi
+            cpu: 6000m
           limits:
-            memory: 4048Mi
+            memory: 4Gi
             cpu: 6000m
       imagePullSecrets:
         - name: hsldevcomkey
