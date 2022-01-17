@@ -93,8 +93,6 @@ spec:
             secretKeyRef:
               name: gtm-id
               key: gtm-id
-        - name: MAP_PATH_PREFIX
-          value: "next-"
         - name: BASE_CONFIG
           value: "waltti"
         - name: REALTIME_PATCH
