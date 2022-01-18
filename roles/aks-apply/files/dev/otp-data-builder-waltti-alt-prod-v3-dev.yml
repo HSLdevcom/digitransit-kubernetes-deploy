@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-waltti-next-prod
+  name: otp-data-builder-waltti-alt-prod-v3
 spec:
   schedule: "55 22 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
@@ -13,7 +13,7 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-waltti-next-prod
+            app: otp-data-builder-waltti-alt-prod-v3
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
@@ -21,8 +21,8 @@ spec:
           nodeSelector:
             pool: superpool
           containers:
-          - name: otp-data-builder-waltti-next-prod
-            image: hsldevcom/otp-data-builder:otp2-prod
+          - name: otp-data-builder-waltti-alt-prod-v3
+            image: hsldevcom/otp-data-builder:v3-prod
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -32,14 +32,14 @@ spec:
                  - SYS_ADMIN
             env:
             - name: BUILDER_TYPE
-              value: "Waltti next prod"
+              value: "Waltti alt prod"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "otp2-prod"
+              value: "v3-prod"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -48,16 +48,16 @@ spec:
             - name: OTP_TAG
               value: "otp2-prod"
             - name: ROUTERS
-              value: "waltti"
+              value: "waltti-alt"
             - name: SEED_TAG
-              value: "otp2-prod"
+              value: "otp2"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: slack-webhook
                   key: slack-webhook
             - name: TOOLS_TAG
-              value: "otp2-prod"
+              value: "v3-prod"
             resources:
               requests:
                 memory: 12Gi
@@ -73,9 +73,9 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-waltti-next-prod-pdb
+  name: otp-data-builder-waltti-alt-prod-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-waltti-next-prod
+      app: otp-data-builder-waltti-alt-prod-v3
