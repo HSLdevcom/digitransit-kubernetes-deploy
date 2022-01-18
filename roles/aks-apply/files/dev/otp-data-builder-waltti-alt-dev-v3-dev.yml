@@ -32,7 +32,7 @@ spec:
                  - SYS_ADMIN
             env:
             - name: BUILDER_TYPE
-              value: "Waltti alt dev"
+              value: "Waltti alt dev v3"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
