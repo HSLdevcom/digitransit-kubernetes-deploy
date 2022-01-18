@@ -52,7 +52,7 @@ spec:
             - name: ROUTERS
               value: "waltti-alt"
             - name: SEED_TAG
-              value: "otp2"
+              value: "v3"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
