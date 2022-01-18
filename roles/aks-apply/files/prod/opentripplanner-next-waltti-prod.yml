@@ -41,7 +41,7 @@ spec:
         pool: superpool
       containers:
       - name: opentripplanner-next-waltti
-        image: hsldevcom/opentripplanner:otp2-prod
+        image: hsldevcom/opentripplanner:otp2-prod-2021-06-15T12.20.11-9d985e2
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

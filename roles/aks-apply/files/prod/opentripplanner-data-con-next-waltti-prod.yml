@@ -51,7 +51,7 @@ spec:
         pool: defaultpool
       containers:
       - name: opentripplanner-data-con-next-waltti
-        image: hsldevcom/opentripplanner-data-container-waltti:otp2-prod
+        image: hsldevcom/opentripplanner-data-container-waltti:otp2-prod-2022-01-17T23.50.49
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
