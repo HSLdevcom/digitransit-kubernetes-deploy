@@ -51,7 +51,7 @@ spec:
         pool: defaultpool
       containers:
       - name: opentripplanner-data-con-hsl-v3
-        image: hsldevcom/opentripplanner-data-container-hsl:otp2
+        image: hsldevcom/opentripplanner-data-container-hsl:v3
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false

@@ -65,7 +65,7 @@ spec:
         pool: defaultpool
       containers:
       - name: opentripplanner-data-con-waltti-alt-v3
-        image: hsldevcom/opentripplanner-data-container-waltti-alt:otp2
+        image: hsldevcom/opentripplanner-data-container-waltti-alt:v3
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false

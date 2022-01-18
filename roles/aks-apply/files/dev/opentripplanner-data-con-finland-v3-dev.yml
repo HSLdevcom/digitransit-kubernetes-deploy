@@ -51,7 +51,7 @@ spec:
         pool: defaultpool
       containers:
       - name: opentripplanner-data-con-finland-v3
-        image: hsldevcom/opentripplanner-data-container-finland:otp2
+        image: hsldevcom/opentripplanner-data-container-finland:v3
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
