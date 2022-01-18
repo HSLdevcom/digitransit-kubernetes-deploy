@@ -66,7 +66,7 @@ spec:
         pool: defaultpool
       containers:
       - name: digitransit-ui-matka
-        image: hsldevcom/digitransit-ui:prod
+        image: hsldevcom/digitransit-ui:next-prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -103,16 +103,11 @@ spec:
             secretKeyRef:
               name: sentry-dsn
               key: sentry-dsn
-        - name: SENTRY_SECRET_DSN
-          valueFrom:
-            secretKeyRef:
-              name: sentry-secret-dsn
-              key: sentry-secret-dsn
-        - name: GTM_ID
-          valueFrom:
-            secretKeyRef:
-              name: gtm-id
-              key: gtm-id
+        #- name: SENTRY_SECRET_DSN
+        #  valueFrom:
+        #    secretKeyRef:
+        #      name: sentry-secret-dsn
+        #      key: sentry-secret-dsn
         resources:
           requests:
             memory: 1024Mi
