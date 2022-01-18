@@ -43,7 +43,7 @@ spec:
             - name: EXTRA_UPDATERS
               value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi\", \"routers\": [\"finland\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"finland\"]}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\", \"routers\": [\"finland\"]}}"
             - name: DOCKER_TAG
-              value: "otp2"
+              value: "v3"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -61,7 +61,7 @@ spec:
                   name: slack-webhook
                   key: slack-webhook
             - name: TOOLS_TAG
-              value: "otp2"
+              value: "v3"
             - name: SLACK_CHANNEL
               value: "topic-ci-otp2"
             resources:

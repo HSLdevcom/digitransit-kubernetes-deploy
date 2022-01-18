@@ -43,7 +43,7 @@ spec:
             - name: EXTRA_UPDATERS
               value: "{\"foli-alerts\": {\"url\": \"https://foli-beta.nanona.fi/gtfs-rt/reittiopas\", \"routers\": [\"waltti\"]}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\", \"routers\": [\"waltti\"]}, \"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"routers\": [\"waltti\"]}}"
             - name: DOCKER_TAG
-              value: "otp2"
+              value: "v3"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -61,7 +61,7 @@ spec:
                   name: slack-webhook
                   key: slack-webhook
             - name: TOOLS_TAG
-              value: "otp2"
+              value: "v3"
             - name: SLACK_CHANNEL
               value: "topic-ci-otp2"
             resources:

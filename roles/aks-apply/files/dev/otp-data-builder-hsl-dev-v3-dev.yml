@@ -41,7 +41,7 @@ spec:
             - name: EXTRA_UPDATERS
               value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi\", \"routers\": [\"hsl\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"hsl\"]}, \"hsl-park\": {\"facilitiesUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/facilities.json?limit=-1\", \"utilizationsUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/utilizations.json?limit=-1\", \"routers\": [\"hsl\"]}}"
             - name: DOCKER_TAG
-              value: "otp2"
+              value: "v3"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -59,7 +59,7 @@ spec:
                   name: slack-webhook
                   key: slack-webhook
             - name: TOOLS_TAG
-              value: "otp2"
+              value: "v3"
             - name: VERSION_CHECK
               value: "HSL"
             - name: SLACK_CHANNEL
