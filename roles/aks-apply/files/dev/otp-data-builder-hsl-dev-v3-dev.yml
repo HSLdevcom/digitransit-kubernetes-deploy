@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-finland-dev-v2
+  name: otp-data-builder-hsl-dev-v3
 spec:
-  schedule: "7 18 * * *" # schedule in UTC time
+  schedule: "30 16 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -13,7 +13,7 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-finland-dev-v2
+            app: otp-data-builder-hsl-dev-v3
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
@@ -21,8 +21,8 @@ spec:
           nodeSelector:
             pool: superpool
           containers:
-          - name: otp-data-builder-finland-dev-v2
-            image: hsldevcom/otp-data-builder:otp2
+          - name: otp-data-builder-hsl-dev-v3
+            image: hsldevcom/otp-data-builder:v3
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -32,16 +32,14 @@ spec:
                  - SYS_ADMIN
             env:
             - name: BUILDER_TYPE
-              value: "Finland dev v2"
+              value: "HSL dev v2"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
-            - name: EXTRA_SRC
-              value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"finland\"]}}"
             - name: EXTRA_UPDATERS
-              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi\", \"routers\": [\"finland\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"finland\"]}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\", \"routers\": [\"finland\"]}}"
+              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi\", \"routers\": [\"hsl\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"hsl\"]}, \"hsl-park\": {\"facilitiesUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/facilities.json?limit=-1\", \"utilizationsUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/utilizations.json?limit=-1\", \"routers\": [\"hsl\"]}}"
             - name: DOCKER_TAG
               value: "otp2"
             - name: DOCKER_USER
@@ -52,7 +50,7 @@ spec:
             - name: OTP_TAG
               value: "otp2"
             - name: ROUTERS
-              value: "finland"
+              value: "hsl"
             - name: SEED_TAG
               value: "otp2"
             - name: SLACK_WEBHOOK_URL
@@ -62,6 +60,8 @@ spec:
                   key: slack-webhook
             - name: TOOLS_TAG
               value: "otp2"
+            - name: VERSION_CHECK
+              value: "HSL"
             - name: SLACK_CHANNEL
               value: "topic-ci-otp2"
             resources:
@@ -79,9 +79,9 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-finland-dev-v2-pdb
+  name: otp-data-builder-hsl-dev-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-finland-dev-v2
+      app: otp-data-builder-hsl-dev-v3
