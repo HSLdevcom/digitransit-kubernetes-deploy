@@ -1,6 +1,20 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: hsl-map-server-next
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: hsl-map-server-next-service-port
+    protocol: TCP
+  selector:
+    app: hsl-map-server
+---
+
+apiVersion: v1
+kind: Service
+metadata:
   name: hsl-map-server
 spec:
   ports:
