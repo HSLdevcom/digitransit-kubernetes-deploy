@@ -1,23 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: opentripplanner-data-con-next-waltti
+  name: opentripplanner-data-con-hsl-v3
 spec:
   ports:
   - port: 8080
     targetPort: 8080
-    name: opentripplanner-data-con-next-waltti-service-port
+    name: opentripplanner-data-con-hsl-v3-service-port
     protocol: TCP
   selector:
-    app: opentripplanner-data-con-next-waltti
+    app: opentripplanner-data-con-hsl-v3
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: opentripplanner-data-con-next-waltti
+  name: opentripplanner-data-con-hsl-v3
   labels:
-    app: opentripplanner-data-con-next-waltti
+    app: opentripplanner-data-con-hsl-v3
     update: auto
 spec:
   replicas: 2
@@ -28,11 +28,11 @@ spec:
       maxUnavailable: 50%
   selector:
     matchLabels:
-      app: opentripplanner-data-con-next-waltti
+      app: opentripplanner-data-con-hsl-v3
   template:
     metadata:
       labels:
-        app: opentripplanner-data-con-next-waltti
+        app: opentripplanner-data-con-hsl-v3
         lastRestartDate: dummy-value
     spec:
       affinity:
@@ -45,13 +45,13 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - opentripplanner-data-con-next-waltti
+                  - opentripplanner-data-con-hsl-v3
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
       containers:
-      - name: opentripplanner-data-con-next-waltti
-        image: hsldevcom/opentripplanner-data-container-waltti:otp2
+      - name: opentripplanner-data-con-hsl-v3
+        image: hsldevcom/opentripplanner-data-container-hsl:otp2
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -87,9 +87,9 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: opentripplanner-data-con-next-waltti-pdb
+  name: opentripplanner-data-con-hsl-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: opentripplanner-data-con-next-waltti
+      app: opentripplanner-data-con-hsl-v3
