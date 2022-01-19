@@ -43,7 +43,7 @@ spec:
         pool: superpool
       containers:
       - name: opentripplanner-hsl-v2
-        image: hsldevcom/opentripplanner:otp2
+        image: hsldevcom/opentripplanner:v2
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

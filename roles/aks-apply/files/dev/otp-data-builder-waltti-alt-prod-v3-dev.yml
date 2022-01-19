@@ -46,7 +46,7 @@ spec:
                   name: docker-user
                   key: docker-user
             - name: OTP_TAG
-              value: "otp2-prod"
+              value: "v2-prod"
             - name: ROUTERS
               value: "waltti-alt"
             - name: SEED_TAG
