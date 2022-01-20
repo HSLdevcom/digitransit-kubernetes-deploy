@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opentripplanner-waltti-alt-v2
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: opentripplanner-waltti-alt-v2-service-port
+  selector:
+    app: opentripplanner-waltti-alt-v2
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentripplanner-waltti-alt-v2
+  labels:
+    app: opentripplanner-waltti-alt-v2
+    restartAfterDeployments: "opentripplanner-data-con-waltti-alt-v3"
+    restartDelay: "1"
+    restartAt: "05.45"
+    restartLimitInterval: "720"
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-waltti-alt-v2
+  template:
+    metadata:
+      labels:
+        app: opentripplanner-waltti-alt-v2
+        lastRestartDate: dummy-value
+    spec:
+      nodeSelector:
+        pool: superpool
+      containers:
+      - name: opentripplanner-waltti-alt-v2
+        image: hsldevcom/opentripplanner:v2-prod
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: ROUTER_DATA_CONTAINER_URL
+          value: "http://opentripplanner-data-con-waltti-alt-v3:8080"
+        - name: ROUTER_NAME
+          value: "waltti-alt"
+        - name: JAVA_OPTS
+          valueFrom:
+            secretKeyRef:
+              name: otp-waltti-alt-v2-java-opts-prod
+              key: otp-waltti-alt-v2-java-opts-prod
+        resources:
+          requests:
+            memory: "11Gi"
+            cpu: "7000m"
+          limits:
+            memory: "11Gi"
+            cpu: "8000m"
+      imagePullSecrets:
+        - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-waltti-alt-v2-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-waltti-alt-v2
