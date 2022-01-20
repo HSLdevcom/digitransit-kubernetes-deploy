@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: opentripplanner-next-waltti
+  name: opentripplanner-waltti-v2
 spec:
   ports:
   - port: 8080
     targetPort: 8080
-    name: opentripplanner-next-waltti-service-port
+    name: opentripplanner-waltti-v2-service-port
