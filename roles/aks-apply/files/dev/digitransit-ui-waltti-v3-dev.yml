@@ -1,30 +1,30 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: digitransit-ui-waltti-next
+  name: digitransit-ui-waltti-v3
 spec:
   ports:
   - port: 8080
     targetPort: 8080
-    name: digitransit-ui-waltti-next-service-port
+    name: digitransit-ui-waltti-v3-service-port
   selector:
-    app: digitransit-ui-waltti-next
+    app: digitransit-ui-waltti-v3
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: digitransit-ui-waltti-next
+  name: digitransit-ui-waltti-v3
   labels:
-    app: digitransit-ui-waltti-next
+    app: digitransit-ui-waltti-v3
     update: auto
     restartAfterDeployments: "opentripplanner-waltti"
     restartDelay: "5"
 spec:
   selector:
     matchLabels:
-      app: digitransit-ui-waltti-next
-  replicas: 2
+      app: digitransit-ui-waltti-v3
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -33,7 +33,7 @@ spec:
   template:
     metadata:
       labels:
-        app: digitransit-ui-waltti-next
+        app: digitransit-ui-waltti-v3
         lastRestartDate: dummy-value
     spec:
       priorityClassName: medium-priority
@@ -47,13 +47,13 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - digitransit-ui-waltti-next
+                  - digitransit-ui-waltti-v3
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
       containers:
-      - name: digitransit-ui-waltti-next
-        image: hsldevcom/digitransit-ui:next
+      - name: digitransit-ui-waltti-v3
+        image: hsldevcom/digitransit-ui:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -76,56 +76,58 @@ spec:
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
         - name: ASSET_URL
-          value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v1/waltti-next"
+          value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v3/waltti"
         - name: MAP_URL
           value: "https://digitransit-dev-cdn-origin.azureedge.net"
+        - name: OTP_URL
+          value: "https://dev-api.digitransit.fi/routing/v2/routers/waltti/"
         - name: NODE_OPTS
           value: "--max_old_space_size=900"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
-        - name: SENTRY_DSN
-          valueFrom:
-            secretKeyRef:
-              name: sentry-dsn
-              key: sentry-dsn
-        - name: GTM_ID
-          valueFrom:
-            secretKeyRef:
-              name: gtm-id
-              key: gtm-id
+        # - name: SENTRY_DSN
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: sentry-dsn
+        #       key: sentry-dsn
+        # - name: GTM_ID
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: gtm-id
+        #       key: gtm-id
         - name: BASE_CONFIG
           value: "waltti"
         - name: REALTIME_PATCH
           value: "{\"tampere\": {\"topicFeedId\": \"tampereTram\"}}"
-        - name: REDIS_HOST
-          valueFrom:
-            secretKeyRef:
-              name: redis-host
-              key: redis-host
-        - name: REDIS_PORT
-          value: "6380"
-        - name: REDIS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: redis-key
-              key: redis-key
-        - name: OIDCHOST
-          value: "https://walttiid-dev7.t5.fi"
-        - name: SESSION_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: session-secret
-              key: session-secret
-        - name: OIDC_CLIENT_ID
-          valueFrom:
-            secretKeyRef:
-              name: dev-waltti-oidc-client-id
-              key: dev-waltti-oidc-client-id
-        - name: OIDC_CLIENT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: dev-waltti-oidc-client-secret
-              key: dev-waltti-oidc-client-secret
+        # - name: REDIS_HOST
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: redis-host
+        #       key: redis-host
+        # - name: REDIS_PORT
+        #   value: "6380"
+        # - name: REDIS_KEY
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: redis-key
+        #       key: redis-key
+        # - name: OIDCHOST
+        #   value: "https://walttiid-dev7.t5.fi"
+        # - name: SESSION_SECRET
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: session-secret
+        #       key: session-secret
+        # - name: OIDC_CLIENT_ID
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: dev-waltti-oidc-client-id
+        #       key: dev-waltti-oidc-client-id
+        # - name: OIDC_CLIENT_SECRET
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: dev-waltti-oidc-client-secret
+        #       key: dev-waltti-oidc-client-secret
         resources:
           requests:
             memory: 1200Mi
@@ -135,15 +137,3 @@ spec:
             cpu: 2000m
       imagePullSecrets:
         - name: hsldevcomkey
-
----
-
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: digitransit-ui-waltti-next-pdb
-spec:
-  minAvailable: 1
-  selector:
-    matchLabels:
-      app: digitransit-ui-waltti-next
