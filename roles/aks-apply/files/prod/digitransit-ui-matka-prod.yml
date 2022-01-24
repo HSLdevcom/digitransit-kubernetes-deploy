@@ -66,7 +66,7 @@ spec:
         pool: defaultpool
       containers:
       - name: digitransit-ui-matka
-        image: hsldevcom/digitransit-ui:next-prod
+        image: hsldevcom/digitransit-ui:prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
