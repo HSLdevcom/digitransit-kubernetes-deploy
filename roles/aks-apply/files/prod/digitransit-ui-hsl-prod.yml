@@ -8,4 +8,4 @@ spec:
     targetPort: 8080
     name: digitransit-ui-hsl-service-port
   selector:
-    app: digitransit-ui-hsl-next
+    app: digitransit-ui-hsl-v2

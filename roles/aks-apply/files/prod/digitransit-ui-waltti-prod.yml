@@ -8,4 +8,4 @@ spec:
     targetPort: 8080
     name: digitransit-ui-waltti-service-port
   selector:
-    app: digitransit-ui-waltti-next
+    app: digitransit-ui-waltti-v2
