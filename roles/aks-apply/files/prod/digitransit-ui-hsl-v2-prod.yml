@@ -84,7 +84,7 @@ spec:
         - name: FAVOURITE_HOST
           value: "https://api.digitransit.fi/favourites"
         - name: ASSET_URL
-          value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v1/hsl-next"
+          value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v2/hsl"
         - name: ROOTLINK
           value: "https://www.hsl.fi"
         - name: MAP_URL

@@ -77,7 +77,7 @@ spec:
         - name: API_URL
           value: "https://api.digitransit.fi"
         - name: ASSET_URL
-          value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v1/waltti-next"
+          value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v2/waltti"
         - name: MAP_URL
           value: "https://digitransit-prod-cdn-origin.azureedge.net"
         - name: NODE_OPTS
