@@ -1,53 +1,41 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: digitransit-ui-matka
+  name: digitransit-ui-waltti-v2
 spec:
   ports:
   - port: 8080
     targetPort: 8080
-    name: digitransit-ui-matka-service-port
+    name: digitransit-ui-waltti-v2-service-port
   selector:
-    app: digitransit-ui-matka
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: digitransit-ui-default
-spec:
-  ports:
-  - port: 8080
-    targetPort: 8080
-    name: digitransit-ui-default-service-port
-  selector:
-    app: digitransit-ui-matka
+    app: digitransit-ui-waltti-v2
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: digitransit-ui-matka
+  name: digitransit-ui-waltti-v2
   labels:
-    app: digitransit-ui-matka
+    app: digitransit-ui-waltti-v2
     update: auto
-    restartAt: "03.00_13.00"
+    restartAt: "03.10_13.10"
     restartLimitInterval: "480"
-    restartAfterDeployments: "opentripplanner-finland"
+    restartAfterDeployments: "opentripplanner-waltti"
     restartDelay: "5"
 spec:
   selector:
     matchLabels:
-      app: digitransit-ui-matka
+      app: digitransit-ui-waltti-v2
   replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 25%
+      maxSurge: 50%
       maxUnavailable: 0
   template:
     metadata:
       labels:
-        app: digitransit-ui-matka
+        app: digitransit-ui-waltti-v2
         lastRestartDate: dummy-value
     spec:
       affinity:
@@ -60,12 +48,12 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - digitransit-ui-matka
+                  - digitransit-ui-waltti-v2
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
       containers:
-      - name: digitransit-ui-matka
+      - name: digitransit-ui-waltti-v2
         image: hsldevcom/digitransit-ui:prod
         imagePullPolicy: Always
         ports:
@@ -86,16 +74,14 @@ spec:
           timeoutSeconds: 10
           failureThreshold: 10
         env:
-        - name: CONFIG
-          value: "matka"
         - name: API_URL
           value: "https://api.digitransit.fi"
         - name: ASSET_URL
-          value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v1/finland"
+          value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v2/waltti"
         - name: MAP_URL
           value: "https://digitransit-prod-cdn-origin.azureedge.net"
         - name: NODE_OPTS
-          value: "--max_old_space_size=600"
+          value: "--max_old_space_size=900"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
         - name: SENTRY_DSN
@@ -103,17 +89,19 @@ spec:
             secretKeyRef:
               name: sentry-dsn
               key: sentry-dsn
-        #- name: SENTRY_SECRET_DSN
-        #  valueFrom:
-        #    secretKeyRef:
-        #      name: sentry-secret-dsn
-        #      key: sentry-secret-dsn
+        - name: GTM_ID
+          valueFrom:
+            secretKeyRef:
+              name: gtm-id
+              key: gtm-id
+        - name: BASE_CONFIG
+          value: "waltti"
         resources:
           requests:
-            memory: 1024Mi
-            cpu: 500m
+            memory: 1536Mi
+            cpu: 600m
           limits:
-            memory: 1024Mi
+            memory: 1536Mi
             cpu: 2000m
       imagePullSecrets:
         - name: hsldevcomkey
@@ -123,9 +111,9 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: digitransit-ui-matka-pdb
+  name: digitransit-ui-waltti-v2-pdb
 spec:
-  minAvailable: 50%
+  minAvailable: 1
   selector:
     matchLabels:
-      app: digitransit-ui-matka
+      app: digitransit-ui-waltti-v2
