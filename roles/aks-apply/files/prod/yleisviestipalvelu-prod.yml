@@ -78,7 +78,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: ht-password
-              key: ht-password           
+              key: ht-password
         - name: PORT
           value: "8900"
         resources:

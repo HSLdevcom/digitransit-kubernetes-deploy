@@ -78,7 +78,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: ht-password
-              key: ht-password   
+              key: ht-password
         - name: PORT
           value: "8900"
         resources:
@@ -93,4 +93,4 @@ spec:
       volumes:
         - name: "yleisviestipalvelumessages"
           persistentVolumeClaim:
-            claimName: yleisviesti-fileshare      
+            claimName: yleisviesti-fileshare
