@@ -47,6 +47,8 @@ spec:
                   values:
                   - yleisviestipalvelu
               topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: defaultpool
       containers:
       - name: yleisviestipalvelu
         image: hsldevcom/yleisviestipalvelu
