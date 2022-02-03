@@ -47,6 +47,7 @@ spec:
                   values:
                   - yleisviestipalvelu
               topologyKey: kubernetes.io/hostname
+      priorityClassName: medium-priority
       nodeSelector:
         pool: defaultpool
       containers:
