@@ -93,8 +93,6 @@ spec:
           value: "--max_old_space_size=1000"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
-        - name: STATIC_MESSAGE_URL
-          value: "https://yleisviesti.hsl.fi"
         - name: SENTRY_DSN
           valueFrom:
             secretKeyRef:
