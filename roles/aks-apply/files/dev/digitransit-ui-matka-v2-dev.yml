@@ -88,7 +88,7 @@ spec:
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
         - name: STATIC_MESSAGE_URL
-          value: "https://dev-matka-yleisviesti.digitransit.fi/"
+          value: "https://dev-matka-yleisviesti.digitransit.fi"
         - name: SENTRY_DSN
           valueFrom:
             secretKeyRef:
