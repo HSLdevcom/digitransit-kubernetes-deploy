@@ -137,6 +137,8 @@ spec:
             secretKeyRef:
               name: prod-oidc-client-secret
               key: prod-oidc-client-secret
+        - name: NOTIFICATION_HOST
+          value: "https://www.hsl.fi/user/api/v1/notifications"
         resources:
           requests:
             memory: "1536Mi"
