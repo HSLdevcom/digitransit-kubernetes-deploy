@@ -20,7 +20,7 @@ metadata:
     app: pelias-api
     update: auto
 spec:
-  replicas: 5
+  replicas: 7
   strategy:
     type: RollingUpdate
     rollingUpdate:
