@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: pelias-data-container-builder-prod
 spec:
-  schedule: "35 3 * * *" # schedule in UTC time
+  schedule: "35 3 * * *"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -48,6 +48,8 @@ spec:
                   key: next-waltti-basic
             - name: BUILDER_TYPE
               value: "prod"
+            - name: OSM_VENUE_FILTERS
+              value: "[{\"name\": \"Volodymyr Zelenskyy Park\"}]"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
