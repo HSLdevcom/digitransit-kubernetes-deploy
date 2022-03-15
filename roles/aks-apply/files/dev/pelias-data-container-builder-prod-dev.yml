@@ -48,8 +48,6 @@ spec:
                   key: next-waltti-basic
             - name: BUILDER_TYPE
               value: "prod"
-            - name: OSM_VENUE_FILTERS
-              value: "[{\"name\": \"Volodymyr Zelenskyy Park\"}]"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
