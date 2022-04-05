@@ -26,7 +26,7 @@ spec:
   selector:
     matchLabels:
       app: digitransit-ui-waltti-v2
-  replicas: 2
+  replicas: 5
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -81,7 +81,7 @@ spec:
         - name: MAP_URL
           value: "https://digitransit-prod-cdn-origin.azureedge.net"
         - name: NODE_OPTS
-          value: "--max_old_space_size=900"
+          value: "--max_old_space_size=1500"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
         - name: SENTRY_DSN
@@ -98,10 +98,10 @@ spec:
           value: "waltti"
         resources:
           requests:
-            memory: 1536Mi
+            memory: 2536Mi
             cpu: 600m
           limits:
-            memory: 1536Mi
+            memory: 2536Mi
             cpu: 2000m
       imagePullSecrets:
         - name: hsldevcomkey
