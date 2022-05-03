@@ -191,6 +191,11 @@ spec:
               secretKeyRef:
                 name: perille-basic-key
                 key: perille-basic-key
+          - name: GIRAVOLTA_TAMPERE_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: giravolta-tampere-key
+                key: giravolta-tampere-key
         resources:
             requests:
               memory: "1152Mi"
