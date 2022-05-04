@@ -196,6 +196,11 @@ spec:
               secretKeyRef:
                 name: giravolta-tampere-key
                 key: giravolta-tampere-key
+          - name: KOTKA_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: kotka-basic-key
+                key: kotka-basic-key
         resources:
             requests:
               memory: "1152Mi"
