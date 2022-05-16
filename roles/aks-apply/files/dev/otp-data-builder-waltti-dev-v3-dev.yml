@@ -39,9 +39,9 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"waltti\"]}, \"FOLI\": {\"url\": \"http://foli-beta.nanona.fi/gtfs/gtfs.zip\", \"routers\": [\"waltti\"]}}"
+              value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"waltti\"]}}"
             - name: EXTRA_UPDATERS
-              value: "{\"foli-alerts\": {\"url\": \"https://foli-beta.nanona.fi/gtfs-rt/reittiopas\", \"routers\": [\"waltti\"]}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\", \"routers\": [\"waltti\"]}, \"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"routers\": [\"waltti\"]}}"
+              value: "{\"routers\": [\"waltti\"]}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\", \"routers\": [\"waltti\"]}, \"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"routers\": [\"waltti\"]}}"
             - name: DOCKER_TAG
               value: "v3"
             - name: DOCKER_USER
