@@ -68,7 +68,7 @@ spec:
           - name: HSL_RT_STORAGE_NAME
             value: "transitdatadev"
           - name: NEW_HSL_FI_URL
-            value: "dev.hslfi.hsldev.com"
+            value: "test.hslfi.hsldev.com"
           - name: JOJO_BASIC_AUTH
             valueFrom:
               secretKeyRef:
