@@ -51,6 +51,8 @@ spec:
               value: "waltti"
             - name: SEED_TAG
               value: "prod"
+            - name: SKIPPED_SITES
+              value: "mikkeli.digitransit.fi"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:

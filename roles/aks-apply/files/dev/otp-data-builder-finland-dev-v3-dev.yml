@@ -39,7 +39,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: "{\"tampere\": {\"url\": \"http://www.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"finland\"]}, \"MATKA\": {\"url\": \"https://testikoontikartta.navici.com/tiedostot/gtfs.zip\", \"routers\": [\"finland\"]}}"
+              value: "{\"tampere\": {\"url\": \"http://ekstrat.tampere.fi/ekstrat/ptdata/tamperefeed_faret.zip\", \"routers\": [\"finland\"]}, \"MATKA\": {\"url\": \"https://testikoontikartta.navici.com/tiedostot/gtfs.zip\", \"routers\": [\"finland\"]}}"
             - name: EXTRA_UPDATERS
               value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi\", \"routers\": [\"finland\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"finland\"]}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\", \"routers\": [\"finland\"]}}"
             - name: DOCKER_TAG
