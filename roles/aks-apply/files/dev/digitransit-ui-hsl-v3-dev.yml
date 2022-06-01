@@ -52,7 +52,7 @@ spec:
         pool: defaultpool
       containers:
       - name: digitransit-ui-hsl-v3
-        image: hsldevcom/digitransit-ui:latest
+        image: hsldevcom/digitransit-ui:node-migration
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
