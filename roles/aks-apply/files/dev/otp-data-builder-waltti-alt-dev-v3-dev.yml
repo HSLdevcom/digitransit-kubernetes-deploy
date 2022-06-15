@@ -31,6 +31,8 @@ spec:
                  - NET_ADMIN
                  - SYS_ADMIN
             env:
+            - name: ROUTER_NAME
+              value: "waltti-alt"
             - name: BUILDER_TYPE
               value: "Waltti alt dev v3"
             - name: DOCKER_AUTH
