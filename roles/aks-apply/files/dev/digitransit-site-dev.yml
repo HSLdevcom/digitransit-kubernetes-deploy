@@ -51,7 +51,7 @@ spec:
         pool: defaultpool
       containers:
       - name: digitransit-site
-        image: hsldevcom/digitransit-site:latest
+        image: hsldevcom/digitransit-site:apim
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
