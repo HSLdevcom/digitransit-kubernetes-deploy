@@ -179,6 +179,11 @@ spec:
               secretKeyRef:
                 name: vaasa-basic-key
                 key: vaasa-basic-key
+          - name: VARELY_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: varely-basic-key
+                key: varely-basic-key
           - name: SALO_BASIC_AUTH
             valueFrom:
               secretKeyRef:
