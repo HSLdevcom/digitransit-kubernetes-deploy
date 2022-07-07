@@ -18,7 +18,7 @@ metadata:
   labels:
     app: opentripplanner-varely-v2
     update: auto
-    restartAfterDeployments: "opentripplanner-data-con-hsl-v3"
+    restartAfterDeployments: "opentripplanner-data-con-varely-v3"
     restartDelay: "1"
     restartAt: "03.00"
     restartLimitInterval: "720"
