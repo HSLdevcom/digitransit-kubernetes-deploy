@@ -60,6 +60,8 @@ spec:
                   key: slack-webhook
             - name: TOOLS_TAG
               value: "latest"
+            - name: DISABLE_BLOB_VALIDATION
+              value: "true"
             resources:
               requests:
                 memory: 12Gi
