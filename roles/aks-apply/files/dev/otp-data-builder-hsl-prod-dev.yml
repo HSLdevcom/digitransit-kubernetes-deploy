@@ -58,6 +58,8 @@ spec:
                   key: slack-webhook
             - name: TOOLS_TAG
               value: "prod"
+            - name: DISABLE_BLOB_VALIDATION
+              value: "true"
             - name: VERSION_CHECK
               value: "HSL"
             - name: EXTRA_UPDATERS
