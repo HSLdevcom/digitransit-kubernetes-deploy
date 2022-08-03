@@ -52,7 +52,8 @@ spec:
         pool: defaultpool
       containers:
       - name: digitransit-ui-hsl-v3
-        image: hsldevcom/digitransit-ui:node-migration # testing german node migration project
+        image: hsldevcom/digitransit-ui:otp2-dev # development branch for digitransit-ui/otp2 OTP1->OTP2 migration project
+        # image: hsldevcom/digitransit-ui:node-migration # testing german node migration project
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
