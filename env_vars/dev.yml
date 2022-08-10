@@ -8,7 +8,7 @@
 "aks_name": "{{project}}-{{aks_environment_with_postfix}}-aks"
 "aks_resource_group_name": "{{aks_name}}-rg"
 "default_node_count": "7"
-"worker_node_count": "13"
+"worker_node_count": "14"
 "addons_to_remove": "kube-dashboard"
 "kubernetes_version": "1.23.5"
 "default_nodepool_name": "defaultpool"
