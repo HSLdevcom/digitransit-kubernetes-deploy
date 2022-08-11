@@ -62,10 +62,10 @@ spec:
               value: "v3-prod"
             resources:
               requests:
-                memory: 12Gi
+                memory: 11Gi
                 cpu: 3000m
               limits:
-                memory: 12Gi
+                memory: 11Gi
                 cpu: 6000m
           imagePullSecrets:
             - name: hsldevcomkey
