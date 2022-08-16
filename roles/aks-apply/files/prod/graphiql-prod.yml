@@ -72,6 +72,11 @@ spec:
           httpGet:
             port: 8080
             path: "/graphiql/hsl"
+        env:
+        - name: REACT_APP_API_SUBSCRIPTION_KEY_PARAM
+          value: "subscription-key"
+        - name: REACT_APP_API_SUBSCRIPTION_KEY
+          value: "<api-management-token-here>" # TODO: configure me!
         resources:
           requests:
             memory: "64Mi"
