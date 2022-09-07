@@ -38,6 +38,18 @@ spec:
         app: digitransit-proxy
         lastRestartDate: dummy-value
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - digitransit-proxy
+              topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: defaultpool
       containers:
