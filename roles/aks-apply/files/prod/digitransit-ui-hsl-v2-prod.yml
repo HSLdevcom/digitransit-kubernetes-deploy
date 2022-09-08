@@ -55,7 +55,7 @@ spec:
         pool: defaultpool
       containers:
       - name: digitransit-ui-hsl-v2
-        image: hsldevcom/digitransit-ui:prod-2022-06-21T13.35.22-da983d9
+        image: hsldevcom/digitransit-ui:prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
