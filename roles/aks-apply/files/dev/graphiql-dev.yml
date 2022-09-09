@@ -74,10 +74,10 @@ spec:
             path: "/graphiql/hsl"
         resources:
           requests:
-            memory: "64Mi"
+            memory: "384Mi"
             cpu: "100m"
           limits:
-            memory: "64Mi"
+            memory: "384Mi"
             cpu: "500m"
       imagePullSecrets:
         - name: hsldevcomkey
