@@ -47,6 +47,10 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        volumeMounts:
+          - name: mnt
+            mountPath: /opt/opentripplanner/logback-include-extensions.xml
+            subPath: file-from-cfgmap
         readinessProbe:
           periodSeconds: 10
           timeoutSeconds: 10
@@ -70,5 +74,9 @@ spec:
           limits:
             memory: "11Gi"
             cpu: "8000m"
+      volumes:
+      - name: mnt
+        configMap:
+          name: opentripplanner-cfgmap
       imagePullSecrets:
         - name: hsldevcomkey
