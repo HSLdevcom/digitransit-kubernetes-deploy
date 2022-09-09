@@ -36,7 +36,7 @@ spec:
       labels:
         app: opentripplanner-hsl
         lastRestartDate: dummy-value
-    spec
+    spec:
       priorityClassName: medium-priority
       nodeSelector:
         pool: superpool
