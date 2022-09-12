@@ -40,8 +40,8 @@ spec:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
-            - name: EXTRA_SRC
-              value: "{\"Matkahuolto\": {\"url\": \"http://digitransit-proxy:8080/out/gtfs.perille.fi/lmj/matkahuolto-latest-gtfs.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"routers\": [\"waltti-alt\"]}}"
+            # - name: EXTRA_SRC
+            #   value: "{\"Matkahuolto\": {\"url\": \"http://digitransit-proxy:8080/out/gtfs.perille.fi/lmj/matkahuolto-latest-gtfs.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"routers\": [\"waltti-alt\"]}}"
             - name: DOCKER_TAG
               value: "v3"
             - name: DOCKER_USER
