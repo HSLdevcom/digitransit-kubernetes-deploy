@@ -7,3 +7,79 @@ spec:
   - port: 8080
     targetPort: 8080
     name: opentripplanner-varely-v2-service-port
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentripplanner-varely-v2
+  labels:
+    app: opentripplanner-varely-v2
+    restartAfterDeployments: "opentripplanner-data-con-varely-v3"
+    restartDelay: "1"
+    restartAt: "05.45"
+    restartLimitInterval: "720"
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-varely-v2
+  template:
+    metadata:
+      labels:
+        app: opentripplanner-varely-v2
+        lastRestartDate: dummy-value
+    spec:
+      nodeSelector:
+        pool: superpool
+      containers:
+      - name: opentripplanner-varely-v2
+        image: hsldevcom/opentripplanner:v2-prod
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: ROUTER_DATA_CONTAINER_URL
+          value: "http://opentripplanner-data-con-varely-v3:8080"
+        - name: ROUTER_NAME
+          value: "varely"
+        - name: JAVA_OPTS
+          valueFrom:
+            secretKeyRef:
+              name: otp-varely-v2-java-opts-prod
+              key: otp-varely-v2-java-opts-prod
+        resources:
+          requests:
+            memory: "11Gi"
+            cpu: "7000m"
+          limits:
+            memory: "11Gi"
+            cpu: "8000m"
+      imagePullSecrets:
+        - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-varely-v2-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-varely-v2
