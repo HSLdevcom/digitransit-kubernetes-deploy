@@ -59,7 +59,7 @@ spec:
                   name: slack-webhook
                   key: slack-webhook
             - name: TOOLS_TAG
-              value: "v3"
+              value: "v3-prod"
             - name: SLACK_CHANNEL
               value: "topic-ci-otp2"
             resources:
