@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opentripplanner-cfgmap
+data:
+  file-from-cfgmap: |
+    <included>
+      <logger name="org.opentripplanner.updater.stoptime.TimetableSnapshotSource" level="error"/>
+      <logger name="org.opentripplanner.transit.model.timetable.TripTimes" level="error"/>
+      <logger name="org.opentripplanner.model.Timetable" level="off"/>
+    </included>

@@ -5,5 +5,5 @@ metadata:
 data:
   file-from-cfgmap: |
     <included>
-      <logger name="org.opentripplanner.updater.stoptime.TimetableSnapshotSource" level="error"/>
+      <logger name="org.opentripplanner.updater.stoptime.TimetableSnapshotSource" level="warn"/>
     </included>
