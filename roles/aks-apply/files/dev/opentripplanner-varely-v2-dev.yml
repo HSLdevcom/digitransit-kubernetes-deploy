@@ -48,7 +48,7 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
-          - name: mnt
+          - name: otpcfgmap
             mountPath: /opt/opentripplanner/logback-include-extensions.xml
             subPath: file-from-cfgmap
         readinessProbe:
@@ -75,7 +75,7 @@ spec:
             memory: "11Gi"
             cpu: "8000m"
       volumes:
-      - name: mnt
+      - name: otpcfgmap
         configMap:
           name: opentripplanner-cfgmap
       imagePullSecrets:
