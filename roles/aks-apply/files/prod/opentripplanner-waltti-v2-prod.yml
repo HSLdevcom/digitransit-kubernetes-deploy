@@ -7,3 +7,89 @@ spec:
   - port: 8080
     targetPort: 8080
     name: opentripplanner-waltti-v2-service-port
+  selector:
+    app: opentripplanner-waltti-v2
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentripplanner-waltti-v2
+  labels:
+    app: opentripplanner-waltti-v2
+    restartAfterDeployments: "opentripplanner-data-con-waltti-v3"
+    restartDelay: "1"
+    restartAt: "05.45"
+    restartLimitInterval: "720"
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-waltti-v2
+  template:
+    metadata:
+      labels:
+        app: opentripplanner-waltti-v2
+        lastRestartDate: dummy-value
+    spec:
+      nodeSelector:
+        pool: superpool
+      containers:
+      - name: opentripplanner-waltti-v2
+        image: hsldevcom/opentripplanner:v2 # TODO use v2-prod here
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: otpcfgmap
+            mountPath: /opt/opentripplanner/logback-include-extensions.xml
+            subPath: file-from-cfgmap
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: ROUTER_DATA_CONTAINER_URL
+          value: "http://opentripplanner-data-con-waltti-v3:8080"
+        - name: ROUTER_NAME
+          value: "waltti"
+        - name: JAVA_OPTS
+          valueFrom:
+            secretKeyRef:
+              name: otp-waltti-v2-java-opts-prod
+              key: otp-waltti-v2-java-opts-prod
+        resources:
+          requests:
+            memory: "11Gi"
+            cpu: "7000m"
+          limits:
+            memory: "11Gi"
+            cpu: "8000m"
+      volumes:
+      - name: otpcfgmap
+        configMap:
+          name: opentripplanner-cfgmap
+      imagePullSecrets:
+        - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-waltti-v2-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-waltti-v2
