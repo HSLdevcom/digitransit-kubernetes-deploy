@@ -53,7 +53,7 @@ spec:
         pool: defaultpool
       containers:
       - name: digitransit-ui-waltti-v3
-        image: hsldevcom/digitransit-ui:latest
+        image: hsldevcom/digitransit-ui:v3
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -79,8 +79,6 @@ spec:
           value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v3/waltti"
         - name: MAP_URL
           value: "https://digitransit-dev-cdn-origin.azureedge.net"
-        - name: OTP_URL
-          value: "https://dev-api.digitransit.fi/routing/v2/routers/waltti/"
         - name: NODE_OPTS
           value: "--max_old_space_size=900"
         - name: RELAY_FETCH_TIMEOUT

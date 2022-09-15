@@ -52,7 +52,7 @@ spec:
         pool: defaultpool
       containers:
       - name: digitransit-ui-hsl-v3
-        image: hsldevcom/digitransit-ui:otp2-dev # development branch for digitransit-ui/otp2 OTP1->OTP2 migration project
+        image: hsldevcom/digitransit-ui:v3 # development branch for digitransit-ui/otp2 OTP1->OTP2 migration project
         # image: hsldevcom/digitransit-ui:node-migration # testing german node migration project
         imagePullPolicy: Always
         ports:
@@ -83,8 +83,6 @@ spec:
           value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v3/hsl"
         - name: MAP_URL
           value: "https://digitransit-dev-cdn-origin.azureedge.net"
-        - name: OTP_URL
-          value: "https://dev-api.digitransit.fi/routing/v2/routers/hsl/"
         - name: NODE_OPTS
           value: "--max_old_space_size=1000"
         - name: RELAY_FETCH_TIMEOUT
