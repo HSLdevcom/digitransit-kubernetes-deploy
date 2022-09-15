@@ -7,3 +7,113 @@ spec:
   - port: 8080
     targetPort: 8080
     name: digitransit-ui-waltti-v3-service-port
+  selector:
+    app: digitransit-ui-waltti-v3
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digitransit-ui-waltti-v3
+  labels:
+    app: digitransit-ui-waltti-v3
+    update: auto
+    restartAt: "04.10_14.10"
+    restartLimitInterval: "480"
+    restartAfterDeployments: "opentripplanner-waltti"
+    restartDelay: "5"
+spec:
+  selector:
+    matchLabels:
+      app: digitransit-ui-waltti-v3
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: digitransit-ui-waltti-v3
+        lastRestartDate: dummy-value
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - digitransit-ui-waltti-v3
+              topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: defaultpool
+      containers:
+      - name: digitransit-ui-waltti-v3
+        image: hsldevcom/digitransit-ui:v3-prod
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 150
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 10
+        env:
+        - name: API_URL
+          value: "https://api.digitransit.fi"
+        - name: ASSET_URL
+          value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v3/waltti"
+        - name: MAP_URL
+          value: "https://digitransit-prod-cdn-origin.azureedge.net"
+        - name: NODE_OPTS
+          value: "--max_old_space_size=900"
+        - name: RELAY_FETCH_TIMEOUT
+          value: "3000"
+        # - name: SENTRY_DSN
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: sentry-dsn
+        #       key: sentry-dsn
+        - name: GTM_ID
+          valueFrom:
+            secretKeyRef:
+              name: gtm-id
+              key: gtm-id
+        - name: BASE_CONFIG
+          value: "waltti"
+        resources:
+          requests:
+            memory: 1536Mi
+            cpu: 600m
+          limits:
+            memory: 1536Mi
+            cpu: 2000m
+      imagePullSecrets:
+        - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: digitransit-ui-waltti-v3-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: digitransit-ui-waltti-v3
