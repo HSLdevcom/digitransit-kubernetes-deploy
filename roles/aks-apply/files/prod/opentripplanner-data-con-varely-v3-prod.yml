@@ -8,6 +8,8 @@ spec:
     targetPort: 8080
     name: opentripplanner-data-con-varely-v3-service-port
     protocol: TCP
+  selector:
+    app: opentripplanner-data-con-varely-v3
 ---
 
 apiVersion: apps/v1
