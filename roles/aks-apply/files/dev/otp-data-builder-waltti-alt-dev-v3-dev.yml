@@ -64,8 +64,6 @@ spec:
               value: "v3"
             - name: SLACK_CHANNEL
               value: "topic-ci-otp2"
-            - name: DISABLE_BLOB_VALIDATION
-              value: "true"
             resources:
               requests:
                 memory: 11Gi
