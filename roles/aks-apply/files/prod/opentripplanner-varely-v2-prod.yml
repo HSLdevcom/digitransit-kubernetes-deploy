@@ -38,7 +38,6 @@ spec:
         app: opentripplanner-varely-v2
         lastRestartDate: dummy-value
     spec:
-      priorityClassName: medium-priority
       nodeSelector:
         pool: superpool
       containers:
