@@ -87,6 +87,21 @@ spec:
           value: "--max_old_space_size=1000"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
+        - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_HEADER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: "dev-digitransit-ui-hsl-v3-apim-key"
+              key: "dev-digitransit-ui-hsl-v3-apim-key"    
         # - name: REDIS_HOST
         #   valueFrom:
         #     secretKeyRef:

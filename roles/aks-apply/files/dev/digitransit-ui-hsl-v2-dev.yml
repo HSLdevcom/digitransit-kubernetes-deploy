@@ -91,6 +91,21 @@ spec:
             secretKeyRef:
               name: redis-host
               key: redis-host
+        - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_HEADER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: "dev-digitransit-ui-hsl-v2-apim-key"
+              key: "dev-digitransit-ui-hsl-v2-apim-key"              
         - name: REDIS_PORT
           value: "6380"
         - name: REDIS_KEY
