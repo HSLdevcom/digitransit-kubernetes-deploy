@@ -87,6 +87,21 @@ spec:
           value: "--max_old_space_size=600"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
+        - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_HEADER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: "dev-digitransit-ui-matka-v2-apim-key"
+              key: "dev-digitransit-ui-matka-v2-apim-key"    
         - name: STATIC_MESSAGE_URL
           value: "https://dev-matka-yleisviesti.digitransit.fi"
         - name: SENTRY_DSN
