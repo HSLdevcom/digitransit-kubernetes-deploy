@@ -158,7 +158,7 @@ spec:
               secretKeyRef:
                 name: kotka-basic-key
                 key: kotka-basic-key
-          - name: ROVANIEMI_BASIC_KEY
+          - name: ROVANIEMI_BASIC_AUTH
             valueFrom:
               secretKeyRef:
                 name: rovaniemi-basic-key
