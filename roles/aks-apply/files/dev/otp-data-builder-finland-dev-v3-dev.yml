@@ -41,9 +41,9 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: "{\"tampere\": {\"url\": \"http://ekstrat.tampere.fi/ekstrat/ptdata/tamperefeed.zip\", \"routers\": [\"finland\"]}, \"MATKA\": {\"rules\": [\"router-finland/gtfs-rules/matka-no-trains.rule\"], \"routers\": [\"finland\"]}, \"digitraffic\": {\"url\": \"https://rata.digitraffic.fi/api/v1/trains/gtfs-passenger-stops.zip\", \"requestOptions\": {\"gzip\": true}, \"fit\": false, \"routers\": [\"finland\"]}}"
+              value: "{\"tampere\": {\"url\": \"http://ekstrat.tampere.fi/ekstrat/ptdata/tamperefeed.zip\", \"routers\": [\"finland\"]}}"
             - name: EXTRA_UPDATERS
-              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi\", \"routers\": [\"finland\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"finland\"]}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\", \"routers\": [\"finland\"]}, \"digitraffic-trip-updates\": {\"url\": \"https://rata.digitraffic.fi/api/v1/trains/gtfs-rt-updates\", \"type\": \"stop-time-updater\", \"frequencySec\": 60, \"sourceType\": \"gtfs-http\", \"feedId\": \"digitraffic\", \"fuzzyTripMatching\": false, \"routers\": [\"finland\"]}}"
+              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi\", \"routers\": [\"finland\"]}, \"hsl-alerts\": {\"url\": \"https://dev-api.digitransit.fi/realtime/service-alerts/v2/hsl\", \"routers\": [\"finland\"]}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\", \"routers\": [\"finland\"]}}"
             - name: DOCKER_TAG
               value: "v3"
             - name: DOCKER_USER
