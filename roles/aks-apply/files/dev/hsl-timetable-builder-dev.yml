@@ -9,7 +9,7 @@ spec:
   failedJobsHistoryLimit: 4
   jobTemplate:
     spec:
-      backoffLimit: 2 # max two retries
+      backoffLimit: 0 # max two retries
       template:
         metadata:
           labels:
