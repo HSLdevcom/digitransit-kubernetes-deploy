@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: otp-data-builder-finland-dev
 spec:
-  schedule: "30 05 * * *"
+  schedule: "0 15 * * *"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
