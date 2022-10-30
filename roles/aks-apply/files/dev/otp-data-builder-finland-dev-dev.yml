@@ -62,6 +62,8 @@ spec:
                   key: slack-webhook
             - name: TOOLS_TAG
               value: "latest"
+            - name: SKIPPED_SITES
+              value: "opas.matka.fi"
             resources:
               requests:
                 memory: 11Gi
