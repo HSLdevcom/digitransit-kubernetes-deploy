@@ -63,7 +63,7 @@ spec:
             - name: TOOLS_TAG
               value: "latest"
             - name: SKIPPED_SITES
-              value: "opas.matka.fi"
+              value: "all"
             resources:
               requests:
                 memory: 11Gi

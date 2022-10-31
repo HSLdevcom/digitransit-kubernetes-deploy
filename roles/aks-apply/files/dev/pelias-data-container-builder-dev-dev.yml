@@ -70,6 +70,8 @@ spec:
                   key: mmlapikey
             - name: BUILD_INTERVAL
               value: "-1" # builder shuts down after first build
+            - name: THRESHOLD
+              value: "25"
             resources:
               requests:
                 memory: 11Gi
