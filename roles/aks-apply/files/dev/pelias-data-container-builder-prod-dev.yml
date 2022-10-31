@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: pelias-data-container-builder-prod
 spec:
-  schedule: "0 5 * * *"
+  schedule: "10 5 * * *"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
