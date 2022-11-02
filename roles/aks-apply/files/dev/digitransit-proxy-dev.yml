@@ -166,6 +166,11 @@ spec:
               secretKeyRef:
                 name: rovaniemi-basic-key
                 key: rovaniemi-basic-key
+          - name: KAJAANI_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: kajaani-basic-key
+                key: kajaani-basic-key
           - name: GIRAVOLTA_VANTAA_AUTH
             valueFrom:
               secretKeyRef:
