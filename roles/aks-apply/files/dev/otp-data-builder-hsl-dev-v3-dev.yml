@@ -62,8 +62,6 @@ spec:
                   key: slack-webhook
             - name: TOOLS_TAG
               value: "v3"
-            - name: VERSION_CHECK
-              value: "HSL"
             - name: SLACK_CHANNEL
               value: "topic-ci-otp2"
             resources:
