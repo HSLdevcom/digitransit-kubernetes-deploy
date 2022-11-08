@@ -11,6 +11,6 @@ redis_vm_size: c0
 storage_account_name: "{{az_environment}}favservice"
 storage_sku: Standard_LRS
 runtime_stack: node
-runtime_version: 12
+runtime_version: 16
 os_type: Windows
-functions_version: 3
+functions_version: 4
