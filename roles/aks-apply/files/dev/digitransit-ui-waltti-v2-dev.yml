@@ -83,6 +83,8 @@ spec:
           value: "--max_old_space_size=900"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
+        - name: DISABLEBATCHQUERIES
+          value: "1"
         - name: SENTRY_DSN
           valueFrom:
             secretKeyRef:
