@@ -86,6 +86,8 @@ spec:
           value: "--max_old_space_size=1000"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
+        - name: DISABLEBATCHQUERIES
+          value: "1"
         - name: REDIS_HOST
           valueFrom:
             secretKeyRef:
