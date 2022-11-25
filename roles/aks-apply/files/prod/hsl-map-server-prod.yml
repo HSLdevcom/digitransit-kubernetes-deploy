@@ -24,8 +24,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
+      maxSurge: 50%
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: hsl-map-server
@@ -98,7 +98,7 @@ kind: PodDisruptionBudget
 metadata:
   name: hsl-map-server-pdb
 spec:
-  minAvailable: 75%
+  minAvailable: 50%
   selector:
     matchLabels:
       app: hsl-map-server
