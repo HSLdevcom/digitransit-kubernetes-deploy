@@ -108,6 +108,8 @@ spec:
             secretKeyRef:
               name: gtm-id
               key: gtm-id
+        - name: DISABLEBATCHQUERIES
+          value: "1"
         - name: REDIS_HOST
           valueFrom:
             secretKeyRef:
