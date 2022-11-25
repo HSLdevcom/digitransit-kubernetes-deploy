@@ -20,12 +20,11 @@ metadata:
     app: pelias-api
     update: auto
 spec:
-  replicas: 4
+  replicas: 5
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 0
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: pelias-api
