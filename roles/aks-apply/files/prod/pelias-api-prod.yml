@@ -24,6 +24,7 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
+      maxSurge: 0
       maxUnavailable: 1
   selector:
     matchLabels:
@@ -49,7 +50,7 @@ spec:
               topologyKey: kubernetes.io/hostname
         podAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
+          - weight: 50
             podAffinityTerm:
               labelSelector:
                 matchExpressions:
