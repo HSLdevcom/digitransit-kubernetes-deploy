@@ -40,6 +40,7 @@ spec:
       labels:
         app: pelias-data-container
         lastRestartDate: dummy-value
+        restartAfterDeployments: "pelias-api"
     spec:
       affinity:
         podAntiAffinity:
