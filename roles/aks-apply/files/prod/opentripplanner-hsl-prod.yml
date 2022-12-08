@@ -65,10 +65,10 @@ spec:
               key: otp-hsl-java-opts-prod
         resources:
           requests:
-            memory: "9216Mi"
+            memory: "10216Mi"
             cpu: "7000m"
           limits:
-            memory: "9216Mi"
+            memory: "10216Mi"
             cpu: "8000m"
       imagePullSecrets:
         - name: hsldevcomkey
