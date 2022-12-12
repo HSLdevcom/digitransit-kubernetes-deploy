@@ -26,7 +26,7 @@ spec:
   selector:
     matchLabels:
       app: digitransit-proxy
-  replicas: 10
+  replicas: 8
   strategy:
     type: RollingUpdate
     rollingUpdate:
