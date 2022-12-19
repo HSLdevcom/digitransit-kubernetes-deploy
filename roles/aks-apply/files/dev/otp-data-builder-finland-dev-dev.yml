@@ -16,7 +16,7 @@ spec:
             app: otp-data-builder-finland-dev
         spec:
           priorityClassName: high-priority
-          activeDeadlineSeconds: 5400 # one build can take max 1.5 hours
+          activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
             pool: superpool
