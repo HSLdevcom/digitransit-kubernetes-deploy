@@ -45,9 +45,23 @@ spec:
         ports:
         - containerPort: 8080
         readinessProbe:
-          periodSeconds: 2
+          periodSeconds: 10
           timeoutSeconds: 10
           failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: "/otp/routers/hsl/"
+        startupProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 120
+          httpGet:
+            port: 8080
+            path: "/otp/routers/hsl/"
+        livenessProbe:
+          periodSeconds: 120
+          timeoutSeconds: 10
+          failureThreshold: 5
           httpGet:
             port: 8080
             path: "/otp/routers/hsl/"
