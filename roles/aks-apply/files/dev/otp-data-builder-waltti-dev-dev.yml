@@ -46,7 +46,7 @@ spec:
                   name: docker-user
                   key: docker-user
             - name: EXTRA_SRC
-              value: "{\"tampere\": {\"url\": \"http://ekstrat.tampere.fi/ekstrat/ptdata/tamperefeed.zip\", \"routers\": [\"waltti\"]}}"
+              value: "{\"tampere\": {\"url\": \"http://ekstrat.tampere.fi/ekstrat/ptdata/tamperefeed.zip\", \"routers\": [\"waltti\"]}, \"lahti\": {\"url\": \"https://www.lsl.fi/tiedostot/gw_export\", \"routers\": [\"waltti\"]}}"
             - name: EXTRA_UPDATERS
               value: "{\"foli-alerts\": {\"url\": \"https://foli-beta.nanona.fi/gtfs-rt/reittiopas\", \"routers\": [\"waltti\"]}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\", \"routers\": [\"waltti\"]}, \"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"routers\": [\"waltti\"]}}"
             - name: SKIPPED_SITES
