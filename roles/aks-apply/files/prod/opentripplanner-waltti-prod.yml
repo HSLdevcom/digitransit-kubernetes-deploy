@@ -45,13 +45,27 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-        # readinessProbe:
-        #   periodSeconds: 10
-        #   timeoutSeconds: 10
-        #   failureThreshold: 2
-        #   httpGet:
-        #     port: 8080
-        #     path: "/otp/routers/waltti/"
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: "/otp/routers/waltti/"
+        startupProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 380 # leave enough time for potential graph build
+          httpGet:
+            port: 8080
+            path: "/otp/routers/waltti/"
+        livenessProbe:
+          periodSeconds: 120
+          timeoutSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/routers/waltti/"
         securityContext:
           allowPrivilegeEscalation: false
         env:
