@@ -22,7 +22,7 @@ metadata:
     restartAt: "05.45_10.45"
     restartLimitInterval: "180"
 spec:
-  replicas: 12
+  replicas: 24
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -45,13 +45,13 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-        readinessProbe:
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 2
-          httpGet:
-            port: 8080
-            path: "/otp/routers/waltti/"
+        # readinessProbe:
+        #   periodSeconds: 10
+        #   timeoutSeconds: 10
+        #   failureThreshold: 2
+        #   httpGet:
+        #     port: 8080
+        #     path: "/otp/routers/waltti/"
         securityContext:
           allowPrivilegeEscalation: false
         env:
