@@ -173,6 +173,16 @@ spec:
               secretKeyRef:
                 name: giravolta-vantaa-key
                 key: giravolta-vantaa-key
+          - name: RAUMA_RT_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: rauma-rt-basic-key
+                key: rauma-rt-basic-key
+          - name: RAUMA_STATIC_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: rauma-static-basic-key
+                key: rauma-static-basic-key
         resources:
             requests:
               memory: "1152Mi"
