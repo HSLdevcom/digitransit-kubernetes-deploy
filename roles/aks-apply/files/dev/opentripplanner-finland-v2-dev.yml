@@ -57,7 +57,21 @@ spec:
           failureThreshold: 2
           httpGet:
             port: 8080
-            path: "/otp/routers/default/"
+            path: "/otp/actuators/health"
+        startupProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 700
+          httpGet:
+            port: 8080
+            path: "/otp/actuators/health"
+        livenessProbe:
+          periodSeconds: 12
+          timeoutSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/actuators/health"
         securityContext:
           allowPrivilegeEscalation: false
         env:
