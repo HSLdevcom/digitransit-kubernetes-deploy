@@ -19,10 +19,10 @@ metadata:
     app: opentripplanner-waltti
     restartAfterDeployments: "opentripplanner-data-con-waltti"
     restartDelay: "5"
-    restartAt: "05.45_10.45"
-    restartLimitInterval: "180"
+    restartAt: "05.45"
+    restartLimitInterval: "720"
 spec:
-  replicas: 18
+  replicas: 16
   strategy:
     type: RollingUpdate
     rollingUpdate:
