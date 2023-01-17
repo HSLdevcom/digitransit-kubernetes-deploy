@@ -1,0 +1,85 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: otp-data-builder-finland-prod-v3
+spec:
+  schedule: "50 21 * * *" # schedule in UTC time
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 4
+  jobTemplate:
+    spec:
+      backoffLimit: 2 # max two retries
+      template:
+        metadata:
+          labels:
+            app: otp-data-builder-finland-prod-v3
+        spec:
+          priorityClassName: high-priority
+          activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
+          restartPolicy: OnFailure
+          nodeSelector:
+            pool: superpool
+          containers:
+          - name: otp-data-builder-finland-prod-v3
+            image: hsldevcom/otp-data-builder:v3-prod
+            imagePullPolicy: Always
+            securityContext:
+              privileged: true
+              capabilities:
+                add:
+                 - NET_ADMIN
+                 - SYS_ADMIN
+            env:
+            - name: ROUTER_NAME
+              value: "finland"
+            - name: BUILDER_TYPE
+              value: "Finland prod v3"
+            - name: DOCKER_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: docker-auth
+                  key: docker-auth
+            - name: DOCKER_TAG
+              value: "v3-prod"
+            - name: DOCKER_USER
+              valueFrom:
+                secretKeyRef:
+                  name: docker-user
+                  key: docker-user
+            - name: OTP_TAG
+              value: "v2-prod"
+            - name: ROUTERS
+              value: "finland"
+            - name: SEED_TAG
+              value: "v3" # TODO change to v3-prod
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: slack-webhook
+                  key: slack-webhook
+            - name: TOOLS_TAG
+              value: "v3-prod"
+            - name: SLACK_CHANNEL
+              value: "digitransit-ci"
+            resources:
+              requests:
+                memory: 11Gi
+                cpu: 3000m
+              limits:
+                memory: 11Gi
+                cpu: 6000m
+          imagePullSecrets:
+            - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: otp-data-builder-finland-prod-v3-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: otp-data-builder-finland-prod-v3
