@@ -86,10 +86,10 @@ spec:
               key: otp-waltti-v2-java-opts-dev
         resources:
           requests:
-            memory: "11Gi"
+            memory: "12Gi"
             cpu: "7000m"
           limits:
-            memory: "11Gi"
+            memory: "12Gi"
             cpu: "8000m"
       volumes:
       - name: otpcfgmap
