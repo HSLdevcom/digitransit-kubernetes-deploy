@@ -58,8 +58,6 @@ spec:
                   key: slack-webhook
             - name: TOOLS_TAG
               value: "prod"
-            - name: EXTRA_UPDATERS
-              value: "{\"hsl-trip-updates\": {\"url\": \"tcp://pred.rt.hsl.fi\", \"routers\": [\"finland\"]}, \"linkki-alerts\": {\"remove\": true, \"routers\": [\"finland\"]}}"
             resources:
               requests:
                 memory: 11Gi
