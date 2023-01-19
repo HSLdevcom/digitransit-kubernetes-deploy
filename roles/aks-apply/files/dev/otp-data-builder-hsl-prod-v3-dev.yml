@@ -52,7 +52,7 @@ spec:
             - name: ROUTERS
               value: "hsl"
             - name: SEED_TAG
-              value: "v3" # TODO UPDATE TO v3-prod
+              value: "v3-prod"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
