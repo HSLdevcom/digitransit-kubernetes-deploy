@@ -68,7 +68,7 @@ spec:
           initialDelaySeconds: 500
           periodSeconds: 10
           timeoutSeconds: 10
-          failureThreshold: 2
+          failureThreshold: 25
           httpGet:
             port: 8080
             path: "/version.txt"
@@ -82,3 +82,14 @@ spec:
       imagePullSecrets:
         - name: hsldevcomkey
 
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-data-con-waltti-v3-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-data-con-waltti-v3

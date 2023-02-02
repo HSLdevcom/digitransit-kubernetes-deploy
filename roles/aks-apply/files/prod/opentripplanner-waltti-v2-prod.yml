@@ -56,6 +56,20 @@ spec:
           httpGet:
             port: 8080
             path: "/otp/routers/default/"
+        startupProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 380 # leave enough time for potential graph build
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        livenessProbe:
+          periodSeconds: 120
+          timeoutSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
         securityContext:
           allowPrivilegeEscalation: false
         env:
@@ -81,3 +95,15 @@ spec:
           name: opentripplanner-cfgmap
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-waltti-v2-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-waltti-v2
