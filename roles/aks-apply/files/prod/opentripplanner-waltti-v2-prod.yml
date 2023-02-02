@@ -22,7 +22,7 @@ metadata:
     restartAt: "05.45"
     restartLimitInterval: "720"
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -41,7 +41,7 @@ spec:
         pool: superpool
       containers:
       - name: opentripplanner-waltti-v2
-        image: hsldevcom/opentripplanner:v2 # TODO use v2-prod here
+        image: hsldevcom/opentripplanner:v2-prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

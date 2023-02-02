@@ -20,7 +20,7 @@ metadata:
     app: opentripplanner-data-con-waltti-v3
     update: auto
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -51,7 +51,7 @@ spec:
         pool: defaultpool
       containers:
       - name: opentripplanner-data-con-waltti-v3
-        image: hsldevcom/opentripplanner-data-container-waltti:v3 # TODO use v3-prod here
+        image: hsldevcom/opentripplanner-data-container-waltti:v3-prod
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
