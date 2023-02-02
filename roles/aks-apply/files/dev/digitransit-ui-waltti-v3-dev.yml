@@ -75,6 +75,8 @@ spec:
         env:
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
+        - name: RUN_ENV
+          value: "development"
         - name: ASSET_URL
           value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v3/waltti"
         - name: MAP_URL
