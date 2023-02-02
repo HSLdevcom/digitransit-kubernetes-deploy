@@ -20,7 +20,7 @@ metadata:
     app: opentripplanner-data-con-waltti-v3
     update: auto
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -51,7 +51,7 @@ spec:
         pool: defaultpool
       containers:
       - name: opentripplanner-data-con-waltti-v3
-        image: hsldevcom/opentripplanner-data-container-waltti:v3 # TODO use v3-prod here
+        image: hsldevcom/opentripplanner-data-container-waltti:v3-prod
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -68,7 +68,7 @@ spec:
           initialDelaySeconds: 500
           periodSeconds: 10
           timeoutSeconds: 10
-          failureThreshold: 2
+          failureThreshold: 25
           httpGet:
             port: 8080
             path: "/version.txt"
@@ -82,3 +82,14 @@ spec:
       imagePullSecrets:
         - name: hsldevcomkey
 
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-data-con-waltti-v3-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-data-con-waltti-v3

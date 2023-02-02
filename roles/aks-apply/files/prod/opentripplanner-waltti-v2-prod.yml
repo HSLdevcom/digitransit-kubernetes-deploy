@@ -22,7 +22,7 @@ metadata:
     restartAt: "05.45"
     restartLimitInterval: "720"
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -41,7 +41,7 @@ spec:
         pool: superpool
       containers:
       - name: opentripplanner-waltti-v2
-        image: hsldevcom/opentripplanner:v2 # TODO use v2-prod here
+        image: hsldevcom/opentripplanner:v2-prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -53,6 +53,20 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 10
           failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        startupProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 380 # leave enough time for potential graph build
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        livenessProbe:
+          periodSeconds: 120
+          timeoutSeconds: 10
+          failureThreshold: 5
           httpGet:
             port: 8080
             path: "/otp/routers/default/"
@@ -81,3 +95,15 @@ spec:
           name: opentripplanner-cfgmap
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-waltti-v2-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-waltti-v2
