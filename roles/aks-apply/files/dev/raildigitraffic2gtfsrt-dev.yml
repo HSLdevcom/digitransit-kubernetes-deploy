@@ -89,10 +89,10 @@ spec:
               key: "dev-raildigitraffic2gtfsrt-apim-key"   
         resources:
           requests:
-            memory: "1200Mi"
+            memory: "1536Mi"
             cpu: "200m"
           limits:
-            memory: "1200Mi"
+            memory: "1536Mi"
             cpu: "1000m"
       imagePullSecrets:
         - name: hsldevcomkey
