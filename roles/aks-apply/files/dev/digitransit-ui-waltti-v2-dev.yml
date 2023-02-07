@@ -99,8 +99,6 @@ spec:
               key: gtm-id
         - name: BASE_CONFIG
           value: "waltti"
-        - name: REALTIME_PATCH
-          value: "{\"tampere\": {\"topicFeedId\": \"tampereTram\"}}"
         - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
           valueFrom:
             secretKeyRef:

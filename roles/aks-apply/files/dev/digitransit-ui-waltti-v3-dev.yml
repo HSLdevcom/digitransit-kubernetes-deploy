@@ -112,8 +112,6 @@ spec:
         #       key: gtm-id
         - name: BASE_CONFIG
           value: "waltti"
-        - name: REALTIME_PATCH
-          value: "{\"tampere\": {\"topicFeedId\": \"tampereTram\"}}"
         # - name: REDIS_HOST
         #   valueFrom:
         #     secretKeyRef:
