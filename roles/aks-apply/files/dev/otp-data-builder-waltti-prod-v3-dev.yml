@@ -62,6 +62,8 @@ spec:
               value: "v3-prod"
             - name: SLACK_CHANNEL
               value: "digitransit-ci"
+            - name: SKIPPED_SITES
+              value: "lahti.digitransit.fi"
             resources:
               requests:
                 memory: 11Gi
