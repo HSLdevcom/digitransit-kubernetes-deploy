@@ -64,6 +64,8 @@ spec:
               value: "digitransit-ci"
             - name: SKIPPED_SITES
               value: "lahti.digitransit.fi"
+            - name: EXTRA_UPDATERS
+              value: "{\"foli-trip-updates\":{\"remove\":true,\"routers\":[\"waltti\"]},\"oulu-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"kuopio-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"joensuu-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"lappeenranta-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"linkki-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"lahti-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"hameenlinna-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"mikkeli-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"vaasa-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"kouvola-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"kotka-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"rovaniemi-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]}}"
             resources:
               requests:
                 memory: 11Gi
