@@ -41,7 +41,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: "{\"Lahti\": {\"url\": \"https://gtfsdata.blob.core.windows.net/lahti/Lahti.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}, \"FOLI\": {\"url\": \"https://foligtfs.blob.core.windows.net/routeplanner/gtfs-foli-ff.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}}"
+              value: "{\"Lahti\": {\"url\": \"https://gtfsdata.blob.core.windows.net/lahti/Lahti.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}, \"FUNI\": {\"url\": \"https://foligtfs.blob.core.windows.net/routeplanner/gtfs-foli-ff.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}}"
             - name: SKIPPED_SITES
               value: "lahti.digitransit.fi"
             - name: DOCKER_TAG
