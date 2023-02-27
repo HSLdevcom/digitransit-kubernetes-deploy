@@ -178,6 +178,11 @@ spec:
               secretKeyRef:
                 name: rauma-rt-basic-key
                 key: rauma-rt-basic-key
+          - name: OULU_RT_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: oulu-rt-basic-key
+                key: oulu-rt-basic-key
           - name: RAUMA_STATIC_BASIC_AUTH
             valueFrom:
               secretKeyRef:
