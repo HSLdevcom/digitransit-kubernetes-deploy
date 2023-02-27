@@ -89,14 +89,3 @@ spec:
       imagePullSecrets:
         - name: hsldevcomkey
 
----
-
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: opentripplanner-hsl-pdb
-spec:
-  minAvailable: 1
-  selector:
-    matchLabels:
-      app: opentripplanner-hsl
