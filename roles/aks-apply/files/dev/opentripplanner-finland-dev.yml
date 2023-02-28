@@ -77,13 +77,3 @@ spec:
         - name: hsldevcomkey
 
 ---
-
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: opentripplanner-finland-pdb
-spec:
-  minAvailable: 1
-  selector:
-    matchLabels:
-      app: opentripplanner-finland
