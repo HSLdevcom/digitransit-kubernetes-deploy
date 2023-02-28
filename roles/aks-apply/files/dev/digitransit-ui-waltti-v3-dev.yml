@@ -100,8 +100,6 @@ spec:
             secretKeyRef:
               name: "dev-digitransit-ui-waltti-v3-apim-key"
               key: "dev-digitransit-ui-waltti-v3-apim-key"
-        - name: REALTIME_PATCH
-          value: "{\"OULU\": {\"mqtt\": \"wss://mqtt.waltti.fi/mqtt\", \"credentials\": {\"username\": \"user\", \"password\": \"userpass\"}}}"
         # - name: SENTRY_DSN
         #   valueFrom:
         #     secretKeyRef:
