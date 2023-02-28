@@ -81,10 +81,10 @@ spec:
           value: "https://api.digitransit.fi/routing-data/v2/finland/router-finland.zip"
         resources:
           requests:
-            memory: "2Gi"
+            memory: 2500Mi
             cpu: "200m"
           limits:
-            memory: "2Gi"
+            memory: 2500Mi
             cpu: "1000m"
       imagePullSecrets:
         - name: hsldevcomkey
