@@ -88,6 +88,21 @@ spec:
           value: "3000"
         - name: STATIC_MESSAGE_URL
           value: "https://matka-yleisviesti.digitransit.fi"
+        - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_HEADER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-ui-matka-v2-apim-key"
+              key: "digitransit-ui-matka-v2-apim-key"
         - name: SENTRY_DSN
           valueFrom:
             secretKeyRef:

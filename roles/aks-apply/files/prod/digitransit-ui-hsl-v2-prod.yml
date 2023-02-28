@@ -98,6 +98,21 @@ spec:
             secretKeyRef:
               name: sentry-dsn
               key: sentry-dsn
+        - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_HEADER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-ui-hsl-v2-apim-key"
+              key: "digitransit-ui-hsl-v2-apim-key"
         # - name: SENTRY_SECRET_DSN
         #   valueFrom:
         #     secretKeyRef:
