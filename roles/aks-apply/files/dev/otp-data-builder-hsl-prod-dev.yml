@@ -60,6 +60,8 @@ spec:
               value: "prod"
             - name: VERSION_CHECK
               value: "HSL"
+            - name: EXTRA_UPDATERS
+              value: "{\"hsl-trip-updates\":{\"remove\":true, \"routers\":[\"hsl\"]}}"
             resources:
               requests:
                 memory: 11Gi
