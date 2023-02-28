@@ -41,7 +41,7 @@ spec:
         pool: superpool
       containers:
       - name: opentripplanner-waltti-v2
-        image: hsldevcom/opentripplanner:v2-prod
+        image: hsldevcom/opentripplanner:v2-prod-2023-02-27T16.25.09-095ffe6
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -49,27 +49,6 @@ spec:
           - name: otpcfgmap
             mountPath: /opt/opentripplanner/logback-include-extensions.xml
             subPath: file-from-cfgmap
-        readinessProbe:
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 2
-          httpGet:
-            port: 8080
-            path: "/otp/routers/default/"
-        startupProbe:
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 380 # leave enough time for potential graph build
-          httpGet:
-            port: 8080
-            path: "/otp/routers/default/"
-        livenessProbe:
-          periodSeconds: 120
-          timeoutSeconds: 10
-          failureThreshold: 5
-          httpGet:
-            port: 8080
-            path: "/otp/routers/default/"
         securityContext:
           allowPrivilegeEscalation: false
         env:
