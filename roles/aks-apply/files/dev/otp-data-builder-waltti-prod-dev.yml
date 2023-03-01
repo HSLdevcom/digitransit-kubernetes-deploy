@@ -22,7 +22,7 @@ spec:
             pool: superpool
           containers:
           - name: otp-data-builder-waltti-prod
-            image: hsldevcom/otp-data-builder:prod
+            image: hsldevcom/otp-data-builder:latest
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -51,6 +51,8 @@ spec:
               value: "waltti"
             - name: SEED_TAG
               value: "prod"
+            - name: SKIPPED_SITES
+              value: "all"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
