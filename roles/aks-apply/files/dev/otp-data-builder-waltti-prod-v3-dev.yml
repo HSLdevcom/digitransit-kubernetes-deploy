@@ -22,7 +22,7 @@ spec:
             pool: superpool
           containers:
           - name: otp-data-builder-waltti-prod-v3
-            image: hsldevcom/otp-data-builder:v3-prod
+            image: hsldevcom/otp-data-builder:v3
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -63,7 +63,7 @@ spec:
             - name: SLACK_CHANNEL
               value: "digitransit-ci"
             - name: SKIPPED_SITES
-              value: "jyvaskyla.digitransit.fi"
+              value: "all"
             - name: EXTRA_UPDATERS
               value: "{\"kuopio-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"lappeenranta-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"linkki-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"mikkeli-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"vaasa-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"rovaniemi-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]}}"
             resources:
