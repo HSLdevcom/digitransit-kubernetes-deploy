@@ -79,6 +79,16 @@ spec:
           value: "https://api.digitransit.fi/routing-data/v2/"
         - name: ROUTER_ZIP_URL
           value: "https://api.digitransit.fi/routing-data/v2/finland/router-finland.zip"
+        - name: AUTHENTICATION_HEADER
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: AUTHENTICATION_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: "prod-raildigitraffic2gtfsrt-apim-key"
+              key: "prod-raildigitraffic2gtfsrt-apim-key"
         resources:
           requests:
             memory: 2500Mi
