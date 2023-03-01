@@ -22,7 +22,7 @@ spec:
             pool: superpool
           containers:
           - name: otp-data-builder-waltti-prod
-            image: hsldevcom/otp-data-builder:latest
+            image: hsldevcom/otp-data-builder:prod
             imagePullPolicy: Always
             securityContext:
               privileged: true
