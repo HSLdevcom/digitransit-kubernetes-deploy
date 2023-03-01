@@ -84,6 +84,16 @@ spec:
                 secretKeyRef:
                   name: taku-key
                   key: taku-key
+            - name: AUTHENTICATION_HEADER
+              valueFrom:
+                secretKeyRef:
+                  name: "digitransit-subscription-key-name"
+                  key: "digitransit-subscription-key-name"
+            - name: AUTHENTICATION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: "hsl-timetable-builder-apim-key"
+                  key: "hsl-timetable-builder-apim-key"
             - name: TIMETABLE_DAYS_ADVANCE
               value: "2"
             - name: BUILD_INTERVAL
