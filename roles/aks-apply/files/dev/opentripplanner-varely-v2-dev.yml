@@ -40,7 +40,7 @@ spec:
     spec:
       priorityClassName: medium-priority
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: opentripplanner-varely-v2
         image: hsldevcom/opentripplanner:v2
@@ -83,11 +83,11 @@ spec:
           value: "-Xmx7G -Xms7G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
         resources:
           requests:
-            memory: "11Gi"
-            cpu: "7000m"
+            memory: "10Gi"
+            cpu: "2000m"
           limits:
-            memory: "11Gi"
-            cpu: "8000m"
+            memory: "10Gi"
+            cpu: "3000m"
       volumes:
       - name: otpcfgmap
         configMap:

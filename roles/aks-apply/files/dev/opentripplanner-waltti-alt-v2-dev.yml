@@ -53,7 +53,7 @@ spec:
     spec:
       priorityClassName: medium-priority
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: opentripplanner-waltti-alt-v2
         image: hsldevcom/opentripplanner:v2
@@ -99,11 +99,11 @@ spec:
               key: otp-waltti-alt-v2-java-opts-dev
         resources:
           requests:
-            memory: "11Gi"
-            cpu: "7000m"
+            memory: "10Gi"
+            cpu: "2000m"
           limits:
-            memory: "11Gi"
-            cpu: "8000m"
+            memory: "10Gi"
+            cpu: "3000m"
       volumes:
       - name: otpcfgmap
         configMap:

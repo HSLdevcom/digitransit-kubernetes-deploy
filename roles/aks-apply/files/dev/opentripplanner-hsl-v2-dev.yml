@@ -86,11 +86,11 @@ spec:
               key: otp-hsl-v2-java-opts-dev
         resources:
           requests:
-            memory: "11Gi"
-            cpu: "7000m"
+            memory: "7Gi"
+            cpu: "3000m"
           limits:
-            memory: "11Gi"
-            cpu: "8000m"
+            memory: "7Gi"
+            cpu: "4000m"
       volumes:
       - name: otpcfgmap
         configMap:
