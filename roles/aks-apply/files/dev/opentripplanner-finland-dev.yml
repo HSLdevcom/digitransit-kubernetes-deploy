@@ -40,7 +40,7 @@ spec:
     spec:
       priorityClassName: medium-priority
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: opentripplanner-finland
         image: hsldevcom/opentripplanner:latest
@@ -69,10 +69,10 @@ spec:
         resources:
           requests:
             memory: 11216Mi
-            cpu: "7000m"
+            cpu: "3000m"
           limits:
             memory: 11216Mi
-            cpu: "8000m"
+            cpu: "4000m"
       imagePullSecrets:
         - name: hsldevcomkey
 
