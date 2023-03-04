@@ -84,21 +84,21 @@ spec:
           value: "--max_old_space_size=900"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
-        - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
-          valueFrom:
-            secretKeyRef:
-              name: "digitransit-subscription-key-name"
-              key: "digitransit-subscription-key-name"
-        - name: API_SUBSCRIPTION_HEADER_NAME
-          valueFrom:
-            secretKeyRef:
-              name: "digitransit-subscription-key-name"
-              key: "digitransit-subscription-key-name"
-        - name: API_SUBSCRIPTION_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: "digitransit-ui-waltti-v3-apim-key"
-              key: "digitransit-ui-waltti-v3-apim-key"
+        #- name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
+        #  valueFrom:
+        #    secretKeyRef:
+        #      name: "digitransit-subscription-key-name"
+        #      key: "digitransit-subscription-key-name"
+        #- name: API_SUBSCRIPTION_HEADER_NAME
+        #  valueFrom:
+        #    secretKeyRef:
+        #      name: "digitransit-subscription-key-name"
+        #      key: "digitransit-subscription-key-name"
+        #- name: API_SUBSCRIPTION_TOKEN
+        #  valueFrom:
+        #    secretKeyRef:
+        #      name: "digitransit-ui-waltti-v3-apim-key"
+        #      key: "digitransit-ui-waltti-v3-apim-key"
         # - name: SENTRY_DSN
         #   valueFrom:
         #     secretKeyRef:
