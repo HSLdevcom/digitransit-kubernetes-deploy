@@ -62,10 +62,6 @@ spec:
               value: "v3-prod"
             - name: SLACK_CHANNEL
               value: "digitransit-ci"
-            - name: SKIPPED_SITES
-              value: "all"
-            - name: EXTRA_UPDATERS
-              value: "{\"kuopio-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"lappeenranta-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"linkki-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"mikkeli-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"vaasa-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"rovaniemi-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]}}"
             resources:
               requests:
                 memory: 11Gi

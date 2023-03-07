@@ -51,8 +51,6 @@ spec:
               value: "waltti"
             - name: SEED_TAG
               value: "prod"
-            - name: SKIPPED_SITES
-              value: "all"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
