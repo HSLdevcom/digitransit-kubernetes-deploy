@@ -7,3 +7,105 @@ spec:
   - port: 8080
     targetPort: 8080
     name: opentripplanner-hsl-v2-service-port
+  selector:
+    app: opentripplanner-hsl-v2
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentripplanner-hsl-v2
+  labels:
+    app: opentripplanner-hsl-v2
+    update: auto
+    restartAfterDeployments: "opentripplanner-data-con-hsl-v3"
+    restartDelay: "1"
+    restartAt: "05.15"
+    restartLimitInterval: "720"
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: opentripplanner-hsl-v2
+  template:
+    metadata:
+      labels:
+        app: opentripplanner-hsl-v2
+        lastRestartDate: dummy-value
+    spec:
+      nodeSelector:
+        pool: superpool
+      containers:
+      - name: opentripplanner-hsl-v2
+        image: hsldevcom/opentripplanner:v2-prod
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: otpcfgmap
+            mountPath: /opt/opentripplanner/logback-include-extensions.xml
+            subPath: file-from-cfgmap
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        startupProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 270
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        livenessProbe:
+          periodSeconds: 12
+          timeoutSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: ROUTER_DATA_CONTAINER_URL
+          value: "http://opentripplanner-data-con-hsl-v3:8080"
+        - name: ROUTER_NAME
+          value: "hsl"
+        - name: JAVA_OPTS
+          valueFrom:
+            secretKeyRef:
+              name: otp-hsl-v2-java-opts-prod
+              key: otp-hsl-v2-java-opts-prod
+        resources:
+          requests:
+            memory: "7Gi"
+            cpu: "7000m"
+          limits:
+            memory: "7Gi"
+            cpu: "8000m"
+      volumes:
+      - name: otpcfgmap
+        configMap:
+          name: opentripplanner-cfgmap
+      imagePullSecrets:
+        - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-hsl-v2-pdb
+spec:
+  minAvailable: 50% # TODO increase
+  selector:
+    matchLabels:
+      app: opentripplanner-hsl-v2
+
