@@ -20,7 +20,7 @@ metadata:
     update: auto
     restartAt: "04.10_14.10"
     restartLimitInterval: "480"
-    restartAfterDeployments: "opentripplanner-waltti"
+    restartAfterDeployments: "opentripplanner-waltti-v2"
     restartDelay: "5"
 spec:
   selector:
