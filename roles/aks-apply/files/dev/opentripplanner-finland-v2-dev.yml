@@ -86,10 +86,10 @@ spec:
               key: otp-finland-v2-java-opts-dev
         resources:
           requests:
-            memory: "11Gi"
+            memory: "14Gi"
             cpu: "3000m"
           limits:
-            memory: "11Gi"
+            memory: "14Gi"
             cpu: "4000m"
       volumes:
       - name: otpcfgmap
