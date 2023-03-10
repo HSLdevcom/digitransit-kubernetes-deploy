@@ -45,6 +45,16 @@ spec:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
+            - name: SLACK_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: slack-access-token
+                  key: slack-access-token
+            - name: SLACK_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: slack-ci-channel-id
+                  key: slack-ci-channel-id
             - name: EXTRA_SRC
               value: "{\"tampere\": {\"url\": \"http://ekstrat.tampere.fi/ekstrat/ptdata/tamperefeed.zip\", \"routers\": [\"finland\"]}, \"MATKA\": {\"url\": \"https://koontikartta.navici.com/tiedostot/gtfs_digitransit.zip\", \"rules\": [\"router-finland/gtfs-rules/matka-cleaned.rule\"], \"routers\": [\"finland\"]}, \"FOLI\": {\"url\": \"http://data.foli.fi/gtfs/gtfs.zip\", \"fit\": false, \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"finland\"]}, \"Kuopio\": {\"url\": \"http://karttapalvelu.kuopio.fi/google_transit/google_transit.zip\", \"fit\": false, \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"finland\"]}, \"Lahti\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/223.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"finland\"]}, \"Vaasa\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/249.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"finland\"]}, \"Joensuu\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/207.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"finland\"]}, \"Hameenlinna\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/203.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"finland\"]}, \"Lappeenranta\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/225.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"finland\"]}, \"Kotka\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/217.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"finland\"]}, \"Kouvola\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/219.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"finland\"]}, \"Rovaniemi\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/237.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"finland\"]}, \"Mikkeli\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/227.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"finland\"]}, \"Kajaani\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/211.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"finland\"]}}"
             - name: EXTRA_UPDATERS

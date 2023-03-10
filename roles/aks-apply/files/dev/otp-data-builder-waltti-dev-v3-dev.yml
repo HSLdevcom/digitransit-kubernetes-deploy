@@ -49,6 +49,16 @@ spec:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
+            - name: SLACK_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: slack-access-token
+                  key: slack-access-token
+            - name: SLACK_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: slack-ci-channel-id
+                  key: slack-ci-channel-id
             - name: OTP_TAG
               value: "v2"
             - name: ROUTERS
