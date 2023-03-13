@@ -80,14 +80,14 @@ spec:
         - name: ROUTER_NAME
           value: "varely"
         - name: JAVA_OPTS
-          value: "-Xmx7G -Xms7G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
+          value: "-Xmx8G -Xms8G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
         resources:
           requests:
             memory: "10Gi"
             cpu: "2000m"
           limits:
             memory: "10Gi"
-            cpu: "3000m"
+            cpu: "8000m"
       volumes:
       - name: otpcfgmap
         configMap:

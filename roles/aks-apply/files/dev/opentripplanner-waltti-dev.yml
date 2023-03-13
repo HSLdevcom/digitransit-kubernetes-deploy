@@ -62,17 +62,14 @@ spec:
         - name: ROUTER_NAME
           value: "waltti"
         - name: JAVA_OPTS
-          valueFrom:
-            secretKeyRef:
-              name: otp-waltti-java-opts-dev
-              key: otp-waltti-java-opts-dev
+          value: -XX:+UseParNewGC -Xms12G -Xmx12G -XX:NewRatio=5 -XX:+UseStringDeduplication
         resources:
           requests:
-            memory: 12Gi
+            memory: 14Gi
             cpu: "3000m"
           limits:
-            memory: 12Gi
-            cpu: "4000m"
+            memory: 14Gi
+            cpu: "8000m"
       imagePullSecrets:
         - name: hsldevcomkey
 
