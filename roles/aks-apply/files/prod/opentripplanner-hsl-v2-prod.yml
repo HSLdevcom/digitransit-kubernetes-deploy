@@ -39,7 +39,7 @@ spec:
         lastRestartDate: dummy-value
     spec:
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: opentripplanner-hsl-v2
         image: hsldevcom/opentripplanner:v2-prod
@@ -79,16 +79,13 @@ spec:
         - name: ROUTER_NAME
           value: "hsl"
         - name: JAVA_OPTS
-          valueFrom:
-            secretKeyRef:
-              name: otp-hsl-v2-java-opts-prod
-              key: otp-hsl-v2-java-opts-prod
+          value: "-Xmx14G -Xms14G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
         resources:
           requests:
-            memory: "7Gi"
+            memory: "16Gi"
             cpu: "7000m"
           limits:
-            memory: "7Gi"
+            memory: "16Gi"
             cpu: "8000m"
       volumes:
       - name: otpcfgmap
