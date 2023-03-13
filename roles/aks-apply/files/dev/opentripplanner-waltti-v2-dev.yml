@@ -40,7 +40,7 @@ spec:
     spec:
       priorityClassName: medium-priority
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: opentripplanner-waltti-v2
         image: hsldevcom/opentripplanner:v2
@@ -80,16 +80,13 @@ spec:
         - name: ROUTER_NAME
           value: "waltti"
         - name: JAVA_OPTS
-          valueFrom:
-            secretKeyRef:
-              name: otp-waltti-v2-java-opts-dev
-              key: otp-waltti-v2-java-opts-dev
+          value: -Xmx12g -Xms12g -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc
         resources:
           requests:
-            memory: "12Gi"
-            cpu: "7000m"
+            memory: "14Gi"
+            cpu: "3000m"
           limits:
-            memory: "12Gi"
+            memory: "14Gi"
             cpu: "8000m"
       volumes:
       - name: otpcfgmap

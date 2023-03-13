@@ -19,7 +19,7 @@ spec:
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            pool: superpool
+            pool: megapool
           containers:
           - name: otp-data-builder-waltti-dev-v3
             image: hsldevcom/otp-data-builder:v3
@@ -41,9 +41,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: "{\"Lahti\": {\"url\": \"https://gtfsdata.blob.core.windows.net/lahti/Lahti.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}, \"FUNI\": {\"url\": \"https://foligtfs.blob.core.windows.net/routeplanner/gtfs-foli-ff.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}}"
-            - name: SKIPPED_SITES
-              value: "lahti.digitransit.fi"
+              value: "{\"FUNI\": {\"url\": \"https://foligtfs.blob.core.windows.net/routeplanner/gtfs-foli-ff.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}}"
             - name: DOCKER_TAG
               value: "v3"
             - name: DOCKER_USER

@@ -19,7 +19,7 @@ spec:
           activeDeadlineSeconds: 3600 # one build can take max 1 hour
           restartPolicy: OnFailure
           nodeSelector:
-            pool: superpool
+            pool: megapool
           containers:
           - name: otp-data-builder-hsl-prod
             image: hsldevcom/otp-data-builder:prod
@@ -60,8 +60,6 @@ spec:
               value: "prod"
             - name: VERSION_CHECK
               value: "HSL"
-            - name: EXTRA_UPDATERS
-              value: "{\"hsl-trip-updates\":{\"remove\":true, \"routers\":[\"hsl\"]}}"
             resources:
               requests:
                 memory: 11Gi

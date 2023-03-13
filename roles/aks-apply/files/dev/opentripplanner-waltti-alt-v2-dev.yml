@@ -93,16 +93,13 @@ spec:
         - name: ROUTER_NAME
           value: "waltti-alt"
         - name: JAVA_OPTS
-          valueFrom:
-            secretKeyRef:
-              name: otp-waltti-alt-v2-java-opts-dev
-              key: otp-waltti-alt-v2-java-opts-dev
+          value: -Xmx8728m -Xms8728m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc
         resources:
           requests:
-            memory: "11Gi"
-            cpu: "7000m"
+            memory: "10Gi"
+            cpu: "2000m"
           limits:
-            memory: "11Gi"
+            memory: "10Gi"
             cpu: "8000m"
       volumes:
       - name: otpcfgmap

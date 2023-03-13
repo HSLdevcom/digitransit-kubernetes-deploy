@@ -39,7 +39,7 @@ spec:
     spec:
       priorityClassName: medium-priority
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: opentripplanner-hsl
         image: hsldevcom/opentripplanner:latest
@@ -75,16 +75,13 @@ spec:
         - name: ROUTER_NAME
           value: "hsl"
         - name: JAVA_OPTS
-          valueFrom:
-            secretKeyRef:
-              name: otp-hsl-java-opts-dev
-              key: otp-hsl-java-opts-dev
+          value: -XX:+UseParNewGC -Xms10G -Xmx10G -XX:NewRatio=5 -XX:+UseStringDeduplication
         resources:
           requests:
-            memory: "9216Mi"
-            cpu: "7000m"
+            memory: "12Gi"
+            cpu: "3000m"
           limits:
-            memory: "9216Mi"
+            memory: "12Gi"
             cpu: "8000m"
       imagePullSecrets:
         - name: hsldevcomkey

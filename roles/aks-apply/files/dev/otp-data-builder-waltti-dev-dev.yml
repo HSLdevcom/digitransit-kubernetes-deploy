@@ -19,7 +19,7 @@ spec:
           activeDeadlineSeconds: 7200 # one build can take max 2 hours
           restartPolicy: OnFailure
           nodeSelector:
-            pool: superpool
+            pool: megapool
           containers:
           - name: otp-data-builder-waltti-dev
             image: hsldevcom/otp-data-builder:latest
@@ -47,8 +47,6 @@ spec:
                   key: docker-user
             - name: EXTRA_UPDATERS
               value: "{\"foli-alerts\": {\"url\": \"https://foli-beta.nanona.fi/gtfs-rt/reittiopas\", \"routers\": [\"waltti\"]}}"
-            - name: SKIPPED_SITES
-              value: "turku.digitransit.fi"
             - name: OTP_TAG
               value: "latest"
             - name: ROUTERS

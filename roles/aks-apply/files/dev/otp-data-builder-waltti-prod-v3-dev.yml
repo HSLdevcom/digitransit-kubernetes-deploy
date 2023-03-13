@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: otp-data-builder-waltti-prod-v3
 spec:
-  schedule: "10 23 * * *" # schedule in UTC time
+  schedule: "55 02 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -19,7 +19,7 @@ spec:
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            pool: superpool
+            pool: megapool
           containers:
           - name: otp-data-builder-waltti-prod-v3
             image: hsldevcom/otp-data-builder:v3-prod
@@ -63,9 +63,7 @@ spec:
             - name: SLACK_CHANNEL
               value: "digitransit-ci"
             - name: SKIPPED_SITES
-              value: "lahti.digitransit.fi"
-            - name: EXTRA_UPDATERS
-              value: "{\"kuopio-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"lappeenranta-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"linkki-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"mikkeli-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"vaasa-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]},\"rovaniemi-trip-updates\":{\"remove\":true, \"routers\":[\"waltti\"]}}"
+              value: "all"
             resources:
               requests:
                 memory: 11Gi

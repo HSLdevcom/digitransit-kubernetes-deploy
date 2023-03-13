@@ -21,7 +21,7 @@ metadata:
     restartAt: "05.15"
     restartLimitInterval: "720"
 spec:
-  replicas: 96
+  replicas: 42
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -37,13 +37,34 @@ spec:
         lastRestartDate: dummy-value
     spec:
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: opentripplanner-hsl
         image: hsldevcom/opentripplanner:prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: "/otp/routers/hsl/"
+        startupProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 120
+          httpGet:
+            port: 8080
+            path: "/otp/routers/hsl/"
+        livenessProbe:
+          periodSeconds: 120
+          timeoutSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/routers/hsl/"
         securityContext:
           allowPrivilegeEscalation: false
         env:
@@ -52,16 +73,13 @@ spec:
         - name: ROUTER_NAME
           value: "hsl"
         - name: JAVA_OPTS
-          valueFrom:
-            secretKeyRef:
-              name: otp-hsl-java-opts-prod
-              key: otp-hsl-java-opts-prod
+          value: "-Xmx14G -Xms14G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -XX:+PrintGC"
         resources:
           requests:
-            memory: "10216Mi"
+            memory: "16Gi"
             cpu: "7000m"
           limits:
-            memory: "10216Mi"
+            memory: "16Gi"
             cpu: "8000m"
       imagePullSecrets:
         - name: hsldevcomkey
