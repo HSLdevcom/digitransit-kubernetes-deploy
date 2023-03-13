@@ -38,7 +38,7 @@ spec:
         lastRestartDate: dummy-value
     spec:
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: opentripplanner-waltti-v2
         image: hsldevcom/opentripplanner:v2-prod
@@ -84,10 +84,10 @@ spec:
               key: otp-waltti-v2-java-opts-prod
         resources:
           requests:
-            memory: "11Gi"
+            memory: "20Gi"
             cpu: "7000m"
           limits:
-            memory: "11Gi"
+            memory: "20Gi"
             cpu: "8000m"
       volumes:
       - name: otpcfgmap
