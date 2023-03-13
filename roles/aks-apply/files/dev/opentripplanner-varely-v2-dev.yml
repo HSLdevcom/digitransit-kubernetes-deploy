@@ -40,7 +40,7 @@ spec:
     spec:
       priorityClassName: medium-priority
       nodeSelector:
-        pool: megapool
+        pool: superpool
       containers:
       - name: opentripplanner-varely-v2
         image: hsldevcom/opentripplanner:v2
