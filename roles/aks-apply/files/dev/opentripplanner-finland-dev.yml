@@ -62,17 +62,14 @@ spec:
         - name: ROUTER_NAME
           value: "finland"
         - name: JAVA_OPTS
-          valueFrom:
-            secretKeyRef:
-              name: otp-finland-java-opts-dev
-              key: otp-finland-java-opts-dev
+          value: -XX:+UseParNewGC -Xms11G -Xmx11G -XX:NewRatio=5 -XX:+UseStringDeduplication
         resources:
           requests:
-            memory: 11216Mi
+            memory: 13Gi
             cpu: "3000m"
           limits:
-            memory: 11216Mi
-            cpu: "4000m"
+            memory: 13Gi
+            cpu: "8000m"
       imagePullSecrets:
         - name: hsldevcomkey
 
