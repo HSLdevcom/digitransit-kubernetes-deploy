@@ -19,7 +19,7 @@ spec:
           activeDeadlineSeconds: 3600 # one build can take max 1 hour
           restartPolicy: OnFailure
           nodeSelector:
-            pool: superpool
+            pool: megapool
           containers:
           - name: otp-data-builder-hsl-dev
             image: hsldevcom/otp-data-builder:latest
