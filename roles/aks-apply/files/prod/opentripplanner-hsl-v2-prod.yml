@@ -17,7 +17,6 @@ metadata:
   name: opentripplanner-hsl-v2
   labels:
     app: opentripplanner-hsl-v2
-    update: auto
     restartAfterDeployments: "opentripplanner-data-con-hsl-v3"
     restartDelay: "1"
     restartAt: "05.15"
