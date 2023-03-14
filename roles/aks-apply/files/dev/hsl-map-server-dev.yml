@@ -65,7 +65,7 @@ spec:
                   - hsl-map-server
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: hsl-map-server
         image: hsldevcom/hsl-map-server:dev
@@ -100,10 +100,10 @@ spec:
             value: "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql"
         resources:
           requests:
-            memory: 11Gi
+            memory: 20Gi
             cpu: 7000m
           limits:
-            memory: 11Gi
+            memory: 24Gi
             cpu: 7000m
       imagePullSecrets:
         - name: hsldevcomkey
