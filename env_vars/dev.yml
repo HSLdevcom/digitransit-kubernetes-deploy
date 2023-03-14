@@ -11,7 +11,7 @@
 "worker_node_count": "5"
 "workerv2_node_count": "7"
 "addons_to_remove": "kube-dashboard"
-"kubernetes_version": "1.24.3"
+"kubernetes_version": "1.25.5"
 "default_nodepool_name": "defaultpool"
 "worker_nodepool_name": "superpool"
 "workerv2_nodepool_name": "megapool"
