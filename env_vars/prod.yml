@@ -9,7 +9,7 @@
 "aks_resource_group_name": "{{aks_name}}-rg"
 "default_node_count": "15"
 "worker_node_count": "14"
-"workerv2_node_count": "57"
+"workerv2_node_count": "53"
 "addons_to_add": "monitoring"
 "addons_to_remove": "kube-dashboard"
 "log_analytics_workspace_rg": "OMS-PROD-RG"
