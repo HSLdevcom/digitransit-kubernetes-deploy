@@ -111,6 +111,8 @@ spec:
               key: gtm-id
         - name: BASE_CONFIG
           value: "waltti"
+        - name: DISABLEBATCHQUERIES
+          value: "1"
         resources:
           requests:
             memory: 2Gi
