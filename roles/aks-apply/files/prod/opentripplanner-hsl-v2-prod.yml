@@ -100,7 +100,7 @@ kind: PodDisruptionBudget
 metadata:
   name: opentripplanner-hsl-v2-pdb
 spec:
-  minAvailable: 50% # TODO increase
+  minAvailable: 80%
   selector:
     matchLabels:
       app: opentripplanner-hsl-v2
