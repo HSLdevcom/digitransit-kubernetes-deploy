@@ -126,11 +126,11 @@ spec:
         #     secretKeyRef:
         #       name: sentry-secret-dsn
         #       key: sentry-secret-dsn
-        # - name: GTM_ID
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: gtm-id
-        #       key: gtm-id
+         - name: GTM_ID
+           valueFrom:
+             secretKeyRef:
+               name: gtm-id
+               key: gtm-id
         # - name: OIDCHOST
         #   value: "https://hslid-uat.cinfra.fi"
         # - name: SESSION_SECRET
