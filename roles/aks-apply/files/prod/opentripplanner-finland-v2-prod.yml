@@ -7,3 +7,101 @@ spec:
   - port: 8080
     targetPort: 8080
     name: opentripplanner-finland-v2-service-port
+  selector:
+    app: opentripplanner-finland-v2
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentripplanner-finland-v2
+  labels:
+    app: opentripplanner-finland-v2
+    restartAfterDeployments: "opentripplanner-data-con-finland-v3"
+    restartDelay: "1"
+    restartAt: "05.30"
+    restartLimitInterval: "720"
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: opentripplanner-finland-v2
+  template:
+    metadata:
+      labels:
+        app: opentripplanner-finland-v2
+        lastRestartDate: dummy-value
+    spec:
+      nodeSelector:
+        pool: megapool
+      containers:
+      - name: opentripplanner-finland-v2
+        image: hsldevcom/opentripplanner:v2-prod
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: otpcfgmap
+            mountPath: /opt/opentripplanner/logback-include-extensions.xml
+            subPath: file-from-cfgmap
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        startupProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 500
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        livenessProbe:
+          periodSeconds: 12
+          timeoutSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: ROUTER_DATA_CONTAINER_URL
+          value: "http://opentripplanner-data-con-finland-v3:8080"
+        - name: ROUTER_NAME
+          value: "finland"
+        - name: JAVA_OPTS
+          value: "-Xmx17G -Xms17G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC"
+        resources:
+          requests:
+            memory: "20Gi"
+            cpu: "7000m"
+          limits:
+            memory: "20Gi"
+            cpu: "8000m"
+      volumes:
+      - name: otpcfgmap
+        configMap:
+          name: opentripplanner-cfgmap
+      imagePullSecrets:
+        - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-finland-v2-pdb
+spec:
+  minAvailable: 50% # TODO increase
+  selector:
+    matchLabels:
+      app: opentripplanner-finland-v2
+
