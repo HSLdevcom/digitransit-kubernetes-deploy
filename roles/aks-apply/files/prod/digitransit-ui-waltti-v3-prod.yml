@@ -81,7 +81,7 @@ spec:
         - name: MAP_URL
           value: "https://digitransit-prod-cdn-origin.azureedge.net"
         - name: NODE_OPTS
-          value: "--max_old_space_size=900"
+          value: "--max_old_space_size=1500"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
         - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
@@ -113,10 +113,10 @@ spec:
           value: "waltti"
         resources:
           requests:
-            memory: 1536Mi
+            memory: 2Gi
             cpu: 600m
           limits:
-            memory: 1536Mi
+            memory: 2Gi
             cpu: 2000m
       imagePullSecrets:
         - name: hsldevcomkey
