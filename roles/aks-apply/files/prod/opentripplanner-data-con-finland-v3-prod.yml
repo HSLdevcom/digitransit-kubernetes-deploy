@@ -9,7 +9,7 @@ spec:
     name: opentripplanner-data-con-finland-v3-service-port
     protocol: TCP
   selector:
-    app: opentripplanner-data-con-finland
+    app: opentripplanner-data-con-finland-v3
 ---
 
 apiVersion: apps/v1
