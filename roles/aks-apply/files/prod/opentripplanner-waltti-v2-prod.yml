@@ -22,7 +22,7 @@ metadata:
     restartAt: "05.45"
     restartLimitInterval: "720"
 spec:
-  replicas: 13
+  replicas: 7
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -49,6 +49,27 @@ spec:
           - name: otpcfgmap
             mountPath: /opt/opentripplanner/logback-include-extensions.xml
             subPath: file-from-cfgmap
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        startupProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 380 # leave enough time for potential graph build
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
+        livenessProbe:
+          periodSeconds: 120
+          timeoutSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/routers/default/"
         securityContext:
           allowPrivilegeEscalation: false
         env:
