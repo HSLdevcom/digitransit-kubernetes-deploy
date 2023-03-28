@@ -1,4 +1,21 @@
-h-priority
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: otp-data-builder-waltti-dev-v3
+spec:
+  schedule: "50 20 * * *" # schedule in UTC time
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 4
+  jobTemplate:
+    spec:
+      backoffLimit: 2 # max two retries
+      template:
+        metadata:
+          labels:
+            app: otp-data-builder-waltti-dev-v3
+        spec:
+          priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
