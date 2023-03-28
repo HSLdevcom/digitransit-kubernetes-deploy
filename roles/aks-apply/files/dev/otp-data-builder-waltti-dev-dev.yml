@@ -45,6 +45,16 @@ spec:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
+            - name: SLACK_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: slack-access-token
+                  key: slack-access-token
+            - name: SLACK_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: slack-ci-channel-id
+                  key: slack-ci-channel-id
             - name: EXTRA_UPDATERS
               value: "{\"foli-alerts\": {\"url\": \"https://foli-beta.nanona.fi/gtfs-rt/reittiopas\", \"routers\": [\"waltti\"]}}"
             - name: OTP_TAG
