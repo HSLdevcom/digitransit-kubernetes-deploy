@@ -1,21 +1,4 @@
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: otp-data-builder-waltti-dev-v3
-spec:
-  schedule: "50 20 * * *"
-  successfulJobsHistoryLimit: 4
-  failedJobsHistoryLimit: 4
-  jobTemplate:
-    spec:
-      backoffLimit: 2 # max two retries
-      template:
-        metadata:
-          labels:
-            app: otp-data-builder-waltti-dev-v3
-        spec:
-          priorityClassName: high-priority
+h-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
@@ -43,7 +26,7 @@ spec:
             - name: EXTRA_SRC
               value: "{\"FUNI\": {\"url\": \"https://foligtfs.blob.core.windows.net/routeplanner/gtfs-foli-ff.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}, \"Lahti\": {\"url\": \"https://www.lsl.fi/tiedostot/testidata\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}}"
             - name: SKIPPED_SITES
-              value: "lahti.digitransit.fi"
+              value: "all"
             - name: DOCKER_TAG
               value: "v3"
             - name: DOCKER_USER
