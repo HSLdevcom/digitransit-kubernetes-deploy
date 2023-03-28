@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: otp-data-builder-hsl-prod
 spec:
-  schedule: "0 3 * * *" # schedule in UTC time
+  schedule: "25 3 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -19,7 +19,7 @@ spec:
           activeDeadlineSeconds: 3600 # one build can take max 1 hour
           restartPolicy: OnFailure
           nodeSelector:
-            pool: superpool
+            pool: megapool
           containers:
           - name: otp-data-builder-hsl-prod
             image: hsldevcom/otp-data-builder:prod

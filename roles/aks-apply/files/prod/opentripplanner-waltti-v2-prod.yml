@@ -22,7 +22,7 @@ metadata:
     restartAt: "05.45"
     restartLimitInterval: "720"
 spec:
-  replicas: 12
+  replicas: 7
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -38,7 +38,7 @@ spec:
         lastRestartDate: dummy-value
     spec:
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: opentripplanner-waltti-v2
         image: hsldevcom/opentripplanner:v2-prod
@@ -78,16 +78,13 @@ spec:
         - name: ROUTER_NAME
           value: "waltti"
         - name: JAVA_OPTS
-          valueFrom:
-            secretKeyRef:
-              name: otp-waltti-v2-java-opts-prod
-              key: otp-waltti-v2-java-opts-prod
+          value: "-Xmx18g -Xms18g -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
         resources:
           requests:
-            memory: "11Gi"
+            memory: "20Gi"
             cpu: "7000m"
           limits:
-            memory: "11Gi"
+            memory: "20Gi"
             cpu: "8000m"
       volumes:
       - name: otpcfgmap

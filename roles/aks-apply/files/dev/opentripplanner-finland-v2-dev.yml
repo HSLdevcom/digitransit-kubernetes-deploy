@@ -23,7 +23,7 @@ metadata:
     restartAt: "03.00"
     restartLimitInterval: "720"
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -80,17 +80,14 @@ spec:
         - name: ROUTER_NAME
           value: "finland"
         - name: JAVA_OPTS
-          valueFrom:
-            secretKeyRef:
-              name: otp-finland-v2-java-opts-dev
-              key: otp-finland-v2-java-opts-dev
+          value: "-Xmx12G -Xms12G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
         resources:
           requests:
             memory: "14Gi"
             cpu: "3000m"
           limits:
             memory: "14Gi"
-            cpu: "4000m"
+            cpu: "8000m"
       volumes:
       - name: otpcfgmap
         configMap:

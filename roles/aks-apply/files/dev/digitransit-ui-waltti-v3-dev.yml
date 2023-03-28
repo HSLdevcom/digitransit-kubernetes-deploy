@@ -141,6 +141,8 @@ spec:
         #     secretKeyRef:
         #       name: dev-waltti-oidc-client-secret
         #       key: dev-waltti-oidc-client-secret
+        - name: DISABLEBATCHQUERIES
+          value: "1"
         resources:
           requests:
             memory: 1200Mi

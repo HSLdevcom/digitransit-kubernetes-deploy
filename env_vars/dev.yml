@@ -8,13 +8,16 @@
 "aks_name": "{{project}}-{{aks_environment_with_postfix}}-aks"
 "aks_resource_group_name": "{{aks_name}}-rg"
 "default_node_count": "7"
-"worker_node_count": "8"
+"worker_node_count": "5"
+"workerv2_node_count": "7"
 "addons_to_remove": "kube-dashboard"
-"kubernetes_version": "1.24.3"
+"kubernetes_version": "1.25.5"
 "default_nodepool_name": "defaultpool"
 "worker_nodepool_name": "superpool"
+"workerv2_nodepool_name": "megapool"
 "default_labels": "pool=defaultpool"
 "worker_labels": "pool=superpool"
+"workerv2_labels": "pool=megapool"
 
 # Application Gateway variables
 "gateway_name_postfix": "3"

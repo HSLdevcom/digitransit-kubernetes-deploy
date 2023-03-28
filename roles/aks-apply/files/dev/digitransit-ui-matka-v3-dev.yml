@@ -111,6 +111,8 @@ spec:
             secretKeyRef:
               name: sentry-dsn
               key: sentry-dsn
+        - name: DISABLEBATCHQUERIES
+          value: "1"
         resources:
           requests:
             memory: 1024Mi
