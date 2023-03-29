@@ -73,7 +73,7 @@ spec:
             - name: TOOLS_TAG
               value: "latest"
             - name: SKIPPED_SITES
-              value: "reittiopas.hsl.fi"
+              value: "all"
             resources:
               requests:
                 memory: 11Gi
