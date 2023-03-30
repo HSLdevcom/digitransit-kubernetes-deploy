@@ -59,7 +59,7 @@ spec:
                   - pelias-data-container
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: pelias-api
         image: hsldevcom/pelias-api:prod
