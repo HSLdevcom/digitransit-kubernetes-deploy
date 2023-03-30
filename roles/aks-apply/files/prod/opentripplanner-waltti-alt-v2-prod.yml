@@ -26,8 +26,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 0
-      maxUnavailable: 50%
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: opentripplanner-waltti-alt-v2
@@ -37,8 +37,31 @@ spec:
         app: opentripplanner-waltti-alt-v2
         lastRestartDate: dummy-value
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - opentripplanner-waltti-alt-v2
+              topologyKey: kubernetes.io/hostname
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 50
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - opentripplanner-varely-v2
+              topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: opentripplanner-waltti-alt-v2
         image: hsldevcom/opentripplanner:v2-prod
@@ -68,10 +91,10 @@ spec:
         resources:
           requests:
             memory: "11Gi"
-            cpu: "7000m"
+            cpu: "3000m"
           limits:
             memory: "11Gi"
-            cpu: "8000m"
+            cpu: "7000m"
       volumes:
       - name: otpcfgmap
         configMap:

@@ -37,8 +37,29 @@ spec:
         app: opentripplanner-varely-v2
         lastRestartDate: dummy-value
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 50
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - opentripplanner-varely-v2
+              topologyKey: kubernetes.io/hostname
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - opentripplanner-waltti-alt-v2
+            topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: opentripplanner-varely-v2
         image: hsldevcom/opentripplanner:v2-prod
@@ -68,10 +89,10 @@ spec:
         resources:
           requests:
             memory: "11Gi"
-            cpu: "7000m"
+            cpu: "3000m"
           limits:
             memory: "11Gi"
-            cpu: "8000m"
+            cpu: "7000m"
       volumes:
       - name: otpcfgmap
         configMap:
