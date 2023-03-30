@@ -25,7 +25,7 @@ spec:
   replicas: 2
   strategy:
     type: RollingUpdate
-    rollingUpdate:
+    rollingUpdate:  # this is needed so there is "always" available machine for a new pod
       maxSurge: 0
       maxUnavailable: 1
   selector:
