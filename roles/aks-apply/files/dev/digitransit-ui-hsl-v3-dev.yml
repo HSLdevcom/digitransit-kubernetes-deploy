@@ -49,7 +49,7 @@ spec:
                   - digitransit-ui-hsl-v3
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: digitransit-ui-hsl-v3
         image: hsldevcom/digitransit-ui:v3 # development branch for digitransit-ui/otp2 OTP1->OTP2 migration project
@@ -154,6 +154,6 @@ spec:
             cpu: 600m
           limits:
             memory: "1536Mi"
-            cpu: 2000m
+            cpu: 1500m
       imagePullSecrets:
         - name: hsldevcomkey

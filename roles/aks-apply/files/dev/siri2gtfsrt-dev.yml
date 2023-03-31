@@ -48,7 +48,7 @@ spec:
                   - siri2gtfsrt
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: siri2gtfsrt
         image: hsldevcom/siri2gtfsrt

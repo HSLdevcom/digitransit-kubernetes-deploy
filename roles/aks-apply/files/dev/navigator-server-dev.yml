@@ -48,7 +48,7 @@ spec:
                   - navigator-server
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: navigator-server
         image: hsldevcom/navigator-server

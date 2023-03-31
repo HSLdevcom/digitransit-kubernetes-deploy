@@ -48,7 +48,7 @@ spec:
                   - opentripplanner-data-con-hsl
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: opentripplanner-data-con-hsl
         image: hsldevcom/opentripplanner-data-container-hsl:latest

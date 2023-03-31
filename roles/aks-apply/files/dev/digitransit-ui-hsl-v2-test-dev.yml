@@ -49,7 +49,7 @@ spec:
                   - digitransit-ui-hsl-v2-test
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: digitransit-ui-hsl-v2-test
         image: hsldevcom/digitransit-ui:node-migration # testing german node migration project
@@ -153,6 +153,6 @@ spec:
             cpu: 600m
           limits:
             memory: "1536Mi"
-            cpu: 2000m
+            cpu: 1500m
       imagePullSecrets:
         - name: hsldevcomkey

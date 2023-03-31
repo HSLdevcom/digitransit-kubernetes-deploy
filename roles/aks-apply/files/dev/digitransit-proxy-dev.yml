@@ -53,7 +53,7 @@ spec:
                   - digitransit-proxy
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       priorityClassName: high-priority
       containers:
       - name: digitransit-proxy
@@ -194,10 +194,10 @@ spec:
         resources:
             requests:
               memory: "1152Mi"
-              cpu: "1000m"
+              cpu: "500m"
             limits:
               memory: "1152Mi"
-              cpu: "3000m"
+              cpu: "1500m"
       imagePullSecrets:
         - name: hsldevcomkey
 

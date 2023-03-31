@@ -52,7 +52,7 @@ spec:
                   - digitransit-ui-matka-v3
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: digitransit-ui-matka-v3
         image: hsldevcom/digitransit-ui:v3
@@ -119,6 +119,6 @@ spec:
             cpu: 500m
           limits:
             memory: 1024Mi
-            cpu: 2000m
+            cpu: 1500m
       imagePullSecrets:
         - name: hsldevcomkey

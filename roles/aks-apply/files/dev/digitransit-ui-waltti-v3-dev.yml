@@ -50,7 +50,7 @@ spec:
                   - digitransit-ui-waltti-v3
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: digitransit-ui-waltti-v3
         image: hsldevcom/digitransit-ui:v3
@@ -149,6 +149,6 @@ spec:
             cpu: 500m
           limits:
             memory: 1200Mi
-            cpu: 2000m
+            cpu: 1500m
       imagePullSecrets:
         - name: hsldevcomkey
