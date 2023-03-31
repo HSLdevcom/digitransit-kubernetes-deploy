@@ -36,7 +36,7 @@ spec:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
-            - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME 
+            - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
               valueFrom:
                 secretKeyRef:
                   name: "digitransit-subscription-key-name"
@@ -72,6 +72,16 @@ spec:
               value: "-1" # builder shuts down after first build
             - name: THRESHOLD
               value: "5"
+            - name: SLACK_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: slack-access-token
+                  key: slack-access-token
+            - name: SLACK_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: slack-ci-channel-id
+                  key: slack-ci-channel-id
             resources:
               requests:
                 memory: 8Gi
