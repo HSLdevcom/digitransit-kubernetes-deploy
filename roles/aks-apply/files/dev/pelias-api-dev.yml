@@ -25,7 +25,7 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: 0
       maxUnavailable: 1
   selector:
     matchLabels:
@@ -48,6 +48,8 @@ spec:
                   operator: In
                   values:
                   - pelias-api
+                  - opentripplanner-varely-v2
+                  - opentripplanner-waltti-alt-v2
               topologyKey: kubernetes.io/hostname
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -59,7 +61,7 @@ spec:
                 - pelias-data-container
             topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: pelias-api
         image: hsldevcom/pelias-api

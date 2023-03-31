@@ -19,7 +19,7 @@ spec:
           activeDeadlineSeconds: 7200 # one build can take max 2 hours
           restartPolicy: OnFailure
           nodeSelector:
-            pool: superpool
+            pool: megapool
           containers:
           - name: pelias-data-container-builder-prod
             image: hsldevcom/pelias-data-container-builder:prod

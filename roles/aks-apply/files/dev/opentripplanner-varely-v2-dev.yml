@@ -28,7 +28,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 0
-      maxUnavailable: 50%
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: opentripplanner-varely-v2
@@ -39,8 +39,31 @@ spec:
         lastRestartDate: dummy-value
     spec:
       priorityClassName: medium-priority
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 50
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - opentripplanner-varely-v2
+                  - pelias-api
+                  - pelias-data-container
+              topologyKey: kubernetes.io/hostname
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - opentripplanner-waltti-alt-v2
+            topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: opentripplanner-varely-v2
         image: hsldevcom/opentripplanner:v2
@@ -84,10 +107,10 @@ spec:
         resources:
           requests:
             memory: "10Gi"
-            cpu: "2000m"
+            cpu: "3000m"
           limits:
             memory: "10Gi"
-            cpu: "8000m"
+            cpu: "7000m"
       volumes:
       - name: otpcfgmap
         configMap:

@@ -65,7 +65,7 @@ spec:
                   - hsl-map-server
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: superpool
+        pool: megapool
       containers:
       - name: hsl-map-server
         image: hsldevcom/hsl-map-server:dev
