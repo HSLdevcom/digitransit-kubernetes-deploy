@@ -72,6 +72,22 @@ spec:
           httpGet:
             port: 8080
             path: "/graphiql/hsl"
+        env: 
+        - name: REACT_APP_API_SUBSCRIPTION_KEY_PARAM  
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: REACT_APP_DEV_API_SUBSCRIPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: "dev-graphiql-apim-key"
+              key: "dev-graphiql-apim-key"   
+        - name: REACT_APP_API_SUBSCRIPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: "graphiql-apim-key"
+              key: "graphiql-apim-key"   
         resources:
           requests:
             memory: "384Mi"
