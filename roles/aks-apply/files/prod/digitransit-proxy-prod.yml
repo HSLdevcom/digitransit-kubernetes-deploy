@@ -51,7 +51,7 @@ spec:
                   - digitransit-proxy
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: digitransit-proxy
         image: hsldevcom/digitransit-proxy:prod
@@ -194,7 +194,7 @@ spec:
               cpu: "1000m"
             limits:
               memory: "1152Mi"
-              cpu: "3000m"
+              cpu: "1500m"
       imagePullSecrets:
         - name: hsldevcomkey
 

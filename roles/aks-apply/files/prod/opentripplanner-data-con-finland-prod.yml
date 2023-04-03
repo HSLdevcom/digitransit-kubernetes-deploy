@@ -47,7 +47,7 @@ spec:
                   - opentripplanner-data-con-finland
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: opentripplanner-data-con-finland
         image: hsldevcom/opentripplanner-data-container-finland:prod

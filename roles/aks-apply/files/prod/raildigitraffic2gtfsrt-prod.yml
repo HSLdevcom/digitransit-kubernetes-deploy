@@ -50,7 +50,7 @@ spec:
                   - raildigitraffic2gtfsrt
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: raildigitraffic2gtfsrt
         image: hsldevcom/raildigitraffic2gtfsrt:prod

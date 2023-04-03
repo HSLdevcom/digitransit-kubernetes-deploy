@@ -48,7 +48,7 @@ spec:
                   - opentripplanner-data-con-varely-v3
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: opentripplanner-data-con-varely-v3
         image: hsldevcom/opentripplanner-data-container-varely:v3-prod
