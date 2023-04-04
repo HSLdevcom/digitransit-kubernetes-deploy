@@ -29,6 +29,7 @@
     --service-principal {{item.appId}} \
     --client-secret {{item.password}} \
     --uptime-sla \
+    --os-sku Ubuntu \
     --nodepool-name {{default_nodepool_name}} \
     --nodepool-labels {{default_labels}}"
   delegate_to: localhost
@@ -45,17 +46,5 @@
     --node-vm-size {{worker_node_vm_size}} \
     --os-sku Ubuntu \
     --labels {{worker_labels}}"
-  delegate_to: localhost
-  ignore_errors: "{{ ansible_check_mode }}"
-
-- name: "Create nodepool {{workerv2_nodepool_name}}"
-  command: "az aks nodepool add \
-    --resource-group {{aks_resource_group_name}} \
-    --cluster-name {{aks_name}} \
-    --name {{workerv2_nodepool_name}} \
-    --node-count {{workerv2_node_count}} \
-    --node-vm-size {{workerv2_node_vm_size}} \
-    --os-sku Ubuntu \
-    --labels {{workerv2_labels}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"

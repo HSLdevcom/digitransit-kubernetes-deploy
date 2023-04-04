@@ -87,7 +87,7 @@ spec:
                   - digitransit-deployer
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: digitransit-deployer
         image: hsldevcom/digitransit-deployer:prod
@@ -107,7 +107,7 @@ spec:
         resources:
           requests:
             memory: 512Mi
-            cpu: 500m
+            cpu: 300m
           limits:
             memory: 512Mi
             cpu: 1000m

@@ -53,6 +53,8 @@ spec:
                   operator: In
                   values:
                   - pelias-data-container
+                  - opentripplanner-varely-v2
+                  - opentripplanner-waltti-alt-v2
               topologyKey: kubernetes.io/hostname
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

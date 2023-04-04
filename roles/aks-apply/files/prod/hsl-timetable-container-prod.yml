@@ -48,7 +48,7 @@ spec:
                   - hsl-timetable-container
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: defaultpool
+        pool: smallpool
       containers:
       - name: hsl-timetable-container
         image: hsldevcom/hsl-timetable-container
