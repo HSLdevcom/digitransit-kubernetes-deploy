@@ -77,8 +77,6 @@ spec:
             port: 8080
             path: /
         env:
-          - name: HSL_RT_STORAGE_NAME
-            value: "transitdatadev"
           - name: NEW_HSL_FI_URL
             value: "test.hslfi.hsldev.com"
           - name: JOJO_BASIC_AUTH
@@ -146,11 +144,6 @@ spec:
               secretKeyRef:
                 name: kouvola-basic-key
                 key: kouvola-basic-key
-          - name: PERILLE_BASIC_AUTH
-            valueFrom:
-              secretKeyRef:
-                name: perille-basic-key
-                key: perille-basic-key
           - name: GIRAVOLTA_TAMPERE_AUTH
             valueFrom:
               secretKeyRef:
