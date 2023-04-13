@@ -58,11 +58,6 @@ spec:
                   key: next-waltti-basic
             - name: BUILDER_TYPE
               value: "prod"
-            - name: SLACK_WEBHOOK_URL
-              valueFrom:
-                secretKeyRef:
-                  name: slack-webhook
-                  key: slack-webhook
             - name: MMLAPIKEY
               valueFrom:
                 secretKeyRef:

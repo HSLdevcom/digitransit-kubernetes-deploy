@@ -61,11 +61,6 @@ spec:
               value: "finland"
             - name: SEED_TAG
               value: "prod"
-            - name: SLACK_WEBHOOK_URL
-              valueFrom:
-                secretKeyRef:
-                  name: slack-webhook
-                  key: slack-webhook
             - name: TOOLS_TAG
               value: "prod"
             resources:
