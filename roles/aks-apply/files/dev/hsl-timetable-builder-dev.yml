@@ -74,6 +74,16 @@ spec:
                 secretKeyRef:
                   name: slack-webhook
                   key: slack-webhook
+            - name: SLACK_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: slack-access-token
+                  key: slack-access-token
+            - name: SLACK_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: slack-ci-channel-id
+                  key: slack-ci-channel-id
             - name: TAKU_API_URL
               valueFrom:
                 secretKeyRef:
