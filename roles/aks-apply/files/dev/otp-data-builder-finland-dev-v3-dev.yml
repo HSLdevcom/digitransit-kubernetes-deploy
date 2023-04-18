@@ -57,6 +57,8 @@ spec:
                 secretKeyRef:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
+            - name: EXTRA_SRC
+              value: "{\"Raasepori\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/232.zip\", \"routers\": [\"finland\"]}}"
             - name: OTP_TAG
               value: "v2"
             - name: ROUTERS
