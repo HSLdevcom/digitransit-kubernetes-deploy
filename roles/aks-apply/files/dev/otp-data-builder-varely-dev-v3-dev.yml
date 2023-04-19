@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: otp-data-builder-varely-dev-v3
 spec:
-  schedule: "15 9 * * *" # schedule in UTC time
+  schedule: "0 14 * * *" # schedule in UTC time
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
