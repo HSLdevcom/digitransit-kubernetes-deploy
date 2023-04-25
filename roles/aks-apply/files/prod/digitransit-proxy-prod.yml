@@ -176,6 +176,11 @@ spec:
               secretKeyRef:
                 name: oulu-rt-basic-key
                 key: oulu-rt-basic-key
+          - name: PORI_RT_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: pori-rt-basic-key
+                key: pori-rt-basic-key
           - name: RAUMA_STATIC_BASIC_AUTH
             valueFrom:
               secretKeyRef:
