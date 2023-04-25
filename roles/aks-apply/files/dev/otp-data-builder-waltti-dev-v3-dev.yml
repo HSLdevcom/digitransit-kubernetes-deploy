@@ -41,7 +41,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: "{\"FUNI\": {\"url\": \"https://foligtfs.blob.core.windows.net/routeplanner/gtfs-foli-ff.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}, \"Lahti\": {\"url\": \"https://www.lsl.fi/tiedostot/testidata\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}, \"Pori\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/231.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}}"
+              value: "{\"Lahti\": {\"url\": \"https://www.lsl.fi/tiedostot/testidata\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}, \"Pori\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/231.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}}"
             # - name: SKIPPED_SITES
             #  value: "all"
             - name: DOCKER_TAG
