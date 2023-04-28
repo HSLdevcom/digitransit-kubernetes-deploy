@@ -32,7 +32,7 @@ spec:
                  - SYS_ADMIN
             env:
             - name: BUILDER_TYPE
-              value: "KELA dev v3"
+              value: "Kela dev v3"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
