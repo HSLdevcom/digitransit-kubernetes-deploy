@@ -1,0 +1,108 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opentripplanner-kela-v2
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: opentripplanner-kela-v2-service-port
+  selector:
+    app: opentripplanner-kela-v2
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opentripplanner-kela-v2
+  labels:
+    app: opentripplanner-kela-v2
+    update: auto
+    restartAfterDeployments: "opentripplanner-data-con-kela-v3"
+    restartDelay: "1"
+    restartAt: "03.00"
+    restartLimitInterval: "720"
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: opentripplanner-kela-v2
+  template:
+    metadata:
+      labels:
+        app: opentripplanner-kela-v2
+        lastRestartDate: dummy-value
+    spec:
+      priorityClassName: medium-priority
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 50
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - opentripplanner-kela-v2
+              topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: megapool
+      containers:
+      - name: opentripplanner-kela-v2
+        image: hsldevcom/opentripplanner:v2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - name: otpcfgmap
+            mountPath: /opt/opentripplanner/logback-include-extensions.xml
+            subPath: file-from-cfgmap
+        readinessProbe:
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: "/otp/actuators/health"
+        startupProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 480
+          httpGet:
+            port: 8080
+            path: "/otp/actuators/health"
+        livenessProbe:
+          periodSeconds: 12
+          timeoutSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/actuators/health"
+        securityContext:
+          allowPrivilegeEscalation: false
+        env:
+        - name: ROUTER_DATA_CONTAINER_URL
+          value: "http://opentripplanner-data-con-kela-v3:8080"
+        - name: ROUTER_NAME
+          value: "kela"
+        - name: JAVA_OPTS
+          value: "-Xmx12G -Xms12G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
+        resources:
+          requests:
+            memory: "14Gi"
+            cpu: "2000m"
+          limits:
+            memory: "14Gi"
+            cpu: "6000m"
+      volumes:
+      - name: otpcfgmap
+        configMap:
+          name: opentripplanner-cfgmap
+      imagePullSecrets:
+        - name: hsldevcomkey
