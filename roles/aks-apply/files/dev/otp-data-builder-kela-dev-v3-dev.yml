@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: otp-data-builder-kela-dev-v3
 spec:
-  schedule: "15 11 * * *" # schedule in UTC time
+  schedule: "15 11 * * *"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -63,6 +63,8 @@ spec:
               value: "kela"
             - name: SEED_TAG
               value: "v3"
+            - name: SKIPPED_SITES
+              value: "all"
             - name: TOOLS_TAG
               value: "v3"
             - name: SLACK_CHANNEL
