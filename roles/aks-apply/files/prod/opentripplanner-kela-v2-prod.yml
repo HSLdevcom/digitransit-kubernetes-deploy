@@ -48,8 +48,8 @@ spec:
                   operator: In
                   values:
                   - opentripplanner-kela-v2
-		  - opentripplanner-waltti-alt-v2
-		  - opentripplanner-varely-v2
+                  - opentripplanner-waltti-alt-v2
+                  - opentripplanner-varely-v2
                   - pelias-api
                   - pelias-data-container
               topologyKey: kubernetes.io/hostname

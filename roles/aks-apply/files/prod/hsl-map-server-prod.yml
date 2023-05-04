@@ -46,8 +46,8 @@ spec:
                   operator: In
                   values:
                   - hsl-map-server
-		  - opentripplanner-waltti-alt-v2
-		  - opentripplanner-varely-v2
+                  - opentripplanner-waltti-alt-v2
+                  - opentripplanner-varely-v2
                   - pelias-api
               topologyKey: kubernetes.io/hostname
         podAffinity:
