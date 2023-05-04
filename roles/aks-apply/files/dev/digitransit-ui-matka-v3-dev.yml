@@ -55,7 +55,7 @@ spec:
         pool: smallpool
       containers:
       - name: digitransit-ui-matka-v3
-        image: hsldevcom/digitransit-ui:v3-2023-04-26T14.01.18-a3ecfee
+        image: hsldevcom/digitransit-ui:v3
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
