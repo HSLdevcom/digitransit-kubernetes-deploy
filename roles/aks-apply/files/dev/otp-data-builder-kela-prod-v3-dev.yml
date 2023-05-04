@@ -22,7 +22,7 @@ spec:
             pool: megapool
           containers:
           - name: otp-data-builder-kela-prod-v3
-            image: hsldevcom/otp-data-builder:v3
+            image: hsldevcom/otp-data-builder:v3-prod
             imagePullPolicy: Always
             securityContext:
               privileged: true
