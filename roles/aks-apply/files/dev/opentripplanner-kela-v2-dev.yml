@@ -58,8 +58,7 @@ spec:
               - key: app
                 operator: In
                 values:
-                - opentripplanner-waltti-alt-v2
-                - opentripplanner-varely-v2
+                - hsl-map-server
             topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: megapool
