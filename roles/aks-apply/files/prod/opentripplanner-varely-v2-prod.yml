@@ -48,8 +48,10 @@ spec:
                   operator: In
                   values:
                   - opentripplanner-varely-v2
+                  - opentripplanner-kela-v2
                   - pelias-api
                   - pelias-data-container
+		  - hsl-map-server
               topologyKey: kubernetes.io/hostname
         podAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

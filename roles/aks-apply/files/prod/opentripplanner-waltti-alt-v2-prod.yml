@@ -48,6 +48,8 @@ spec:
                   operator: In
                   values:
                   - opentripplanner-waltti-alt-v2
+		  - opentripplanner-kela-v2
+		  - hsl-map-server
                   - pelias-api
                   - pelias-data-container
               topologyKey: kubernetes.io/hostname

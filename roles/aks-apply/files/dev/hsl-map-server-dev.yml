@@ -63,7 +63,20 @@ spec:
                   operator: In
                   values:
                   - hsl-map-server
+                  - opentripplanner-waltti-alt-v2
+                  - opentripplanner-varely-v2
+                  - pelias-api
+                  - pelias-data-container
               topologyKey: kubernetes.io/hostname
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - opentripplanner-kela-v2
+            topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: megapool
       containers:
@@ -101,7 +114,7 @@ spec:
         resources:
           requests:
             memory: 10Gi
-            cpu: 4000m
+            cpu: 5000m
           limits:
             memory: 10Gi
             cpu: 7000m
