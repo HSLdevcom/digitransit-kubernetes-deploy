@@ -51,6 +51,16 @@ spec:
                   values:
                   - opentripplanner-kela-v2
               topologyKey: kubernetes.io/hostname
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - opentripplanner-waltti-alt-v2
+                - opentripplanner-varely-v2
+            topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: megapool
       containers:
