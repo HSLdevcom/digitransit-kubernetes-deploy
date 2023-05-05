@@ -33,7 +33,7 @@ metadata:
   labels:
     app: hsl-map-server
     update: auto
-    restartAfterDeployments: "opentripplanner-hsl_opentripplanner-waltti-v2" #TODO include finland when we figure out best way to circumvent label length restriction
+    restartAfterDeployments: "opentripplanner-hsl-v2_opentripplanner-waltti-v2" #TODO include finland when we figure out best way to circumvent label length restriction
     restartDelay: "5"
 spec:
   replicas: 1
