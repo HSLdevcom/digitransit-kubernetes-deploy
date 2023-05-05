@@ -18,7 +18,7 @@ metadata:
   labels:
     app: digitransit-ui-waltti-v3
     update: auto
-    restartAfterDeployments: "opentripplanner-waltti"
+    restartAfterDeployments: "opentripplanner-waltti-v2"
     restartDelay: "5"
 spec:
   selector:

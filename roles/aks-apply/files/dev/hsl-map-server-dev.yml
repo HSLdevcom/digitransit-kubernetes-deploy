@@ -33,7 +33,7 @@ metadata:
   labels:
     app: hsl-map-server
     update: auto
-    restartAfterDeployments: "opentripplanner-hsl_opentripplanner-waltti" #TODO include finland when we figure out best way to circumvent label length restriction
+    restartAfterDeployments: "opentripplanner-hsl_opentripplanner-waltti-v2" #TODO include finland when we figure out best way to circumvent label length restriction
     restartDelay: "5"
 spec:
   replicas: 1
@@ -52,31 +52,6 @@ spec:
         lastRestartDate: dummy-value
     spec:
       priorityClassName: medium-priority
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - hsl-map-server
-                  - opentripplanner-waltti-alt-v2
-                  - opentripplanner-varely-v2
-                  - pelias-api
-                  - pelias-data-container
-              topologyKey: kubernetes.io/hostname
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - opentripplanner-kela-v2
-            topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: megapool
       containers:
@@ -104,17 +79,17 @@ spec:
             path: /map/v1/hsl-map/index.json
         env:
           - name: FINLAND_OTP_URL
-            value: "opentripplanner-finland:8080/otp/routers/finland/index/graphql"
+            value: "opentripplanner-finland-v2:8080/otp/routers/finland/index/graphql"
           - name: HSL_OTP_URL
-            value: "opentripplanner-hsl:8080/otp/routers/hsl/index/graphql"
+            value: "opentripplanner-hsl-v2:8080/otp/routers/hsl/index/graphql"
           - name: NODE_OPTS
             value: "--max_old_space_size=2048 --optimize_for_size --stack_size=2048 --harmony"
           - name: WALTTI_OTP_URL
-            value: "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql"
+            value: "opentripplanner-waltti-v2:8080/otp/routers/waltti/index/graphql"
         resources:
           requests:
             memory: 10Gi
-            cpu: 5000m
+            cpu: 4000m
           limits:
             memory: 10Gi
             cpu: 7000m

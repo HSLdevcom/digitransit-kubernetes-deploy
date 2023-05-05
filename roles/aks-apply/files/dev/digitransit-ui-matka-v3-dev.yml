@@ -20,7 +20,7 @@ metadata:
     update: auto
     restartAt: "03.10_13.10"
     restartLimitInterval: "480"
-    restartAfterDeployments: "opentripplanner-finland"
+    restartAfterDeployments: "opentripplanner-finland-v2"
     restartDelay: "5"
 spec:
   selector:

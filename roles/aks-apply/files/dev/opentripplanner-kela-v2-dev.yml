@@ -39,27 +39,6 @@ spec:
         lastRestartDate: dummy-value
     spec:
       priorityClassName: medium-priority
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 50
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - opentripplanner-kela-v2
-              topologyKey: kubernetes.io/hostname
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - hsl-map-server
-            topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: megapool
       containers:

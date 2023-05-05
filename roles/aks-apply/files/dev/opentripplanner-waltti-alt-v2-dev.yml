@@ -52,32 +52,6 @@ spec:
         lastRestartDate: dummy-value
     spec:
       priorityClassName: medium-priority
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - opentripplanner-waltti-alt-v2
-                  - opentripplanner-kela-v2
-                  - pelias-api
-                  - pelias-data-container
-              topologyKey: kubernetes.io/hostname
-        podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 50
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - opentripplanner-varely-v2
-              topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: megapool
       containers:
@@ -123,7 +97,7 @@ spec:
         resources:
           requests:
             memory: "10Gi"
-            cpu: "3000m"
+            cpu: "2000m"
           limits:
             memory: "10Gi"
             cpu: "7000m"
