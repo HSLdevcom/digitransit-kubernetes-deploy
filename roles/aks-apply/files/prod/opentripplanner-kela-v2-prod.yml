@@ -22,7 +22,7 @@ metadata:
     restartAt: "03.00"
     restartLimitInterval: "720"
 spec:
-  replicas: 2
+  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:  # this is needed so there is "always" available machine for a new pod

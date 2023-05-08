@@ -24,8 +24,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 50%
-      maxUnavailable: 0
+      maxSurge: 0
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: hsl-map-server
@@ -57,7 +57,7 @@ spec:
               - key: app
                 operator: In
                 values:
-              - opentriplanner-kela-v2
+                - opentripplanner-kela-v2
             topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: megapool
