@@ -42,6 +42,8 @@ spec:
                   key: docker-auth
             - name: EXTRA_SRC
               value: "{\"Lahti\": {\"url\": \"https://www.lsl.fi/tiedostot/testidata\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}, \"Pori\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/231.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"routers\": [\"waltti\"]}}"
+            - name: EXTRA_UPDATERS
+              value: "{\"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"routers\": [\"waltti\"]}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\", \"routers\": [\"waltti\"]}}"
             # - name: SKIPPED_SITES
             #  value: "all"
             - name: DOCKER_TAG
