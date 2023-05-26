@@ -74,8 +74,6 @@ spec:
           timeoutSeconds: 10
           failureThreshold: 10
         env:
-        - name: CONFIG
-          value: "matka"
         - name: API_URL
           value: "https://api.digitransit.fi"
         - name: FAVOURITE_HOST
