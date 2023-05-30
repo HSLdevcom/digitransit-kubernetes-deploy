@@ -58,7 +58,7 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: EXTRA_SRC
-              value: "{\"Raasepori\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/232.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"rules\": [\"router-waltti/gtfs-rules/waltti.rule\"], \"replacements\": {\"translations.txt\": null}, \"routers\": [\"waltti-alt\"]}}"
+              value: "{\"Raasepori\": {\"url\": \"https://tvv.fra1.digitaloceanspaces.com/232.zip\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"routers\": [\"waltti-alt\"]}}"
             - name: OTP_TAG
               value: "v2"
             - name: ROUTERS
