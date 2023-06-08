@@ -71,10 +71,10 @@ spec:
               value: "topic-ci-otp2"
             resources:
               requests:
-                memory: 11Gi
+                memory: 14Gi
                 cpu: 3000m
               limits:
-                memory: 11Gi
+                memory: 14Gi
                 cpu: 6000m
           imagePullSecrets:
             - name: hsldevcomkey
