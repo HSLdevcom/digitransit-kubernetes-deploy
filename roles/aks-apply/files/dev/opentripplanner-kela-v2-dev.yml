@@ -80,7 +80,7 @@ spec:
         - name: ROUTER_NAME
           value: "kela"
         - name: JAVA_OPTS
-          value: "-Xmx13G -Xms13G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
+          value: "-Xmx14G -Xms14G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
         resources:
           requests:
             memory: "15Gi"
