@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: otp-data-builder-kela-prod-v3
 spec:
-  schedule: "0 21 * * *" # schedule in UTC time
+  schedule: "36 13 * * *"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
@@ -71,10 +71,10 @@ spec:
               value: "topic-ci-otp2"
             resources:
               requests:
-                memory: 14Gi
+                memory: 16Gi
                 cpu: 3000m
               limits:
-                memory: 14Gi
+                memory: 16Gi
                 cpu: 6000m
           imagePullSecrets:
             - name: hsldevcomkey
