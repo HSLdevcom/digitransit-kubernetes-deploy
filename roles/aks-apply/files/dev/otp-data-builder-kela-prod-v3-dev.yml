@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: otp-data-builder-kela-prod-v3
 spec:
-  schedule: "36 13 * * *"
+  schedule: "0 21 * * *"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
   jobTemplate:
