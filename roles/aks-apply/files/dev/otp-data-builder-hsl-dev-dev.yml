@@ -55,8 +55,6 @@ spec:
                 secretKeyRef:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
-            - name: EXTRA_SRC
-              value: "{\"HSL\": {\"url\": \"https://gtfsdata.blob.core.windows.net/hsl/hsl-block-id.zip\", \"routers\": [\"hsl\"]}}"
             - name: EXTRA_UPDATERS
               value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi\", \"routers\": [\"hsl\"]}, \"hsl-bike-park\": {\"url\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/facilities.json?limit=-1\", \"routers\": [\"hsl\"]}, \"hsl-car-park\": {\"url\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/facilities.json?limit=-1\", \"routers\": [\"hsl\"]}}"
             - name: OTP_TAG
