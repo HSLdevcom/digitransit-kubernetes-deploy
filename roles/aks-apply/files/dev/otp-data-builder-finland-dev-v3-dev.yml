@@ -67,12 +67,14 @@ spec:
               value: "v3"
             - name: SLACK_CHANNEL
               value: "topic-ci-otp2"
+            - name: JAVA_OPTS
+              value: "-Xmx14G -Xms14G"
             resources:
               requests:
-                memory: 11Gi
+                memory: 18Gi
                 cpu: 3000m
               limits:
-                memory: 11Gi
+                memory: 18Gi
                 cpu: 6000m
           imagePullSecrets:
             - name: hsldevcomkey
