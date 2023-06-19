@@ -106,10 +106,10 @@ spec:
               key: slack-webhook
         resources:
           requests:
-            memory: 126Mi
+            memory: 252Mi
             cpu: 300m
           limits:
-            memory: 126Mi
+            memory: 252Mi
             cpu: 1000m
       imagePullSecrets:
         - name: hsldevcomkey
