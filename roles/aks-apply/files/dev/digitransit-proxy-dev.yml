@@ -189,6 +189,11 @@ spec:
               secretKeyRef:
                 name: rauma-static-basic-key
                 key: rauma-static-basic-key
+          - name: MH_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: mh-basic-key
+                key: mh-basic-key
         resources:
             requests:
               memory: "1152Mi"
