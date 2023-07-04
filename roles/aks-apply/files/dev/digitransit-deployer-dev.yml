@@ -104,6 +104,16 @@ spec:
             secretKeyRef:
               name: slack-webhook
               key: slack-webhook
+        - name: DOCKER_USER
+          valueFrom:
+            secretKeyRef:
+              name: docker-user
+              key: docker-user
+        - name: DOCKER_AUTH
+          valueFrom:
+            secretKeyRef:
+              name: docker-auth
+              key: docker-auth
         resources:
           requests:
             memory: 252Mi
