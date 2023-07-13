@@ -117,11 +117,11 @@ spec:
         #     secretKeyRef:
         #       name: sentry-secret-dsn
         #       key: sentry-secret-dsn
-        #- name: GTM_ID
-        #  valueFrom:
-        #    secretKeyRef:
-        #      name: gtm-id
-        #      key: gtm-id
+        - name: GTM_ID
+          valueFrom:
+            secretKeyRef:
+              name: gtm-id
+              key: gtm-id
         - name: DISABLEBATCHQUERIES
           value: "1"
         - name: REDIS_HOST
