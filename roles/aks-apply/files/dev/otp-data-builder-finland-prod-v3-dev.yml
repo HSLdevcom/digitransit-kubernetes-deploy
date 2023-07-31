@@ -22,7 +22,7 @@ spec:
             pool: megapool
           containers:
           - name: otp-data-builder-finland-prod-v3
-            image: hsldevcom/otp-data-builder:v3-prod
+            image: hsldevcom/otp-data-builder:v3-prod-2023-07-18T13.47.04-8e54b13
             imagePullPolicy: Always
             securityContext:
               privileged: true
