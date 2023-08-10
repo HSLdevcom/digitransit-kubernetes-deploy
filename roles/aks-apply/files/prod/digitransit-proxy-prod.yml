@@ -191,6 +191,11 @@ spec:
               secretKeyRef:
                 name: mh-basic-key
                 key: mh-basic-key
+          - name: RAASEPORI_RT_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: raasepori-rt-basic-key
+                key: raasepori-rt-basic-key
         resources:
             requests:
               memory: "1152Mi"
