@@ -160,15 +160,3 @@ spec:
             cpu: 1500m
       imagePullSecrets:
         - name: hsldevcomkey
-
----
-
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: digitransit-ui-hsl-v2-pdb
-spec:
-  minAvailable: 1
-  selector:
-    matchLabels:
-      app: digitransit-ui-hsl-v2
