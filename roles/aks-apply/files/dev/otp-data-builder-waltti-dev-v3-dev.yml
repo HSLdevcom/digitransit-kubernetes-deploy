@@ -42,7 +42,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: "{\"Lahti\": {\"url\": \"https://www.lsl.fi/tiedostot/testidata\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"routers\": [\"waltti\"]}}"
+              value: "{\"Lahti\": {\"url\": \"https://www.lsl.fi/tiedostot/testidata\", \"fit\": \"gtfs_shape_mapfit/fit_gtfs_stops.bash\", \"routers\": [\"waltti\"]}, \"Kuopio\": {\"url\": \"https://kartta.kuopio.fi/google_transit/testi.zip\", \"fit\": false, \"routers\": [\"waltti\"]}}"
             - name: EXTRA_UPDATERS
               value: "{\"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"routers\": [\"waltti\"]}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\", \"routers\": [\"waltti\"]}}"
             # - name: SKIPPED_SITES
