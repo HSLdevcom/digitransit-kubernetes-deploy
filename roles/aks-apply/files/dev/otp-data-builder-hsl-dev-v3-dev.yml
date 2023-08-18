@@ -42,7 +42,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: "{\"HSL\": {\"url\": \"https://gtfsdata.blob.core.windows.net/hsl/HSL-gtfs.zip\", \"routers\": [\"hsl\"]}}"
+              value: "{\"HSL\": {\"url\": \"https://gtfsdata.blob.core.windows.net/hsl/hsl.zip\", \"routers\": [\"hsl\"]}}"
             - name: EXTRA_UPDATERS
               value: "{\"liipi\": {\"facilitiesUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/facilities.json?limit=-1\", \"utilizationsUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/utilizations.json?limit=-1\", \"hubsUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/hubs.json?limit=-1\", \"routers\": [\"hsl\"]}}"
             - name: DOCKER_TAG
