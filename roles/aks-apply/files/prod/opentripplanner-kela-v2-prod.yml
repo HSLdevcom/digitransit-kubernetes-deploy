@@ -54,14 +54,16 @@ spec:
                   - pelias-data-container
               topologyKey: kubernetes.io/hostname
         podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - hsl-map-server
-            topologyKey: kubernetes.io/hostname
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - hsl-map-server
+              topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: megapool
       containers:
