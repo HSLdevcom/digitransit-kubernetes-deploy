@@ -105,3 +105,15 @@ spec:
           name: opentripplanner-cfgmap
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-kela-v2-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-kela-v2
