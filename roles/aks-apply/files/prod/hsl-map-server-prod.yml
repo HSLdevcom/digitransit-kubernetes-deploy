@@ -112,7 +112,7 @@ kind: PodDisruptionBudget
 metadata:
   name: hsl-map-server-pdb
 spec:
-  minAvailable: 25%
+  minAvailable: 50%
   selector:
     matchLabels:
       app: hsl-map-server
