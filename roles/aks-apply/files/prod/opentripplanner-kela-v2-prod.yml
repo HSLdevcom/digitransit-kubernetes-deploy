@@ -54,14 +54,16 @@ spec:
                   - pelias-data-container
               topologyKey: kubernetes.io/hostname
         podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - hsl-map-server
-            topologyKey: kubernetes.io/hostname
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - hsl-map-server
+              topologyKey: kubernetes.io/hostname
       nodeSelector:
         pool: megapool
       containers:
@@ -103,3 +105,15 @@ spec:
           name: opentripplanner-cfgmap
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-kela-v2-pdb
+spec:
+  minAvailable: 50%
+  selector:
+    matchLabels:
+      app: opentripplanner-kela-v2
