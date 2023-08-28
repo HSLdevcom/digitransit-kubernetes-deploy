@@ -109,18 +109,18 @@ spec:
             secretKeyRef:
               name: gtm-id
               key: gtm-id
-        # - name: REDIS_HOST
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: redis-host
-        #       key: redis-host
-        # - name: REDIS_PORT
-        #   value: "6380"
-        # - name: REDIS_KEY
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: redis-key
-        #       key: redis-key
+        - name: REDIS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: redis-host
+              key: redis-host
+        - name: REDIS_PORT
+          value: "6380"
+        - name: REDIS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: redis-key
+              key: redis-key
         # - name: SENTRY_DSN
         #   valueFrom:
         #     secretKeyRef:
@@ -131,23 +131,23 @@ spec:
         #     secretKeyRef:
         #       name: sentry-secret-dsn
         #       key: sentry-secret-dsn
-        # - name: OIDCHOST
-        #   value: "https://hslid-uat.cinfra.fi"
-        # - name: SESSION_SECRET
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: session-secret
-        #       key: session-secret
-        # - name: OIDC_CLIENT_ID
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: uat-oidc-client-id
-        #       key: uat-oidc-client-id
-        # - name: OIDC_CLIENT_SECRET
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: uat-oidc-client-secret
-        #       key: uat-oidc-client-secret
+        - name: OIDCHOST
+          value: "https://hslid-uat.cinfra.fi"
+        - name: SESSION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: session-secret
+              key: session-secret
+        - name: OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: uat-oidc-client-id
+              key: uat-oidc-client-id
+        - name: OIDC_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: uat-oidc-client-secret
+              key: uat-oidc-client-secret
         resources:
           requests:
             memory: "1536Mi"
