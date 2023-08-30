@@ -77,8 +77,8 @@ spec:
           value: "hsl"
         - name: RUN_ENV
           value: "development"
-        # - name: HOSTNAME
-        #   value: "https://next-dev.digitransit.fi"
+        - name: HOSTNAME
+          value: "https://next-dev.digitransit.fi"
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
         - name: ASSET_URL
