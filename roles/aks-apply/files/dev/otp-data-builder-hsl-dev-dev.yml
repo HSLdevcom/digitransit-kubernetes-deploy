@@ -68,6 +68,8 @@ spec:
               value: "latest"
             - name: TOOLS_TAG
               value: "latest"
+            - name: SKIPPED_SITES
+              value: "all"
             resources:
               requests:
                 memory: 11Gi
