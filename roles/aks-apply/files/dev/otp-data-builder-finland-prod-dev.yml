@@ -56,6 +56,8 @@ spec:
                 secretKeyRef:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
+            - name: DISABLE_BLOB_VALIDATION
+              value: "true"
             - name: OTP_TAG
               value: "prod"
             - name: ROUTERS
@@ -66,10 +68,10 @@ spec:
               value: "prod"
             resources:
               requests:
-                memory: 11Gi
+                memory: 14Gi
                 cpu: 3000m
               limits:
-                memory: 11Gi
+                memory: 14Gi
                 cpu: 6000m
           imagePullSecrets:
             - name: hsldevcomkey
