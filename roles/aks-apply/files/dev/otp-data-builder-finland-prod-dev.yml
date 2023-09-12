@@ -68,10 +68,10 @@ spec:
               value: "prod"
             resources:
               requests:
-                memory: 14Gi
+                memory: 16Gi
                 cpu: 3000m
               limits:
-                memory: 14Gi
+                memory: 16Gi
                 cpu: 6000m
           imagePullSecrets:
             - name: hsldevcomkey
