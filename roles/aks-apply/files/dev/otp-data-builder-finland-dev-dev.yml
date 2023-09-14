@@ -23,7 +23,7 @@ spec:
             pool: megapool
           containers:
           - name: otp-data-builder-finland-dev
-            image: hsldevcom/otp-data-builder:latest
+            image: hsldevcom/otp-data-builder:prod
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -40,7 +40,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "latest"
+              value: "prod"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -57,19 +57,21 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
-              value: "latest"
+              value: "prod"
             - name: ROUTERS
               value: "finland"
             - name: SEED_TAG
-              value: "latest"
+              value: "prod"
             - name: TOOLS_TAG
-              value: "latest"
+              value: "prod"
+            - name: SKIPPED_SITES
+              value: "turku.digitransit.fi"
             resources:
               requests:
-                memory: 11Gi
+                memory: 12Gi
                 cpu: 3000m
               limits:
-                memory: 11Gi
+                memory: 12Gi
                 cpu: 6000m
           imagePullSecrets:
             - name: hsldevcomkey
