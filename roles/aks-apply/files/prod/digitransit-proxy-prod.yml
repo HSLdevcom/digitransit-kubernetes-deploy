@@ -196,6 +196,11 @@ spec:
               secretKeyRef:
                 name: raasepori-rt-basic-key
                 key: raasepori-rt-basic-key
+          - name: VARELY_RT_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: varely-rt-basic-key
+                key: varely-rt-basic-key
         resources:
             requests:
               memory: "1152Mi"
