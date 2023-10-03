@@ -68,7 +68,7 @@ spec:
           failureThreshold: 2
           httpGet:
             port: 8080
-            path: /map/v1/hsl-map/index.json
+            path: /map/v2/hsl-map/index.json
         livenessProbe:
           initialDelaySeconds: 150
           periodSeconds: 10
@@ -76,7 +76,7 @@ spec:
           failureThreshold: 10
           httpGet:
             port: 8080
-            path: /map/v1/hsl-map/index.json
+            path: /map/v2/hsl-map/index.json
         env:
           - name: FINLAND_OTP_URL
             value: "opentripplanner-finland-v2:8080/otp/routers/finland/index/graphql"
