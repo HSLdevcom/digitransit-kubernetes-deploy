@@ -121,6 +121,8 @@ spec:
             secretKeyRef:
               name: redis-key
               key: redis-key
+        - name: NOINDEX
+          value: "1"
         # - name: SENTRY_DSN
         #   valueFrom:
         #     secretKeyRef:

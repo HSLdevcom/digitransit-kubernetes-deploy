@@ -141,7 +141,7 @@ spec:
         #     secretKeyRef:
         #       name: dev-waltti-oidc-client-secret
         #       key: dev-waltti-oidc-client-secret
-        - name: DISABLEBATCHQUERIES
+        - name: NOINDEX
           value: "1"
         resources:
           requests:

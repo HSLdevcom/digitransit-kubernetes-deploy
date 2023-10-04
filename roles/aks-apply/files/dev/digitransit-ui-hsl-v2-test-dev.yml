@@ -102,7 +102,9 @@ spec:
           valueFrom:
             secretKeyRef:
               name: "dev-digitransit-ui-hsl-v2-test-apim-key"
-              key: "dev-digitransit-ui-hsl-v2-test-apim-key"    
+              key: "dev-digitransit-ui-hsl-v2-test-apim-key"
+        - name: NOINDEX
+          value: "1"
         # - name: REDIS_HOST
         #   valueFrom:
         #     secretKeyRef:

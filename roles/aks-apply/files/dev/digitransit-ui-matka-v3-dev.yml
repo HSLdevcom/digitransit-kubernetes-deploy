@@ -109,7 +109,7 @@ spec:
             secretKeyRef:
               name: sentry-dsn
               key: sentry-dsn
-        - name: DISABLEBATCHQUERIES
+        - name: NOINDEX
           value: "1"
         resources:
           requests:

@@ -90,6 +90,8 @@ spec:
           value: "3000"
         - name: DISABLEBATCHQUERIES
           value: "1"
+        - name: NOINDEX
+          value: "1"
         - name: REDIS_HOST
           valueFrom:
             secretKeyRef:
