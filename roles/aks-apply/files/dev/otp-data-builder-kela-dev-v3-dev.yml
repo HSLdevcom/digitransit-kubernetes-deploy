@@ -56,6 +56,11 @@ spec:
                 secretKeyRef:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
+            - name: MH_BASIC_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: mh-basic-key
+                  key: mh-basic-key
             - name: OTP_TAG
               value: "v2"
             - name: ROUTERS
