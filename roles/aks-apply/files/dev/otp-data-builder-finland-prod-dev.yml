@@ -56,8 +56,6 @@ spec:
                 secretKeyRef:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
-            - name: DISABLE_BLOB_VALIDATION
-              value: "true"
             - name: OTP_TAG
               value: "prod"
             - name: ROUTERS
