@@ -64,6 +64,8 @@ spec:
               value: "prod"
             - name: TOOLS_TAG
               value: "prod"
+            - name: SKIPPED_SITES
+              value: "reittiopas.hsl.fi"
             resources:
               requests:
                 memory: 11Gi
