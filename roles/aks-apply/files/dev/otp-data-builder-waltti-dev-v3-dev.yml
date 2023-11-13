@@ -66,8 +66,6 @@ spec:
                   key: slack-ci-channel-id
             - name: OTP_TAG
               value: "v2"
-            - name: ROUTERS
-              value: "waltti"
             - name: SEED_TAG
               value: "v3"
             - name: TOOLS_TAG

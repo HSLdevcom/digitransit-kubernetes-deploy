@@ -62,8 +62,6 @@ spec:
                   key: slack-ci-channel-id
             - name: OTP_TAG
               value: "v2"
-            - name: ROUTERS
-              value: "hsl"
             - name: SEED_TAG
               value: "v3"
             - name: TOOLS_TAG

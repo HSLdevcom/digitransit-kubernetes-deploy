@@ -58,8 +58,6 @@ spec:
                   key: slack-ci-channel-id
             - name: OTP_TAG
               value: "v2"
-            - name: ROUTERS
-              value: "varely"
             - name: ROUTER_NAME
               value: "varely"
             - name: SEED_TAG
