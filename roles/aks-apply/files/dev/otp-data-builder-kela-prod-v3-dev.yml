@@ -63,8 +63,6 @@ spec:
                   key: mh-basic-key
             - name: OTP_TAG
               value: "v2-prod"
-            - name: ROUTERS
-              value: "kela"
             - name: ROUTER_NAME
               value: "kela"
             - name: SKIPPED_SITES
