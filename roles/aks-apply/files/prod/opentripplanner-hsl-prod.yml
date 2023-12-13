@@ -21,7 +21,7 @@ metadata:
     restartAt: "05.15"
     restartLimitInterval: "720"
 spec:
-  replicas: 18
+  replicas: 24
   strategy:
     type: RollingUpdate
     rollingUpdate:
