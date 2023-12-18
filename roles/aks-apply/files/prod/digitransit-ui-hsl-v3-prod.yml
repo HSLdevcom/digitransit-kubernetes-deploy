@@ -155,6 +155,8 @@ spec:
               key: prod-oidc-client-secret
         - name: NOTIFICATION_HOST
           value: "https://www.hsl.fi/user/api/v1/notifications"
+        - name: STOP_TIMETABLES_URL
+          value: "https://kartat.hsl.fi"
         resources:
           requests:
             memory: 2Gi
