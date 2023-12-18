@@ -103,8 +103,6 @@ spec:
             secretKeyRef:
               name: "digitransit-ui-matka-v3-apim-key"
               key: "digitransit-ui-matka-v3-apim-key"
-        - name: DISABLEBATCHQUERIES
-          value: "1"
         resources:
           requests:
             memory: 2Gi
