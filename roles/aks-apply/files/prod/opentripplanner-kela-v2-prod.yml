@@ -91,13 +91,13 @@ spec:
         - name: ROUTER_NAME
           value: "kela"
         - name: JAVA_OPTS
-          value: "-Xmx12G -Xms12G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC"
+          value: "-Xmx14G -Xms14G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC"
         resources:
           requests:
-            memory: "14Gi"
+            memory: "16Gi"
             cpu: "2000m"
           limits:
-            memory: "14Gi"
+            memory: "16Gi"
             cpu: "7000m"
       volumes:
       - name: otpcfgmap
