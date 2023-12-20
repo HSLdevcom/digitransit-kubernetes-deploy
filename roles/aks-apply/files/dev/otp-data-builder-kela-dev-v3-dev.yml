@@ -74,7 +74,7 @@ spec:
             - name: SLACK_CHANNEL
               value: "topic-ci-otp2"
             - name: JAVA_OPTS
-              value: "-Xmx14G -Xms14G"
+              value: "-Xmx16G -Xms16G"
             resources:
               requests:
                 memory: 18Gi
