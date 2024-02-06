@@ -42,7 +42,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_UPDATERS
-              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi:1883\", \"routers\": [\"hsl\"]}, \"liipi\": {\"facilitiesUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/facilities.json?limit=-1\", \"utilizationsUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/utilizations.json?limit=-1\", \"hubsUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/hubs.json?limit=-1\", \"routers\": [\"hsl\"]}, \"hsl-alerts\": {\"url\": \"https://transitdatadev.blob.core.windows.net/service-alerts/v2/hsl\", \"routers\": [\"hsl\"]}}"
+              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi:1883\"}, \"liipi\": {\"facilitiesUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/facilities.json?limit=-1\", \"utilizationsUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/utilizations.json?limit=-1\", \"hubsUrl\": \"http://digitransit-proxy:8080/out/test.liipi.hsldev.com/api/v1/hubs.json?limit=-1\"}, \"hsl-alerts\": {\"url\": \"https://transitdatadev.blob.core.windows.net/service-alerts/v2/hsl\"}}"
             - name: DOCKER_TAG
               value: "v3"
             - name: DOCKER_USER
