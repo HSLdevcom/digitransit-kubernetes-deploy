@@ -111,6 +111,8 @@ spec:
               key: sentry-dsn
         - name: NOINDEX
           value: "1"
+        - name: ASSEMBLE_GEOJSON
+          value: "1"
         resources:
           requests:
             memory: 1024Mi
