@@ -53,7 +53,7 @@ spec:
         pool: smallpool
       containers:
       - name: digitransit-ui-hsl-v3
-        image: hsldevcom/digitransit-ui:v3 # development branch for digitransit-ui/otp2 OTP1->OTP2 migration project
+        image: hsldevcom/digitransit-ui:v3
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
