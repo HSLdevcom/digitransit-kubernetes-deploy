@@ -78,13 +78,13 @@ spec:
         - name: ROUTER_NAME
           value: "finland"
         - name: JAVA_OPTS
-          value: "-Xmx17G -Xms17G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC"
+          value: "-Xmx20G -Xms20G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC"
         resources:
           requests:
-            memory: "20Gi"
+            memory: "23Gi"
             cpu: "7000m"
           limits:
-            memory: "20Gi"
+            memory: "23Gi"
             cpu: "8000m"
       volumes:
       - name: otpcfgmap
