@@ -158,7 +158,7 @@ spec:
         - name: STOP_TIMETABLES_URL
           value: "https://kartat.hsl.fi"
         - name: BANNER_URL
-	  value: "https://content.hsl.fi/api/v1/banners?site=JourneyPlanner"
+          value: "https://content.hsl.fi/api/v1/banners?site=JourneyPlanner"
         resources:
           requests:
             memory: 2Gi
