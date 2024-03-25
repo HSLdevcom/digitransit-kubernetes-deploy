@@ -60,13 +60,13 @@ spec:
         - name: ROUTER_NAME
           value: "finland"
         - name: JAVA_OPTS
-          value: "-Xmx16G -Xms16G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC"
+          value: "-Xmx14G -Xms14G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC"
         resources:
           requests:
-            memory: 19Gi
+            memory: 20Gi
             cpu: "7000m"
           limits:
-            memory: 19Gi
+            memory: 20Gi
             cpu: "8000m"
       imagePullSecrets:
         - name: hsldevcomkey
