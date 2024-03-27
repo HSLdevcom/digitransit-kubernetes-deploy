@@ -73,11 +73,11 @@ spec:
           failureThreshold: 10
         env:
         - name: CONFIG
-          value: "hsl"
+          value: "apphsl"
         - name: RUN_ENV
           value: "development"
-        # - name: HOSTNAME
-        #   value: "https://next-dev.digitransit.fi"
+        - name: HOSTNAME
+          value: "https://test.digitransit.fi"
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
         - name: ASSET_URL
@@ -105,50 +105,40 @@ spec:
               key: "dev-digitransit-ui-hsl-v2-test-apim-key"
         - name: NOINDEX
           value: "1"
-        # - name: REDIS_HOST
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: redis-host
-        #       key: redis-host
-        # - name: REDIS_PORT
-        #   value: "6380"
-        # - name: REDIS_KEY
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: redis-key
-        #       key: redis-key
-        # - name: SENTRY_DSN
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: sentry-dsn
-        #       key: sentry-dsn
-        # - name: SENTRY_SECRET_DSN
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: sentry-secret-dsn
-        #       key: sentry-secret-dsn
-        # - name: GTM_ID
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: gtm-id
-        #       key: gtm-id
-        # - name: OIDCHOST
-        #   value: "https://hslid-uat.cinfra.fi"
-        # - name: SESSION_SECRET
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: session-secret
-        #       key: session-secret
-        # - name: OIDC_CLIENT_ID
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: uat-oidc-client-id
-        #       key: uat-oidc-client-id
-        # - name: OIDC_CLIENT_SECRET
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: uat-oidc-client-secret
-        #       key: uat-oidc-client-secret
+        - name: REDIS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: redis-host
+              key: redis-host
+        - name: REDIS_PORT
+          value: "6380"
+        - name: REDIS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: redis-key
+              key: redis-key
+        - name: GTM_ID
+          valueFrom:
+            secretKeyRef:
+              name: gtm-id
+              key: gtm-id
+        - name: OIDCHOST
+          value: "https://hslid-uat.cinfra.fi"
+        - name: SESSION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: session-secret
+              key: session-secret
+        - name: OIDC_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: uat-oidc-client-id
+              key: uat-oidc-client-id
+        - name: OIDC_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: uat-oidc-client-secret
+              key: uat-oidc-client-secret
         resources:
           requests:
             memory: "1536Mi"
