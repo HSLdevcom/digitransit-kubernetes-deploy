@@ -74,11 +74,11 @@ spec:
           failureThreshold: 10
         env:
         - name: CONFIG
-          value: "apphsl"
+          value: "hsl"
         - name: RUN_ENV
           value: "development"
         - name: HOSTNAME
-          value: "https://test.digitransit.fi"
+          value: "https://next-dev.digitransit.fi"
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
         - name: ASSET_URL
