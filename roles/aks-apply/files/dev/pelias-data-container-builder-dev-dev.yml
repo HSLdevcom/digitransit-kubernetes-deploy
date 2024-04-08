@@ -20,7 +20,12 @@ spec:
           activeDeadlineSeconds: 9000 # one build can take 2 and half hours
           restartPolicy: OnFailure
           nodeSelector:
-            pool: megapool
+            agentpool: userpooltest
+          tolerations:
+          - key: "testingPod"
+            operator: "Equal"
+            value: "yes"
+            effect: "NoSchedule"
           containers:
           - name: pelias-data-container-builder-dev
             image: hsldevcom/pelias-data-container-builder

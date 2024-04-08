@@ -38,7 +38,12 @@ spec:
     spec:
       priorityClassName: medium-priority
       nodeSelector:
-        pool: megapool
+        agentpool: userpooltest
+      tolerations:
+      - key: "testingPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
       containers:
       - name: pelias-api
         image: hsldevcom/pelias-api

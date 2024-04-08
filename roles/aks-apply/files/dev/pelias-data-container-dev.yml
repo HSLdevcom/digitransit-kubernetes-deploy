@@ -43,7 +43,12 @@ spec:
     spec:
       priorityClassName: medium-priority
       nodeSelector:
-        pool: megapool
+        agentpool: userpooltest
+      tolerations:
+      - key: "testingPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
       containers:
       - name: pelias-data-container
         image: hsldevcom/pelias-data-container:latest
@@ -80,6 +85,6 @@ spec:
             cpu: 3000m
           limits:
             memory: 3Gi
-            cpu: 6000m
+            cpu: 4000m
       imagePullSecrets:
         - name: hsldevcomkey

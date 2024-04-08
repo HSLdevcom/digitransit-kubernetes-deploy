@@ -40,7 +40,12 @@ spec:
     spec:
       priorityClassName: medium-priority
       nodeSelector:
-        pool: megapool
+        agentpool: userpooltest
+      tolerations:
+      - key: "testingPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
       containers:
       - name: opentripplanner-varely-v2
         image: hsldevcom/opentripplanner:v2
@@ -87,7 +92,7 @@ spec:
             cpu: "2000m"
           limits:
             memory: "10Gi"
-            cpu: "7000m"
+            cpu: "4000m"
       volumes:
       - name: otpcfgmap
         configMap:

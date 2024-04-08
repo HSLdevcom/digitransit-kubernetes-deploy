@@ -39,7 +39,12 @@ spec:
     spec:
       priorityClassName: medium-priority
       nodeSelector:
-        pool: megapool
+        agentpool: userpooltest
+      tolerations:
+      - key: "testingPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
       containers:
       - name: opentripplanner-hsl
         image: hsldevcom/opentripplanner:latest
@@ -78,11 +83,11 @@ spec:
           value: -XX:+UseParNewGC -Xms10G -Xmx10G -XX:NewRatio=5 -XX:+UseStringDeduplication
         resources:
           requests:
-            memory: "12Gi"
+            memory: "11Gi"
             cpu: "3000m"
           limits:
-            memory: "12Gi"
-            cpu: "8000m"
+            memory: "11Gi"
+            cpu: "4000m"
       imagePullSecrets:
         - name: hsldevcomkey
 

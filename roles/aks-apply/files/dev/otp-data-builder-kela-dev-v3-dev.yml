@@ -20,7 +20,12 @@ spec:
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            pool: megapool
+            agentpool: userpooltest
+          tolerations:
+          - key: "testingPod"
+            operator: "Equal"
+            value: "yes"
+            effect: "NoSchedule"
           containers:
           - name: otp-data-builder-kela-dev-v3
             image: hsldevcom/otp-data-builder:v3
@@ -74,14 +79,14 @@ spec:
             - name: SLACK_CHANNEL
               value: "topic-ci-otp2"
             - name: JAVA_OPTS
-              value: "-Xmx16G -Xms16G"
+              value: "-Xmx10G -Xms10G"
             resources:
               requests:
-                memory: 20Gi
+                memory: 11Gi
                 cpu: 3000m
               limits:
-                memory: 20Gi
-                cpu: 6000m
+                memory: 11Gi
+                cpu: 4000m
           imagePullSecrets:
             - name: hsldevcomkey
 
