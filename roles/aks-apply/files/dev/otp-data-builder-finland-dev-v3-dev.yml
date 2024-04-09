@@ -75,10 +75,10 @@ spec:
               value: "-Xmx10G -Xms10G"
             resources:
               requests:
-                memory: 11Gi
+                memory: 11776Mi
                 cpu: 3000m
               limits:
-                memory: 11Gi
+                memory: 11776Mi
                 cpu: 4000m
           imagePullSecrets:
             - name: hsldevcomkey
