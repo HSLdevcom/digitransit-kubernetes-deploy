@@ -20,9 +20,9 @@ spec:
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            agentpool: userpooltest
+            agentpool: builderpool
           tolerations:
-          - key: "testingPod"
+          - key: "builder"
             operator: "Equal"
             value: "yes"
             effect: "NoSchedule"
@@ -79,14 +79,14 @@ spec:
             - name: SLACK_CHANNEL
               value: "topic-ci-otp2"
             - name: JAVA_OPTS
-              value: "-Xmx10G -Xms10G"
+              value: "-Xmx16G -Xms16G"
             resources:
               requests:
-                memory: 11776Mi
-                cpu: 3000m
+                memory: 20Gi
+                cpu: 7000m
               limits:
-                memory: 11776Mi
-                cpu: 4000m
+                memory: 20Gi
+                cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
 
