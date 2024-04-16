@@ -20,7 +20,7 @@ spec:
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            agentpool: builderpool
+            agentpool: megapool
           tolerations:
           - key: "builder"
             operator: "Equal"
