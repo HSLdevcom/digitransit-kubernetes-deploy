@@ -73,10 +73,10 @@ spec:
               value: "latest"
             resources:
               requests:
-                memory: 11776Mi
+                memory: 14Gi
                 cpu: 7000m
               limits:
-                memory: 11776Mi
+                memory: 14Gi
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey

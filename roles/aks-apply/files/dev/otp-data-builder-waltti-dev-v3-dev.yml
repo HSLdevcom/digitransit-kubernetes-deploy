@@ -20,7 +20,7 @@ spec:
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            agentpool: megapool
+            agentpool: builderpool
           tolerations:
           - key: "builder"
             operator: "Equal"
@@ -79,10 +79,10 @@ spec:
               value: "topic-ci-otp2"
             resources:
               requests:
-                memory: 11776Mi
+                memory: 14Gi
                 cpu: 7000m
               limits:
-                memory: 11776Mi
+                memory: 14Gi
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey

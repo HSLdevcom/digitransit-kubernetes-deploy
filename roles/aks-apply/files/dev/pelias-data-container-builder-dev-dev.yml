@@ -85,10 +85,10 @@ spec:
                   key: slack-ci-channel-id
             resources:
               requests:
-                memory: 8Gi
+                memory: 9Gi
                 cpu: 7000m
               limits:
-                memory: 8Gi
+                memory: 9Gi
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
