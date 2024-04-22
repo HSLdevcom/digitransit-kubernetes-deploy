@@ -109,6 +109,13 @@ spec:
             secretKeyRef:
               name: sentry-dsn
               key: sentry-dsn
+        - name: CITYBIKE_DB_CONN_STRING
+          valueFrom:
+            secretKeyRef:
+              name: dev-citybike-scheduler-db-conn-string
+              key: dev-citybike-scheduler-db-conn-string
+        - name: CITYBIKE_DATABASE
+          value: "citybike-scheduler-dev"
         - name: NOINDEX
           value: "1"
         - name: ASSEMBLE_GEOJSON
