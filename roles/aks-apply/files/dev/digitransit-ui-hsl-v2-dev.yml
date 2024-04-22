@@ -151,13 +151,6 @@ spec:
             secretKeyRef:
               name: uat-oidc-client-secret
               key: uat-oidc-client-secret
-        - name: CITYBIKE_DB_CONN_STRING
-          valueFrom:
-            secretKeyRef:
-              name: dev-citybike-scheduler-db-conn-string
-              key: dev-citybike-scheduler-db-conn-string
-        - name: CITYBIKE_DATABASE
-          value: "citybike-scheduler-dev"
         resources:
           requests:
             memory: "1536Mi"
