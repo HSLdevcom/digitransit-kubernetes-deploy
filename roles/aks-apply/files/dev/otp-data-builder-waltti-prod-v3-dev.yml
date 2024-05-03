@@ -36,6 +36,8 @@ spec:
               value: "waltti"
             - name: BUILDER_TYPE
               value: "Waltti prod v3"
+            - name: EXTRA_SRC
+              value: "{\"LINKKI\": {\"replacements\": {}}}"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
