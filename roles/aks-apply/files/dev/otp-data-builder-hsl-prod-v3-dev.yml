@@ -48,8 +48,6 @@ spec:
                 secretKeyRef:
                   name: docker-user
                   key: docker-user
-            - name: EXTRA_SRC
-              value: "{\"HSLlautta\": {\"url\": \"https://koontikartta.navici.com/tiedostot/gtfs_lautat_digitransit.zip\"}}"
             - name: SLACK_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
