@@ -47,7 +47,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: "{\"Lahti\": {\"url\": \"https://www.lsl.fi/tiedostot/testidata\", \"request\": {\"insecureHTTPParser\": true}}, \"Kuopio\": {\"url\": \"https://kartta.kuopio.fi/google_transit/testi.zip\"}, \"LINKKI\": {\"url\": \"https://gtfsdata.blob.core.windows.net/hsl/209_20240514_1604.zip\"}}"
+              value: "{\"Lahti\": {\"url\": \"https://www.lsl.fi/tiedostot/testidata\", \"request\": {\"insecureHTTPParser\": true}}, \"Kuopio\": {\"url\": \"https://kartta.kuopio.fi/google_transit/testi.zip\"}}"
             - name: EXTRA_UPDATERS
               value: "{\"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/nysse.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\"}, \"tampere-trip-updates\": {\"url\": \"https://digitransit-proxy:8080/out/nysse.mattersoft.fi/api/gtfsrealtime/v1.0/feed/tripupdate\"}}"
             - name: SKIPPED_SITES
