@@ -204,6 +204,21 @@ spec:
               secretKeyRef:
                 name: varely-rt-basic-key
                 key: varely-rt-basic-key
+          - name: NYSSE_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: nysse-basic-key
+                key: nysse-basic-key
+          - name: WALTTI_TEST_BASIC_AUTH_USER
+            valueFrom:
+              secretKeyRef:
+                name: waltti-test-basic-auth-user
+                key: waltti-test-basic-auth-user
+          - name: WALTTI_TEST_BASIC_AUTH_PASS
+            valueFrom:
+              secretKeyRef:
+                name: waltti-test-basic-auth-pass
+                key: waltti-test-basic-auth-pass
         resources:
             requests:
               memory: "1152Mi"
