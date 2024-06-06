@@ -209,16 +209,21 @@ spec:
               secretKeyRef:
                 name: nysse-basic-key
                 key: nysse-basic-key
-          - name: WALTTI_TEST_BASIC_AUTH_USER
+          - name: WALTTI_TEST_CREDENTIALS_USER
             valueFrom:
               secretKeyRef:
-                name: waltti-test-basic-auth-user
-                key: waltti-test-basic-auth-user
-          - name: WALTTI_TEST_BASIC_AUTH_PASS
+                name: waltti-test-credentials-user
+                key: waltti-test-credentials-user
+          - name: WALTTI_TEST_CREDENTIALS_PASS
             valueFrom:
               secretKeyRef:
-                name: waltti-test-basic-auth-pass
-                key: waltti-test-basic-auth-pass
+                name: waltti-test-credentials-pass
+                key: waltti-test-credentials-pass
+          - name: WALTTI_TEST_STATIC_BASIC_AUTH
+            valueFrom:
+              secretKeyRef:
+                name: waltti-test-static-key
+                key: waltti-test-static-key
         resources:
             requests:
               memory: "1152Mi"
