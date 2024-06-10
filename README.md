@@ -157,7 +157,6 @@ az aks update \
 ### Upgrading AKS version
 
 - Check that there are no PodDisruptionBudgets that would block a node from being drained for upgrade. This can be done with `kubectl get poddisruptionbudgets` and all entries should have Allowed disruptions > 0.
-- Remove a rule that blocks all incoming traffic from internet from the cluster's network security group temporarily for the upgrade
 - Check available versions with `az aks get-versions --location westeurope --output table` and pick the highest version that is not in preview state. If there are more than 1 major version update, the upgrade should be done one major version update at a time.
 - Version can be upgraded through `az aks upgrade --resource-group <rg> --name <cluster name> --kubernetes-version <version>`
 
