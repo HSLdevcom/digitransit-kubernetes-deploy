@@ -159,6 +159,13 @@ spec:
           value: "https://kartat.hsl.fi"
         - name: BANNER_URL
           value: "https://content.hsl.fi/api/v1/banners?site=JourneyPlanner"
+        - name: CITYBIKE_DB_CONN_STRING
+          valueFrom:
+            secretKeyRef:
+              name: prod-citybike-scheduler-db-conn-string
+              key: prod-citybike-scheduler-db-conn-string
+        - name: CITYBIKE_DATABASE
+          value: "citybike-scheduler-prod"
         resources:
           requests:
             memory: 2Gi

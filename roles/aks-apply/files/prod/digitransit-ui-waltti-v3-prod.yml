@@ -111,6 +111,13 @@ spec:
               key: gtm-id
         - name: BASE_CONFIG
           value: "waltti"
+        - name: CITYBIKE_DB_CONN_STRING
+          valueFrom:
+            secretKeyRef:
+              name: prod-citybike-scheduler-db-conn-string
+              key: prod-citybike-scheduler-db-conn-string
+        - name: CITYBIKE_DATABASE
+          value: "citybike-scheduler-prod"
         resources:
           requests:
             memory: 2Gi
