@@ -68,8 +68,6 @@ spec:
               value: "HSL"
             - name: SLACK_CHANNEL
               value: "digitransit-ci"
-            - name: EXTRA_OSM
-              value: "{\"finland\": \"https://hslstoragekarttatuotanto.blob.core.windows.net/osm/finland.osm.pbf\", \"hsl\": \"https://hslstoragekarttatuotanto.blob.core.windows.net/osm/hsl.osm.pbf\"}"
             resources:
               requests:
                 memory: 11Gi

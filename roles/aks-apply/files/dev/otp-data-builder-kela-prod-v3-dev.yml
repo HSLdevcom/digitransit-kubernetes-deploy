@@ -75,8 +75,7 @@ spec:
               value: "topic-ci-otp2"
             - name: JAVA_OPTS
               value: "-Xmx14G -Xms14G"
-            - name: EXTRA_OSM
-              value: "{\"finland\": \"https://hslstoragekarttatuotanto.blob.core.windows.net/osm/finland.osm.pbf\", \"hsl\": \"https://hslstoragekarttatuotanto.blob.core.windows.net/osm/hsl.osm.pbf\"}"
+	      both modified:   roles/aks-apply/files/dev/otp-data-builder-varely-prod-v3-dev.ym1;95;0c<<<<<<< HEAD
             resources:
               requests:
                 memory: 18Gi
