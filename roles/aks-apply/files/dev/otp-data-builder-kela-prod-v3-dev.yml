@@ -75,7 +75,6 @@ spec:
               value: "topic-ci-otp2"
             - name: JAVA_OPTS
               value: "-Xmx14G -Xms14G"
-	      both modified:   roles/aks-apply/files/dev/otp-data-builder-varely-prod-v3-dev.ym1;95;0c<<<<<<< HEAD
             resources:
               requests:
                 memory: 18Gi
