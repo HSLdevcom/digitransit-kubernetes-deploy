@@ -68,6 +68,8 @@ spec:
               value: "digitransit-ci"
             - name: JAVA_OPTS
               value: "-Xmx14G -Xms14G"
+	    - name: EXTRA_SRC
+              value: "{\"digitraffic\": {\"url\": \"https://rata-beta.digitraffic.fi/api/v1/trains/gtfs-passenger.zip\"}}"
             - name: EXTRA_OSM
               value: "{\"finland\": \"https://hslstoragekarttatuotanto.blob.core.windows.net/osm/finland.osm.pbf\", \"hsl\": \"https://hslstoragekarttatuotanto.blob.core.windows.net/osm/hsl.osm.pbf\"}"
             resources:
