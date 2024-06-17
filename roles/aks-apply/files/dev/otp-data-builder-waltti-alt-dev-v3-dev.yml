@@ -71,6 +71,10 @@ spec:
               value: "v3"
             - name: SLACK_CHANNEL
               value: "topic-ci-otp2"
+            - name: EXTRA_SRC
+              value: "{\"WalttiTest\": {\"url\": \"https://lmjadmin.mattersoft.fi/feeds/229.zip\"}}"
+            - name: EXTRA_UPDATERS
+              value: "{\"walttitest-trip-updates\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/tripupdate\"}, \"walttitest-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\"}}"
             resources:
               requests:
                 memory: 14Gi
