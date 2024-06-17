@@ -1,0 +1,122 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: digitransit-ui-waltti-test
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: digitransit-ui-waltti-test-service-port
+  selector:
+    app: digitransit-ui-waltti-test
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digitransit-ui-waltti-test
+  labels:
+    app: digitransit-ui-waltti-test
+    update: auto
+    restartAfterDeployments: "opentripplanner-waltti-v2"
+    restartDelay: "5"
+spec:
+  selector:
+    matchLabels:
+      app: digitransit-ui-waltti-test
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 50%
+  template:
+    metadata:
+      labels:
+        app: digitransit-ui-waltti-test
+        lastRestartDate: dummy-value
+    spec:
+      priorityClassName: medium-priority
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - digitransit-ui-waltti-test
+              topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        pool: smallpool
+      containers:
+      - name: digitransit-ui-waltti-test
+        image: hsldevcom/digitransit-ui:waltti
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 150
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 10
+        env:
+        - name: API_URL
+          value: "https://dev-api.digitransit.fi"
+        - name: RUN_ENV
+          value: "development"
+        - name: ASSET_URL
+          value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v3/waltti"
+        - name: MAP_URL
+          value: "https://digitransit-dev-cdn-origin.azureedge.net"
+        - name: NODE_OPTS
+          value: "--max_old_space_size=900"
+        - name: RELAY_FETCH_TIMEOUT
+          value: "3000"
+        - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_HEADER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: "dev-digitransit-ui-waltti-v3-apim-key"
+              key: "dev-digitransit-ui-waltti-v3-apim-key"
+        - name: BASE_CONFIG
+          value: "waltti"
+        - name: CITYBIKE_DB_CONN_STRING
+          valueFrom:
+            secretKeyRef:
+              name: dev-citybike-scheduler-db-conn-string
+              key: dev-citybike-scheduler-db-conn-string
+        - name: CITYBIKE_DATABASE
+          value: "citybike-scheduler-dev"
+        - name: NOINDEX
+          value: "1"
+        resources:
+          requests:
+            memory: 1200Mi
+            cpu: 500m
+          limits:
+            memory: 1200Mi
+            cpu: 1500m
+      imagePullSecrets:
+        - name: hsldevcomkey
