@@ -157,8 +157,6 @@ spec:
               key: dev-citybike-scheduler-db-conn-string
         - name: CITYBIKE_DATABASE
           value: "citybike-scheduler-dev"
-        - name: USE_EMITTER
-          value: "1"
         resources:
           requests:
             memory: "1536Mi"
