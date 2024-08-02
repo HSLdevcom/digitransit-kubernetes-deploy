@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: otp-data-builder-hsl-v2-pv
+spec:
+  capacity:
+    storage: 35Gi
+  accessModes:
+    - ReadWriteMany
+  azureFile:
+    secretName: aks-storage
+    shareName: hsl
+    readOnly: false
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: otp-data-builder-hsl-v2-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 35Gi
+  storageClassName: ""
+  volumeName: otp-data-builder-hsl-v2-pv
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: otp-data-hsl-v2-pv
+spec:
+  capacity:
+    storage: 35Gi
+  accessModes:
+    # This still allows pods to write if they don't use the pvc with readOnly mode
+    # but lets use this in case kubernetes changes at some point
+    - ReadOnlyMany
+  azureFile:
+    secretName: aks-storage
+    shareName: hsl
+    readOnly: true
+  persistentVolumeReclaimPolicy: Retain
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: otp-data-hsl-v2-pvc
+spec:
+  accessModes:
+    # This still allows pods to write if they don't use the pvc with readOnly mode
+    # but lets use this in case kubernetes changes at some point
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 35Gi
+  storageClassName: ""
+  volumeName: otp-data-hsl-v2-pv
