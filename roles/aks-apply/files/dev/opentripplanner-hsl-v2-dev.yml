@@ -18,7 +18,6 @@ metadata:
   labels:
     app: opentripplanner-hsl-v2
     update: auto
-    restartAfterDeployments: "opentripplanner-data-con-hsl-v3"
     restartDelay: "1"
     restartAt: "03.00"
     restartLimitInterval: "720"
@@ -48,14 +47,16 @@ spec:
         effect: "NoSchedule"
       containers:
       - name: opentripplanner-hsl-v2
-        image: hsldevcom/opentripplanner:v2
+        image: hsldevcom/opentripplanner:v2-hsl
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
         volumeMounts:
           - name: otpcfgmap
-            mountPath: /opt/opentripplanner/logback-include-extensions.xml
+            mountPath: /logback-include-extensions.xml
             subPath: file-from-cfgmap
+          - name: datastorage
+            mountPath: /var/otp/
         readinessProbe:
           periodSeconds: 10
           timeoutSeconds: 10
@@ -66,7 +67,7 @@ spec:
         startupProbe:
           periodSeconds: 5
           timeoutSeconds: 5
-          failureThreshold: 270
+          failureThreshold: 48
           httpGet:
             port: 8080
             path: "/otp/actuators/health"
@@ -80,10 +81,6 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
         env:
-        - name: ROUTER_DATA_CONTAINER_URL
-          value: "http://opentripplanner-data-con-hsl-v3:8080"
-        - name: ROUTER_NAME
-          value: "hsl"
         - name: JAVA_OPTS
           value: -Xmx10G -Xms10G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc
         resources:
@@ -97,5 +94,9 @@ spec:
       - name: otpcfgmap
         configMap:
           name: opentripplanner-cfgmap
+      - name: "datastorage"
+        persistentVolumeClaim:
+          claimName: otp-data-hsl-v3-pvc
+          readOnly: true
       imagePullSecrets:
         - name: hsldevcomkey

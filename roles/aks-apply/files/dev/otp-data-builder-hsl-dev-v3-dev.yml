@@ -29,6 +29,9 @@ spec:
           containers:
           - name: otp-data-builder-hsl-dev-v3
             image: hsldevcom/otp-data-builder:v3
+            volumeMounts:
+            - mountPath: /opt/otp-data-builder/storage
+              name: datastorage
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -75,6 +78,8 @@ spec:
               value: "topic-ci-otp2"
             - name: JAVA_OPTS
               value: "-Xmx13G -Xms13G"
+            - name: NOSEED # TODO remove this
+              value: "true"
             resources:
               requests:
                 memory: 16Gi
@@ -84,6 +89,10 @@ spec:
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
+          volumes:
+            - name: "datastorage"
+              persistentVolumeClaim:
+                claimName: otp-data-builder-hsl-v3-pvc
 
 ---
 
