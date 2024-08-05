@@ -67,7 +67,7 @@ spec:
         startupProbe:
           periodSeconds: 5
           timeoutSeconds: 5
-          failureThreshold: 270
+          failureThreshold: 48
           httpGet:
             port: 8080
             path: "/otp/actuators/health"
