@@ -48,7 +48,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "latest"
+              value: "v2"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -71,9 +71,9 @@ spec:
             - name: ROUTERS
               value: "hsl"
             - name: SEED_TAG
-              value: "latest"
+              value: "v2"
             - name: TOOLS_TAG
-              value: "latest"
+              value: "latest" # TODO update this
             - name: SKIPPED_SITES
               value: "all"
             resources:
