@@ -70,7 +70,7 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
-              value: "v2"
+              value: "v2-2024-07-08T18.59.46-097a5da"
             - name: SEED_TAG
               value: "v3"
             - name: TOOLS_TAG

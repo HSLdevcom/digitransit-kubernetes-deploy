@@ -64,7 +64,7 @@ spec:
             - name: EXTRA_UPDATERS
               value: "{\"foli-alerts\": {\"url\": \"https://foli-beta.nanona.fi/gtfs-rt/reittiopas\", \"routers\": [\"waltti\"]}, \"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"routers\": [\"waltti\"]}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\", \"routers\": [\"waltti\"]}}"
             - name: OTP_TAG
-              value: "latest"
+              value: "latest-2024-06-05T10.23.02-77dc9df"
             - name: ROUTERS
               value: "waltti"
             - name: SEED_TAG

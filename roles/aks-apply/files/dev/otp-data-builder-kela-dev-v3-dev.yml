@@ -67,7 +67,7 @@ spec:
                   name: mh-basic-key
                   key: mh-basic-key
             - name: OTP_TAG
-              value: "v2"
+              value: "v2-2024-07-08T18.59.46-097a5da"
             - name: ROUTER_NAME
               value: "kela"
             - name: SEED_TAG
