@@ -28,7 +28,10 @@ spec:
             effect: "NoSchedule"
           containers:
           - name: otp-data-builder-waltti-alt-dev-v3
-            image: hsldevcom/otp-data-builder:v3
+            image: hsldevcom/otp-data-builder:refactor-test #TODO update
+            volumeMounts:
+            - mountPath: /opt/otp-data-builder/storage
+              name: datastorage
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -46,13 +49,6 @@ spec:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
-            - name: DOCKER_TAG
-              value: "v3"
-            - name: DOCKER_USER
-              valueFrom:
-                secretKeyRef:
-                  name: docker-user
-                  key: docker-user
             - name: SLACK_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
@@ -63,8 +59,15 @@ spec:
                 secretKeyRef:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
+            - name: DOCKER_TAG
+              value: "v3"
+            - name: DOCKER_USER
+              valueFrom:
+                secretKeyRef:
+                  name: docker-user
+                  key: docker-user
             - name: OTP_TAG
-              value: "v2"
+              value: "jib-testing"  #TODO update
             - name: SEED_TAG
               value: "v3"
             - name: TOOLS_TAG
@@ -84,6 +87,10 @@ spec:
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
+          volumes:
+            - name: "datastorage"
+              persistentVolumeClaim:
+                claimName: otp-data-builder-waltti-alt-v3-pvc
 
 ---
 
