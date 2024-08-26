@@ -60,7 +60,7 @@ spec:
         effect: "NoSchedule"
       containers:
       - name: opentripplanner-waltti-alt-v2
-        image: hsldevcom/opentripplanner:waltti-alt-v2
+        image: hsldevcom/opentripplanner:v2-waltti-alt
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
