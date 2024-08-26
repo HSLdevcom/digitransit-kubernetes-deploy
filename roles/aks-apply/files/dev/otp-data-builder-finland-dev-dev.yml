@@ -28,7 +28,10 @@ spec:
             effect: "NoSchedule"
           containers:
           - name: otp-data-builder-finland-dev
-            image: hsldevcom/otp-data-builder:latest
+            image: hsldevcom/otp-data-builder:v2
+            volumeMounts:
+            - mountPath: /opt/otp-data-builder/storage
+              name: datastorage
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -45,7 +48,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "latest"
+              value: "v2"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -62,15 +65,17 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
-              value: "latest"
+              value: "v1"
             - name: ROUTERS
               value: "finland"
             - name: SEED_TAG
-              value: "latest"
+              value: "v2"
             - name: TOOLS_TAG
-              value: "latest"
+              value: "v2"
             - name: SKIPPED_SITES
               value: "reittiopas.hsl.fi"
+            - name: NOSEED
+              value: "true"
             resources:
               requests:
                 memory: 14Gi
@@ -80,6 +85,10 @@ spec:
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
+          volumes:
+            - name: "datastorage"
+              persistentVolumeClaim:
+                claimName: otp-data-builder-finland-v2-pvc
 
 ---
 

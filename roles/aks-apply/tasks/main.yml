@@ -16,9 +16,18 @@
 
     - debug: var=out.stdout_lines
 
-    - name: "Apply yleisviestipalvelu-assets"
+    - name: "Apply cluster roles"
       command: "kubectl apply -f \
-        {{ role_path }}/files/assets/yleisviestipalvelu-assets.yml"
+        {{ role_path }}/files/cluster_roles/"
+      delegate_to: localhost
+      ignore_errors: "{{ ansible_check_mode }}"
+      register: out
+
+    - debug: var=out.stdout_lines
+
+    - name: "Apply assets"
+      command: "kubectl apply -f \
+        {{ role_path }}/files/assets/"
       delegate_to: localhost
       ignore_errors: "{{ ansible_check_mode }}"
       register: out
