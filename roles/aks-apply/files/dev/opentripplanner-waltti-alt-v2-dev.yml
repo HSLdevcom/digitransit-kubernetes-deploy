@@ -60,7 +60,7 @@ spec:
         effect: "NoSchedule"
       containers:
       - name: opentripplanner-waltti-alt-v2
-        image: hsldevcom/opentripplanner:jib-testing-waltti-alt # TODO update
+        image: hsldevcom/opentripplanner:waltti-alt-v2
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

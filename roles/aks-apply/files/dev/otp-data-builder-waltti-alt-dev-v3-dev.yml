@@ -28,7 +28,7 @@ spec:
             effect: "NoSchedule"
           containers:
           - name: otp-data-builder-waltti-alt-dev-v3
-            image: hsldevcom/otp-data-builder:refactor-test #TODO update
+            image: hsldevcom/otp-data-builder:v3
             volumeMounts:
             - mountPath: /opt/otp-data-builder/storage
               name: datastorage
@@ -67,7 +67,7 @@ spec:
                   name: docker-user
                   key: docker-user
             - name: OTP_TAG
-              value: "jib-testing"  #TODO update
+              value: "v2"
             - name: SEED_TAG
               value: "v3"
             - name: TOOLS_TAG

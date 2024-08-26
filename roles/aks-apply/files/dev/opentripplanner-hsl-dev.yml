@@ -46,7 +46,7 @@ spec:
         effect: "NoSchedule"
       containers:
       - name: opentripplanner-hsl
-        image: hsldevcom/opentripplanner:jib-testing-v1-hsl # TODO update this
+        image: hsldevcom/opentripplanner:v1-hsl
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
