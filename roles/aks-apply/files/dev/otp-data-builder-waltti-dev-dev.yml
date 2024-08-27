@@ -74,6 +74,8 @@ spec:
               value: "v2"
             - name: TOOLS_TAG
               value: "v2"
+            - name: NOSEED
+              value: "true"
             resources:
               requests:
                 memory: 14Gi
