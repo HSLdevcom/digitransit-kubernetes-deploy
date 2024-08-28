@@ -78,8 +78,6 @@ spec:
               value: "topic-ci-otp2"
             - name: JAVA_OPTS
               value: "-Xmx13G -Xms13G"
-            - name: NOSEED # TODO remove this
-              value: "true"
             resources:
               requests:
                 memory: 16Gi

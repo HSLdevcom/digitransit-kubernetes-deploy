@@ -74,8 +74,6 @@ spec:
               value: "v3"
             - name: SLACK_CHANNEL
               value: "topic-ci-otp2"
-            - name: NOSEED # TODO remove this
-              value: "true"
             resources:
               requests:
                 memory: 14Gi

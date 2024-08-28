@@ -78,8 +78,6 @@ spec:
               value: "-Xmx15G -Xms15G"
             - name: EXTRA_SRC
               value: "{\"digitraffic\": {\"url\": \"https://rata-beta.digitraffic.fi/api/v1/trains/gtfs-passenger.zip\"}}"
-            - name: NOSEED # TODO remove this
-              value: "true"
             resources:
               requests:
                 memory: 18Gi
