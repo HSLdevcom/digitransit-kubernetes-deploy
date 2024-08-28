@@ -73,7 +73,7 @@ spec:
             - name: TOOLS_TAG
               value: "v2"
             - name: SKIPPED_SITES
-              value: "reittiopas.hsl.fi"
+              value: "all"
             - name: NOSEED
               value: "true"
             resources:
