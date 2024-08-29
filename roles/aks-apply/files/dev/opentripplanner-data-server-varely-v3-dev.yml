@@ -51,7 +51,7 @@ spec:
         pool: smallpool
       containers:
       - name: opentripplanner-data-server-varely-v3
-        image: varelydevcom/opentripplanner-data-server:v3-varely
+        image: hsldevcom/opentripplanner-data-server:v3-varely
         volumeMounts:
           - mountPath: /var/www/localhost/htdocs
             name: datastorage
@@ -83,7 +83,7 @@ spec:
             memory: "224Mi"
             cpu: "200m"
       imagePullSecrets:
-        - name: varelydevcomkey
+        - name: hsldevcomkey
       volumes:
         - name: "datastorage"
           persistentVolumeClaim:
