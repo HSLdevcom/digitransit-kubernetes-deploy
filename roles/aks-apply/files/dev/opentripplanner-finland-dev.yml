@@ -63,7 +63,7 @@ spec:
         startupProbe:
           periodSeconds: 10
           timeoutSeconds: 10
-          failureThreshold: 18
+          failureThreshold: 30
           httpGet:
             port: 8080
             path: "/otp/routers/finland/"
