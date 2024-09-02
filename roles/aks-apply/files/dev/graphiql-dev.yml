@@ -48,7 +48,7 @@ spec:
                   - graphiql
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: smallpool
+        agentpool: burstpool
       containers:
       - name: graphiql
         image: hsldevcom/graphiql
