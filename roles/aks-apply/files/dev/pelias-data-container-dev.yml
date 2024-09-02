@@ -43,9 +43,9 @@ spec:
     spec:
       priorityClassName: medium-priority
       nodeSelector:
-        agentpool: userpooltest
+        agentpool: powerpool
       tolerations:
-      - key: "testingPod"
+      - key: "powerPod"
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"
