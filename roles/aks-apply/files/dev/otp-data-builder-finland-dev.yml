@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-finland-dev
+  name: otp-data-builder-finland
 spec:
   schedule: "30 17 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
@@ -14,7 +14,7 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-finland-dev
+            app: otp-data-builder-finland
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
@@ -27,7 +27,7 @@ spec:
             value: "yes"
             effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-finland-dev
+          - name: otp-data-builder-finland
             image: hsldevcom/otp-data-builder:v2
             volumeMounts:
             - mountPath: /opt/otp-data-builder/storage
@@ -91,9 +91,9 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-finland-dev-pdb
+  name: otp-data-builder-finland-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-finland-dev
+      app: otp-data-builder-finland

@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-waltti-dev-v3
+  name: otp-data-builder-waltti-v3
 spec:
   schedule: "50 23 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
@@ -14,7 +14,7 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-waltti-dev-v3
+            app: otp-data-builder-waltti-v3
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
@@ -27,7 +27,7 @@ spec:
             value: "yes"
             effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-waltti-dev-v3
+          - name: otp-data-builder-waltti-v3
             image: hsldevcom/otp-data-builder:v3
             volumeMounts:
             - mountPath: /opt/otp-data-builder/storage
@@ -99,9 +99,9 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-waltti-dev-v3-pdb
+  name: otp-data-builder-waltti-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-waltti-dev-v3
+      app: otp-data-builder-waltti-v3
