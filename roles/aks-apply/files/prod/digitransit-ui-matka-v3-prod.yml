@@ -51,7 +51,7 @@ spec:
                   - digitransit-ui-matka-v3
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: smallpool
+        agentpool: burstpool
       containers:
       - name: digitransit-ui-matka-v3
         image: hsldevcom/digitransit-ui:v3-prod

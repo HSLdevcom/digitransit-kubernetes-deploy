@@ -48,7 +48,7 @@ spec:
                   - yleisviestipalvelu
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: smallpool
+        agentpool: burstpool
       containers:
       - name: yleisviestipalvelu
         image: hsldevcom/yleisviestipalvelu:prod
