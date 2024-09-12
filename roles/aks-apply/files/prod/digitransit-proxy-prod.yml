@@ -51,7 +51,7 @@ spec:
                   - digitransit-proxy
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: smallpool
+        agentpool: burstpool
       containers:
       - name: digitransit-proxy
         image: hsldevcom/digitransit-proxy:prod

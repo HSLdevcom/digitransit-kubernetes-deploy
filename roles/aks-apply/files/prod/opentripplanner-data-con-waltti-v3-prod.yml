@@ -48,7 +48,7 @@ spec:
                   - opentripplanner-data-con-waltti-v3
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: smallpool
+        agentpool: burstpool
       containers:
       - name: opentripplanner-data-con-waltti-v3
         image: hsldevcom/opentripplanner-data-container-waltti:v3-prod
