@@ -74,8 +74,6 @@ spec:
               value: "v3-prod"
             - name: VERSION_CHECK
               value: "HSL"
-            - name: SLACK_CHANNEL
-              value: "digitransit-ci"
             - name: JAVA_OPTS
               value: "-Xmx13G -Xms13G"
             - name: NOSEED # TODO remove this when seed is ready

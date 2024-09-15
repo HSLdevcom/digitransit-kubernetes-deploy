@@ -72,8 +72,6 @@ spec:
               value: "v3-prod"
             - name: TOOLS_TAG
               value: "v3-prod"
-            - name: SLACK_CHANNEL
-              value: "digitransit-ci"
             - name: NOSEED # TODO remove this when seed is ready
               value: "true"
             resources:

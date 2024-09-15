@@ -72,8 +72,6 @@ spec:
               value: "v3"
             - name: TOOLS_TAG
               value: "v3"
-            - name: SLACK_CHANNEL
-              value: "topic-ci-otp2"
             - name: JAVA_OPTS
               value: "-Xmx15G -Xms15G"
             - name: EXTRA_SRC

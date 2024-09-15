@@ -78,8 +78,6 @@ spec:
               value: "v3"
             - name: TOOLS_TAG
               value: "v3"
-            - name: SLACK_CHANNEL
-              value: "topic-ci-otp2"
             resources:
               requests:
                 memory: 14Gi

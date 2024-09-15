@@ -79,8 +79,6 @@ spec:
               value: "v3-prod"
             - name: TOOLS_TAG
               value: "v3-prod"
-            - name: SLACK_CHANNEL
-              value: "topic-ci-otp2"
             - name: JAVA_OPTS
               value: "Xmx16G -Xms16G"
             - name: NOSEED # TODO remove this when seed is ready
