@@ -54,7 +54,6 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: burstpool
-      priorityClassName: high-priority
       containers:
       - name: digitransit-proxy
         image: hsldevcom/digitransit-proxy:latest

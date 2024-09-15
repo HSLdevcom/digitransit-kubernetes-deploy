@@ -16,7 +16,6 @@ spec:
           labels:
             app: otp-data-builder-hsl
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 3600 # one build can take max 1 hour
           restartPolicy: OnFailure
           nodeSelector:

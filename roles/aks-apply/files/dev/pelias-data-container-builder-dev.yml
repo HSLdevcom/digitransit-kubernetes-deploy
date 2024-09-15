@@ -16,7 +16,6 @@ spec:
           labels:
             app: pelias-data-container-builder
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take 2 and half hours
           restartPolicy: OnFailure
           nodeSelector:

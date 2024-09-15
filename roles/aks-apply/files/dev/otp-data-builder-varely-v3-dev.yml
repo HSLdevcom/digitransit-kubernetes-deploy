@@ -16,7 +16,6 @@ spec:
           labels:
             app: otp-data-builder-varely-v3
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:

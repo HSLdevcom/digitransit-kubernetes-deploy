@@ -50,7 +50,6 @@ spec:
         app: opentripplanner-waltti-alt-v2
         lastRestartDate: dummy-value
     spec:
-      priorityClassName: medium-priority
       nodeSelector:
         agentpool: powerpool
       tolerations:

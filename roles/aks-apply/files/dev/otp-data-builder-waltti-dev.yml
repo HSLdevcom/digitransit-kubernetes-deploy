@@ -16,7 +16,6 @@ spec:
           labels:
             app: otp-data-builder-waltti
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 7200 # one build can take max 2 hours
           restartPolicy: OnFailure
           nodeSelector:
