@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-finland-prod-v3
+  name: otp-data-builder-finland-v3
 spec:
   schedule: "0 5 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
@@ -14,16 +14,24 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-finland-prod-v3
+            app: otp-data-builder-finland-v3
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            pool: megapool
+            agentpool: builderpool
+          tolerations:
+          - key: "builder"
+            operator: "Equal"
+            value: "yes"
+            effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-finland-prod-v3
+          - name: otp-data-builder-finland-v3
             image: hsldevcom/otp-data-builder:v3-prod
+            volumeMounts:
+            - mountPath: /opt/otp-data-builder/storage
+              name: datastorage
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -68,24 +76,30 @@ spec:
               value: "digitransit-ci"
             - name: JAVA_OPTS
               value: "-Xmx14G -Xms14G"
+            - name: NOSEED # TODO remove this when seed is ready
+              value: "true"
             resources:
               requests:
                 memory: 18Gi
-                cpu: 3000m
+                cpu: 7000m
               limits:
                 memory: 18Gi
-                cpu: 6000m
+                cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
+          volumes:
+            - name: "datastorage"
+              persistentVolumeClaim:
+                claimName: otp-data-builder-finland-v3-pvc
 
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-finland-prod-v3-pdb
+  name: otp-data-builder-finland-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-finland-prod-v3
+      app: otp-data-builder-finland-v3

@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-hsl-prod
+  name: otp-data-builder-hsl
 spec:
   schedule: "25 6 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
@@ -14,16 +14,24 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-hsl-prod
+            app: otp-data-builder-hsl
         spec:
           priorityClassName: high-priority
           activeDeadlineSeconds: 3600 # one build can take max 1 hour
           restartPolicy: OnFailure
           nodeSelector:
-            pool: megapool
+            agentpool: builderpool
+          tolerations:
+          - key: "builder"
+            operator: "Equal"
+            value: "yes"
+            effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-hsl-prod
-            image: hsldevcom/otp-data-builder:prod
+          - name: otp-data-builder-hsl
+            image: hsldevcom/otp-data-builder:v2-prod
+            volumeMounts:
+            - mountPath: /opt/otp-data-builder/storage
+              name: datastorage
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -40,7 +48,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "prod"
+              value: "v2-prod"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -57,32 +65,38 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
-              value: "prod"
+              value: "v1-prod"
             - name: ROUTERS
               value: "hsl"
             - name: SEED_TAG
-              value: "prod"
+              value: "v2-prod"
             - name: TOOLS_TAG
-              value: "prod"
+              value: "v2-prod"
             - name: VERSION_CHECK
               value: "HSL"
+            - name: NOSEED # TODO remove this when seed is ready
+              value: "true"
             resources:
               requests:
                 memory: 11Gi
-                cpu: 3000m
+                cpu: 7000m
               limits:
                 memory: 11Gi
-                cpu: 6000m
+                cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
+          volumes:
+            - name: "datastorage"
+              persistentVolumeClaim:
+                claimName: otp-data-builder-hsl-v2-pvc
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-hsl-prod-pdb
+  name: otp-data-builder-hsl-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-hsl-prod
+      app: otp-data-builder-hsl
