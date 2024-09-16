@@ -17,16 +17,16 @@ metadata:
   name: opentripplanner-finland
   labels:
     app: opentripplanner-finland
-    restartAfterDeployments: "opentripplanner-data-con-finland"
+    update: auto
     restartDelay: "5"
     restartAt: "05.30"
     restartLimitInterval: "720"
 spec:
-  replicas: 3
+  replicas: 6
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 25%
+      maxSurge: 100%
       maxUnavailable: 0
   selector:
     matchLabels:
@@ -38,13 +38,21 @@ spec:
         lastRestartDate: dummy-value
     spec:
       nodeSelector:
-        pool: megapool
+        agentpool: powerpool
+      tolerations:
+      - key: "powerPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
       containers:
       - name: opentripplanner-finland
-        image: hsldevcom/opentripplanner:prod
+        image: hsldevcom/opentripplanner:v1-prod-finland
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        volumeMounts:
+          - name: datastorage
+            mountPath: /var/otp/
         readinessProbe:
           periodSeconds: 10
           timeoutSeconds: 15
@@ -55,21 +63,22 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
         env:
-        - name: ROUTER_DATA_CONTAINER_URL
-          value: "http://opentripplanner-data-con-finland:8080"
-        - name: ROUTER_NAME
-          value: "finland"
         - name: JAVA_OPTS
-          value: "-Xmx14G -Xms14G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC"
+          value: "-Xmx10G -Xms10G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC"
         resources:
           requests:
-            memory: 20Gi
-            cpu: "7000m"
+            memory: 11Gi
+            cpu: "3000m"
           limits:
-            memory: 20Gi
-            cpu: "8000m"
+            memory: 11Gi
+            cpu: "4000m"
       imagePullSecrets:
         - name: hsldevcomkey
+      volumes:
+      - name: "datastorage"
+        persistentVolumeClaim:
+          claimName: otp-data-finland-v2-pvc
+          readOnly: true
 
 ---
 

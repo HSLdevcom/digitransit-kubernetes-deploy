@@ -17,7 +17,7 @@ metadata:
   name: opentripplanner-waltti-alt-v2
   labels:
     app: opentripplanner-waltti-alt-v2
-    restartAfterDeployments: "opentripplanner-data-con-waltti-alt-v3"
+    update: auto
     restartDelay: "1"
     restartAt: "05.45"
     restartLimitInterval: "720"
@@ -26,8 +26,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 0
-      maxUnavailable: 1
+      maxSurge: 100%
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: opentripplanner-waltti-alt-v2
@@ -65,10 +65,15 @@ spec:
                   - opentripplanner-varely-v2
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: megapool
+        agentpool: powerpool
+      tolerations:
+      - key: "powerPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
       containers:
       - name: opentripplanner-waltti-alt-v2
-        image: hsldevcom/opentripplanner:v2-prod
+        image: hsldevcom/opentripplanner:v2-prod-waltti-alt
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -76,6 +81,8 @@ spec:
           - name: otpcfgmap
             mountPath: /opt/opentripplanner/logback-include-extensions.xml
             subPath: file-from-cfgmap
+          - name: datastorage
+            mountPath: /var/otp/
         readinessProbe:
           periodSeconds: 10
           timeoutSeconds: 10
@@ -86,23 +93,23 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
         env:
-        - name: ROUTER_DATA_CONTAINER_URL
-          value: "http://opentripplanner-data-con-waltti-alt-v3:8080"
-        - name: ROUTER_NAME
-          value: "waltti-alt"
         - name: JAVA_OPTS
           value: "-Xmx8728m -Xms8728m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
         resources:
           requests:
-            memory: "11Gi"
+            memory: "10Gi"
             cpu: "3000m"
           limits:
-            memory: "11Gi"
-            cpu: "7000m"
+            memory: "10Gi"
+            cpu: "4000m"
       volumes:
       - name: otpcfgmap
         configMap:
           name: opentripplanner-cfgmap
+      - name: "datastorage"
+        persistentVolumeClaim:
+          claimName: otp-data-waltti-alt-v3-pvc
+          readOnly: true
       imagePullSecrets:
         - name: hsldevcomkey
 

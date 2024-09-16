@@ -17,16 +17,16 @@ metadata:
   name: opentripplanner-finland-v2
   labels:
     app: opentripplanner-finland-v2
-    restartAfterDeployments: "opentripplanner-data-con-finland-v3"
+    update: auto
     restartDelay: "1"
     restartAt: "05.30"
     restartLimitInterval: "720"
 spec:
-  replicas: 2
+  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: 100%
       maxUnavailable: 0
   selector:
     matchLabels:
@@ -38,10 +38,15 @@ spec:
         lastRestartDate: dummy-value
     spec:
       nodeSelector:
-        pool: megapool
+        agentpool: powerpool
+      tolerations:
+      - key: "powerPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
       containers:
       - name: opentripplanner-finland-v2
-        image: hsldevcom/opentripplanner:v2-prod
+        image: hsldevcom/opentripplanner:v2-prod-finland
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -49,6 +54,8 @@ spec:
           - name: otpcfgmap
             mountPath: /opt/opentripplanner/logback-include-extensions.xml
             subPath: file-from-cfgmap
+          - name: datastorage
+            mountPath: /var/otp/
         readinessProbe:
           periodSeconds: 10
           timeoutSeconds: 10
@@ -73,23 +80,23 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
         env:
-        - name: ROUTER_DATA_CONTAINER_URL
-          value: "http://opentripplanner-data-con-finland-v3:8080"
-        - name: ROUTER_NAME
-          value: "finland"
         - name: JAVA_OPTS
-          value: "-Xmx18G -Xms18G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC"
+          value: "-Xmx10G -Xms10G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC"
         resources:
           requests:
-            memory: "23Gi"
-            cpu: "7000m"
+            memory: "11Gi"
+            cpu: "3000m"
           limits:
-            memory: "23Gi"
-            cpu: "8000m"
+            memory: "11Gi"
+            cpu: "4000m"
       volumes:
       - name: otpcfgmap
         configMap:
           name: opentripplanner-cfgmap
+      - name: "datastorage"
+        persistentVolumeClaim:
+          claimName: otp-data-finland-v3-pvc
+          readOnly: true
       imagePullSecrets:
         - name: hsldevcomkey
 
