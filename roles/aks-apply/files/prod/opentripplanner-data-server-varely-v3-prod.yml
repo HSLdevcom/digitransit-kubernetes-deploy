@@ -51,7 +51,7 @@ spec:
         agentpool: burstpool
       containers:
       - name: opentripplanner-data-server-varely-v3
-        image: hsldevcom/opentripplanner-data-server:v3-varely-prod
+        image: hsldevcom/opentripplanner-data-server:v3-prod-varely
         volumeMounts:
           - mountPath: /var/www/localhost/htdocs
             name: datastorage

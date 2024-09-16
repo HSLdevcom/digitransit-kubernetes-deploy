@@ -51,7 +51,7 @@ spec:
         agentpool: burstpool
       containers:
       - name: opentripplanner-data-server-finland-v3
-        image: hsldevcom/opentripplanner-data-server:v3-finland-prod
+        image: hsldevcom/opentripplanner-data-server:v3-prod-finland
         volumeMounts:
           - mountPath: /var/www/localhost/htdocs
             name: datastorage
