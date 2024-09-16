@@ -59,13 +59,15 @@ spec:
               topologyKey: kubernetes.io/hostname
         podAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - pelias-api
-            topologyKey: kubernetes.io/hostname
+          - weight: 50
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - pelias-api
+              topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: powerpool
       tolerations:
