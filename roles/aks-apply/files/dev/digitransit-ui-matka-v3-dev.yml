@@ -104,11 +104,11 @@ spec:
             secretKeyRef:
               name: "dev-digitransit-ui-matka-v3-apim-key"
               key: "dev-digitransit-ui-matka-v3-apim-key"
-        - name: SENTRY_DSN
-          valueFrom:
-            secretKeyRef:
-              name: sentry-dsn
-              key: sentry-dsn
+        # - name: SENTRY_DSN
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: sentry-dsn
+        #       key: sentry-dsn
         - name: CITYBIKE_DB_CONN_STRING
           valueFrom:
             secretKeyRef:
