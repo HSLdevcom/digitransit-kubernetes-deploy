@@ -62,7 +62,12 @@ spec:
                   - pelias-data-container
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: megapool
+        agentpool: powerpool
+      tolerations:
+      - key: "powerPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
       containers:
       - name: pelias-api
         image: hsldevcom/pelias-api:prod
