@@ -26,12 +26,12 @@ metadata:
     restartAt: "05.00"
     restartLimitInterval: "720"
 spec:
-  replicas: 6
+  replicas: 12
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 0
-      maxUnavailable: 1
+      maxSurge: 50%
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: pelias-data-container
@@ -58,16 +58,23 @@ spec:
                   - opentripplanner-kela-v2
               topologyKey: kubernetes.io/hostname
         podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - pelias-api
-            topologyKey: kubernetes.io/hostname
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 50
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - pelias-api
+              topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: megapool
+        agentpool: powerpool
+      tolerations:
+      - key: "powerPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
       containers:
       - name: pelias-data-container
         image: hsldevcom/pelias-data-container:prod
@@ -101,10 +108,10 @@ spec:
         resources:
           requests:
             memory: 4Gi
-            cpu: 6000m
+            cpu: 2000m
           limits:
             memory: 4Gi
-            cpu: 6000m
+            cpu: 3000m
       imagePullSecrets:
         - name: hsldevcomkey
 

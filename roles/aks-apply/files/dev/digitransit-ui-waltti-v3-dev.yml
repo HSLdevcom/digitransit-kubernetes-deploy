@@ -50,7 +50,7 @@ spec:
                   - digitransit-ui-waltti-v3
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: smallpool
+        agentpool: burstpool
       containers:
       - name: digitransit-ui-waltti-v3
         image: hsldevcom/digitransit-ui:v3

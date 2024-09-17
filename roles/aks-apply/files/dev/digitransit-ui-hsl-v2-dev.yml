@@ -49,7 +49,7 @@ spec:
                   - digitransit-ui-hsl-v2
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: smallpool
+        agentpool: burstpool
       containers:
       - name: digitransit-ui-hsl-v2
         image: hsldevcom/digitransit-ui:latest
@@ -119,11 +119,11 @@ spec:
             secretKeyRef:
               name: redis-key
               key: redis-key
-        - name: SENTRY_DSN
-          valueFrom:
-            secretKeyRef:
-              name: sentry-dsn
-              key: sentry-dsn
+        # - name: SENTRY_DSN
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: sentry-dsn
+        #       key: sentry-dsn
         # - name: SENTRY_SECRET_DSN
         #   valueFrom:
         #     secretKeyRef:

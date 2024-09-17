@@ -24,7 +24,7 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: 100%
       maxUnavailable: 0
   selector:
     matchLabels:
@@ -48,7 +48,7 @@ spec:
                   - siri2gtfsrt
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: smallpool
+        agentpool: burstpool
       containers:
       - name: siri2gtfsrt
         image: hsldevcom/siri2gtfsrt:prod

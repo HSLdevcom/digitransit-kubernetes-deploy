@@ -30,7 +30,7 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 25%
+      maxSurge: 50%
       maxUnavailable: 0
   template:
     metadata:
@@ -51,7 +51,7 @@ spec:
                   - digitransit-proxy
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: smallpool
+        agentpool: burstpool
       containers:
       - name: digitransit-proxy
         image: hsldevcom/digitransit-proxy:prod

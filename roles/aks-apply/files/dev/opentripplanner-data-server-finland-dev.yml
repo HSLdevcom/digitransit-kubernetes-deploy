@@ -48,7 +48,7 @@ spec:
                   - opentripplanner-data-server-finland
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: smallpool
+        agentpool: burstpool
       containers:
       - name: opentripplanner-data-server-finland
         image: hsldevcom/opentripplanner-data-server:v2-finland

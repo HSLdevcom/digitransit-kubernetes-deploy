@@ -26,11 +26,11 @@ spec:
   selector:
     matchLabels:
       app: digitransit-ui-waltti-v3
-  replicas: 3
+  replicas: 4
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 50%
+      maxSurge: 100%
       maxUnavailable: 0
   template:
     metadata:
@@ -51,7 +51,7 @@ spec:
                   - digitransit-ui-waltti-v3
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: smallpool
+        agentpool: burstpool
       containers:
       - name: digitransit-ui-waltti-v3
         image: hsldevcom/digitransit-ui:v3-prod
@@ -121,7 +121,7 @@ spec:
         resources:
           requests:
             memory: 2Gi
-            cpu: 600m
+            cpu: 1500m
           limits:
             memory: 2Gi
             cpu: 1500m

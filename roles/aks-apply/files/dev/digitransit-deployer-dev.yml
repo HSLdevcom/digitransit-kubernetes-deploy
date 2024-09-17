@@ -87,7 +87,7 @@ spec:
                   - digitransit-deployer
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: smallpool
+        agentpool: burstpool
       containers:
       - name: digitransit-deployer
         image: hsldevcom/digitransit-deployer:latest
