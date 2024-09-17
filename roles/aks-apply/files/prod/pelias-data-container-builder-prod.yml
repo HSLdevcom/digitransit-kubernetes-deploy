@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: pelias-data-container-builder-prod
+  name: pelias-data-container-builder
 spec:
   schedule: "0 7 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
@@ -14,15 +14,19 @@ spec:
       template:
         metadata:
           labels:
-            app: pelias-data-container-builder-prod
+            app: pelias-data-container-builder
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 7200 # one build can take max 2 hours
           restartPolicy: OnFailure
           nodeSelector:
-            pool: megapool
+            agentpool: builderpool
+          tolerations:
+          - key: "builder"
+            operator: "Equal"
+            value: "yes"
+            effect: "NoSchedule"
           containers:
-          - name: pelias-data-container-builder-prod
+          - name: pelias-data-container-builder
             image: hsldevcom/pelias-data-container-builder:prod
             imagePullPolicy: Always
             securityContext:
@@ -78,11 +82,11 @@ spec:
                   key: slack-ci-channel-id
             resources:
               requests:
-                memory: 8Gi
-                cpu: 2000m
+                memory: 9Gi
+                cpu: 7000m
               limits:
-                memory: 8Gi
-                cpu: 4000m
+                memory: 9Gi
+                cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
 
@@ -91,9 +95,9 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: pelias-data-container-builder-prod-pdb
+  name: pelias-data-container-builder-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: pelias-data-container-builder-prod
+      app: pelias-data-container-builder

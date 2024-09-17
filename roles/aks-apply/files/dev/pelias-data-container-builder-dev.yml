@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: pelias-data-container-builder-dev
+  name: pelias-data-container-builder
 spec:
   schedule: "32 10 * * *"
   timeZone: "Europe/Helsinki"
@@ -14,9 +14,8 @@ spec:
       template:
         metadata:
           labels:
-            app: pelias-data-container-builder-dev
+            app: pelias-data-container-builder
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take 2 and half hours
           restartPolicy: OnFailure
           nodeSelector:
@@ -27,7 +26,7 @@ spec:
             value: "yes"
             effect: "NoSchedule"
           containers:
-          - name: pelias-data-container-builder-dev
+          - name: pelias-data-container-builder
             image: hsldevcom/pelias-data-container-builder
             imagePullPolicy: Always
             securityContext:
@@ -98,9 +97,9 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: pelias-data-container-builder-dev-pdb
+  name: pelias-data-container-builder-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: pelias-data-container-builder-dev
+      app: pelias-data-container-builder
