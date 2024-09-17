@@ -74,6 +74,8 @@ spec:
         env:
         - name: CONFIG
           value: "hsl"
+        - name: CONTENT_DOMAIN
+          value: "https://cms-test.hslfi.hsldev.com"
         - name: RUN_ENV
           value: "development"
         - name: HOSTNAME

@@ -118,11 +118,11 @@ spec:
             secretKeyRef:
               name: redis-key
               key: redis-key
-        - name: SENTRY_DSN
-          valueFrom:
-            secretKeyRef:
-              name: sentry-dsn
-              key: sentry-dsn
+        # - name: SENTRY_DSN
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: sentry-dsn
+        #       key: sentry-dsn
         # - name: SENTRY_SECRET_DSN
         #   valueFrom:
         #     secretKeyRef:

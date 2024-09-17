@@ -20,12 +20,12 @@ metadata:
     app: hsl-map-server
     update: auto
 spec:
-  replicas: 3
+  replicas: 5
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 0
-      maxUnavailable: 1
+      maxSurge: 50%
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: hsl-map-server
@@ -62,7 +62,12 @@ spec:
                   - opentripplanner-kela-v2
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: megapool
+        agentpool: powerpool
+      tolerations:
+      - key: "powerPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
       containers:
       - name: hsl-map-server
         image: hsldevcom/hsl-map-server:prod
@@ -87,6 +92,7 @@ spec:
             port: 8080
             path: /map/v2/hsl-map/index.json
         env:
+          # TODO update these envs to use otp2
           - name: FINLAND_OTP_URL
             value: "opentripplanner-finland:8080/otp/routers/finland/index/graphql"
           - name: HSL_OTP_URL
@@ -98,10 +104,10 @@ spec:
         resources:
           requests:
             memory: 10Gi
-            cpu: 5000m
+            cpu: 2000m
           limits:
             memory: 10Gi
-            cpu: 7000m
+            cpu: 3000m
       imagePullSecrets:
         - name: hsldevcomkey
 
