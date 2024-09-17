@@ -20,7 +20,7 @@ metadata:
     app: hsl-map-server
     update: auto
 spec:
-  replicas: 8
+  replicas: 5
   strategy:
     type: RollingUpdate
     rollingUpdate:
