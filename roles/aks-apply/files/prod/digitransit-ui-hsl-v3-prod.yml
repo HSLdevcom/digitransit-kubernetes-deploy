@@ -159,6 +159,8 @@ spec:
           value: "https://kartat.hsl.fi"
         - name: BANNER_URL
           value: "https://content.hsl.fi/api/v1/banners?site=JourneyPlanner"
+        - name: CONTENT_DOMAIN
+          value: "https://cms.hsl.fi"
         - name: CITYBIKE_DB_CONN_STRING
           valueFrom:
             secretKeyRef:
