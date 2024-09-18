@@ -20,7 +20,7 @@ metadata:
     app: hsl-map-server
     update: auto
 spec:
-  replicas: 5
+  replicas: 4
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -35,32 +35,6 @@ spec:
         app: hsl-map-server
         lastRestartDate: dummy-value
     spec:
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - hsl-map-server
-                  - opentripplanner-waltti-alt-v2
-                  - opentripplanner-varely-v2
-                  - pelias-api
-              topologyKey: kubernetes.io/hostname
-        podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - opentripplanner-kela-v2
-              topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: powerpool
       tolerations:
@@ -104,10 +78,10 @@ spec:
         resources:
           requests:
             memory: 10Gi
-            cpu: 2000m
+            cpu: 3000m
           limits:
             memory: 10Gi
-            cpu: 3000m
+            cpu: 4000m
       imagePullSecrets:
         - name: hsldevcomkey
 

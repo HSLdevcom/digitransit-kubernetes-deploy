@@ -37,33 +37,6 @@ spec:
         app: opentripplanner-waltti-alt-v2
         lastRestartDate: dummy-value
     spec:
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - opentripplanner-waltti-alt-v2
-                  - opentripplanner-kela-v2
-                  - hsl-map-server
-                  - pelias-api
-                  - pelias-data-container
-              topologyKey: kubernetes.io/hostname
-        podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 50
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - opentripplanner-varely-v2
-              topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: powerpool
       tolerations:

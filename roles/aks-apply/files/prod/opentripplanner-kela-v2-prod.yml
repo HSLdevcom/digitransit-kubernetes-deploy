@@ -37,33 +37,6 @@ spec:
         app: opentripplanner-kela-v2
         lastRestartDate: dummy-value
     spec:
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 50
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - opentripplanner-kela-v2
-                  - opentripplanner-waltti-alt-v2
-                  - opentripplanner-varely-v2
-                  - pelias-api
-                  - pelias-data-container
-              topologyKey: kubernetes.io/hostname
-        podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - hsl-map-server
-              topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: powerpool
       tolerations:
@@ -98,7 +71,7 @@ spec:
         resources:
           requests:
             memory: "11Gi"
-            cpu: "2000m"
+            cpu: "3000m"
           limits:
             memory: "11Gi"
             cpu: "4000m"
