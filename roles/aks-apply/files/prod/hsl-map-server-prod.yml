@@ -20,7 +20,7 @@ metadata:
     app: hsl-map-server
     update: auto
 spec:
-  replicas: 5
+  replicas: 4
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -104,10 +104,10 @@ spec:
         resources:
           requests:
             memory: 10Gi
-            cpu: 2000m
+            cpu: 3000m
           limits:
             memory: 10Gi
-            cpu: 3000m
+            cpu: 4000m
       imagePullSecrets:
         - name: hsldevcomkey
 
