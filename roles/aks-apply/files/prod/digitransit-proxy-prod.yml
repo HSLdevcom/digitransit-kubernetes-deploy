@@ -201,6 +201,8 @@ spec:
               secretKeyRef:
                 name: varely-rt-basic-key
                 key: varely-rt-basic-key
+          - name: CDN_BASE_URL
+            value: "https://cdn.digitransit.fi"
         resources:
             requests:
               memory: "1152Mi"
