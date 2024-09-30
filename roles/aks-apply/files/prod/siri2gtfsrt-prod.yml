@@ -89,7 +89,7 @@ kind: PodDisruptionBudget
 metadata:
   name: siri2gtfsrt-pdb
 spec:
-  minAvailable: 50%
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: siri2gtfsrt

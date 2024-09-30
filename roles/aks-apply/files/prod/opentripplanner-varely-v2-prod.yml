@@ -103,3 +103,15 @@ spec:
           name: opentripplanner-cfgmap
       imagePullSecrets:
         - name: hsldevcomkey
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opentripplanner-varely-v2-pdb
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: opentripplanner-varely-v2

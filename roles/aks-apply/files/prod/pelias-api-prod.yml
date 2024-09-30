@@ -108,7 +108,7 @@ kind: PodDisruptionBudget
 metadata:
   name: pelias-api-pdb
 spec:
-  minAvailable: 50%
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: pelias-api

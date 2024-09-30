@@ -89,7 +89,7 @@ kind: PodDisruptionBudget
 metadata:
   name: opentripplanner-data-con-hsl-v3-pdb
 spec:
-  minAvailable: 50%
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: opentripplanner-data-con-hsl-v3
