@@ -92,7 +92,7 @@ kind: PodDisruptionBudget
 metadata:
   name: opentripplanner-waltti-pdb
 spec:
-  minAvailable: 50%
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: opentripplanner-waltti
