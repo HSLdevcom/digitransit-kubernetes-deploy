@@ -97,7 +97,7 @@ kind: PodDisruptionBudget
 metadata:
   name: opentripplanner-data-server-varely-v3-pdb
 spec:
-  minAvailable: 1
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: opentripplanner-data-server-varely-v3
