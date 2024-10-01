@@ -75,6 +75,8 @@ spec:
             value: "--max_old_space_size=2048 --optimize_for_size --stack_size=2048 --harmony"
           - name: WALTTI_OTP_URL
             value: "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql"
+          - name: PARKANDRIDE_URL
+            value: "https://parking.fintraffic.fi/api/v1/"
         resources:
           requests:
             memory: 10Gi
@@ -92,7 +94,7 @@ kind: PodDisruptionBudget
 metadata:
   name: hsl-map-server-pdb
 spec:
-  minAvailable: 50%
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: hsl-map-server

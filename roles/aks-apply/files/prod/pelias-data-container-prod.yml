@@ -108,7 +108,7 @@ kind: PodDisruptionBudget
 metadata:
   name: pelias-data-container-pdb
 spec:
-  minAvailable: 75%
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: pelias-data-container

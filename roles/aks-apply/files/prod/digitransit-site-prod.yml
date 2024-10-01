@@ -89,7 +89,7 @@ kind: PodDisruptionBudget
 metadata:
   name: digitransit-site-pdb
 spec:
-  minAvailable: 50%
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: digitransit-site

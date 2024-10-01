@@ -87,7 +87,7 @@ kind: PodDisruptionBudget
 metadata:
   name: opentripplanner-finland-pdb
 spec:
-  minAvailable: 50%
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: opentripplanner-finland

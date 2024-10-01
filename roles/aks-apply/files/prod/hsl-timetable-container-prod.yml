@@ -89,7 +89,7 @@ kind: PodDisruptionBudget
 metadata:
   name: hsl-timetable-container-pdb
 spec:
-  minAvailable: 50%
+  maxUnavailable: 1
   selector:
     matchLabels:
       app: hsl-timetable-container
