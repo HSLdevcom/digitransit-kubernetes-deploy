@@ -41,7 +41,6 @@ spec:
         app: pelias-data-container
         lastRestartDate: dummy-value
     spec:
-      priorityClassName: medium-priority
       nodeSelector:
         agentpool: powerpool
       tolerations:

@@ -1,38 +1,38 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: opentripplanner-data-con-waltti
+  name: opentripplanner-data-server-finland-v3
 spec:
   ports:
   - port: 8080
     targetPort: 8080
-    name: opentripplanner-data-con-waltti-service-port
+    name: opentripplanner-data-server-finland-v3-service-port
     protocol: TCP
   selector:
-    app: opentripplanner-data-con-waltti
+    app: opentripplanner-data-server-finland-v3
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: opentripplanner-data-con-waltti
+  name: opentripplanner-data-server-finland-v3
   labels:
-    app: opentripplanner-data-con-waltti
+    app: opentripplanner-data-server-finland-v3
     update: auto
 spec:
   replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: 100%
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: opentripplanner-data-con-waltti
+      app: opentripplanner-data-server-finland-v3
   template:
     metadata:
       labels:
-        app: opentripplanner-data-con-waltti
+        app: opentripplanner-data-server-finland-v3
         lastRestartDate: dummy-value
     spec:
       affinity:
@@ -45,13 +45,16 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - opentripplanner-data-con-waltti
+                  - opentripplanner-data-server-finland-v3
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: burstpool
       containers:
-      - name: opentripplanner-data-con-waltti
-        image: hsldevcom/opentripplanner-data-container-waltti:prod
+      - name: opentripplanner-data-server-finland-v3
+        image: hsldevcom/opentripplanner-data-server:v3-prod-finland
+        volumeMounts:
+          - mountPath: /var/www/localhost/htdocs
+            name: datastorage
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -68,7 +71,7 @@ spec:
           initialDelaySeconds: 500
           periodSeconds: 10
           timeoutSeconds: 10
-          failureThreshold: 25
+          failureThreshold: 2
           httpGet:
             port: 8080
             path: "/version.txt"
@@ -81,15 +84,20 @@ spec:
             cpu: "200m"
       imagePullSecrets:
         - name: hsldevcomkey
+      volumes:
+        - name: "datastorage"
+          persistentVolumeClaim:
+            claimName: otp-data-finland-v3-pvc
+            readOnly: true
 
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: opentripplanner-data-con-waltti-pdb
+  name: opentripplanner-data-server-finland-v3-pdb
 spec:
   maxUnavailable: 1
   selector:
     matchLabels:
-      app: opentripplanner-data-con-waltti
+      app: opentripplanner-data-server-finland-v3

@@ -38,7 +38,6 @@ spec:
         app: digitransit-ui-matka-v3
         lastRestartDate: dummy-value
     spec:
-      priorityClassName: medium-priority
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

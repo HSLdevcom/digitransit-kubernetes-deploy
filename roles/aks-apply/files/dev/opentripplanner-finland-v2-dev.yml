@@ -37,7 +37,6 @@ spec:
         app: opentripplanner-finland-v2
         lastRestartDate: dummy-value
     spec:
-      priorityClassName: medium-priority
       nodeSelector:
         agentpool: powerpool
       tolerations:

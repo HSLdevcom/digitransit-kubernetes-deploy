@@ -43,20 +43,6 @@ spec:
         restartAfterDeployments: "pelias-api"
     spec:
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 50
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - pelias-data-container
-                  - opentripplanner-varely-v2
-                  - opentripplanner-waltti-alt-v2
-                  - opentripplanner-kela-v2
-              topologyKey: kubernetes.io/hostname
         podAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 50
