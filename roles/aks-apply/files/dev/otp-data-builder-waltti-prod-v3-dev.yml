@@ -67,7 +67,7 @@ spec:
             - name: SLACK_CHANNEL
               value: "digitransit-ci"
             - name: EXTRA_SRC
-              value: "{\"LINKKI\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}}"
+              value: "{\"LINKKI\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}, \"Lahti\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}}"
             resources:
               requests:
                 memory: 11Gi

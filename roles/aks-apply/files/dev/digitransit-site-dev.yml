@@ -25,7 +25,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 0
-      maxUnavailable: 50%
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: digitransit-site
