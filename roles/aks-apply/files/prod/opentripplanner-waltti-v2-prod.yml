@@ -49,27 +49,27 @@ spec:
           - name: otpcfgmap
             mountPath: /opt/opentripplanner/logback-include-extensions.xml
             subPath: file-from-cfgmap
-        readinessProbe:
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 2
-          httpGet:
-            port: 8080
-            path: "/otp/routers/default/"
         startupProbe:
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 380 # leave enough time for potential graph build
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 40
           httpGet:
             port: 8080
-            path: "/otp/routers/default/"
+            path: "/otp/actuators/health"
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/actuators/health"
         livenessProbe:
-          periodSeconds: 120
+          periodSeconds: 12
           timeoutSeconds: 10
           failureThreshold: 5
           httpGet:
             port: 8080
-            path: "/otp/routers/default/"
+            path: "/otp/actuators/health"
         securityContext:
           allowPrivilegeEscalation: false
         env:
