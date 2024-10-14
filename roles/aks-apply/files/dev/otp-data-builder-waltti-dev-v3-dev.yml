@@ -50,7 +50,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: "{\"LINKKI\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\" \"Lahti\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}}"
+              value: "{\"LINKKI\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}, \"Lahti\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}, \"KotkaLautat\": {\"url\": \"https://koontikartta.navici.com/tiedostot/gtfs_lautat.zip\", \"rules\": [\"waltti/gtfs-rules/only-kotka-ferries.rule\"]}}"
             - name: EXTRA_UPDATERS
               value: "{\"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/nysse.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\"}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\"}}"
             - name: SKIPPED_SITES
