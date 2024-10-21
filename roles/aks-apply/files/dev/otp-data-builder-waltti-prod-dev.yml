@@ -23,7 +23,7 @@ spec:
             pool: megapool
           containers:
           - name: otp-data-builder-waltti-prod
-            image: hsldevcom/otp-data-builder:prod
+            image: hsldevcom/otp-data-builder:prod-2024-04-24T17.45.39-91bf5f9
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -57,13 +57,13 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
-              value: "prod"
+              value: "prod-2024-06-06T07.57.56-77dc9df"
             - name: ROUTERS
               value: "waltti"
             - name: SEED_TAG
               value: "prod"
             - name: TOOLS_TAG
-              value: "prod"
+              value: "prod-2024-04-24T17.45.39-91bf5f9"
             resources:
               requests:
                 memory: 11Gi

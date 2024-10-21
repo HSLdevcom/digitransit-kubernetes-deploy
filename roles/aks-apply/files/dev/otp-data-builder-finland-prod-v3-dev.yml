@@ -23,7 +23,7 @@ spec:
             pool: megapool
           containers:
           - name: otp-data-builder-finland-prod-v3
-            image: hsldevcom/otp-data-builder:v3-prod
+            image: hsldevcom/otp-data-builder:v3-prod-2024-09-27T09.03.00
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -59,11 +59,11 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
-              value: "v2-prod"
+              value: "v2-prod-2024-10-01T08.57.04-cfae1f2"
             - name: SEED_TAG
               value: "v3-prod"
             - name: TOOLS_TAG
-              value: "v3-prod"
+              value: "v3-prod-2024-09-27T09.03.00"
             - name: SLACK_CHANNEL
               value: "digitransit-ci"
             - name: JAVA_OPTS

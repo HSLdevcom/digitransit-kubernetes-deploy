@@ -40,7 +40,7 @@ spec:
         pool: megapool
       containers:
       - name: opentripplanner-hsl
-        image: hsldevcom/opentripplanner:prod
+        image: hsldevcom/opentripplanner:prod-2024-06-06T07.57.56-77dc9df
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

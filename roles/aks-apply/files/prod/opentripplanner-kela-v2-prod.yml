@@ -68,7 +68,7 @@ spec:
         pool: megapool
       containers:
       - name: opentripplanner-kela-v2
-        image: hsldevcom/opentripplanner:v2-prod
+        image: hsldevcom/opentripplanner:v2-prod-2024-10-01T08.57.04-cfae1f2
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
