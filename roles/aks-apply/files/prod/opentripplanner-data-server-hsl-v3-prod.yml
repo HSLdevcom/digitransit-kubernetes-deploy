@@ -9,7 +9,7 @@ spec:
     name: opentripplanner-data-server-hsl-v3-service-port
     protocol: TCP
   selector:
-    app: opentripplanner-data-server-hsl-v3
+    app: opentripplanner-data-con-hsl-v3 # TODO update
 ---
 
 apiVersion: apps/v1
