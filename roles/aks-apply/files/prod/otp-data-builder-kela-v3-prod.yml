@@ -93,8 +93,10 @@ spec:
             - name: hsldevcomkey
           volumes:
             - name: "datastorage"
-              persistentVolumeClaim:
-                claimName: otp-data-builder-kela-v3-pvc
+              nfs:
+                server: digitransitprdaksstorage.file.core.windows.net
+                path: /digitransitprdaksstorage/kela
+                readOnly: false
 
 ---
 

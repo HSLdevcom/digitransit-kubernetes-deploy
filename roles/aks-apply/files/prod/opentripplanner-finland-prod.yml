@@ -76,9 +76,10 @@ spec:
         - name: hsldevcomkey
       volumes:
       - name: "datastorage"
-        persistentVolumeClaim:
-          claimName: otp-data-finland-v2-pvc
-          readOnly: true
+        nfs:
+            server: digitransitprdaksstorage.file.core.windows.net
+            path: /digitransitprdaksstorage/finland
+            readOnly: true
 
 ---
 

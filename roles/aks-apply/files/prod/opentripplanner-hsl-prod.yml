@@ -89,8 +89,9 @@ spec:
         - name: hsldevcomkey
       volumes:
       - name: "datastorage"
-        persistentVolumeClaim:
-          claimName: otp-data-hsl-v2-pvc
+        nfs:
+          server: digitransitprdaksstorage.file.core.windows.net
+          path: /digitransitprdaksstorage/hsl
           readOnly: true
 
 ---
