@@ -42,7 +42,7 @@ spec:
             - name: ROUTER_NAME
               value: "waltti"
             - name: BUILDER_TYPE
-              value: "Waltti prod v3"
+              value: "Waltti prod v3 NEW BUILDER" # TODO update
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:

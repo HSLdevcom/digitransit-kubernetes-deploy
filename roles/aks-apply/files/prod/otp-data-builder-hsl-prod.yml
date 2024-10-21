@@ -40,7 +40,7 @@ spec:
                  - SYS_ADMIN
             env:
             - name: BUILDER_TYPE
-              value: "HSL prod"
+              value: "HSL prod NEW BUILDER" # TODO update
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
