@@ -43,6 +43,8 @@ spec:
               value: "waltti-alt"
             - name: BUILDER_TYPE
               value: "Waltti alt prod v3"
+            - name: EXTRA_UPDATERS
+              value: "{\"salo-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/paikku.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"type\": \"real-time-alerts\", \"frequency\": \"30s\", \"feedId\": \"Salo\", \"fuzzyTripMatching\": false}}"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
