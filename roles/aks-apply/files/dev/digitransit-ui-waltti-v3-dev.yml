@@ -36,7 +36,6 @@ spec:
         app: digitransit-ui-waltti-v3
         lastRestartDate: dummy-value
     spec:
-      priorityClassName: medium-priority
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

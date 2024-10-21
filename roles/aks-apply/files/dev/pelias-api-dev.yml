@@ -36,7 +36,6 @@ spec:
         app: pelias-api
         lastRestartDate: dummy-value
     spec:
-      priorityClassName: medium-priority
       nodeSelector:
         agentpool: powerpool
       tolerations:
