@@ -71,8 +71,6 @@ spec:
               value: "v2-prod"
             - name: TOOLS_TAG
               value: "v2-prod"
-            - name: NOSEED # TODO remove this when seed is ready
-              value: "true"
             resources:
               requests:
                 memory: 14Gi
