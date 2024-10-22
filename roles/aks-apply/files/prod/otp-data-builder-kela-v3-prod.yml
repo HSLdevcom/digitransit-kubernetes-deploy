@@ -80,8 +80,6 @@ spec:
               value: "v3-prod"
             - name: JAVA_OPTS
               value: "-Xmx16G -Xms16G"
-            - name: NOSEED # TODO remove this when seed is ready
-              value: "true"
             resources:
               requests:
                 memory: 20Gi
