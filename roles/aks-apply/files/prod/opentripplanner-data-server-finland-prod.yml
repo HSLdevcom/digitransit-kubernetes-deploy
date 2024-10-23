@@ -9,7 +9,7 @@ spec:
     name: opentripplanner-data-server-finland-service-port
     protocol: TCP
   selector:
-    app: opentripplanner-data-con-finland # TODO update
+    app: opentripplanner-data-server-finland
 ---
 
 apiVersion: apps/v1

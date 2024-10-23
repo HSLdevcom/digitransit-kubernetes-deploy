@@ -9,7 +9,7 @@ spec:
     name: opentripplanner-data-server-varely-v3-service-port
     protocol: TCP
   selector:
-    app: opentripplanner-data-con-varely-v3 # TODO update
+    app: opentripplanner-data-server-varely-v3
 ---
 
 apiVersion: apps/v1
