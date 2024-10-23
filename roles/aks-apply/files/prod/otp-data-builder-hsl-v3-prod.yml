@@ -75,8 +75,6 @@ spec:
               value: "HSL"
             - name: JAVA_OPTS
               value: "-Xmx13G -Xms13G"
-            - name: NOSEED # TODO remove this when seed is ready
-              value: "true"
             resources:
               requests:
                 memory: 16Gi

@@ -73,8 +73,6 @@ spec:
               value: "v2-prod"
             - name: VERSION_CHECK
               value: "HSL"
-            - name: NOSEED # TODO remove this when seed is ready
-              value: "true"
             resources:
               requests:
                 memory: 11Gi
