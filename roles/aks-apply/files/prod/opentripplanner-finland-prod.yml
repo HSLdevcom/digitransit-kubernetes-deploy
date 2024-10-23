@@ -53,10 +53,24 @@ spec:
         volumeMounts:
           - name: datastorage
             mountPath: /var/otp/
+        startupProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 80
+          httpGet:
+            port: 8080
+            path: "/otp/routers/finland/"
         readinessProbe:
-          periodSeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 10
+          httpGet:
+            port: 8080
+            path: "/otp/routers/finland/"
+        livenessProbe:
+          periodSeconds: 12
           timeoutSeconds: 10
-          failureThreshold: 4
+          failureThreshold: 5
           httpGet:
             port: 8080
             path: "/otp/routers/finland/"
@@ -64,13 +78,13 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: JAVA_OPTS
-          value: "-Xmx11G -Xms11G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC"
+          value: "-Xmx10G -Xms10G -XX:+UseParNewGC -XX:NewRatio=5 -XX:+UseStringDeduplication -XX:+PrintGC"
         resources:
           requests:
-            memory: 12Gi
+            memory: 11Gi
             cpu: "3000m"
           limits:
-            memory: 12Gi
+            memory: 11Gi
             cpu: "4000m"
       imagePullSecrets:
         - name: hsldevcomkey
