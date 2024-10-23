@@ -55,8 +55,8 @@ spec:
             mountPath: /var/otp/
         readinessProbe:
           periodSeconds: 10
-          timeoutSeconds: 15
-          failureThreshold: 2
+          timeoutSeconds: 10
+          failureThreshold: 4
           httpGet:
             port: 8080
             path: "/otp/routers/finland/"
