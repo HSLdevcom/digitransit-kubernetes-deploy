@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-hsl-dev-v3
+  name: otp-data-builder-finland-v3
 spec:
-  schedule: "30 2 * * *" # schedule in Finland time
+  schedule: "0 5 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
@@ -14,9 +14,8 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-hsl-dev-v3
+            app: otp-data-builder-finland-v3
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
@@ -27,8 +26,8 @@ spec:
             value: "yes"
             effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-hsl-dev-v3
-            image: hsldevcom/otp-data-builder:v3
+          - name: otp-data-builder-finland-v3
+            image: hsldevcom/otp-data-builder:v3-prod
             volumeMounts:
             - mountPath: /opt/otp-data-builder/storage
               name: datastorage
@@ -41,18 +40,16 @@ spec:
                  - SYS_ADMIN
             env:
             - name: ROUTER_NAME
-              value: "hsl"
+              value: "finland"
             - name: BUILDER_TYPE
-              value: "HSL dev v3"
+              value: "Finland prod v3 NEW BUILDER" # TODO update
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
-            - name: EXTRA_UPDATERS
-              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi:1883\"}, \"liipi\": {\"facilitiesUrl\": \"https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1\", \"utilizationsUrl\": \"https://parking-test.fintraffic.fi/api/v1/utilizations.json?limit=-1\", \"hubsUrl\": \"https://parking-test.fintraffic.fi/api/v1/hubs.json?limit=-1\"}, \"hsl-alerts\": {\"url\": \"https://transitdatadev.blob.core.windows.net/service-alerts/v2/hsl\"}}"
             - name: DOCKER_TAG
-              value: "v3"
+              value: "v3-prod"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -69,37 +66,37 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
-              value: "v2"
+              value: "v2-prod"
             - name: SEED_TAG
-              value: "v3"
+              value: "v3-prod"
             - name: TOOLS_TAG
-              value: "v3"
-            - name: SLACK_CHANNEL
-              value: "topic-ci-otp2"
+              value: "v3-prod"
             - name: JAVA_OPTS
-              value: "-Xmx13G -Xms13G"
+              value: "-Xmx14G -Xms14G"
             resources:
               requests:
-                memory: 16Gi
+                memory: 18Gi
                 cpu: 7000m
               limits:
-                memory: 16Gi
+                memory: 18Gi
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
           volumes:
             - name: "datastorage"
-              persistentVolumeClaim:
-                claimName: otp-data-builder-hsl-v3-pvc
+              nfs:
+                server: digitransitprdaksstorage.file.core.windows.net
+                path: /digitransitprdaksstorage/finland
+                readOnly: false
 
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-hsl-dev-v3-pdb
+  name: otp-data-builder-finland-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-hsl-dev-v3
+      app: otp-data-builder-finland-v3

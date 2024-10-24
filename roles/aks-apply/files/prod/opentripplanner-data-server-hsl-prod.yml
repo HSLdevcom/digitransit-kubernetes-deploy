@@ -1,38 +1,38 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: opentripplanner-data-con-kela-v3
+  name: opentripplanner-data-server-hsl
 spec:
   ports:
   - port: 8080
     targetPort: 8080
-    name: opentripplanner-data-con-kela-v3-service-port
+    name: opentripplanner-data-server-hsl-service-port
     protocol: TCP
   selector:
-    app: opentripplanner-data-con-kela-v3
+    app: opentripplanner-data-server-hsl
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: opentripplanner-data-con-kela-v3
+  name: opentripplanner-data-server-hsl
   labels:
-    app: opentripplanner-data-con-kela-v3
+    app: opentripplanner-data-server-hsl
     update: auto
 spec:
   replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: 100%
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: opentripplanner-data-con-kela-v3
+      app: opentripplanner-data-server-hsl
   template:
     metadata:
       labels:
-        app: opentripplanner-data-con-kela-v3
+        app: opentripplanner-data-server-hsl
         lastRestartDate: dummy-value
     spec:
       affinity:
@@ -45,13 +45,16 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - opentripplanner-data-con-kela-v3
+                  - opentripplanner-data-server-hsl
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: burstpool
       containers:
-      - name: opentripplanner-data-con-kela-v3
-        image: hsldevcom/opentripplanner-data-container-kela:v3-prod
+      - name: opentripplanner-data-server-hsl
+        image: hsldevcom/opentripplanner-data-server:v2-prod-hsl
+        volumeMounts:
+          - mountPath: /var/www/localhost/htdocs
+            name: datastorage
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -81,15 +84,21 @@ spec:
             cpu: "200m"
       imagePullSecrets:
         - name: hsldevcomkey
+      volumes:
+        - name: "datastorage"
+          nfs:
+            server: digitransitprdaksstorage.file.core.windows.net
+            path: /digitransitprdaksstorage/hsl
+            readOnly: true
 
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: opentripplanner-data-con-kela-v3-pdb
+  name: opentripplanner-data-server-hsl-pdb
 spec:
   maxUnavailable: 1
   selector:
     matchLabels:
-      app: opentripplanner-data-con-kela-v3
+      app: opentripplanner-data-server-hsl

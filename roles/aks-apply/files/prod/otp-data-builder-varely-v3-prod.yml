@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-waltti-alt-dev-v3
+  name: otp-data-builder-varely-v3
 spec:
-  schedule: "0 23 * * *" # schedule in Finland time
+  schedule: "0 2 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
@@ -14,9 +14,8 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-waltti-alt-dev-v3
+            app: otp-data-builder-varely-v3
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
@@ -27,8 +26,8 @@ spec:
             value: "yes"
             effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-waltti-alt-dev-v3
-            image: hsldevcom/otp-data-builder:v3
+          - name: otp-data-builder-varely-v3
+            image: hsldevcom/otp-data-builder:v3-prod
             volumeMounts:
             - mountPath: /opt/otp-data-builder/storage
               name: datastorage
@@ -40,15 +39,20 @@ spec:
                  - NET_ADMIN
                  - SYS_ADMIN
             env:
-            - name: ROUTER_NAME
-              value: "waltti-alt"
             - name: BUILDER_TYPE
-              value: "Waltti alt dev v3"
+              value: "VARELY prod v3 NEW BUILDER" # TODO update
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
+            - name: DOCKER_TAG
+              value: "v3-prod"
+            - name: DOCKER_USER
+              valueFrom:
+                secretKeyRef:
+                  name: docker-user
+                  key: docker-user
             - name: SLACK_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
@@ -59,25 +63,14 @@ spec:
                 secretKeyRef:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
-            - name: DOCKER_TAG
-              value: "v3"
-            - name: DOCKER_USER
-              valueFrom:
-                secretKeyRef:
-                  name: docker-user
-                  key: docker-user
             - name: OTP_TAG
-              value: "v2"
+              value: "v2-prod"
+            - name: ROUTER_NAME
+              value: "varely"
             - name: SEED_TAG
-              value: "v3"
+              value: "v3-prod"
             - name: TOOLS_TAG
-              value: "v3"
-            - name: SLACK_CHANNEL
-              value: "topic-ci-otp2"
-            - name: EXTRA_SRC
-              value: "{\"WalttiTest\": {\"url\": \"http://digitransit-proxy:8080/out/lmjadmin.mattersoft.fi/feeds/229.zip\"}}"
-            - name: EXTRA_UPDATERS
-              value: "{\"walttitest-trip-updates\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/tripupdate\", \"type\": \"stop-time-updater\", \"frequency\": \"60s\", \"feedId\": \"WalttiTest\", \"fuzzyTripMatching\": false}, \"walttitest-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"type\": \"real-time-alerts\", \"frequency\": \"30s\", \"feedId\": \"WalttiTest\", \"fuzzyTripMatching\": false}}"
+              value: "v3-prod"
             resources:
               requests:
                 memory: 14Gi
@@ -89,17 +82,19 @@ spec:
             - name: hsldevcomkey
           volumes:
             - name: "datastorage"
-              persistentVolumeClaim:
-                claimName: otp-data-builder-waltti-alt-v3-pvc
+              nfs:
+                server: digitransitprdaksstorage.file.core.windows.net
+                path: /digitransitprdaksstorage/varely
+                readOnly: false
 
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-waltti-alt-dev-v3-pdb
+  name: otp-data-builder-varely-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-waltti-alt-dev-v3
+      app: otp-data-builder-varely-v3

@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-hsl-prod-v3
+  name: otp-data-builder-hsl-v3
 spec:
   schedule: "0 6 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
@@ -14,16 +14,23 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-hsl-prod-v3
+            app: otp-data-builder-hsl-v3
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            pool: megapool
+            agentpool: builderpool
+          tolerations:
+          - key: "builder"
+            operator: "Equal"
+            value: "yes"
+            effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-hsl-prod-v3
+          - name: otp-data-builder-hsl-v3
             image: hsldevcom/otp-data-builder:v3-prod
+            volumeMounts:
+            - mountPath: /opt/otp-data-builder/storage
+              name: datastorage
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -35,7 +42,7 @@ spec:
             - name: ROUTER_NAME
               value: "hsl"
             - name: BUILDER_TYPE
-              value: "HSL prod v3"
+              value: "HSL prod v3 NEW BUILDER" # TODO update
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
@@ -66,26 +73,32 @@ spec:
               value: "v3-prod"
             - name: VERSION_CHECK
               value: "HSL"
-            - name: SLACK_CHANNEL
-              value: "digitransit-ci"
+            - name: JAVA_OPTS
+              value: "-Xmx13G -Xms13G"
             resources:
               requests:
-                memory: 11Gi
-                cpu: 3000m
+                memory: 16Gi
+                cpu: 7000m
               limits:
-                memory: 11Gi
-                cpu: 6000m
+                memory: 16Gi
+                cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
+          volumes:
+            - name: "datastorage"
+              nfs:
+                server: digitransitprdaksstorage.file.core.windows.net
+                path: /digitransitprdaksstorage/hsl
+                readOnly: false
 
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-hsl-prod-v3-pdb
+  name: otp-data-builder-hsl-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-hsl-prod-v3
+      app: otp-data-builder-hsl-v3

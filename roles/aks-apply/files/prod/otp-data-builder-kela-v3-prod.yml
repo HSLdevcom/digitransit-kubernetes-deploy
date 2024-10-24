@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-waltti-alt-prod-v3
+  name: otp-data-builder-kela-v3
 spec:
-  schedule: "10 2 * * *" # schedule in Finland time
+  schedule: "0 0 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
@@ -14,16 +14,23 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-waltti-alt-prod-v3
+            app: otp-data-builder-kela-v3
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            pool: megapool
+            agentpool: builderpool
+          tolerations:
+          - key: "builder"
+            operator: "Equal"
+            value: "yes"
+            effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-waltti-alt-prod-v3
+          - name: otp-data-builder-kela-v3
             image: hsldevcom/otp-data-builder:v3-prod
+            volumeMounts:
+            - mountPath: /opt/otp-data-builder/storage
+              name: datastorage
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -32,10 +39,8 @@ spec:
                  - NET_ADMIN
                  - SYS_ADMIN
             env:
-            - name: ROUTER_NAME
-              value: "waltti-alt"
             - name: BUILDER_TYPE
-              value: "Waltti alt prod v3"
+              value: "Kela prod v3 NEW BUILDER" # TODO update
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
@@ -58,30 +63,47 @@ spec:
                 secretKeyRef:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
+            - name: MH_BASIC_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: mh-basic-key
+                  key: mh-basic-key
             - name: OTP_TAG
               value: "v2-prod"
+            - name: ROUTER_NAME
+              value: "kela"
+            - name: SKIPPED_SITES
+              value: "all"
             - name: SEED_TAG
               value: "v3-prod"
             - name: TOOLS_TAG
               value: "v3-prod"
+            - name: JAVA_OPTS
+              value: "-Xmx16G -Xms16G"
             resources:
               requests:
-                memory: 11Gi
-                cpu: 3000m
+                memory: 20Gi
+                cpu: 7000m
               limits:
-                memory: 11Gi
-                cpu: 6000m
+                memory: 20Gi
+                cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
+          volumes:
+            - name: "datastorage"
+              nfs:
+                server: digitransitprdaksstorage.file.core.windows.net
+                path: /digitransitprdaksstorage/kela
+                readOnly: false
 
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-waltti-alt-prod-v3-pdb
+  name: otp-data-builder-kela-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-waltti-alt-prod-v3
+      app: otp-data-builder-kela-v3

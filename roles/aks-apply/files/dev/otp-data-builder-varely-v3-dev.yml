@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-varely-prod-v3
+  name: otp-data-builder-varely-v3
 spec:
-  schedule: "0 2 * * *" # schedule in Finland time
+  schedule: "0 17 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
@@ -14,16 +14,23 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-varely-prod-v3
+            app: otp-data-builder-varely-v3
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            pool: megapool
+            agentpool: builderpool
+          tolerations:
+          - key: "builder"
+            operator: "Equal"
+            value: "yes"
+            effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-varely-prod-v3
-            image: hsldevcom/otp-data-builder:v3-prod
+          - name: otp-data-builder-varely-v3
+            image: hsldevcom/otp-data-builder:v3
+            volumeMounts:
+            - mountPath: /opt/otp-data-builder/storage
+              name: datastorage
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -33,14 +40,14 @@ spec:
                  - SYS_ADMIN
             env:
             - name: BUILDER_TYPE
-              value: "VARELY prod v3"
+              value: "VARELY dev v3"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "v3-prod"
+              value: "v3"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -57,33 +64,35 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
-              value: "v2-prod"
+              value: "v2"
             - name: ROUTER_NAME
               value: "varely"
             - name: SEED_TAG
-              value: "v3-prod"
+              value: "v3"
             - name: TOOLS_TAG
-              value: "v3-prod"
-            - name: SLACK_CHANNEL
-              value: "topic-ci-otp2"
+              value: "v3"
             resources:
               requests:
-                memory: 11Gi
-                cpu: 3000m
+                memory: 14Gi
+                cpu: 7000m
               limits:
-                memory: 11Gi
-                cpu: 6000m
+                memory: 14Gi
+                cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
+          volumes:
+            - name: "datastorage"
+              persistentVolumeClaim:
+                claimName: otp-data-builder-varely-v3-pvc
 
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-varely-prod-v3-pdb
+  name: otp-data-builder-varely-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-varely-prod-v3
+      app: otp-data-builder-varely-v3
