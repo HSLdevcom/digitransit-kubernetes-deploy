@@ -9,7 +9,7 @@ spec:
     name: opentripplanner-data-server-waltti-service-port
     protocol: TCP
   selector:
-    app: opentripplanner-data-con-waltti
+    app: opentripplanner-data-server-waltti
 ---
 
 apiVersion: apps/v1
