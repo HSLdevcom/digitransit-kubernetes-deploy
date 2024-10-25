@@ -56,27 +56,27 @@ spec:
             subPath: file-from-cfgmap
           - name: datastorage
             mountPath: /var/otp/
-        readinessProbe:
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 2
-          httpGet:
-            port: 8080
-            path: "/otp/routers/default/"
         startupProbe:
           periodSeconds: 5
           timeoutSeconds: 5
-          failureThreshold: 270
+          failureThreshold: 20
           httpGet:
             port: 8080
-            path: "/otp/routers/default/"
+            path: "/otp/actuators/health"
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/actuators/health"
         livenessProbe:
           periodSeconds: 12
           timeoutSeconds: 10
           failureThreshold: 5
           httpGet:
             port: 8080
-            path: "/otp/routers/default/"
+            path: "/otp/actuators/health"
         securityContext:
           allowPrivilegeEscalation: false
         env:
