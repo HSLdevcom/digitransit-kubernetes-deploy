@@ -17,7 +17,7 @@ metadata:
   name: opentripplanner-varely-v2
   labels:
     app: opentripplanner-varely-v2
-    restartAfterDeployments: "opentripplanner-data-con-varely-v3"
+    update: auto
     restartDelay: "1"
     restartAt: "03.00"
     restartLimitInterval: "720"
@@ -25,9 +25,9 @@ spec:
   replicas: 2
   strategy:
     type: RollingUpdate
-    rollingUpdate:  # this is needed so there is "always" available machine for a new pod
-      maxSurge: 0
-      maxUnavailable: 1
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: opentripplanner-varely-v2
@@ -37,36 +37,16 @@ spec:
         app: opentripplanner-varely-v2
         lastRestartDate: dummy-value
     spec:
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 50
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - opentripplanner-varely-v2
-                  - opentripplanner-kela-v2
-                  - pelias-api
-                  - pelias-data-container
-                  - hsl-map-server
-              topologyKey: kubernetes.io/hostname
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - opentripplanner-waltti-alt-v2
-            topologyKey: kubernetes.io/hostname
       nodeSelector:
-        pool: megapool
+        agentpool: powerpool
+      tolerations:
+      - key: "powerPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
       containers:
       - name: opentripplanner-varely-v2
-        image: hsldevcom/opentripplanner:v2-prod-2024-10-01T08.57.04-cfae1f2
+        image: hsldevcom/opentripplanner:v2-prod-varely
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -74,33 +54,50 @@ spec:
           - name: otpcfgmap
             mountPath: /opt/opentripplanner/logback-include-extensions.xml
             subPath: file-from-cfgmap
-        readinessProbe:
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 2
+          - name: datastorage
+            mountPath: /var/otp/
+        startupProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 30
           httpGet:
             port: 8080
-            path: "/otp/routers/default/"
+            path: "/otp/actuators/health"
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/actuators/health"
+        livenessProbe:
+          periodSeconds: 12
+          timeoutSeconds: 10
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/actuators/health"
         securityContext:
           allowPrivilegeEscalation: false
         env:
-        - name: ROUTER_DATA_CONTAINER_URL
-          value: "http://opentripplanner-data-con-varely-v3:8080"
-        - name: ROUTER_NAME
-          value: "varely"
         - name: JAVA_OPTS
-          value: "-Xmx7G -Xms7G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
+          value: "-Xmx8G -Xms8G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
         resources:
           requests:
-            memory: "11Gi"
+            memory: "10Gi"
             cpu: "3000m"
           limits:
-            memory: "11Gi"
-            cpu: "7000m"
+            memory: "10Gi"
+            cpu: "4000m"
       volumes:
       - name: otpcfgmap
         configMap:
           name: opentripplanner-cfgmap
+      - name: "datastorage"
+        nfs:
+          server: digitransitprdaksstorage.file.core.windows.net
+          path: /digitransitprdaksstorage/varely
+          readOnly: true
       imagePullSecrets:
         - name: hsldevcomkey
 

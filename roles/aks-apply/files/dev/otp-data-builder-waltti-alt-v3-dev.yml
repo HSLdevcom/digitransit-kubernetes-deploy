@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-kela-dev-v3
+  name: otp-data-builder-waltti-alt-v3
 spec:
-  schedule: "15 14 * * *"
+  schedule: "0 23 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
@@ -14,9 +14,8 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-kela-dev-v3
+            app: otp-data-builder-waltti-alt-v3
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
@@ -27,7 +26,7 @@ spec:
             value: "yes"
             effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-kela-dev-v3
+          - name: otp-data-builder-waltti-alt-v3
             image: hsldevcom/otp-data-builder:v3
             volumeMounts:
             - mountPath: /opt/otp-data-builder/storage
@@ -40,20 +39,15 @@ spec:
                  - NET_ADMIN
                  - SYS_ADMIN
             env:
+            - name: ROUTER_NAME
+              value: "waltti-alt"
             - name: BUILDER_TYPE
-              value: "Kela dev v3"
+              value: "Waltti alt dev v3"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
-            - name: DOCKER_TAG
-              value: "v3"
-            - name: DOCKER_USER
-              valueFrom:
-                secretKeyRef:
-                  name: docker-user
-                  key: docker-user
             - name: SLACK_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
@@ -64,47 +58,45 @@ spec:
                 secretKeyRef:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
-            - name: MH_BASIC_AUTH
+            - name: DOCKER_TAG
+              value: "v3"
+            - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
-                  name: mh-basic-key
-                  key: mh-basic-key
+                  name: docker-user
+                  key: docker-user
             - name: OTP_TAG
               value: "v2"
-            - name: ROUTER_NAME
-              value: "kela"
             - name: SEED_TAG
               value: "v3"
-            - name: SKIPPED_SITES
-              value: "all"
             - name: TOOLS_TAG
               value: "v3"
-            - name: SLACK_CHANNEL
-              value: "topic-ci-otp2"
-            - name: JAVA_OPTS
-              value: "-Xmx16G -Xms16G"
+            - name: EXTRA_SRC
+              value: "{\"WalttiTest\": {\"url\": \"http://digitransit-proxy:8080/out/lmjadmin.mattersoft.fi/feeds/229.zip\"}}"
+            - name: EXTRA_UPDATERS
+              value: "{\"walttitest-trip-updates\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/tripupdate\", \"type\": \"stop-time-updater\", \"frequency\": \"60s\", \"feedId\": \"WalttiTest\", \"fuzzyTripMatching\": false}, \"walttitest-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"type\": \"real-time-alerts\", \"frequency\": \"30s\", \"feedId\": \"WalttiTest\", \"fuzzyTripMatching\": false}}"
             resources:
               requests:
-                memory: 20Gi
+                memory: 14Gi
                 cpu: 7000m
               limits:
-                memory: 20Gi
+                memory: 14Gi
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
           volumes:
             - name: "datastorage"
               persistentVolumeClaim:
-                claimName: otp-data-builder-kela-v3-pvc
+                claimName: otp-data-builder-waltti-alt-v3-pvc
 
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-kela-dev-v3-pdb
+  name: otp-data-builder-waltti-alt-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-kela-dev-v3
+      app: otp-data-builder-waltti-alt-v3

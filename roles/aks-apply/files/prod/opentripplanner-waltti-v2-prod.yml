@@ -17,16 +17,16 @@ metadata:
   name: opentripplanner-waltti-v2
   labels:
     app: opentripplanner-waltti-v2
-    restartAfterDeployments: "opentripplanner-data-con-waltti-v3"
+    update: auto
     restartDelay: "1"
     restartAt: "05.45"
     restartLimitInterval: "720"
 spec:
-  replicas: 16
+  replicas: 32
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: 50%
       maxUnavailable: 0
   selector:
     matchLabels:
@@ -38,10 +38,15 @@ spec:
         lastRestartDate: dummy-value
     spec:
       nodeSelector:
-        pool: megapool
+        agentpool: powerpool
+      tolerations:
+      - key: "powerPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
       containers:
       - name: opentripplanner-waltti-v2
-        image: hsldevcom/opentripplanner:v2-prod-2024-10-01T08.57.04-cfae1f2
+        image: hsldevcom/opentripplanner:v2-prod-waltti
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -49,47 +54,50 @@ spec:
           - name: otpcfgmap
             mountPath: /opt/opentripplanner/logback-include-extensions.xml
             subPath: file-from-cfgmap
-        readinessProbe:
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 2
-          httpGet:
-            port: 8080
-            path: "/otp/routers/default/"
+          - name: datastorage
+            mountPath: /var/otp/
         startupProbe:
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 380 # leave enough time for potential graph build
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 40
           httpGet:
             port: 8080
-            path: "/otp/routers/default/"
+            path: "/otp/actuators/health"
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 5
+          httpGet:
+            port: 8080
+            path: "/otp/actuators/health"
         livenessProbe:
-          periodSeconds: 120
+          periodSeconds: 12
           timeoutSeconds: 10
           failureThreshold: 5
           httpGet:
             port: 8080
-            path: "/otp/routers/default/"
+            path: "/otp/actuators/health"
         securityContext:
           allowPrivilegeEscalation: false
         env:
-        - name: ROUTER_DATA_CONTAINER_URL
-          value: "http://opentripplanner-data-con-waltti-v3:8080"
-        - name: ROUTER_NAME
-          value: "waltti"
         - name: JAVA_OPTS
-          value: "-Xmx17g -Xms17g -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
+          value: "-Xmx11g -Xms11g -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
         resources:
           requests:
-            memory: "20Gi"
-            cpu: "7000m"
+            memory: "12Gi"
+            cpu: "3000m"
           limits:
-            memory: "20Gi"
-            cpu: "8000m"
+            memory: "12Gi"
+            cpu: "4000m"
       volumes:
       - name: otpcfgmap
         configMap:
           name: opentripplanner-cfgmap
+      - name: "datastorage"
+        nfs:
+          server: digitransitprdaksstorage.file.core.windows.net
+          path: /digitransitprdaksstorage/waltti
+          readOnly: true
       imagePullSecrets:
         - name: hsldevcomkey
 

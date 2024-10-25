@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-hsl-prod-v3
+  name: otp-data-builder-finland
 spec:
-  schedule: "0 6 * * *" # schedule in Finland time
+  schedule: "30 17 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
@@ -14,16 +14,23 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-hsl-prod-v3
+            app: otp-data-builder-finland
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            pool: megapool
+            agentpool: builderpool
+          tolerations:
+          - key: "builder"
+            operator: "Equal"
+            value: "yes"
+            effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-hsl-prod-v3
-            image: hsldevcom/otp-data-builder:v3-prod-2024-09-27T09.03.00
+          - name: otp-data-builder-finland
+            image: hsldevcom/otp-data-builder:v2
+            volumeMounts:
+            - mountPath: /opt/otp-data-builder/storage
+              name: datastorage
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -32,17 +39,15 @@ spec:
                  - NET_ADMIN
                  - SYS_ADMIN
             env:
-            - name: ROUTER_NAME
-              value: "hsl"
             - name: BUILDER_TYPE
-              value: "HSL prod v3"
+              value: "Finland dev"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "v3-prod"
+              value: "v2"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -59,33 +64,35 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
-              value: "v2-prod-2024-10-01T08.57.04-cfae1f2"
+              value: "v1"
+            - name: ROUTERS
+              value: "finland"
             - name: SEED_TAG
-              value: "v3-prod"
+              value: "v2"
             - name: TOOLS_TAG
-              value: "v3-prod-2024-09-27T09.03.00"
-            - name: VERSION_CHECK
-              value: "HSL"
-            - name: SLACK_CHANNEL
-              value: "digitransit-ci"
+              value: "v2"
             resources:
               requests:
-                memory: 11Gi
-                cpu: 3000m
+                memory: 14Gi
+                cpu: 7000m
               limits:
-                memory: 11Gi
-                cpu: 6000m
+                memory: 14Gi
+                cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
+          volumes:
+            - name: "datastorage"
+              persistentVolumeClaim:
+                claimName: otp-data-builder-finland-v2-pvc
 
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-hsl-prod-v3-pdb
+  name: otp-data-builder-finland-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-hsl-prod-v3
+      app: otp-data-builder-finland

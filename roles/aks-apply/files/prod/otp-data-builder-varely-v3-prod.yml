@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-waltti-prod
+  name: otp-data-builder-varely-v3
 spec:
-  schedule: "30 1 * * *" # schedule in Finland time
+  schedule: "0 2 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
@@ -14,16 +14,23 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-waltti-prod
+            app: otp-data-builder-varely-v3
         spec:
-          priorityClassName: high-priority
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
           nodeSelector:
-            pool: megapool
+            agentpool: builderpool
+          tolerations:
+          - key: "builder"
+            operator: "Equal"
+            value: "yes"
+            effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-waltti-prod
-            image: hsldevcom/otp-data-builder:prod-2024-04-24T17.45.39-91bf5f9
+          - name: otp-data-builder-varely-v3
+            image: hsldevcom/otp-data-builder:v3-prod
+            volumeMounts:
+            - mountPath: /opt/otp-data-builder/storage
+              name: datastorage
             imagePullPolicy: Always
             securityContext:
               privileged: true
@@ -33,14 +40,14 @@ spec:
                  - SYS_ADMIN
             env:
             - name: BUILDER_TYPE
-              value: "Waltti prod"
+              value: "VARELY prod v3"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
             - name: DOCKER_TAG
-              value: "prod"
+              value: "v3-prod"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -57,31 +64,37 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
-              value: "prod-2024-06-06T07.57.56-77dc9df"
-            - name: ROUTERS
-              value: "waltti"
+              value: "v2-prod"
+            - name: ROUTER_NAME
+              value: "varely"
             - name: SEED_TAG
-              value: "prod"
+              value: "v3-prod"
             - name: TOOLS_TAG
-              value: "prod-2024-04-24T17.45.53-91bf5f9"
+              value: "v3-prod"
             resources:
               requests:
-                memory: 11Gi
-                cpu: 3000m
+                memory: 14Gi
+                cpu: 7000m
               limits:
-                memory: 11Gi
-                cpu: 6000m
+                memory: 14Gi
+                cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
+          volumes:
+            - name: "datastorage"
+              nfs:
+                server: digitransitprdaksstorage.file.core.windows.net
+                path: /digitransitprdaksstorage/varely
+                readOnly: false
 
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-waltti-prod-pdb
+  name: otp-data-builder-varely-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-waltti-prod
+      app: otp-data-builder-varely-v3

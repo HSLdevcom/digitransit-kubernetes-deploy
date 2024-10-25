@@ -1,38 +1,38 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: opentripplanner-data-con-hsl
+  name: opentripplanner-data-server-waltti-alt-v3
 spec:
   ports:
   - port: 8080
     targetPort: 8080
-    name: opentripplanner-data-con-hsl-service-port
+    name: opentripplanner-data-server-waltti-alt-v3-service-port
     protocol: TCP
   selector:
-    app: opentripplanner-data-con-hsl
+    app: opentripplanner-data-server-waltti-alt-v3
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: opentripplanner-data-con-hsl
+  name: opentripplanner-data-server-waltti-alt-v3
   labels:
-    app: opentripplanner-data-con-hsl
+    app: opentripplanner-data-server-waltti-alt-v3
     update: auto
 spec:
-  selector:
-    matchLabels:
-      app: opentripplanner-data-con-hsl
   replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
+      maxSurge: 100%
       maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: opentripplanner-data-server-waltti-alt-v3
   template:
     metadata:
       labels:
-        app: opentripplanner-data-con-hsl
+        app: opentripplanner-data-server-waltti-alt-v3
         lastRestartDate: dummy-value
     spec:
       affinity:
@@ -45,16 +45,19 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - opentripplanner-data-con-hsl
+                  - opentripplanner-data-server-waltti-alt-v3
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: burstpool
       containers:
-      - name: opentripplanner-data-con-hsl
-        image: hsldevcom/opentripplanner-data-container-hsl:prod
+      - name: opentripplanner-data-server-waltti-alt-v3
+        image: hsldevcom/opentripplanner-data-server:v3-prod-waltti-alt
+        volumeMounts:
+          - mountPath: /var/www/localhost/htdocs
+            name: datastorage
+        imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
-        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -65,10 +68,10 @@ spec:
             port: 8080
             path: "/version.txt"
         livenessProbe:
-          initialDelaySeconds: 150
+          initialDelaySeconds: 500
           periodSeconds: 10
           timeoutSeconds: 10
-          failureThreshold: 5
+          failureThreshold: 2
           httpGet:
             port: 8080
             path: "/version.txt"
@@ -81,15 +84,21 @@ spec:
             cpu: "200m"
       imagePullSecrets:
         - name: hsldevcomkey
+      volumes:
+        - name: "datastorage"
+          nfs:
+            server: digitransitprdaksstorage.file.core.windows.net
+            path: /digitransitprdaksstorage/waltti-alt
+            readOnly: true
 
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: opentripplanner-data-con-hsl-pdb
+  name: opentripplanner-data-server-waltti-alt-v3-pdb
 spec:
   maxUnavailable: 1
   selector:
     matchLabels:
-      app: opentripplanner-data-con-hsl
+      app: opentripplanner-data-server-waltti-alt-v3

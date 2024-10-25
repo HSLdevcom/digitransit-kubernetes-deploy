@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-waltti-dev-v3
+  name: otp-data-builder-hsl
 spec:
-  schedule: "50 23 * * *" # schedule in Finland time
+  schedule: "15 19 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
@@ -14,10 +14,9 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-waltti-dev-v3
+            app: otp-data-builder-hsl
         spec:
-          priorityClassName: high-priority
-          activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
+          activeDeadlineSeconds: 3600 # one build can take max 1 hour
           restartPolicy: OnFailure
           nodeSelector:
             agentpool: builderpool
@@ -27,36 +26,28 @@ spec:
             value: "yes"
             effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-waltti-dev-v3
-            image: hsldevcom/otp-data-builder:v3
+          - name: otp-data-builder-hsl
+            image: hsldevcom/otp-data-builder:v2
             volumeMounts:
             - mountPath: /opt/otp-data-builder/storage
               name: datastorage
-            imagePullPolicy: Always
             securityContext:
               privileged: true
               capabilities:
                 add:
                  - NET_ADMIN
                  - SYS_ADMIN
+            imagePullPolicy: Always
             env:
-            - name: ROUTER_NAME
-              value: "waltti"
             - name: BUILDER_TYPE
-              value: "Waltti dev v3"
+              value: "HSL dev"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
-            - name: EXTRA_SRC
-              value: "{\"LINKKI\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}, \"Lahti\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}, \"KotkaLautat\": {\"url\": \"https://koontikartta.navici.com/tiedostot/gtfs_lautat.zip\", \"rules\": [\"waltti/gtfs-rules/only-kotka-ferries.rule\"]}, \"TurkuTest\": {\"url\": \"https://gtfsdata.blob.core.windows.net/turku/GTFS-TRIPS_4bd95466_2024-09-25-06-36-32.zip\"}}"
-            - name: EXTRA_UPDATERS
-              value: "{\"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/nysse.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\"}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\"}}"
-            - name: SKIPPED_SITES
-              value: "kuopio.digitransit.fi"
             - name: DOCKER_TAG
-              value: "v3"
+              value: "v2"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
@@ -72,36 +63,37 @@ spec:
                 secretKeyRef:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
+            - name: EXTRA_UPDATERS
+              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi\", \"routers\": [\"hsl\"]}, \"hsl-bike-park\": {\"url\": \"https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1\", \"routers\": [\"hsl\"]}, \"hsl-car-park\": {\"url\": \"https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1\", \"routers\": [\"hsl\"]}, \"hsl-alerts\": {\"url\": \"https://transitdatadev.blob.core.windows.net/service-alerts/v2/hsl\", \"routers\": [\"hsl\"]}}"
             - name: OTP_TAG
-              value: "v2"
+              value: "v1"
+            - name: ROUTERS
+              value: "hsl"
             - name: SEED_TAG
-              value: "v3"
+              value: "v2"
             - name: TOOLS_TAG
-              value: "v3"
-            - name: SLACK_CHANNEL
-              value: "topic-ci-otp2"
+              value: "v2"
             resources:
               requests:
-                memory: 14Gi
+                memory: 11776Mi
                 cpu: 7000m
               limits:
-                memory: 14Gi
+                memory: 11776Mi
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
           volumes:
             - name: "datastorage"
               persistentVolumeClaim:
-                claimName: otp-data-builder-waltti-v3-pvc
-
+                claimName: otp-data-builder-hsl-v2-pvc
 ---
 
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-waltti-dev-v3-pdb
+  name: otp-data-builder-hsl-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-waltti-dev-v3
+      app: otp-data-builder-hsl
