@@ -40,7 +40,7 @@ spec:
                  - SYS_ADMIN
             env:
             - name: BUILDER_TYPE
-              value: "Waltti prod NEW BUILDER" # TODO update
+              value: "Waltti prod"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:

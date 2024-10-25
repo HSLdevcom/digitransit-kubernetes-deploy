@@ -77,13 +77,13 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: JAVA_OPTS
-          value: -XX:+UseParNewGC -Xms10G -Xmx10G -XX:NewRatio=5 -XX:+UseStringDeduplication
+          value: -XX:+UseParNewGC -Xms11G -Xmx11G -XX:NewRatio=5 -XX:+UseStringDeduplication
         resources:
           requests:
-            memory: "11Gi"
+            memory: "12Gi"
             cpu: "3000m"
           limits:
-            memory: "11Gi"
+            memory: "12Gi"
             cpu: "4000m"
       imagePullSecrets:
         - name: hsldevcomkey

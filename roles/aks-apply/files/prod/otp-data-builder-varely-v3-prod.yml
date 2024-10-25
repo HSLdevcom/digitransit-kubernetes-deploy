@@ -40,7 +40,7 @@ spec:
                  - SYS_ADMIN
             env:
             - name: BUILDER_TYPE
-              value: "VARELY prod v3 NEW BUILDER" # TODO update
+              value: "VARELY prod v3"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
