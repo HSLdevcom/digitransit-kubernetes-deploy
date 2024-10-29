@@ -106,25 +106,6 @@ Applying a specific manifest into an environment
 
 - Run `ansible-playbook play_apply_manifests.yml -e @env_vars/<dev or prod>.yml -e service=<filename without -env.yml postfix>`
 
-### Add kured for automated vm security updates
-
-Add the Kured Helm repository
-
-- Run `helm repo add kured https://weaveworks.github.io/kured`
-
-Update your local Helm chart repository cache
-
-- Run `helm repo update`
-
-Create namespace for kured
-
-- Run `kubectl create namespace kured`
-
-Install kured (**Replace slack related values from the script with real values**)
-
-- **For prod** Run `helm install kured kured/kured --namespace kured --set nodeSelector."beta\.kubernetes\.io/os"=linux --set configuration.slackChannel=<slack channel> --set configuration.slackHookUrl=<slack hook URL> --set configuration.slackUsername=<slack username for kured messages>`
-- **For dev** Run `helm install kured kured/kured --namespace kured --set nodeSelector."beta\.kubernetes\.io/os"=linux --set configuration.startTime="14:00:00" --set configuration.endTime="20:00:00" --set configuration.rebootDays="{mon,tue,wed,thu,fri}" --set configuration.slackChannel=<slack channel> --set configuration.slackHookUrl=<slack hook URL> --set configuration.slackUsername=<slack username for kured messages>`
-
 ### Block traffic from internet
 
 By default, traffic will be allowed directly from the internet to the kubernetes cluster. As Application Gateway and API Management are used for directing traffic to the cluster, incoming traffic should only be allowed from those two to the cluster.
