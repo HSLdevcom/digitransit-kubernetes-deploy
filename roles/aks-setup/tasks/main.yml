@@ -22,29 +22,66 @@
   command: "az aks create \
     --resource-group {{aks_resource_group_name}} \
     --name {{aks_name}} \
-    --node-count {{default_node_count}} \
-    --node-vm-size {{default_node_vm_size}} \
+    --node-count {{system_node_count}} \
+    --node-vm-size {{system_node_vm_size}} \
     --kubernetes-version {{kubernetes_version}} \
     --generate-ssh-keys \
     --service-principal {{item.appId}} \
     --client-secret {{item.password}} \
     --uptime-sla \
-    --os-sku Ubuntu \
-    --nodepool-name {{default_nodepool_name}} \
-    --nodepool-labels {{default_labels}}"
+    --os-sku azurelinux \
+    --node-osdisk-type Ephemeral \
+    --mode System \
+    --node-taints CriticalAddonsOnly=true:NoSchedule \
+    --nodepool-name {{system_nodepool_name}}
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
   with_items:
     - { appId: "{{json.appId}}", password: "{{json.password}}" }
+
+- name: "Create nodepool {{default_nodepool_name}}"
+  command: "az aks nodepool add \
+    --resource-group {{aks_resource_group_name}} \
+    --cluster-name {{aks_name}} \
+    --name {{default_nodepool_name}} \
+    --min-count {{default_min_node_count}} \
+    --max-count {{default_max_node_count}} \
+    --max-surge {{default_max_surge}} \
+    --node-vm-size {{default_node_vm_size}} \
+    --os-sku azurelinux \
+    --enable-cluster-autoscaler \
+    --node-osdisk-size 100"
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: "Create nodepool {{worker_nodepool_name}}"
   command: "az aks nodepool add \
     --resource-group {{aks_resource_group_name}} \
     --cluster-name {{aks_name}} \
     --name {{worker_nodepool_name}} \
-    --node-count {{worker_node_count}} \
+    --min-count {{worker_min_node_count}} \
+    --max-count {{worker_max_node_count}} \
+    --max-surge {{worker_max_surge}} \
     --node-vm-size {{worker_node_vm_size}} \
-    --os-sku Ubuntu \
-    --labels {{worker_labels}}"
+    --os-sku azurelinux \
+    --node-osdisk-type Ephemeral \
+    --enable-cluster-autoscaler \
+    --node-taints {{worker_taint}}
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create nodepool {{builder_nodepool_name}}"
+  command: "az aks nodepool add \
+    --resource-group {{aks_resource_group_name}} \
+    --cluster-name {{aks_name}} \
+    --name {{builder_nodepool_name}} \
+    --min-count {{builder_min_node_count}} \
+    --max-count {{builder_max_node_count}} \
+    --max-surge {{builder_max_surge}} \
+    --node-vm-size {{builder_node_vm_size}} \
+    --os-sku azurelinux \
+    --node-osdisk-type Ephemeral \
+    --enable-cluster-autoscaler \
+    --node-taints {{builder_taint}}
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
