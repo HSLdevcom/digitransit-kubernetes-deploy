@@ -124,7 +124,7 @@ If the project is being monitored through an external party, we should also add 
 
 ### Scaling nodes up
 
-- It can be done through the AKS' node pools in the azure portal but we the dev/prod.yml files should also be updated to reflect the change in case we need to recreate environments
+- We use autoscaling for node pools. Sometimes we need to adjust maximum node counts for node pools. If that is done, the dev/prod.yml files should also be updated to reflect the change in case we need to recreate environments.
 - There is a possibility that there will be SNAT port exhaustion which will cause issues with outbound flows to fail if nodes are increased but the load balancer is not updated. Therefore, before or right after the nodes have been scaled up, the total number of nodes (from all node pools) should be calculated. The current number of ports can be fetched `az network lb outbound-rule list --resource-group <the resource group automatically created by kubernetes for the load balancer and scale sets> --lb-name kubernetes -o table` and the number of ip addesses can be at least seen from the kubernetes load balancer's frontend ip configuration in the Azure portal (the outbound ips in our case should be the total number of ips - 1). To calculate what should be the appropriate number of ports and ips follow the https://docs.microsoft.com/en-us/azure/aks/load-balancer-standard#configure-the-allocated-outbound-ports documentation. We should have room for a couple of extra nodes so therefore the calculation should be something like `64,000 ports per IP / <outbound ports per node> * <number of outbound IPs> = <number of nodes in the cluster> + 2`. The outbound ports should be a multiple of 8. The ports and ips can be updated with
 
 ```sh
