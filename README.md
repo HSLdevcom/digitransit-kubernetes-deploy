@@ -106,25 +106,6 @@ Applying a specific manifest into an environment
 
 - Run `ansible-playbook play_apply_manifests.yml -e @env_vars/<dev or prod>.yml -e service=<filename without -env.yml postfix>`
 
-### Add kured for automated vm security updates
-
-Add the Kured Helm repository
-
-- Run `helm repo add kured https://weaveworks.github.io/kured`
-
-Update your local Helm chart repository cache
-
-- Run `helm repo update`
-
-Create namespace for kured
-
-- Run `kubectl create namespace kured`
-
-Install kured (**Replace slack related values from the script with real values**)
-
-- **For prod** Run `helm install kured kured/kured --namespace kured --set nodeSelector."beta\.kubernetes\.io/os"=linux --set configuration.slackChannel=<slack channel> --set configuration.slackHookUrl=<slack hook URL> --set configuration.slackUsername=<slack username for kured messages>`
-- **For dev** Run `helm install kured kured/kured --namespace kured --set nodeSelector."beta\.kubernetes\.io/os"=linux --set configuration.startTime="14:00:00" --set configuration.endTime="20:00:00" --set configuration.rebootDays="{mon,tue,wed,thu,fri}" --set configuration.slackChannel=<slack channel> --set configuration.slackHookUrl=<slack hook URL> --set configuration.slackUsername=<slack username for kured messages>`
-
 ### Block traffic from internet
 
 By default, traffic will be allowed directly from the internet to the kubernetes cluster. As Application Gateway and API Management are used for directing traffic to the cluster, incoming traffic should only be allowed from those two to the cluster.
@@ -143,7 +124,7 @@ If the project is being monitored through an external party, we should also add 
 
 ### Scaling nodes up
 
-- It can be done through the AKS' node pools in the azure portal but we the dev/prod.yml files should also be updated to reflect the change in case we need to recreate environments
+- We use autoscaling for node pools. Sometimes we need to adjust maximum node counts for node pools. If that is done, the dev/prod.yml files should also be updated to reflect the change in case we need to recreate environments.
 - There is a possibility that there will be SNAT port exhaustion which will cause issues with outbound flows to fail if nodes are increased but the load balancer is not updated. Therefore, before or right after the nodes have been scaled up, the total number of nodes (from all node pools) should be calculated. The current number of ports can be fetched `az network lb outbound-rule list --resource-group <the resource group automatically created by kubernetes for the load balancer and scale sets> --lb-name kubernetes -o table` and the number of ip addesses can be at least seen from the kubernetes load balancer's frontend ip configuration in the Azure portal (the outbound ips in our case should be the total number of ips - 1). To calculate what should be the appropriate number of ports and ips follow the https://docs.microsoft.com/en-us/azure/aks/load-balancer-standard#configure-the-allocated-outbound-ports documentation. We should have room for a couple of extra nodes so therefore the calculation should be something like `64,000 ports per IP / <outbound ports per node> * <number of outbound IPs> = <number of nodes in the cluster> + 2`. The outbound ports should be a multiple of 8. The ports and ips can be updated with
 
 ```sh

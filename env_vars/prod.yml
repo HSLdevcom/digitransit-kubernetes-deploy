@@ -7,16 +7,26 @@
 "aks_environment_with_postfix": "{{az_environment}}{{aks_environment_postfix}}"
 "aks_name": "{{project}}-{{aks_environment_with_postfix}}-aks"
 "aks_resource_group_name": "{{aks_name}}-rg"
-"default_node_count": "22"
-"worker_node_count": "0"
+
+# AKS node pool configurations
+"system_node_count": "3"
+
+"default_min_node_count": "0"
+"default_max_node_count": "30"
+"default_max_surge": "10"
+
+"worker_min_node_count": "30"
+"worker_max_node_count": "130"
+"worker_max_surge": "20"
+
+"builder_min_node_count": "0"
+"builder_max_node_count": "10"
+"builder_max_surge": "3"
+
 "addons_to_add": "monitoring"
 "addons_to_remove": "kube-dashboard"
 "log_analytics_workspace_rg": "OMS-PROD-RG"
 "kubernetes_version": "1.30.3"
-"default_nodepool_name": "smallpool"
-"worker_nodepool_name": "megapool"
-"default_labels": "pool=smallpool"
-"worker_labels": "pool=megapool"
 
 # Application Gateway variables
 "gateway_name_postfix": ""
