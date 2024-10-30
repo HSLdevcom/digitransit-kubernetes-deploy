@@ -40,7 +40,7 @@ spec:
                  - SYS_ADMIN
             env:
             - name: BUILDER_TYPE
-              value: "Finland prod NEW BUILDER" # TODO update
+              value: "Finland prod"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
