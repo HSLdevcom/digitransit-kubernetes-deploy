@@ -77,9 +77,9 @@ spec:
         - name: API_URL
           value: "https://api.digitransit.fi"
         - name: ASSET_URL
-          value: "https://digitransit-prod-cdn-origin.azureedge.net/ui/v3/waltti"
+          value: "https://cdn.digitransit.fi/ui/v3/waltti"
         - name: MAP_URL
-          value: "https://digitransit-prod-cdn-origin.azureedge.net"
+          value: "https://cdn.digitransit.fi"
         - name: NODE_OPTS
           value: "--max_old_space_size=1500"
         - name: RELAY_FETCH_TIMEOUT
@@ -118,6 +118,8 @@ spec:
               key: prod-citybike-scheduler-db-conn-string
         - name: CITYBIKE_DATABASE
           value: "citybike-scheduler-prod"
+        - name: MAP_VERSION
+          value: "v3"
         resources:
           requests:
             memory: 2Gi
