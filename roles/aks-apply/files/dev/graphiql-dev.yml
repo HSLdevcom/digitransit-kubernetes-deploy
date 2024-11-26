@@ -63,7 +63,7 @@ spec:
           failureThreshold: 2
           httpGet:
             port: 8080
-            path: "/graphiql/hsl"
+            path: "/graphiql/hsl/v2/gtfs/v1"
         livenessProbe:
           initialDelaySeconds: 60
           periodSeconds: 60
@@ -71,29 +71,13 @@ spec:
           failureThreshold: 2
           httpGet:
             port: 8080
-            path: "/graphiql/hsl"
-        env: 
-        - name: REACT_APP_API_SUBSCRIPTION_KEY_PARAM  
-          valueFrom:
-            secretKeyRef:
-              name: "digitransit-subscription-key-name"
-              key: "digitransit-subscription-key-name"
-        - name: REACT_APP_DEV_API_SUBSCRIPTION_KEY
-          valueFrom:
-            secretKeyRef:
-              name: "dev-graphiql-apim-key"
-              key: "dev-graphiql-apim-key"   
-        - name: REACT_APP_API_SUBSCRIPTION_KEY
-          valueFrom:
-            secretKeyRef:
-              name: "graphiql-apim-key"
-              key: "graphiql-apim-key"   
+            path: "/graphiql/hsl/v2/gtfs/v1"
         resources:
           requests:
-            memory: "1Gi"
+            memory: "100Mi"
             cpu: "100m"
           limits:
-            memory: "1Gi"
+            memory: "100Mi"
             cpu: "500m"
       imagePullSecrets:
         - name: hsldevcomkey
