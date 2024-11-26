@@ -20,7 +20,7 @@ spec:
         averageUtilization: 45
   behavior:
     scaleUp:
-      stabilizationWindowSeconds: 120 # 5 min
+      stabilizationWindowSeconds: 120 # 2 min
       policies:
       - type: Percent
         value: 100
@@ -54,7 +54,7 @@ spec:
         averageUtilization: 45
   behavior:
     scaleUp:
-      stabilizationWindowSeconds: 120 # 5 min
+      stabilizationWindowSeconds: 120 # 2 min
       policies:
       - type: Percent
         value: 100
