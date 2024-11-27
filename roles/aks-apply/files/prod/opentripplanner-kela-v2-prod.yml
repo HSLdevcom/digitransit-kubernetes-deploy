@@ -112,3 +112,38 @@ spec:
   selector:
     matchLabels:
       app: opentripplanner-kela-v2
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: opentripplanner-kela-v2-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: opentripplanner-kela-v2
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 2
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 90
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 90
+    scaleDown:
+      stabilizationWindowSeconds: 300 # 5 min
+      policies:
+      - type: Pods
+        value: 1
+        periodSeconds: 300
+
