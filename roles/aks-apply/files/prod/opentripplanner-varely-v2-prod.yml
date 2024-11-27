@@ -135,14 +135,14 @@ spec:
         averageUtilization: 2
   behavior:
     scaleUp:
-      stabilizationWindowSeconds: 90
+      stabilizationWindowSeconds: 300
       policies:
       - type: Percent
         value: 100
-        periodSeconds: 90
+        periodSeconds: 300
     scaleDown:
-      stabilizationWindowSeconds: 300 # 5 min
+      stabilizationWindowSeconds: 600
       policies:
       - type: Pods
         value: 1
-        periodSeconds: 300
+        periodSeconds: 600
