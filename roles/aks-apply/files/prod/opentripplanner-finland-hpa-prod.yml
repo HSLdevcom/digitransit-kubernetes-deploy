@@ -1,32 +1,32 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: hsl-map-server-hpa
+  name: opentripplanner-finland-hpa
   namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: hsl-map-server
-  minReplicas: 2
-  maxReplicas: 8
+    name: opentripplanner-finland
+  minReplicas: 1
+  maxReplicas: 2
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 15
+        averageUtilization: 2
   behavior:
     scaleUp:
-      stabilizationWindowSeconds: 90
+      stabilizationWindowSeconds: 300
       policies:
       - type: Percent
-        value: 100
-        periodSeconds: 90
+        value: 300
+        periodSeconds: 300
     scaleDown:
-      stabilizationWindowSeconds: 300 # 5 min
+      stabilizationWindowSeconds: 600
       policies:
       - type: Pods
         value: 1
-        periodSeconds: 300
+        periodSeconds: 600
