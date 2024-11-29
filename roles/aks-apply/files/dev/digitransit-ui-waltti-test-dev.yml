@@ -74,6 +74,8 @@ spec:
         env:
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
+        - name: OTP_URL
+          value: "https://dev-api.digitransit.fi/routing/v2/waltti-alt/"
         - name: RUN_ENV
           value: "development"
         - name: ASSET_URL
