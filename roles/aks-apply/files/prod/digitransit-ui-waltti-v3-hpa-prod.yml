@@ -16,7 +16,7 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 3
+        averageUtilization: 3 #scale to 1 pod only during nighttime
   behavior:
     scaleUp:
       stabilizationWindowSeconds: 60
