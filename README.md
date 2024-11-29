@@ -134,6 +134,17 @@ az aks update \
     --load-balancer-managed-outbound-ip-count <number of ips> \
     --load-balancer-outbound-ports <number of ports>
 ```
+### Pod autoscaling
+
+- We use horizontal pod autoscaling for most production services. Each service has a related hpa yaml where autoscaling settings are configured.
+- Some HPA's set very low cpu utilization target. The idea is to shut down the second 'backup' service during the night time.
+- Auto scaling may become a problem if network traffic to pods temporarily stops (due to a connectivity problem, DDOS attack, service malfunction etc). Service capacity will drop to a minimum,
+and when the traffic returns autoscaling cannot recover capacity fast enough. The file `roles/aks-apply/files/fixed-pods-hpa-prod.yml` defines fixed replica counts for the HPAs. Apply it to disable auto scaling.
+
+
+```sh
+kubectl apply -f fixed-pods-hpa-prod.yml
+```
 
 ### Upgrading AKS version
 
