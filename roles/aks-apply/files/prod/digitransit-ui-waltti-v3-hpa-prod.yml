@@ -9,14 +9,14 @@ spec:
     kind: Deployment
     name: digitransit-ui-waltti-v3
   minReplicas: 1
-  maxReplicas: 2
+  maxReplicas: 5
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 5 #scale to 1 pod only during nighttime
+        averageUtilization: 50
   behavior:
     scaleUp:
       stabilizationWindowSeconds: 60
