@@ -9,20 +9,20 @@ spec:
     kind: Deployment
     name: opentripplanner-hsl
   minReplicas: 2
-  maxReplicas: 40
+  maxReplicas: 20
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 55
+        averageUtilization: 50
   behavior:
     scaleUp:
       stabilizationWindowSeconds: 60
       policies:
       - type: Percent
-        value: 100
+        value: 200
         periodSeconds: 60
     scaleDown:
       stabilizationWindowSeconds: 300 # 5 min

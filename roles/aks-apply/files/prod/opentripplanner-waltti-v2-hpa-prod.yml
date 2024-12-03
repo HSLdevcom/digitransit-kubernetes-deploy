@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: opentripplanner-waltti-v2
   minReplicas: 2
-  maxReplicas: 60
+  maxReplicas: 34
   metrics:
   - type: Resource
     resource:
@@ -22,7 +22,7 @@ spec:
       stabilizationWindowSeconds: 60
       policies:
       - type: Percent
-        value: 100
+        value: 200
         periodSeconds: 60
     scaleDown:
       stabilizationWindowSeconds: 300 # 5 min
