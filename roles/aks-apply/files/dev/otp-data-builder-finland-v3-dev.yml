@@ -73,6 +73,8 @@ spec:
               value: "v3"
             - name: JAVA_OPTS
               value: "-Xmx15G -Xms15G"
+            - name: NOSEED # TODO remove this when seed is ready
+              value: "true"
             - name: EXTRA_SRC
               value: "{\"digitraffic\": {\"url\": \"https://rata-beta.digitraffic.fi/api/v1/trains/gtfs-passenger.zip\"},\"MATKA\": {\"url\": \"https://mobility.mobility-database.fintraffic.fi/static/digitransit_new.zip\"}}"
             resources:
