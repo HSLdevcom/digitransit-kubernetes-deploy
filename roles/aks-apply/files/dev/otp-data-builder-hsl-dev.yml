@@ -64,7 +64,7 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: EXTRA_UPDATERS
-              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi\", \"routers\": [\"hsl\"]}, \"hsl-bike-park\": {\"url\": \"https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1\", \"routers\": [\"hsl\"]}, \"hsl-car-park\": {\"url\": \"https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1\", \"routers\": [\"hsl\"]}, \"hsl-alerts\": {\"url\": \"https://transitdatadev.blob.core.windows.net/service-alerts/v2/hsl\", \"routers\": [\"hsl\"]}}"
+              value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi\"}, \"hsl-bike-park\": {\"url\": \"https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1\"}, \"hsl-car-park\": {\"url\": \"https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1\"}, \"hsl-alerts\": {\"url\": \"https://transitdatadev.blob.core.windows.net/service-alerts/v2/hsl\"}}"
             - name: OTP_TAG
               value: "v1"
             - name: ROUTERS
