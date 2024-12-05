@@ -153,9 +153,9 @@ spec:
         resources:
           requests:
             memory: "1536Mi"
-            cpu: 600m
+            cpu: 300m
           limits:
             memory: "1536Mi"
-            cpu: 1500m
+            cpu: 500m
       imagePullSecrets:
         - name: hsldevcomkey

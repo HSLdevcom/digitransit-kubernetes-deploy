@@ -118,6 +118,6 @@ spec:
             cpu: 500m
           limits:
             memory: 1200Mi
-            cpu: 1500m
+            cpu: 800m
       imagePullSecrets:
         - name: hsldevcomkey
