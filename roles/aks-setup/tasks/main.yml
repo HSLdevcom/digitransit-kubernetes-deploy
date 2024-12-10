@@ -85,3 +85,19 @@
     --node-taints {{builder_taint}}
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create nodepool {{mega_nodepool_name}}"
+  command: "az aks nodepool add \
+    --resource-group {{aks_resource_group_name}} \
+    --cluster-name {{aks_name}} \
+    --name {{mega_nodepool_name}} \
+    --min-count {{mega_min_node_count}} \
+    --max-count {{mega_max_node_count}} \
+    --max-surge {{mega_max_surge}} \
+    --node-vm-size {{mega_node_vm_size}} \
+    --os-sku azurelinux \
+    --node-osdisk-type Ephemeral \
+    --enable-cluster-autoscaler \
+    --node-taints {{mega_taint}}
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
