@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: opentripplanner-hsl-v2
   minReplicas: 2
-  maxReplicas: 16
+  maxReplicas: 30
   metrics:
   - type: Resource
     resource:
