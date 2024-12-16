@@ -77,9 +77,9 @@ spec:
         - name: RUN_ENV
           value: "development"
         - name: ASSET_URL
-          value: "https://digitransit-dev-cdn-origin.azureedge.net/ui/v3/waltti"
+          value: "https://dev-cdn.digitransit.fi/ui/v3/waltti"
         - name: MAP_URL
-          value: "https://digitransit-dev-cdn-origin.azureedge.net"
+          value: "https://dev-cdn.digitransit.fi"
         - name: NODE_OPTS
           value: "--max_old_space_size=900"
         - name: RELAY_FETCH_TIMEOUT

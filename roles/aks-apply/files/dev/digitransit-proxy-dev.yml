@@ -224,7 +224,7 @@ spec:
                 name: waltti-test-static-key
                 key: waltti-test-static-key
           - name: CDN_BASE_URL
-            value: "https://digitransit-dev-cdn-origin.azureedge.net"
+            value: "https://dev-cdn.digitransit.fi"
         resources:
             requests:
               memory: "1152Mi"
