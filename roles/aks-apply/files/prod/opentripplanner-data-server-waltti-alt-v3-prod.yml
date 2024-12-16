@@ -51,7 +51,7 @@ spec:
         agentpool: burstpool
       containers:
       - name: opentripplanner-data-server-waltti-alt-v3
-        image: hsldevcom/opentripplanner-data-server:v3-prod-waltti-alt
+        image: hsldevcom/opentripplanner-data-server:v3-prod-waltti-alt-2024-12-16T01.04.19Z
         volumeMounts:
           - mountPath: /var/www/localhost/htdocs
             name: datastorage
