@@ -38,9 +38,9 @@ spec:
         lastRestartDate: dummy-value
     spec:
       nodeSelector:
-        agentpool: powerpool
+        agentpool: megapool
       tolerations:
-      - key: "powerPod"
+      - key: "megaPod"
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"
@@ -81,14 +81,14 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: JAVA_OPTS
-          value: "-Xmx8G -Xms8G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
+          value: "-Xmx4G -Xms4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
         resources:
           requests:
-            memory: "10Gi"
-            cpu: "3000m"
+            memory: "5Gi"
+            cpu: "1000m"
           limits:
-            memory: "10Gi"
-            cpu: "4000m"
+            memory: "5Gi"
+            cpu: "3000m"
       volumes:
       - name: otpcfgmap
         configMap:

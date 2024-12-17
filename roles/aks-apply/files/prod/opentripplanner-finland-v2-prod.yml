@@ -85,10 +85,10 @@ spec:
         resources:
           requests:
             memory: "18Gi"
-            cpu: "6000m"
+            cpu: "4000m"
           limits:
             memory: "18Gi"
-            cpu: "7000m"
+            cpu: "5000m"
       volumes:
       - name: otpcfgmap
         configMap:
