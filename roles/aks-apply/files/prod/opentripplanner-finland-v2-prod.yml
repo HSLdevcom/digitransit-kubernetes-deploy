@@ -37,6 +37,18 @@ spec:
         app: opentripplanner-finland-v2
         lastRestartDate: dummy-value
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - opentripplanner-finland-v2
+              topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: megapool
       tolerations:
