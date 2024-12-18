@@ -60,17 +60,6 @@ spec:
                   values:
                    - opentripplanner-varely-v2
               topologyKey: kubernetes.io/hostname
-        podAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 50
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - opentripplanner-varely-v2
-              topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: megapool
       tolerations:
