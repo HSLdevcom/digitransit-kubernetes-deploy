@@ -37,10 +37,33 @@ spec:
         app: opentripplanner-varely-v2
         lastRestartDate: dummy-value
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - opentripplanner-varely-v2
+              topologyKey: kubernetes.io/hostname
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 50
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                   - opentripplanner-finland-v2
+              topologyKey: kubernetes.io/hostname
       nodeSelector:
-        agentpool: powerpool
+        agentpool: megapool
       tolerations:
-      - key: "powerPod"
+      - key: "megaPod"
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"
@@ -81,13 +104,13 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: JAVA_OPTS
-          value: "-Xmx8G -Xms8G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
+          value: "-Xmx4G -Xms4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
         resources:
           requests:
-            memory: "10Gi"
-            cpu: "3000m"
+            memory: "5Gi"
+            cpu: "1000m"
           limits:
-            memory: "10Gi"
+            memory: "5Gi"
             cpu: "4000m"
       volumes:
       - name: otpcfgmap

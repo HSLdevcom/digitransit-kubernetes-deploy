@@ -37,6 +37,29 @@ spec:
         app: opentripplanner-finland-v2
         lastRestartDate: dummy-value
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - opentripplanner-finland-v2
+              topologyKey: kubernetes.io/hostname
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 50
+            podAAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                   - opentripplanner-varely-v2
+              topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: megapool
       tolerations:
@@ -85,10 +108,10 @@ spec:
         resources:
           requests:
             memory: "18Gi"
-            cpu: "6000m"
+            cpu: "4000m"
           limits:
             memory: "18Gi"
-            cpu: "7000m"
+            cpu: "6000m"
       volumes:
       - name: otpcfgmap
         configMap:
