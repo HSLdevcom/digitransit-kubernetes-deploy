@@ -39,7 +39,7 @@ spec:
     spec:
       affinity:
         podAntiAffinity:
-	  requiredDuringSchedulingIgnoredDuringExecution:
+          requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector
             matchExpressions:
             - key: app
