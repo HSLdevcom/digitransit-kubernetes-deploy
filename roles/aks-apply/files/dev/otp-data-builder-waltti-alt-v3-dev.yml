@@ -71,8 +71,6 @@ spec:
               value: "v3"
             - name: TOOLS_TAG
               value: "v3"
-            - name: EXTRA_SRC
-              value: "{\"WalttiTest\": {\"url\": \"http://digitransit-proxy:8080/out/lmjadmin.mattersoft.fi/feeds/229.zip\"}}"
             - name: EXTRA_UPDATERS
               value: "{\"walttitest-trip-updates\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/tripupdate\", \"type\": \"stop-time-updater\", \"frequency\": \"60s\", \"feedId\": \"WalttiTest\", \"fuzzyTripMatching\": false}, \"walttitest-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\", \"type\": \"real-time-alerts\", \"frequency\": \"30s\", \"feedId\": \"WalttiTest\", \"fuzzyTripMatching\": false}}"
             resources:
