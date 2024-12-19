@@ -83,7 +83,7 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: EXTRA_SRC
-              value: "{\"WalttiTest\": {\"url\": \"http://digitransit-proxy:8080/out/lmjadmin.mattersoft.fi/feeds/229.zip\"}}"
+              value: "waltti-alt"
             resources:
               requests:
                 memory: 9Gi
