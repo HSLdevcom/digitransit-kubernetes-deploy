@@ -122,10 +122,10 @@ spec:
           value: "v3"
         resources:
           requests:
-            memory: 2Gi
+            memory: 3Gi
             cpu: 800m
           limits:
-            memory: 2Gi
+            memory: 3Gi
             cpu: 1000m
       imagePullSecrets:
         - name: hsldevcomkey
