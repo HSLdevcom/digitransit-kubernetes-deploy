@@ -82,6 +82,8 @@ spec:
                 secretKeyRef:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
+            - name: EXTRA_SRC
+              value: "waltti-alt"
             resources:
               requests:
                 memory: 9Gi
