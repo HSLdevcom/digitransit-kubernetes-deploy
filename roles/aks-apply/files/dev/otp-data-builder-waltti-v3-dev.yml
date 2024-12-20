@@ -53,7 +53,7 @@ spec:
             - name: EXTRA_UPDATERS
               value: "{\"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/nysse.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\"}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\"}}"
             - name: SKIPPED_SITES
-              value: "kuopio.digitransit.fi"
+              value: "all"
             - name: DOCKER_TAG
               value: "v3"
             - name: DOCKER_USER
