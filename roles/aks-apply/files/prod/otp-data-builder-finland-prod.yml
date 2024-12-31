@@ -72,7 +72,7 @@ spec:
             - name: TOOLS_TAG
               value: "v2-prod"
             - name: SKIPPED_SITES
-              value: "reittiopas.hsl.fi"
+              value: "all"
             resources:
               requests:
                 memory: 14Gi
