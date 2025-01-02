@@ -33,7 +33,6 @@ spec:
     metadata:
       labels:
         app: yleisviestipalvelu
-        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:

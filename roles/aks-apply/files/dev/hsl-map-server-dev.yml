@@ -49,7 +49,6 @@ spec:
     metadata:
       labels:
         app: hsl-map-server
-        lastRestartDate: dummy-value
     spec:
       nodeSelector:
         agentpool: powerpool

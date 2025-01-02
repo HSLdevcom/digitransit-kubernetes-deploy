@@ -35,7 +35,6 @@ spec:
     metadata:
       labels:
         app: opentripplanner-finland
-        lastRestartDate: dummy-value
     spec:
       nodeSelector:
         agentpool: powerpool

@@ -11,15 +11,10 @@ metadata:
   name: digitransit-deployer-role
 rules:
   - apiGroups:
-      - ""
-    resources:
-      - pods
-    verbs:
-      - list
-  - apiGroups:
       - "apps"
     resources:
       - deployments
+      - replicasets
     verbs:
       - list
       - patch
@@ -71,7 +66,6 @@ spec:
     metadata:
       labels:
         app: digitransit-deployer
-        lastRestartDate: dummy-value
     spec:
       serviceAccountName: digitransit-deployer
       affinity:

@@ -35,7 +35,6 @@ spec:
     metadata:
       labels:
         app: opentripplanner-waltti
-        lastRestartDate: dummy-value
     spec:
       nodeSelector:
         agentpool: powerpool

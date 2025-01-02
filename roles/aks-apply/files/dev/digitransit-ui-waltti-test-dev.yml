@@ -34,7 +34,6 @@ spec:
     metadata:
       labels:
         app: digitransit-ui-waltti-test
-        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:
