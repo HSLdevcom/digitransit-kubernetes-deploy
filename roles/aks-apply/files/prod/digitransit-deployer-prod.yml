@@ -10,7 +10,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: digitransit-deployer-role
 rules:
-  - apiGroups:
+  - apiGroups: # TODO this item in the list can be removed when new version of deployer has been deployed
       - ""
     resources:
       - pods
@@ -20,6 +20,7 @@ rules:
       - "apps"
     resources:
       - deployments
+      - replicasets
     verbs:
       - list
       - patch
