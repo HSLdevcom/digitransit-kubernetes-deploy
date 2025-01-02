@@ -10,12 +10,6 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: digitransit-deployer-role
 rules:
-  - apiGroups: # TODO this item in the list can be removed when new version of deployer has been deployed
-      - ""
-    resources:
-      - pods
-    verbs:
-      - list
   - apiGroups:
       - "apps"
     resources:
@@ -72,7 +66,6 @@ spec:
     metadata:
       labels:
         app: digitransit-deployer
-        lastRestartDate: dummy-value
     spec:
       serviceAccountName: digitransit-deployer
       affinity:
