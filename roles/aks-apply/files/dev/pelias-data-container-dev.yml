@@ -39,7 +39,6 @@ spec:
     metadata:
       labels:
         app: pelias-data-container
-        lastRestartDate: dummy-value
     spec:
       nodeSelector:
         agentpool: powerpool

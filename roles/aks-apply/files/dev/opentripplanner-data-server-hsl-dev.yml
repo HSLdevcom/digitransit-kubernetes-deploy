@@ -33,7 +33,6 @@ spec:
     metadata:
       labels:
         app: opentripplanner-data-server-hsl
-        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:
