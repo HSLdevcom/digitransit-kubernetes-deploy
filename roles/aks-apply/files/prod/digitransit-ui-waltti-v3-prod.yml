@@ -77,9 +77,9 @@ spec:
         - name: API_URL
           value: "https://api.digitransit.fi"
         - name: ASSET_URL
-          value: "https://cdn.digitransit.fi/ui/v3/waltti"
+          value: "https://cdn-new.digitransit.fi/ui/v3/waltti"
         - name: MAP_URL
-          value: "https://cdn.digitransit.fi"
+          value: "https://cdn-new.digitransit.fi"
         - name: NODE_OPTS
           value: "--max_old_space_size=1500"
         - name: RELAY_FETCH_TIMEOUT
