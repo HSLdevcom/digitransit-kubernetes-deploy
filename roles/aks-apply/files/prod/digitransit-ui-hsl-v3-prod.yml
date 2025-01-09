@@ -83,11 +83,11 @@ spec:
         - name: FAVOURITE_HOST
           value: "https://api.digitransit.fi/favourites"
         - name: ASSET_URL
-          value: "https://cdn.digitransit.fi/ui/v3/hsl"
+          value: "https://cdn-new.digitransit.fi/ui/v3/hsl"
         - name: ROOTLINK
           value: "https://www.hsl.fi"
         - name: MAP_URL
-          value: "https://cdn.digitransit.fi"
+          value: "https://cdn-new.digitransit.fi"
         - name: NODE_OPTS
           value: "--max_old_space_size=1500"
         - name: RELAY_FETCH_TIMEOUT
