@@ -44,7 +44,7 @@ spec:
                 memory: 3Gi
                 cpu: 4000m
           - name: hsl-timetable-builder
-            image: hsldevcom/hsl-timetable-builder:latest
+            image: hsldevcom/hsl-timetable-builder:latest-2023-09-14T10.59.04-230cd8e
             imagePullPolicy: Always
             securityContext:
               privileged: true
