@@ -79,9 +79,9 @@ spec:
         - name: FAVOURITE_HOST
           value: "https://api.digitransit.fi/favourites"
         - name: ASSET_URL
-          value: "https://cdn-new.digitransit.fi/ui/v3/matka"
+          value: "https://cdn.digitransit.fi/ui/v3/matka"
         - name: MAP_URL
-          value: "https://cdn-new.digitransit.fi"
+          value: "https://cdn.digitransit.fi"
         - name: NODE_OPTS
           value: "--max_old_space_size=1500"
         - name: RELAY_FETCH_TIMEOUT
