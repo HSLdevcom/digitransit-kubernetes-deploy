@@ -16,7 +16,7 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 45
+        averageUtilization: 50
   behavior:
     scaleUp:
       stabilizationWindowSeconds: 60
