@@ -58,21 +58,27 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8080
+        startupProbe:
           periodSeconds: 5
-          timeoutSeconds: 10
-          failureThreshold: 2
-        livenessProbe:
+          timeoutSeconds: 5
+          failureThreshold: 20
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 150
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 2
+          httpGet:
+            path: /
+            port: 8080
+        livenessProbe:
           periodSeconds: 10
           timeoutSeconds: 10
-          failureThreshold: 10
+          failureThreshold: 5
+          httpGet:
+            path: /
+            port: 8080
         env:
         - name: CONFIG
           value: "hsl"
@@ -92,11 +98,6 @@ spec:
           value: "--max_old_space_size=1500"
         - name: RELAY_FETCH_TIMEOUT
           value: "3000"
-        # - name: SENTRY_DSN
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: sentry-dsn
-        #       key: sentry-dsn
         - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
           valueFrom:
             secretKeyRef:
@@ -112,11 +113,6 @@ spec:
             secretKeyRef:
               name: "digitransit-ui-hsl-v3-apim-key"
               key: "digitransit-ui-hsl-v3-apim-key"
-        # - name: SENTRY_SECRET_DSN
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: sentry-secret-dsn
-        #       key: sentry-secret-dsn
         - name: GTM_ID
           valueFrom:
             secretKeyRef:
@@ -172,10 +168,10 @@ spec:
           value: "v3"
         resources:
           requests:
-            memory: 2Gi
+            memory: 3Gi
             cpu: 800m
           limits:
-            memory: 2Gi
+            memory: 3Gi
             cpu: 1000m
       imagePullSecrets:
         - name: hsldevcomkey

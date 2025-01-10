@@ -110,7 +110,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: "dev-digitransit-ui-hsl-v2-apim-key"
-              key: "dev-digitransit-ui-hsl-v2-apim-key"              
+              key: "dev-digitransit-ui-hsl-v2-apim-key"
         - name: REDIS_PORT
           value: "6380"
         - name: REDIS_KEY
@@ -118,21 +118,6 @@ spec:
             secretKeyRef:
               name: redis-key
               key: redis-key
-        # - name: SENTRY_DSN
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: sentry-dsn
-        #       key: sentry-dsn
-        # - name: SENTRY_SECRET_DSN
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: sentry-secret-dsn
-        #       key: sentry-secret-dsn
-        - name: GTM_ID
-          valueFrom:
-            secretKeyRef:
-              name: gtm-id
-              key: gtm-id
         - name: OIDCHOST
           value: "https://hslid-uat.cinfra.fi"
         - name: SESSION_SECRET

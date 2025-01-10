@@ -124,16 +124,6 @@ spec:
               key: redis-key
         - name: NOINDEX
           value: "1"
-        # - name: SENTRY_DSN
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: sentry-dsn
-        #       key: sentry-dsn
-        # - name: SENTRY_SECRET_DSN
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: sentry-secret-dsn
-        #       key: sentry-secret-dsn
         - name: OIDCHOST
           value: "https://hslid-uat.cinfra.fi"
         - name: SESSION_SECRET

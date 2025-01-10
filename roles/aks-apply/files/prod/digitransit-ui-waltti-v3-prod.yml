@@ -99,11 +99,6 @@ spec:
             secretKeyRef:
               name: "digitransit-ui-waltti-v3-apim-key"
               key: "digitransit-ui-waltti-v3-apim-key"
-        # - name: SENTRY_DSN
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: sentry-dsn
-        #       key: sentry-dsn
         - name: GTM_ID
           valueFrom:
             secretKeyRef:
