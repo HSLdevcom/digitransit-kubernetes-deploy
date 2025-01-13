@@ -33,7 +33,6 @@ spec:
     metadata:
       labels:
         app: opentripplanner-data-server-finland-v3
-        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:

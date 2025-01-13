@@ -33,7 +33,6 @@ spec:
     metadata:
       labels:
         app: digitransit-ui-hsl-v2
-        lastRestartDate: dummy-value
     spec:
       affinity:
         podAntiAffinity:
