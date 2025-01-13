@@ -19,6 +19,7 @@ metadata:
   labels:
     app: opentripplanner-data-server-varely-v3
     update: auto
+    checkImageFreshnessAt: "09.00"
 spec:
   replicas: 2
   strategy:
