@@ -89,8 +89,6 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
         env:
-        - name: DEBUG
-          value: "*"
         - name: ENVIRONMENT_TYPE
           value: "DEV"
         - name: SLACK_WEBHOOK_URL
@@ -98,6 +96,21 @@ spec:
             secretKeyRef:
               name: slack-webhook
               key: slack-webhook
+        - name: SLACK_ACCESS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: slack-access-token
+              key: slack-access-token
+        - name: MONITORING_SLACK_CHANNEL_ID
+          valueFrom:
+            secretKeyRef:
+              name: slack-dev-monitoring-channel-id
+              key: slack-dev-monitoring-channel-id
+        - name: ALERT_SLACK_CHANNEL_ID
+          valueFrom:
+            secretKeyRef:
+              name: slack-ci-channel-id
+              key: slack-ci-channel-id
         - name: DOCKER_USER
           valueFrom:
             secretKeyRef:
