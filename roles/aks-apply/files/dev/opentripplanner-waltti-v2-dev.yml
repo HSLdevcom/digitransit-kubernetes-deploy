@@ -21,6 +21,7 @@ metadata:
     restartDelay: "1"
     restartAt: "02.45"
     restartLimitInterval: "720"
+    checkImageFreshnessAt: "09.00"
 spec:
   replicas: 1
   strategy:

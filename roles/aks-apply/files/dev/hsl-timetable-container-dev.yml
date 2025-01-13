@@ -19,6 +19,7 @@ metadata:
   labels:
     app: hsl-timetable-container
     update: auto
+    checkImageFreshnessAt: "09.00"
 spec:
   replicas: 1
   strategy:
