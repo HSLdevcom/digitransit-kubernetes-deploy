@@ -74,10 +74,10 @@ spec:
             path: /FOLI
         resources:
           requests:
-            memory: "160Mi"
+            memory: "200Mi"
             cpu: "100m"
           limits:
-            memory: "160Mi"
+            memory: "200Mi"
             cpu: "200m"
       imagePullSecrets:
         - name: hsldevcomkey
