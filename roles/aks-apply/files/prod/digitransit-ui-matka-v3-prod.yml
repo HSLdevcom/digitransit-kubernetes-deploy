@@ -131,7 +131,7 @@ kind: PodDisruptionBudget
 metadata:
   name: digitransit-ui-matka-v3-pdb
 spec:
-  maxUnavailable: 1
+  minAvailable: 1
   selector:
     matchLabels:
       app: digitransit-ui-matka-v3
