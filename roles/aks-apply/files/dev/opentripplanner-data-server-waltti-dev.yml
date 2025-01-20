@@ -19,7 +19,6 @@ metadata:
   labels:
     app: opentripplanner-data-server-waltti
     update: auto
-    checkImageFreshnessAt: "09.00"
 spec:
   replicas: 2
   strategy:
