@@ -34,7 +34,6 @@ spec:
     metadata:
       labels:
         app: opentripplanner-hsl
-        lastRestartDate: dummy-value
     spec:
       nodeSelector:
         agentpool: powerpool
