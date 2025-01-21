@@ -21,6 +21,8 @@ metadata:
     restartDelay: "1"
     restartAt: "05.45"
     restartLimitInterval: "720"
+    checkImageFreshnessAt: "09.00"
+    imageFreshnessTitle: "Waltti_routing_data"
 spec:
   replicas: 32
   strategy:
