@@ -21,6 +21,8 @@ metadata:
     restartDelay: "1"
     restartAt: "03.00"
     restartLimitInterval: "720"
+    checkImageFreshnessAt: "09.00"
+    imageFreshnessTitle: "Seutuplus_routing_data"
 spec:
   replicas: 2
   strategy:

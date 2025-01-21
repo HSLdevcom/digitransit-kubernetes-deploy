@@ -19,6 +19,8 @@ metadata:
   labels:
     app: hsl-timetable-container
     update: auto
+    checkImageFreshnessAt: "09.00"
+    imageFreshnessTitle: "HSL_PDF_route_timetables"
 spec:
   replicas: 2
   strategy:

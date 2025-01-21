@@ -38,6 +38,8 @@ spec:
       labels:
         app: pelias-data-container
         restartAfterDeployments: "pelias-api"
+        checkImageFreshnessAt: "09.00"
+        imageFreshnessTitle: "Geocoding_data"
     spec:
       affinity:
         podAffinity:
