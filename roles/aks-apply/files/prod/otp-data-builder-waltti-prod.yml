@@ -71,8 +71,8 @@ spec:
               value: "v2-prod"
             - name: TOOLS_TAG
               value: "v2-prod"
-            -name: DISABLE_BLOB_VALIDATION
-	      value: true
+            - name: DISABLE_BLOB_VALIDATION
+              value: "true"
             resources:
               requests:
                 memory: 14Gi

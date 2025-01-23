@@ -73,8 +73,8 @@ spec:
               value: "v2"
             - name: SKIPPED_SITES
               value: "all"
-            -name: DISABLE_BLOB_VALIDATION
-	      value: true
+            - name: DISABLE_BLOB_VALIDATION
+              value: "true"
             resources:
               requests:
                 memory: 14Gi
