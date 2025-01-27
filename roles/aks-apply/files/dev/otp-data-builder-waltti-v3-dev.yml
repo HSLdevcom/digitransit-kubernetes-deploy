@@ -88,8 +88,10 @@ spec:
             - name: hsldevcomkey
           volumes:
             - name: "datastorage"
-              persistentVolumeClaim:
-                claimName: otp-data-builder-waltti-v3-pvc
+              nfs:
+                server: digitransitdevaksstrg.file.core.windows.net
+                path: /digitransitdevaksstrg/waltti
+                readOnly: false
 
 ---
 

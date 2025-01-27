@@ -86,8 +86,10 @@ spec:
             - name: hsldevcomkey
           volumes:
             - name: "datastorage"
-              persistentVolumeClaim:
-                claimName: otp-data-builder-hsl-v3-pvc
+              nfs:
+                server: digitransitdevaksstrg.file.core.windows.net
+                path: /digitransitdevaksstrg/hsl
+                readOnly: false
 
 ---
 
