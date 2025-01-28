@@ -95,8 +95,9 @@ spec:
         configMap:
           name: opentripplanner-cfgmap
       - name: "datastorage"
-        persistentVolumeClaim:
-          claimName: otp-data-finland-v3-pvc
+        nfs:
+          server: digitransitdevaksstrg.file.core.windows.net
+          path: /digitransitdevaksstrg/finland
           readOnly: true
       imagePullSecrets:
         - name: hsldevcomkey
