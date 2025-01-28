@@ -75,6 +75,8 @@ spec:
               value: "all"
             - name: DISABLE_BLOB_VALIDATION
               value: "true"
+            - name: NOSEED
+              value: "true"
             resources:
               requests:
                 memory: 14Gi
