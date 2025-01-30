@@ -85,8 +85,9 @@ spec:
         - name: hsldevcomkey
       volumes:
         - name: "datastorage"
-          persistentVolumeClaim:
-            claimName: otp-data-varely-v3-pvc
+          nfs:
+            server: digitransitdevaksstrg.file.core.windows.net
+            path: /digitransitdevaksstrg/varely
             readOnly: true
 
 ---
