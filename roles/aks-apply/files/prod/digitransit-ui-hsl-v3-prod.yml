@@ -26,7 +26,7 @@ spec:
   selector:
     matchLabels:
       app: digitransit-ui-hsl-v3
-  replicas: 5
+  # replicas: 5
   strategy:
     type: RollingUpdate
     rollingUpdate:
