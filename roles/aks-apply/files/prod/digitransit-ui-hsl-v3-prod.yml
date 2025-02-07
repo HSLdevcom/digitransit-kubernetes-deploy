@@ -150,7 +150,9 @@ spec:
               key: prod-oidc-client-secret
         - name: NOTIFICATION_HOST
           value: "https://www.hsl.fi/user/api/v1/notifications"
-        - name: STOP_TIMETABLES_URL
+        - name: STOP_TIMETABLES_URL # TODO can be removed soon
+          value: "https://kartat.hsl.fi"
+        - name: HSL_TIMETABLES_URL
           value: "https://kartat.hsl.fi"
         - name: BANNER_URL
           value: "https://content.hsl.fi/api/v1/banners?site=JourneyPlanner"
