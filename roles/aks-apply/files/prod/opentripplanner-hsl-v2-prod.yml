@@ -24,7 +24,7 @@ metadata:
     checkImageFreshnessAt: "09.00"
     imageFreshnessTitle: "HSL_routing_data"
 spec:
-  replicas: 18
+  # replicas: 18
   strategy:
     type: RollingUpdate
     rollingUpdate:
