@@ -24,7 +24,7 @@ metadata:
     checkImageFreshnessAt: "09.00"
     imageFreshnessTitle: "Seutuplus_routing_data"
 spec:
-  # replicas: 2
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
