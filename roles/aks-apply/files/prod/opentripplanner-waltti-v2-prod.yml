@@ -24,7 +24,7 @@ metadata:
     checkImageFreshnessAt: "09.00"
     imageFreshnessTitle: "Waltti_routing_data"
 spec:
-  replicas: 32
+  # replicas: 32
   strategy:
     type: RollingUpdate
     rollingUpdate:
