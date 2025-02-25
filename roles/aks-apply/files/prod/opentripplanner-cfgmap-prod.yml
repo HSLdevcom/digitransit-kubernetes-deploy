@@ -5,7 +5,7 @@ metadata:
 data:
   file-from-cfgmap: |
     <included>
-      <logger name="org.opentripplanner.updater.trip.GtfsRealTimeTripUpdateAdapter" level="off"/>
+      <logger name="org.opentripplanner.updater.trip.gtfs.GtfsRealTimeTripUpdateAdapter" level="off"/>
       <logger name="org.opentripplanner.transit.model.timetable.TripTimes" level="error"/>
-      <logger name="org.opentripplanner.updater.trip.TripTimesUpdater" level="off"/>
+      <logger name="org.opentripplanner.updater.trip.gtfs.TripTimesUpdater" level="off"/>
     </included>
