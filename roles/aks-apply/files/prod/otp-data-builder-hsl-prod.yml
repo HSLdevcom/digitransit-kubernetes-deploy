@@ -73,8 +73,6 @@ spec:
               value: "v2-prod"
             - name: VERSION_CHECK
               value: "HSL"
-            - name: EXTRA_SRC
-              value: "{\"HSL\": {\"url\": \"https://geocoding.blob.core.windows.net/vrk/hsl.zip\"}}"
             resources:
               requests:
                 memory: 11Gi

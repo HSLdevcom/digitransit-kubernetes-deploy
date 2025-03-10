@@ -75,8 +75,6 @@ spec:
               value: "HSL"
             - name: JAVA_OPTS
               value: "-Xmx13G -Xms13G"
-            - name: EXTRA_SRC
-              value: "{\"HSL\": {\"url\": \"https://geocoding.blob.core.windows.net/vrk/hsl.zip\"}}"
             resources:
               requests:
                 memory: 16Gi
