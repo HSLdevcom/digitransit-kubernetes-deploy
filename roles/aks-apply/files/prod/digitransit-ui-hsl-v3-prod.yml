@@ -117,8 +117,6 @@ spec:
             secretKeyRef:
               name: gtm-id
               key: gtm-id
-        - name: USE_EMITTER
-          value: "1"
         - name: REDIS_HOST
           valueFrom:
             secretKeyRef:
