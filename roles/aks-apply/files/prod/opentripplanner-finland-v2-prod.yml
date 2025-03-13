@@ -76,7 +76,7 @@ spec:
         - containerPort: 8080
         volumeMounts:
           - name: otpcfgmap
-            mountPath: /opt/opentripplanner/logback-include-extensions.xml
+            mountPath: /logback-include-extensions.xml
             subPath: file-from-cfgmap
           - name: datastorage
             mountPath: /var/otp/

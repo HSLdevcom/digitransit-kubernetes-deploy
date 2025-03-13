@@ -49,9 +49,9 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: "{\"OULU\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}}"
+              value: "{\"tampere\": {\"url\": \"https://ekstrat.tampere.fi/ekstrat/ptdata/tamperefeed_mattersoft.zip\"}}"
             - name: EXTRA_UPDATERS
-              value: "{\"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/nysse.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\"}, \"tampere-trip-updates\": {\"url\": \"https://gtfsrt.blob.core.windows.net/lmj/tripupdate\"}}"
+              value: "{\"tampere-alerts\": {\"url\": \"http://digitransit-proxy:8080/out/nysse.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert\"}, \"tampere-trip-updates\": {\"url\": \"http://digitransit-proxy:8080/out/nysse.mattersoft.fi/api/gtfsrealtime/v1.0/feed/tripupdate\"}}"
             - name: SKIPPED_SITES
               value: "all"
             - name: DOCKER_TAG

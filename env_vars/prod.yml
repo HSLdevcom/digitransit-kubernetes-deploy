@@ -15,7 +15,7 @@
 "default_max_node_count": "30"
 "default_max_surge": "10"
 
-"worker_min_node_count": "30"
+"worker_min_node_count": "15"
 "worker_max_node_count": "130"
 "worker_max_surge": "20"
 
