@@ -81,7 +81,7 @@ spec:
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
         - name: ASSET_URL
-          value: "https://dev-cdn.digitransit.fi/ui/v3/hsl"
+          value: "https://dev-cdn.digitransit.fi/ui/v3/hsl-test"
         - name: MAP_URL
           value: "https://dev-cdn.digitransit.fi"
         - name: NODE_OPTS

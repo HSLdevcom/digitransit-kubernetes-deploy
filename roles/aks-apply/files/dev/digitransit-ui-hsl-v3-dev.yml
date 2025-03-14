@@ -78,7 +78,7 @@ spec:
         - name: RUN_ENV
           value: "development"
         - name: HOSTNAME
-          value: "https://next-dev.digitransit.fi"
+          value: "https://dev.reittiopas.fi"
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
         - name: ASSET_URL
