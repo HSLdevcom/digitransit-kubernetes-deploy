@@ -51,7 +51,7 @@ spec:
         agentpool: burstpool
       containers:
       - name: digitransit-ui-waltti-test
-        image: hsldevcom/digitransit-ui:waltti
+        image: hsldevcom/digitransit-ui:next
         imagePullPolicy: Always
         ports:
         - containerPort: 8080

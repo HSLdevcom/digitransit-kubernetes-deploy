@@ -20,7 +20,6 @@ metadata:
     update: auto
     restartAt: "05.10_15.10"
     restartLimitInterval: "480"
-    restartAfterDeployments: "opentripplanner-hsl-v2_hsl-timetable-container"
     restartDelay: "5"
 spec:
   selector:
