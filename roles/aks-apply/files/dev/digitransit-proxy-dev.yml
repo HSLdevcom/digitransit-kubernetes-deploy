@@ -222,6 +222,11 @@ spec:
               secretKeyRef:
                 name: waltti-test-static-key
                 key: waltti-test-static-key
+          - name: MOBILITY_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: mobility-api-key
+                key: mobility-api-key
           - name: CDN_BASE_URL
             value: "https://dev-cdn.digitransit.fi"
         resources:
