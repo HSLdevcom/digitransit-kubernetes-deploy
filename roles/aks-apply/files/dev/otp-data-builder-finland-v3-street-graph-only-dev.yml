@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-data-builder-finland-v3-street-graph-only-dev
+  name: otp-data-builder-finland-v3-street-graph-only
 spec:
   schedule: "0 1 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
@@ -14,7 +14,7 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-data-builder-finland-v3-street-graph-only-dev
+            app: otp-data-builder-finland-v3-street-graph-only
         spec:
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
@@ -26,7 +26,7 @@ spec:
             value: "yes"
             effect: "NoSchedule"
           containers:
-          - name: otp-data-builder-finland-v3-street-graph-only-dev
+          - name: otp-data-builder-finland-v3-street-graph-only
             image: hsldevcom/otp-data-builder:split-build-test
             volumeMounts:
             - mountPath: /opt/otp-data-builder/storage
@@ -100,9 +100,9 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-data-builder-finland-v3-street-graph-only-dev-pdb
+  name: otp-data-builder-finland-v3-street-graph-only-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-data-builder-finland-v3-street-graph-only-dev
+      app: otp-data-builder-finland-v3-street-graph-only
