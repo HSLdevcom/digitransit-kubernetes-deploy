@@ -77,8 +77,8 @@ spec:
               value: "{\"digitraffic\": {\"url\": \"https://rata-beta.digitraffic.fi/api/v1/trains/gtfs-passenger.zip\"}}"
             - name: EXTRA_UPDATERS
               value: "{\"digitraffic-trip-updates\": {\"url\": \"https://rata-beta.digitraffic.fi/api/v1/trains/gtfs-rt-updates\"}}"
-            - name: USE_PREBUILT_STREET_GRAPH
-              value: "true"
+            - name: SPLIT_BUILD_TYPE
+              value: "USE_PREBUILT_STREET_GRAPH"
             resources:
               requests:
                 memory: 18Gi
