@@ -40,12 +40,6 @@ spec:
         - mountPath: /opt/otp-data-builder/waltti-storage
           name: datastorage-waltti
         imagePullPolicy: Always
-        securityContext:
-          privileged: true
-          capabilities:
-            add:
-              - NET_ADMIN
-              - SYS_ADMIN
         resources:
           requests:
             memory: 100Mi
