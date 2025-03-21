@@ -1,0 +1,82 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otp-data-builder-debug
+  labels:
+    app: otp-data-builder-debug
+    update: auto
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: otp-data-builder-debug
+  template:
+    metadata:
+      labels:
+        app: otp-data-builder-debug
+    spec:
+      containers:
+      - name: otp-data-builder-debug
+        image: ubuntu:24.04
+        # Sleep for a day because this is for debugging.
+        command: ["/bin/bash", "-c", "sleep 86400"]
+        volumeMounts:
+        - mountPath: /opt/otp-data-builder/finland-storage
+          name: datastorage-finland
+        - mountPath: /opt/otp-data-builder/hsl-storage
+          name: datastorage-hsl
+        - mountPath: /opt/otp-data-builder/kela-storage
+          name: datastorage-kela
+        - mountPath: /opt/otp-data-builder/varely-storage
+          name: datastorage-varely
+        - mountPath: /opt/otp-data-builder/waltti-alt-storage
+          name: datastorage-waltti-alt
+        - mountPath: /opt/otp-data-builder/waltti-storage
+          name: datastorage-waltti
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: 100Mi
+            cpu: 100m
+          limits:
+            memory: 1Gi
+            cpu: 1000m
+      imagePullSecrets:
+        - name: hsldevcomkey
+      volumes:
+        - name: "datastorage-finland"
+          nfs:
+            server: digitransitdevaksstrg.file.core.windows.net
+            path: /digitransitdevaksstrg/finland
+            readOnly: false
+        - name: "datastorage-hsl"
+          nfs:
+            server: digitransitdevaksstrg.file.core.windows.net
+            path: /digitransitdevaksstrg/hsl
+            readOnly: false
+        - name: "datastorage-kela"
+          nfs:
+            server: digitransitdevaksstrg.file.core.windows.net
+            path: /digitransitdevaksstrg/kela
+            readOnly: false
+        - name: "datastorage-varely"
+          nfs:
+            server: digitransitdevaksstrg.file.core.windows.net
+            path: /digitransitdevaksstrg/varely
+            readOnly: false
+        - name: "datastorage-waltti-alt"
+          nfs:
+            server: digitransitdevaksstrg.file.core.windows.net
+            path: /digitransitdevaksstrg/waltti-alt
+            readOnly: false
+        - name: "datastorage-waltti"
+          nfs:
+            server: digitransitdevaksstrg.file.core.windows.net
+            path: /digitransitdevaksstrg/waltti
+            readOnly: false
