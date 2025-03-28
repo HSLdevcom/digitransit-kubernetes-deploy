@@ -63,6 +63,8 @@ spec:
                   key: next-waltti-basic
             - name: BUILDER_TYPE
               value: "prod"
+            - name: THRESHOLD
+              value: 6
             - name: MMLAPIKEY
               valueFrom:
                 secretKeyRef:
