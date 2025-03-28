@@ -64,7 +64,7 @@ spec:
             - name: BUILDER_TYPE
               value: "prod"
             - name: THRESHOLD
-              value: 6
+              value: "6"
             - name: MMLAPIKEY
               valueFrom:
                 secretKeyRef:
