@@ -9,14 +9,14 @@ spec:
     kind: Deployment
     name: pelias-data-container
   minReplicas: 2
-  maxReplicas: 20
+  maxReplicas: 40
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 60
+        averageUtilization: 50
   behavior:
     scaleUp:
       stabilizationWindowSeconds: 60
