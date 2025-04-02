@@ -74,9 +74,9 @@ spec:
             - name: JAVA_OPTS
               value: "-Xmx15G -Xms15G"
             - name: EXTRA_SRC
-              value: "{\"digitraffic\": {\"url\": \"https://rata-beta.digitraffic.fi/api/v1/trains/gtfs-passenger.zip\"}}"
+              value: "{\"digitraffic\": {\"url\": \"https://rata.digitraffic.fi/api/v1/trains/gtfs-passenger.zip\"}}"
             - name: EXTRA_UPDATERS
-              value: "{\"digitraffic-trip-updates\": {\"url\": \"https://rata-beta.digitraffic.fi/api/v1/trains/gtfs-rt-updates\"}}"
+              value: "{\"digitraffic-trip-updates\": {\"url\": \"https://rata.digitraffic.fi/api/v1/trains/gtfs-rt-updates\"}}"
             resources:
               requests:
                 memory: 18Gi
