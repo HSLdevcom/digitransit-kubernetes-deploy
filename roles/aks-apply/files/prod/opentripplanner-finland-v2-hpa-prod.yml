@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: opentripplanner-finland-v2
   minReplicas: 2
-  maxReplicas: 3
+  maxReplicas: 4
   metrics:
   - type: Resource
     resource:

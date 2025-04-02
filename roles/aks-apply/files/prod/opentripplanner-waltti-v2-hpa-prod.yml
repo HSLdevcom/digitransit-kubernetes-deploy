@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: opentripplanner-waltti-v2
   minReplicas: 2
-  maxReplicas: 34
+  maxReplicas: 40
   metrics:
   - type: Resource
     resource:
