@@ -67,13 +67,13 @@ spec:
         env:
           # TODO update these envs to use otp2
           - name: FINLAND_OTP_URL
-            value: "opentripplanner-finland:8080/otp/routers/finland/index/graphql"
+            value: "opentripplanner-finland-v2:8080/otp/gtfs/v1"
           - name: HSL_OTP_URL
-            value: "opentripplanner-hsl:8080/otp/routers/hsl/index/graphql"
+            value: "opentripplanner-hsl-v2:8080/otp/gtfs/v1"
           - name: NODE_OPTS
             value: "--max_old_space_size=2048 --optimize_for_size --stack_size=2048 --harmony"
           - name: WALTTI_OTP_URL
-            value: "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql"
+            value: "opentripplanner-waltti-v2:8080/otp/gtfs/v1"
           - name: PARKANDRIDE_URL
             value: "https://parking.fintraffic.fi/api/v1/"
         resources:
