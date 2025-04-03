@@ -73,8 +73,6 @@ spec:
               value: "v3-prod"
             - name: JAVA_OPTS
               value: "-Xmx14G -Xms14G"
-            - name: EXTRA_SRC
-              value: "{\"digitraffic\": {\"url\": \"https://rata.digitraffic.fi/api/v1/trains/gtfs-passenger.zip\"}}"
             resources:
               requests:
                 memory: 18Gi
