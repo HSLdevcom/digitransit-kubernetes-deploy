@@ -1,0 +1,104 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: otp-transit-builder-finland-v3
+spec:
+  schedule: "30 2 * * *" # schedule in Finland time
+  timeZone: "Europe/Helsinki"
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 4
+  jobTemplate:
+    spec:
+      backoffLimit: 2 # max two retries
+      template:
+        metadata:
+          labels:
+            app: otp-transit-builder-finland-v3
+        spec:
+          activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
+          restartPolicy: OnFailure
+          nodeSelector:
+            agentpool: builderpool
+          tolerations:
+          - key: "builder"
+            operator: "Equal"
+            value: "yes"
+            effect: "NoSchedule"
+          containers:
+          - name: otp-transit-builder-finland-v3
+            image: hsldevcom/otp-data-builder:v3
+            volumeMounts:
+            - mountPath: /opt/otp-data-builder/storage
+              name: datastorage
+            imagePullPolicy: Always
+            securityContext:
+              privileged: true
+              capabilities:
+                add:
+                 - NET_ADMIN
+                 - SYS_ADMIN
+            env:
+            - name: ROUTER_NAME
+              value: "finland"
+            - name: BUILDER_TYPE
+              value: "Finland dev v3"
+            - name: DOCKER_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: docker-auth
+                  key: docker-auth
+            - name: DOCKER_TAG
+              value: "v3"
+            - name: DOCKER_USER
+              valueFrom:
+                secretKeyRef:
+                  name: docker-user
+                  key: docker-user
+            - name: SLACK_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: slack-access-token
+                  key: slack-access-token
+            - name: SLACK_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: slack-ci-channel-id
+                  key: slack-ci-channel-id
+            - name: OTP_TAG
+              value: "v2"
+            - name: SEED_TAG
+              value: "v3"
+            - name: TOOLS_TAG
+              value: "v3"
+            - name: JAVA_OPTS
+              value: "-Xmx15G -Xms15G"
+            - name: SPLIT_BUILD_TYPE
+              value: "USE_PREBUILT_STREET_GRAPH"
+            resources:
+              requests:
+                memory: 18Gi
+                cpu: 7000m
+              limits:
+                memory: 18Gi
+                cpu: 8000m
+          imagePullSecrets:
+            - name: hsldevcomkey
+          volumes:
+            - name: "datastorage"
+              nfs:
+                server: digitransitdevaksstrg.file.core.windows.net
+                path: /digitransitdevaksstrg/finland
+                readOnly: false
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: otp-transit-builder-finland-v3-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: otp-transit-builder-finland-v3
