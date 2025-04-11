@@ -38,40 +38,6 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: opentripplanner-finland-hpa
-  namespace: default
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: opentripplanner-finland
-  minReplicas: 2
-  maxReplicas: 2
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 2
-  behavior:
-    scaleUp:
-      stabilizationWindowSeconds: 300
-      policies:
-      - type: Percent
-        value: 300
-        periodSeconds: 300
-    scaleDown:
-      stabilizationWindowSeconds: 600
-      policies:
-      - type: Pods
-        value: 1
-        periodSeconds: 600
-
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
   name: opentripplanner-finland-v2-hpa
   namespace: default
 spec:
@@ -101,40 +67,6 @@ spec:
       - type: Pods
         value: 1
         periodSeconds: 600
-
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: opentripplanner-hsl-hpa
-  namespace: default
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: opentripplanner-hsl
-  minReplicas: 20
-  maxReplicas: 20
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 45
-  behavior:
-    scaleUp:
-      stabilizationWindowSeconds: 90
-      policies:
-      - type: Percent
-        value: 100
-        periodSeconds: 90
-    scaleDown:
-      stabilizationWindowSeconds: 300 # 5 min
-      policies:
-      - type: Pods
-        value: 1
-        periodSeconds: 300
 
 ---
 apiVersion: autoscaling/v2
@@ -238,40 +170,6 @@ spec:
       - type: Pods
         value: 1
         periodSeconds: 600
-
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: opentripplanner-waltti-hpa
-  namespace: default
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: opentripplanner-waltti
-  minReplicas: 2
-  maxReplicas: 2
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 40
-  behavior:
-    scaleUp:
-      stabilizationWindowSeconds: 90
-      policies:
-      - type: Percent
-        value: 100
-        periodSeconds: 90
-    scaleDown:
-      stabilizationWindowSeconds: 300 # 5 min
-      policies:
-      - type: Pods
-        value: 1
-        periodSeconds: 300
 
 ---
 apiVersion: autoscaling/v2
