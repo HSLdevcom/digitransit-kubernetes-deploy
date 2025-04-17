@@ -27,7 +27,7 @@ spec:
             effect: "NoSchedule"
           containers:
           - name: otp-transit-builder-finland-v3
-            image: hsldevcom/otp-data-builder:test
+            image: hsldevcom/otp-data-builder:test-2025-04-14T11.07.33-1d40f96 #TODO use normal tag
             volumeMounts:
             - mountPath: /opt/otp-data-builder/storage
               name: datastorage
