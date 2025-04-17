@@ -1,0 +1,168 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+spec:
+  ports:
+  - port: 9090
+    targetPort: 9090
+    name: prometheus-service-port
+    protocol: TCP
+  selector:
+    app: prometheus
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  labels:
+    app: prometheus
+    update: auto
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - prometheus
+              topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        agentpool: powerpool
+      tolerations:
+      - key: "powerPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
+      containers:
+      - name: prometheus
+        image:  prom/prometheus:latest
+        volumeMounts:
+          - mountPath: /prometheus/data
+            name: prometheusdata
+          - mountPath: /etc/prometheus/
+            name: config-volume
+            readOnly: true
+        imagePullPolicy: Always
+        securityContext:
+          allowPrivilegeEscalation: false
+        ports:
+        - containerPort: 9090
+        env:
+        - name: ENV_NAME
+          value: "VALUE"
+        resources:
+          requests:
+            memory: 1Gi
+            cpu: 500m
+          limits:
+            memory: 4Gi
+            cpu: 1
+
+      imagePullSecrets:
+        - name: hsldevcomkey      
+      volumes:
+        - name: prometheusdata
+          persistentVolumeClaim:
+            claimName: prometheus-storage
+        - name: config-volume
+          configMap:
+            name: prometheus-config
+
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: prometheus-fileshare
+provisioner: kubernetes.io/azure-file
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=1000
+  - gid=1000
+  - mfsymlinks
+  - nobrl
+  - cache=none
+parameters:
+  skuName: Standard_LRS
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-storage
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: prometheus-fileshare
+  resources:
+    requests:
+      storage: 10Gi
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 60s
+      scrape_timeout: 10s
+    
+    scrape_configs:
+    - job_name: opentripplanner-hsl
+      metrics_path: /otp/actuators/prometheus
+      static_configs:
+      - targets:
+        - opentripplanner-hsl-v2:8080
+    
+    - job_name: opentripplanner-kela
+      metrics_path: /otp/actuators/prometheus
+      static_configs:
+      - targets:       
+        - opentripplanner-kela-v2:8080
+
+    - job_name: opentripplanner-waltti
+      metrics_path: /otp/actuators/prometheus
+      static_configs:
+      - targets:       
+        - opentripplanner-waltti-v2:8080
+    
+    - job_name: opentripplanner-waltti-alt
+      metrics_path: /otp/actuators/prometheus
+      static_configs:
+      - targets:       
+        - opentripplanner-waltti-alt-v2:8080
+        
+    - job_name: opentripplanner-finland
+      metrics_path: /otp/actuators/prometheus
+      static_configs:
+      - targets:       
+        - opentripplanner-finland-v2:8080
+
+    - job_name: opentripplanner-varely
+      metrics_path: /otp/actuators/prometheus
+      static_configs:
+      - targets:       
+        - opentripplanner-varely-v2:8080
+---
