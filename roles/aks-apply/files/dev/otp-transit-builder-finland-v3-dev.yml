@@ -75,6 +75,8 @@ spec:
               value: "-Xmx15G -Xms15G"
             - name: SPLIT_BUILD_TYPE
               value: "USE_PREBUILT_STREET_GRAPH"
+            - name: SKIPPED_SITES
+              value: "all"
             resources:
               requests:
                 memory: 18Gi
