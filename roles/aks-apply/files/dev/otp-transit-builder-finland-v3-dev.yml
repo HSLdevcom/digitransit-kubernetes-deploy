@@ -77,6 +77,11 @@ spec:
               value: "USE_PREBUILT_STREET_GRAPH"
             - name: SKIPPED_SITES
               value: "all"
+            - name: MOBILITY_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mobility-api-key
+                  key: mobility-api-key
             resources:
               requests:
                 memory: 18Gi
