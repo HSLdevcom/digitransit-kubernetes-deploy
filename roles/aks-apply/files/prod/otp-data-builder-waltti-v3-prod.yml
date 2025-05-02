@@ -72,7 +72,7 @@ spec:
             - name: TOOLS_TAG
               value: "v3-prod"
             - name: EXTRA_SRC
-              value: "{\"LINKKI\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}, \"Lahti\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}}"
+              value: "{\"LINKKI\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}, \"Lahti\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}, \"KotkaLautat\": {\"url\":\"https://mobility.mobility-database.fintraffic.fi/static/ferries_cars.zip\"}}"
             resources:
               requests:
                 memory: 14Gi
