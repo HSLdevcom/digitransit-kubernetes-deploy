@@ -9,14 +9,14 @@ spec:
     kind: Deployment
     name: opentripplanner-finland-v2
   minReplicas: 2
-  maxReplicas: 10
+  maxReplicas: 20
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 40
+        averageUtilization: 50
   behavior:
     scaleUp:
       stabilizationWindowSeconds: 120
