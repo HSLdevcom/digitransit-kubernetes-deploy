@@ -45,7 +45,7 @@ spec:
         effect: "NoSchedule"
       containers:
       - name: hsl-map-server
-        image: hsldevcom/hsl-map-server:prod-2025-05-04T02.24.49-d44fcd8
+        image: hsldevcom/hsl-map-server:dev
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
