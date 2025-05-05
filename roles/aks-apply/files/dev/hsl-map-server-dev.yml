@@ -45,7 +45,7 @@ spec:
         effect: "NoSchedule"
       containers:
       - name: hsl-map-server
-        image: hsldevcom/hsl-map-server:dev
+        image: hsldevcom/hsl-map-server:prod-2025-05-04T02.24.49-d44fcd8
         imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
@@ -71,6 +71,8 @@ spec:
             value: "opentripplanner-finland-v2:8080/otp/gtfs/v1"
           - name: HSL_OTP_URL
             value: "opentripplanner-hsl-v2:8080/otp/gtfs/v1"
+          - name: TICKET_SALES_URL
+            value: "https://geocoding.blob.core.windows.net/vrk/empty.geojson"
           - name: NODE_OPTS
             value: "--max_old_space_size=2048 --optimize_for_size --stack_size=2048 --harmony"
           - name: WALTTI_OTP_URL
