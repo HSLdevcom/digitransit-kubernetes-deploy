@@ -25,8 +25,8 @@ spec:
         value: 200
         periodSeconds: 120
     scaleDown:
-      stabilizationWindowSeconds: 600
+      stabilizationWindowSeconds: 300
       policies:
       - type: Pods
         value: 1
-        periodSeconds: 600
+        periodSeconds: 300
