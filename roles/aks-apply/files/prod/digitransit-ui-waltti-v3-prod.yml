@@ -18,8 +18,8 @@ metadata:
   labels:
     app: digitransit-ui-waltti-v3
     update: auto
-    restartAt: "04.10_14.10"
-    restartLimitInterval: "480"
+    restartAt: "04.10_12.10_19.00"
+    restartLimitInterval: "240"
     restartAfterDeployments: "opentripplanner-waltti-v2"
     restartDelay: "5"
 spec:
@@ -114,6 +114,8 @@ spec:
           value: "citybike-scheduler-prod"
         - name: MAP_VERSION
           value: "v3"
+        - name: MQTT
+          value: "wss://mqtt.digitransit.fi"
         resources:
           requests:
             memory: 3Gi

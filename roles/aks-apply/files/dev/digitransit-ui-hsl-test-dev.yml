@@ -18,6 +18,7 @@ metadata:
     app: digitransit-ui-hsl-test
     update: auto
     restartAt: "03.40_13.40"
+    restartAfterDeployments: "opentripplanner-hsl-v2"
     restartLimitInterval: "180"
 spec:
   selector:

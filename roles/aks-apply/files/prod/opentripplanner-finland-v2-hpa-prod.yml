@@ -9,14 +9,14 @@ spec:
     kind: Deployment
     name: opentripplanner-finland-v2
   minReplicas: 2
-  maxReplicas: 4
+  maxReplicas: 20
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 40
+        averageUtilization: 60
   behavior:
     scaleUp:
       stabilizationWindowSeconds: 120
@@ -25,8 +25,8 @@ spec:
         value: 200
         periodSeconds: 120
     scaleDown:
-      stabilizationWindowSeconds: 600
+      stabilizationWindowSeconds: 300
       policies:
       - type: Pods
         value: 1
-        periodSeconds: 600
+        periodSeconds: 300
