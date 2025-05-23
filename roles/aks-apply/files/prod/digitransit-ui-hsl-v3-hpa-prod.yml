@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: digitransit-ui-hsl-v3
   minReplicas: 2
-  maxReplicas: 6
+  maxReplicas: 10
   metrics:
   - type: Resource
     resource:
