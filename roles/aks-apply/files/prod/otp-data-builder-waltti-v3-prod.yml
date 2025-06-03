@@ -74,7 +74,7 @@ spec:
             - name: EXTRA_SRC
               value: "{\"LINKKI\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}, \"Lahti\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}, \"KotkaLautat\": {\"url\":\"https://mobility.mobility-database.fintraffic.fi/static/ferries_cars.zip\"}}"
             - name: SKIPPED_SITES
-              value: "Lahti,Kouvola"
+              value: "kouvola.digitransit.fi,lahti.digitransit.fi"
             resources:
               requests:
                 memory: 14Gi
