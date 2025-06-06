@@ -114,8 +114,6 @@ spec:
           value: "citybike-scheduler-prod"
         - name: MAP_VERSION
           value: "v3"
-        - name: MQTT
-          value: "wss://mqtt.digitransit.fi"
         resources:
           requests:
             memory: 3Gi
