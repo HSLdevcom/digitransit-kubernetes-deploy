@@ -39,9 +39,9 @@ spec:
         app: opentripplanner-hsl-v2
     spec:
       nodeSelector:
-        agentpool: powerpool
+        agentpool: megapool
       tolerations:
-      - key: "powerPod"
+      - key: "megaPod"
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"
@@ -82,14 +82,14 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: JAVA_OPTS
-          value: -Xmx11G -Xms11G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -Xlog:gc -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders
+          value: -Xmx15G -Xms15G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -Xlog:gc -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders
         resources:
           requests:
-            memory: "12Gi"
-            cpu: "3000m"
+            memory: "18Gi"
+            cpu: "5000m"
           limits:
-            memory: "12Gi"
-            cpu: "4000m"
+            memory: "18Gi"
+            cpu: "7000m"
       volumes:
       - name: otpcfgmap
         configMap:
