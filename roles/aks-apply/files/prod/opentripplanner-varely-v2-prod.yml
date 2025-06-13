@@ -105,7 +105,7 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: JAVA_OPTS
-          value: "-Xmx4G -Xms4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10  -Xlog:gc"
+          value: "-Xmx4G -Xms4G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -Xlog:gc -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders"
         resources:
           requests:
             memory: "5Gi"
