@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: otp-transit-builder-waltti-v3
 spec:
-  schedule: "45 5 * * *" # schedule in Finland time
+  schedule: "0 5 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
