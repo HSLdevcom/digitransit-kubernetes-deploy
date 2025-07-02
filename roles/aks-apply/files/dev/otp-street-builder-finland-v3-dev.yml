@@ -59,6 +59,8 @@ spec:
               value: "v2"
             - name: SEED_TAG
               value: "v3"
+            - name: TOOLS_TAG
+              value: "v3"
             - name: JAVA_OPTS
               value: "-Xmx15G -Xms15G"
             - name: SPLIT_BUILD_TYPE
