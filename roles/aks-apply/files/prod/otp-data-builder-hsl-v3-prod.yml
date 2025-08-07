@@ -76,7 +76,7 @@ spec:
             - name: JAVA_OPTS
               value: "-Xmx13G -Xms13G"
             - name: EXTRA_OSM
-	      value: "{\"hsl\": \"https://geocoding.blob.core.windows.net/vrk/hsl.pbf\"}"
+              value: "{\"hsl\": \"https://geocoding.blob.core.windows.net/vrk/hsl.pbf\"}"
             resources:
               requests:
                 memory: 16Gi
