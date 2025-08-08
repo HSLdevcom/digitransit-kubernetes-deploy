@@ -2,9 +2,9 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: otp-street-builder-finland-v3
+  name: otp-transit-builder-hsl-v3
 spec:
-  schedule: "0 1 * * *" # schedule in Finland time
+  schedule: "30 4 * * *" # schedule in Finland time
   timeZone: "Europe/Helsinki"
   successfulJobsHistoryLimit: 4
   failedJobsHistoryLimit: 4
@@ -14,7 +14,7 @@ spec:
       template:
         metadata:
           labels:
-            app: otp-street-builder-finland-v3
+            app: otp-transit-builder-hsl-v3
         spec:
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
           restartPolicy: OnFailure
@@ -26,8 +26,8 @@ spec:
             value: "yes"
             effect: "NoSchedule"
           containers:
-          - name: otp-street-builder-finland-v3
-            image: hsldevcom/otp-data-builder:test
+          - name: otp-transit-builder-hsl-v3
+            image: hsldevcom/otp-data-builder:v3
             volumeMounts:
             - mountPath: /opt/otp-data-builder/storage
               name: datastorage
@@ -40,11 +40,23 @@ spec:
                  - SYS_ADMIN
             env:
             - name: ROUTER_NAME
-              value: "finland"
+              value: "hsl"
             - name: BUILDER_TYPE
-              value: "Finland dev v3"
+              value: "HSL dev v3"
+            - name: DOCKER_AUTH
+              valueFrom:
+                secretKeyRef:
+                  name: docker-auth
+                  key: docker-auth
+            - name: EXTRA_UPDATERS
+              value: "{\"liipi\": {\"facilitiesUrl\": \"https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1\", \"utilizationsUrl\": \"https://parking-test.fintraffic.fi/api/v1/utilizations.json?limit=-1\", \"hubsUrl\": \"https://parking-test.fintraffic.fi/api/v1/hubs.json?limit=-1\"}, \"hsl-alerts\": {\"url\": \"https://transitdatadev.blob.core.windows.net/service-alerts/v2/hsl\"}}"
             - name: DOCKER_TAG
               value: "v3"
+            - name: DOCKER_USER
+              valueFrom:
+                secretKeyRef:
+                  name: docker-user
+                  key: docker-user
             - name: SLACK_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
@@ -62,20 +74,15 @@ spec:
             - name: TOOLS_TAG
               value: "v3"
             - name: JAVA_OPTS
-              value: "-Xmx15G -Xms15G"
+              value: "-Xmx13G -Xms13G"
             - name: SPLIT_BUILD_TYPE
-              value: "ONLY_BUILD_STREET_GRAPH"
-            - name: MOBILITY_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: mobility-api-key
-                  key: mobility-api-key
+              value: "USE_PREBUILT_STREET_GRAPH"
             resources:
               requests:
-                memory: 18Gi
+                memory: 16Gi
                 cpu: 7000m
               limits:
-                memory: 18Gi
+                memory: 16Gi
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
@@ -83,7 +90,7 @@ spec:
             - name: "datastorage"
               nfs:
                 server: digitransitdevaksstrg.file.core.windows.net
-                path: /digitransitdevaksstrg/finland
+                path: /digitransitdevaksstrg/hsl
                 readOnly: false
 
 ---
@@ -91,9 +98,9 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: otp-street-builder-finland-v3-pdb
+  name: otp-transit-builder-hsl-v3-pdb
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: otp-street-builder-finland-v3
+      app: otp-transit-builder-hsl-v3

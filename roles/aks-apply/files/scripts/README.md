@@ -22,7 +22,21 @@ To remove the deployment, run the following command.
 kubectl delete -f otp-data-builder-debug.yml
 ```
 
-## Running data-builder cron jobs manually
+## OTP data builder jobs
+
+### Job files
+
+Job manifests for configs that have split data builds exist in this directory.
+The manifests might have differences with the cron jobs located in the `dev` and `prod` directories.
+They should be kept up-to-date with changes to relevant files in the aforementioned folders.
+However, making sure that the job is up-to-date before running is a good practice.
+
+Example command:
+```
+kubectl apply -f otp-data-builder-job-finland-v3.yml
+```
+
+### Creating job files with script
 
 To run data builder cron jobs manually, you can use the `job-from-cronjob.sh` script.
 You should check the output to make sure that it contains the correct content (e.g. environment variables).
