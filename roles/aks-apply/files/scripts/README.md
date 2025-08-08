@@ -41,3 +41,51 @@ To remove the job, run the following command:
 ```
 kubectl delete -f output/manual-data-builder-job-finland-v3.yml
 ```
+
+## Monitoring stack
+
+### Accessing the setup
+
+1. Get the pod name.
+```
+export POD_NAME=$(kubectl --namespace monitoring get pod -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=monitoring-setup" -oname)
+```
+
+2. Use kubectl port-forward.
+```
+kubectl --namespace monitoring port-forward $POD_NAME 3000
+```
+
+3. Access from `localhost:3000`.
+
+### Installation
+
+1. Apply monitoring storageclass to cluster.
+```
+kubectl apply -f monitoring-storageclass.yml
+```
+
+2. Install monitoring stack from helm chart with custom values.
+```
+helm install -f kube-prometheus-stack-values.yml -n monitoring monitoring-setup prometheus-community/kube-prometheus-stack
+```
+
+### Upgrading
+
+```
+helm upgrade -f kube-prometheus-stack-values.yml -n monitoring monitoring-setup prometheus-community/kube-prometheus-stack
+```
+
+### Removal
+
+Persistent storage is not removed by default when uninstalling!
+
+1. Remove monitoring stack.
+```
+helm uninstall -n monitoring monitoring-setup
+```
+
+2. Apply monitoring storageclass to cluster.
+```
+kubectl delete -f monitoring-storageclass.yml
+```
