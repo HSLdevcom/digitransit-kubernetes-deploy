@@ -38,6 +38,11 @@ kubectl --namespace monitoring port-forward $POD_NAME 3000
 
 3. Access from `localhost:3000`.
 
+### Importing/exporting dashboards
+
+A dashboard can easily be exported as JSON using the Grafana UI by navigating to the dashboard and clicking the export button.
+When creating a new dashboard the option of importing a dashboard from JSON can be selected.
+
 ### Installation
 
 1. Apply monitoring storageclass to cluster.
