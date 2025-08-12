@@ -15,16 +15,16 @@
 "default_max_node_count": "30"
 "default_max_surge": "10"
 
-"worker_min_node_count": "15"
-"worker_max_node_count": "130"
+"worker_min_node_count": "10"
+"worker_max_node_count": "80"
 "worker_max_surge": "20"
 
 "builder_min_node_count": "0"
 "builder_max_node_count": "10"
 "builder_max_surge": "3"
 
-"mega_min_node_count": "0"
-"mega_max_node_count": "10"
+"mega_min_node_count": "2"
+"mega_max_node_count": "40"
 "mega_max_surge": "3"
 
 "addons_to_add": "monitoring"

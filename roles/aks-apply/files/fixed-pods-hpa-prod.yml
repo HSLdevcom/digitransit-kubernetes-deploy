@@ -46,7 +46,7 @@ spec:
     kind: Deployment
     name: opentripplanner-finland-v2
   minReplicas: 2
-  maxReplicas: 2
+  maxReplicas: 3
   metrics:
   - type: Resource
     resource:
@@ -79,8 +79,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: opentripplanner-hsl-v2
-  minReplicas: 8
-  maxReplicas: 8
+  minReplicas: 30
+  maxReplicas: 60
   metrics:
   - type: Resource
     resource:
@@ -182,8 +182,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: opentripplanner-waltti-v2
-  minReplicas: 32
-  maxReplicas: 32
+  minReplicas: 20
+  maxReplicas: 40
   metrics:
   - type: Resource
     resource:
@@ -216,8 +216,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: pelias-api
-  minReplicas: 6
-  maxReplicas: 6
+  minReplicas: 15
+  maxReplicas: 30
   metrics:
   - type: Resource
     resource:
@@ -250,8 +250,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: pelias-data-container
-  minReplicas: 7
-  maxReplicas: 7
+  minReplicas: 15
+  maxReplicas: 40
   metrics:
   - type: Resource
     resource:
@@ -352,8 +352,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: digitransit-ui-waltti-v3
-  minReplicas: 2
-  maxReplicas: 2
+  minReplicas: 3
+  maxReplicas: 5
   metrics:
   - type: Resource
     resource:
