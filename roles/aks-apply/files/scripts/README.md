@@ -55,6 +55,11 @@ kubectl apply -f monitoring-storageclass.yml
 helm install -f kube-prometheus-stack-values.yml -n monitoring monitoring-setup prometheus-community/kube-prometheus-stack
 ```
 
+3. Install OTP service monitors.
+```
+kubectl apply -f monitoring-servicemonitors.yml
+```
+
 ### Upgrading
 
 ```
@@ -65,12 +70,17 @@ helm upgrade -f kube-prometheus-stack-values.yml -n monitoring monitoring-setup 
 
 Persistent storage is not removed by default when uninstalling!
 
-1. Remove monitoring stack.
+1. Remove OTP service monitors.
+```
+kubectl delete -f monitoring-servicemonitors.yml
+```
+
+2. Remove monitoring stack.
 ```
 helm uninstall -n monitoring monitoring-setup
 ```
 
-2. Apply monitoring storageclass to cluster.
+3. Remove monitoring storageclass from cluster.
 ```
 kubectl delete -f monitoring-storageclass.yml
 ```
