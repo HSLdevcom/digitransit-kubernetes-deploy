@@ -207,3 +207,7 @@ Run following command to create Azure function app
 ```sh
 ansible-playbook play_setup_fav_service.yml -e @env_vars/<dev or prod>.yml -e @fav_service_secrets.yml
 ```
+
+## Grafana/Prometheus monitoring setup
+
+Documentation can be found in [/roles/aks-apply/files/scripts/README.md](/roles/aks-apply/files/scripts/README.md).
