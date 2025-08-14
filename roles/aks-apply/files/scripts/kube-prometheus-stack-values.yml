@@ -8,47 +8,13 @@ nodeExporter:
   enabled: false
 prometheusOperator:
   enabled: true
+  nodeSelector:
+    agentpool: burstpool
 prometheus:
   enabled: true
   prometheusSpec:
     nodeSelector:
       agentpool: burstpool
-    additionalScrapeConfigs:
-    - job_name: opentripplanner-hsl
-      metrics_path: /otp/actuators/prometheus
-      static_configs:
-      - targets:
-        - opentripplanner-hsl-v2.default.svc.cluster.local:8080
-    
-    - job_name: opentripplanner-kela
-      metrics_path: /otp/actuators/prometheus
-      static_configs:
-      - targets:       
-        - opentripplanner-kela-v2.default.svc.cluster.local:8080
-
-    - job_name: opentripplanner-waltti
-      metrics_path: /otp/actuators/prometheus
-      static_configs:
-      - targets:       
-        - opentripplanner-waltti-v2.default.svc.cluster.local:8080
-    
-    - job_name: opentripplanner-waltti-alt
-      metrics_path: /otp/actuators/prometheus
-      static_configs:
-      - targets:       
-        - opentripplanner-waltti-alt-v2.default.svc.cluster.local:8080
-        
-    - job_name: opentripplanner-finland
-      metrics_path: /otp/actuators/prometheus
-      static_configs:
-      - targets:       
-        - opentripplanner-finland-v2.default.svc.cluster.local:8080
-
-    - job_name: opentripplanner-varely
-      metrics_path: /otp/actuators/prometheus
-      static_configs:
-      - targets:       
-        - opentripplanner-varely-v2.default.svc.cluster.local:8080
     storageSpec:
       volumeClaimTemplate:
         spec:
