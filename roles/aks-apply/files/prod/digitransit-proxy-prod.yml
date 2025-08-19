@@ -220,6 +220,16 @@ spec:
               secretKeyRef:
                 name: waltti-test-static-key
                 key: waltti-test-static-key
+          - name: DEBUG_UI_CREDENTIALS_USER
+            valueFrom:
+              secretKeyRef:
+                name: debug-ui-credentials-user
+                key: debug-ui-credentials-user
+          - name: DEBUG_UI_CREDENTIALS_PASS
+            valueFrom:
+              secretKeyRef:
+                name: debug-ui-credentials-pass
+                key: debug-ui-credentials-pass
           - name: MOBILITY_API_KEY
             valueFrom:
               secretKeyRef:
