@@ -1,0 +1,94 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: otp-street-builder-waltti-v3
+spec:
+  schedule: "0 1 * * *" # schedule in Finland time
+  timeZone: "Europe/Helsinki"
+  successfulJobsHistoryLimit: 4
+  failedJobsHistoryLimit: 4
+  jobTemplate:
+    spec:
+      backoffLimit: 2 # max two retries
+      template:
+        metadata:
+          labels:
+            app: otp-street-builder-waltti-v3
+        spec:
+          activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
+          restartPolicy: OnFailure
+          nodeSelector:
+            agentpool: builderpool
+          tolerations:
+          - key: "builder"
+            operator: "Equal"
+            value: "yes"
+            effect: "NoSchedule"
+          containers:
+          - name: otp-street-builder-waltti-v3
+            image: hsldevcom/otp-data-builder:v3-prod
+            volumeMounts:
+            - mountPath: /opt/otp-data-builder/storage
+              name: datastorage
+            imagePullPolicy: Always
+            securityContext:
+              privileged: true
+              capabilities:
+                add:
+                 - NET_ADMIN
+                 - SYS_ADMIN
+            env:
+            - name: ROUTER_NAME
+              value: "waltti"
+            - name: BUILDER_TYPE
+              value: "Waltti prod v3"
+            - name: DOCKER_TAG
+              value: "v3-prod"
+            - name: SLACK_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: slack-access-token
+                  key: slack-access-token
+            - name: SLACK_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: slack-ci-channel-id
+                  key: slack-ci-channel-id
+            - name: OTP_TAG
+              value: "v2-prod"
+            - name: SEED_TAG
+              value: "v3-prod"
+            - name: TOOLS_TAG
+              value: "v3-prod"
+            - name: SKIPPED_SITES
+              value: "kouvola.digitransit.fi,lahti.digitransit.fi"
+            - name: SPLIT_BUILD_TYPE
+              value: "ONLY_BUILD_STREET_GRAPH"
+            resources:
+              requests:
+                memory: 14Gi
+                cpu: 7000m
+              limits:
+                memory: 14Gi
+                cpu: 8000m
+          imagePullSecrets:
+            - name: hsldevcomkey
+          volumes:
+            - name: "datastorage"
+              nfs:
+                server: digitransitprdaksstorage.file.core.windows.net
+                path: /digitransitprdaksstorage/waltti
+                readOnly: false
+
+---
+
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: otp-street-builder-waltti-v3-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: otp-street-builder-waltti-v3
