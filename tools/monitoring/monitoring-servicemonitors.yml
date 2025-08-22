@@ -1,0 +1,113 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: opentripplanner-finland-v2
+  namespace: monitoring
+  labels:
+    release: monitoring-setup
+spec:
+  selector:
+    matchLabels:
+      app: opentripplanner-finland-v2
+  namespaceSelector:
+    matchNames:
+    - default
+  endpoints:
+  - port: opentripplanner-finland-v2-service-port
+    path: /otp/actuators/prometheus
+    scheme: http
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: opentripplanner-hsl-v2
+  namespace: monitoring
+  labels:
+    release: monitoring-setup
+spec:
+  selector:
+    matchLabels:
+      app: opentripplanner-hsl-v2
+  namespaceSelector:
+    matchNames:
+    - default
+  endpoints:
+  - port: opentripplanner-hsl-v2-service-port
+    path: /otp/actuators/prometheus
+    scheme: http
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: opentripplanner-kela-v2
+  namespace: monitoring
+  labels:
+    release: monitoring-setup
+spec:
+  selector:
+    matchLabels:
+      app: opentripplanner-kela-v2
+  namespaceSelector:
+    matchNames:
+    - default
+  endpoints:
+  - port: opentripplanner-kela-v2-service-port
+    path: /otp/actuators/prometheus
+    scheme: http
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: opentripplanner-varely-v2
+  namespace: monitoring
+  labels:
+    release: monitoring-setup
+spec:
+  selector:
+    matchLabels:
+      app: opentripplanner-varely-v2
+  namespaceSelector:
+    matchNames:
+    - default
+  endpoints:
+  - port: opentripplanner-varely-v2-service-port
+    path: /otp/actuators/prometheus
+    scheme: http
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: opentripplanner-waltti-alt-v2
+  namespace: monitoring
+  labels:
+    release: monitoring-setup
+spec:
+  selector:
+    matchLabels:
+      app: opentripplanner-waltti-alt-v2
+  namespaceSelector:
+    matchNames:
+    - default
+  endpoints:
+  - port: opentripplanner-waltti-alt-v2-service-port
+    path: /otp/actuators/prometheus
+    scheme: http
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: opentripplanner-waltti-v2
+  namespace: monitoring
+  labels:
+    release: monitoring-setup
+spec:
+  selector:
+    matchLabels:
+      app: opentripplanner-waltti-v2
+  namespaceSelector:
+    matchNames:
+    - default
+  endpoints:
+  - port: opentripplanner-waltti-v2-service-port
+    path: /otp/actuators/prometheus
+    scheme: http

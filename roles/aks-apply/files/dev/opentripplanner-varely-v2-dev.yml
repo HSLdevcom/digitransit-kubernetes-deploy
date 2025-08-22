@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: opentripplanner-varely-v2
+  labels:
+    app: opentripplanner-varely-v2
 spec:
   ports:
   - port: 8080

@@ -1,0 +1,37 @@
+alertmanager:
+  enabled: false
+kubernetesServiceMonitors:
+  enabled: false
+kubeStateMetrics:
+  enabled: false
+nodeExporter:
+  enabled: false
+prometheusOperator:
+  enabled: true
+  nodeSelector:
+    agentpool: burstpool
+prometheus:
+  enabled: true
+  prometheusSpec:
+    nodeSelector:
+      agentpool: burstpool
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: monitoring-storageclass
+          accessModes: ["ReadWriteMany"]
+          resources:
+            requests:
+              storage: 10Gi
+grafana:
+  nodeSelector:
+    agentpool: burstpool
+  enabled: true
+  persistence:
+    enabled: true
+    type: sts
+    storageClassName: monitoring-storageclass
+    accessModes: ["ReadWriteMany"]
+    size: 5Gi
+    finalizers:
+      - kubernetes.io/pvc-protection
