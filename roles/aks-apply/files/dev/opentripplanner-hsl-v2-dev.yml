@@ -47,7 +47,7 @@ spec:
         effect: "NoSchedule"
       containers:
       - name: opentripplanner-hsl-v2
-        image: hsldevcom/opentripplanner:v2-hsl
+        image: hsldevcom/opentripplanner:custom-release-hsl
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
