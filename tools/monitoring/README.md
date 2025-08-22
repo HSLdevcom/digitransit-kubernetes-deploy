@@ -1,30 +1,8 @@
-# Scripts and configurations for debugging and maintaining the cluster
+# Monitoring setup
 
-## otp-data-builder-debug
+This monitoring setup uses the [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) helm chart. You will need to install [helm](https://helm.sh/) before installing the chart.
 
-This deployment is intended for the maintaining and debugging mounted storage used by the data builder jobs.
-The deployment creates a pod that does nothing but has storage mounted similar to the data builder jobs.
-To start the data builder debug deployment, run the following command:
-
-```
-kubectl apply -f otp-data-builder-debug.yml
-```
-
-To create a shell inside the debug pod, run the following command:
-
-```
-kubectl exec -it <debug_pod_name> -- /bin/bash
-```
-
-To remove the deployment, run the following command.
-
-```
-kubectl delete -f otp-data-builder-debug.yml
-```
-
-## Monitoring stack
-
-### Accessing the setup
+## Accessing the setup
 
 1. Get the pod name.
 ```
@@ -38,12 +16,12 @@ kubectl --namespace monitoring port-forward $POD_NAME 3000
 
 3. Access from `localhost:3000`.
 
-### Importing/exporting dashboards
+## Importing/exporting dashboards
 
 A dashboard can easily be exported as JSON using the Grafana UI by navigating to the dashboard and clicking the export button.
 When creating a new dashboard the option of importing a dashboard from JSON can be selected.
 
-### Installation
+## Installation
 
 1. Apply monitoring storageclass to cluster.
 ```
@@ -60,13 +38,13 @@ helm install -f kube-prometheus-stack-values.yml -n monitoring monitoring-setup 
 kubectl apply -f monitoring-servicemonitors.yml
 ```
 
-### Upgrading
+## Upgrading
 
 ```
 helm upgrade -f kube-prometheus-stack-values.yml -n monitoring monitoring-setup prometheus-community/kube-prometheus-stack
 ```
 
-### Removal
+## Removal
 
 Persistent storage is not removed by default when uninstalling!
 
