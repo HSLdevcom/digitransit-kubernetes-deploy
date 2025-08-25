@@ -210,4 +210,8 @@ ansible-playbook play_setup_fav_service.yml -e @env_vars/<dev or prod>.yml -e @f
 
 ## Grafana/Prometheus monitoring setup
 
-Documentation can be found in [/roles/aks-apply/files/scripts/README.md](/roles/aks-apply/files/scripts/README.md).
+Documentation can be found in [/tools/monitoring/README.md](/tools/monitoring/README.md).
+
+## Debug tools
+
+Documentation can be found in [/tools/debug/README.md](/tools/debug/README.md).

@@ -30,7 +30,7 @@ kubectl apply -f monitoring-storageclass.yml
 
 2. Install monitoring stack from helm chart with custom values.
 ```
-helm install -f kube-prometheus-stack-values.yml -n monitoring monitoring-setup prometheus-community/kube-prometheus-stack
+helm install -f kube-prometheus-stack-values.yml -n monitoring monitoring-setup prometheus-community/kube-prometheus-stack --version 75.1.0
 ```
 
 3. Install OTP service monitors.
@@ -41,7 +41,7 @@ kubectl apply -f monitoring-servicemonitors.yml
 ## Upgrading
 
 ```
-helm upgrade -f kube-prometheus-stack-values.yml -n monitoring monitoring-setup prometheus-community/kube-prometheus-stack
+helm upgrade -f kube-prometheus-stack-values.yml -n monitoring monitoring-setup prometheus-community/kube-prometheus-stack --version 75.1.0
 ```
 
 ## Removal

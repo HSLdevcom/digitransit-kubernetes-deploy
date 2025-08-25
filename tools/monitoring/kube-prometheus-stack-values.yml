@@ -24,6 +24,8 @@ prometheus:
             requests:
               storage: 10Gi
 grafana:
+  service:
+    port: 8080
   nodeSelector:
     agentpool: burstpool
   enabled: true
