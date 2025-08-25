@@ -68,7 +68,7 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
-              value: "custom-release"
+              value: "v2"
             - name: SEED_TAG
               value: "v3"
             - name: TOOLS_TAG
