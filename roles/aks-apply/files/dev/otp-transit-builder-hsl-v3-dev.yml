@@ -49,7 +49,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_UPDATERS
-              value: "{\"liipi\": {\"facilitiesUrl\": \"https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1\", \"utilizationsUrl\": \"https://parking-test.fintraffic.fi/api/v1/utilizations.json?limit=-1\", \"hubsUrl\": \"https://parking-test.fintraffic.fi/api/v1/hubs.json?limit=-1\"}, \"hsl-alerts\": {\"url\": \"https://transitdatadev.blob.core.windows.net/service-alerts/v2/hsl\"}, \"hsl-trip-updates\": {\"remove\": true}}"
+              value: "{\"liipi\": {\"facilitiesUrl\": \"https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1\", \"utilizationsUrl\": \"https://parking-test.fintraffic.fi/api/v1/utilizations.json?limit=-1\", \"hubsUrl\": \"https://parking-test.fintraffic.fi/api/v1/hubs.json?limit=-1\"}, \"hsl-alerts\": {\"url\": \"https://transitdatadev.blob.core.windows.net/service-alerts/v2/hsl\"}}"
             - name: DOCKER_TAG
               value: "v3"
             - name: DOCKER_USER
