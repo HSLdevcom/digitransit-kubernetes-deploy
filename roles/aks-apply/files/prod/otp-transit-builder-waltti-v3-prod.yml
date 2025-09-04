@@ -71,8 +71,6 @@ spec:
               value: "v3-prod"
             - name: TOOLS_TAG
               value: "v3-prod"
-            - name: EXTRA_SRC
-              value: "{\"LINKKI\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}, \"Lahti\": {\"replacements\": {\"fare_attributes.txt\": \"digitransit_fare_attributes.txt\", \"fare_rules.txt\": \"digitransit_fare_rules.txt\"}}, \"KotkaLautat\": {\"url\":\"https://mobility.mobility-database.fintraffic.fi/static/ferries_cars.zip\"}}"
             - name: SKIPPED_SITES
               value: "kouvola.digitransit.fi,lahti.digitransit.fi"
             - name: SPLIT_BUILD_TYPE
