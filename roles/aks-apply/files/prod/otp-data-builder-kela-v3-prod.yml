@@ -80,6 +80,8 @@ spec:
               value: "v3-prod"
             - name: JAVA_OPTS
               value: "-Xmx16G -Xms16G"
+            - name: EXTRA_OSM
+              value: "{\"finland\": \"https://download.geofabrik.de/europe/finland-latest.osm.pbf\"}"
             resources:
               requests:
                 memory: 20Gi
