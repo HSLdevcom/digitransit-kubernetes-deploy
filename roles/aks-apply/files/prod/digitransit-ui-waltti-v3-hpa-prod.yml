@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: digitransit-ui-waltti-v3
   minReplicas: 2
-  maxReplicas: 5
+  maxReplicas: 10
   metrics:
   - type: Resource
     resource:
