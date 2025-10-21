@@ -8,26 +8,26 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: opentripplanner-kela-v2
-  minReplicas: 1
-  maxReplicas: 2
+  minReplicas: 2
+  maxReplicas: 5
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 1 #allow scaling to 1 pod during nighttime
+        averageUtilization: 60
   behavior:
     scaleUp:
-      stabilizationWindowSeconds: 600
+      stabilizationWindowSeconds: 120
       policies:
       - type: Percent
         value: 100
-        periodSeconds: 600
+        periodSeconds: 120
     scaleDown:
-      stabilizationWindowSeconds: 600
+      stabilizationWindowSeconds: 240
       policies:
       - type: Pods
         value: 1
-        periodSeconds: 600
+        periodSeconds: 240
 
