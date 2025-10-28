@@ -65,6 +65,8 @@ spec:
               value: "kouvola.digitransit.fi,lahti.digitransit.fi"
             - name: SPLIT_BUILD_TYPE
               value: "ONLY_BUILD_STREET_GRAPH"
+            - name: SKIP_OSM_PREPROCESSING
+              value: "true"
             resources:
               requests:
                 memory: 14Gi

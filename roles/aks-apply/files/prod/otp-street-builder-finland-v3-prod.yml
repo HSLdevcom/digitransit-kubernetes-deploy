@@ -65,8 +65,8 @@ spec:
               value: "-Xmx14G -Xms14G"
             - name: SPLIT_BUILD_TYPE
               value: "ONLY_BUILD_STREET_GRAPH"
-            - name: EXTRA_OSM
-              value: "{\"finland\": \"https://download.geofabrik.de/europe/finland-latest.osm.pbf\"}"
+            - name: SKIP_OSM_PREPROCESSING
+              value: "true"
             resources:
               requests:
                 memory: 18Gi

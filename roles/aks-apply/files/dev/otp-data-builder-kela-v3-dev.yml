@@ -82,6 +82,8 @@ spec:
               value: "v3"
             - name: JAVA_OPTS
               value: "-Xmx16G -Xms16G"
+            - name: SKIP_OSM_PREPROCESSING
+              value: "true"
             resources:
               requests:
                 memory: 20Gi
