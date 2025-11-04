@@ -239,10 +239,10 @@ spec:
             value: "https://cdn.digitransit.fi"
         resources:
             requests:
-              memory: "1352Mi"
+              memory: "1700Mi"
               cpu: "500m"
             limits:
-              memory: "1352Mi"
+              memory: "1700Mi"
               cpu: "800m"
       imagePullSecrets:
         - name: hsldevcomkey
