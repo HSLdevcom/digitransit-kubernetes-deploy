@@ -12,7 +12,7 @@
 "system_node_count": "3"
 
 "default_min_node_count": "0"
-"default_max_node_count": "30"
+"default_max_node_count": "20"
 "default_max_surge": "10"
 
 "worker_min_node_count": "10"
@@ -24,7 +24,7 @@
 "builder_max_surge": "3"
 
 "mega_min_node_count": "2"
-"mega_max_node_count": "40"
+"mega_max_node_count": "50"
 "mega_max_surge": "3"
 
 "addons_to_add": "monitoring"
