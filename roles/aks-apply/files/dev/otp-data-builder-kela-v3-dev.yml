@@ -41,8 +41,6 @@ spec:
             env:
             - name: BUILDER_TYPE
               value: "Kela dev v3"
-            - name: EXTRA_SRC
-              value: "{\"kela_lautat\": {\"url\": \"https://mobility.mobility-database.fintraffic.fi/static/ferries_cars.zip\"}}"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
