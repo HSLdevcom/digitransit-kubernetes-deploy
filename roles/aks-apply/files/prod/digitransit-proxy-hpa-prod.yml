@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: digitransit-proxy
   minReplicas: 3
-  maxReplicas: 10
+  maxReplicas: 20
   metrics:
   - type: Resource
     resource:
