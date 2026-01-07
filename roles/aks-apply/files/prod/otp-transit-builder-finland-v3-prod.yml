@@ -43,6 +43,8 @@ spec:
               value: "finland"
             - name: BUILDER_TYPE
               value: "Finland prod v3"
+            - name: EXTRA_SRC
+              value: "{\"Viro\": {\"remove\": true}}"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
