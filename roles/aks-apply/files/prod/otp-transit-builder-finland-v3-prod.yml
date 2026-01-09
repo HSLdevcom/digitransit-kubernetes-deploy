@@ -44,7 +44,7 @@ spec:
             - name: BUILDER_TYPE
               value: "Finland prod v3"
             - name: EXTRA_SRC
-              value: "{\"Viro\": {\"remove\": true}}"
+              value: "{\"Viro\": {\"url\": \"https://mobility.mobility-database.fintraffic.fi/static/viro.zip\"}}"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
