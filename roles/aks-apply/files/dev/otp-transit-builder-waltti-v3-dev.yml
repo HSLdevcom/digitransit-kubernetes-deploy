@@ -48,6 +48,35 @@ spec:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
+            - name: EXTRA_UPDATERS
+              value: >
+                [
+                  {
+                    "id": "linkki-trip-updates",
+                    "type": "stop-time-updater",
+                    "frequency": "60s",
+                    "url": "http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/tripupdate",
+                    "feedId": "LINKKI",
+                    "fuzzyTripMatching": false,
+                    "backwardsDelayPropagationType": "ALWAYS"
+                  },
+                  {
+                    "id": "linkki-alerts",
+                    "type": "real-time-alerts",
+                    "frequency": "30s",
+                    "url": "http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/servicealert",
+                    "feedId": "LINKKI",
+                    "fuzzyTripMatching": false
+                  },
+                  {
+                    "type": "vehicle-positions",
+                    "url": "http://digitransit-proxy:8080/out/lmj.mattersoft.fi/api/gtfsrealtime/v1.0/feed/vehicleposition",
+                    "feedId": "LINKKI",
+                    "frequency": "30s",
+                    "fuzzyTripMatching": false,
+                    "features": ["stop-position", "occupancy"]
+                  }
+                ]
             - name: SKIPPED_SITES
               value: "all"
             - name: DOCKER_TAG
