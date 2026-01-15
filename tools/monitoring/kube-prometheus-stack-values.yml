@@ -28,6 +28,7 @@ grafana:
     dataproxy:
       timeout: 180
       keep_alive_seconds: 180
+  defaultDashboardsEnabled: false
   service:
     port: 8080
   nodeSelector:
