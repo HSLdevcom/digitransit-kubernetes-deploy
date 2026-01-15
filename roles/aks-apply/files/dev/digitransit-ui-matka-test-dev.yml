@@ -1,0 +1,124 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: digitransit-ui-matka-test
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: digitransit-ui-matka-test-service-port
+  selector:
+    app: digitransit-ui-matka-test
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: digitransit-ui-matka-test
+  labels:
+    app: digitransit-ui-matka-test
+    update: auto
+    restartAt: "03.10_13.10"
+    restartLimitInterval: "480"
+    restartAfterDeployments: "opentripplanner-finland-v2"
+    restartDelay: "5"
+spec:
+  selector:
+    matchLabels:
+      app: digitransit-ui-matka-test
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: digitransit-ui-matka-test
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - digitransit-ui-matka-test
+              topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        agentpool: burstpool
+      containers:
+      - name: digitransit-ui-matka-test
+        image: hsldevcom/digitransit-ui:next
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 150
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 10
+        env:
+        - name: RUN_ENV
+          value: "development"
+        - name: API_URL
+          value: "https://dev-api.digitransit.fi"
+        - name: ASSET_URL
+          value: "https://dev-cdn.digitransit.fi/ui/v3/matka-test"
+        - name: MAP_URL
+          value: "https://dev-cdn.digitransit.fi"
+        - name: NODE_OPTS
+          value: "--max_old_space_size=600"
+        - name: RELAY_FETCH_TIMEOUT
+          value: "3000"
+        - name: STATIC_MESSAGE_URL
+          value: "https://dev-matka-yleisviesti.digitransit.fi"
+        - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_HEADER_NAME
+          valueFrom:
+            secretKeyRef:
+              name: "digitransit-subscription-key-name"
+              key: "digitransit-subscription-key-name"
+        - name: API_SUBSCRIPTION_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: "dev-digitransit-ui-matka-v3-apim-key"
+              key: "dev-digitransit-ui-matka-v3-apim-key"
+        - name: CITYBIKE_DB_CONN_STRING
+          valueFrom:
+            secretKeyRef:
+              name: dev-citybike-scheduler-db-conn-string
+              key: dev-citybike-scheduler-db-conn-string
+        - name: CITYBIKE_DATABASE
+          value: "citybike-scheduler-dev"
+        - name: NOINDEX
+          value: "1"
+        - name: ASSEMBLE_GEOJSON
+          value: "1"
+        resources:
+          requests:
+            memory: 1024Mi
+            cpu: 500m
+          limits:
+            memory: 1024Mi
+            cpu: 800m
+      imagePullSecrets:
+        - name: hsldevcomkey
