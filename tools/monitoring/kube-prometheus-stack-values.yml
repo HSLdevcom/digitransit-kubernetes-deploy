@@ -24,6 +24,10 @@ prometheus:
             requests:
               storage: 10Gi
 grafana:
+  grafana.ini:
+    dataproxy:
+      timeout: 180
+      keep_alive_seconds: 180
   service:
     port: 8080
   nodeSelector:
