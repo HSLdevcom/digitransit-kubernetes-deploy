@@ -99,7 +99,7 @@ spec:
         livenessProbe:
           periodSeconds: 12
           timeoutSeconds: 10
-          failureThreshold: 5
+          failureThreshold: 8
           httpGet:
             port: 8080
             path: "/otp/actuators/health"
