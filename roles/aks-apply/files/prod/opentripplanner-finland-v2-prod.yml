@@ -110,10 +110,10 @@ spec:
           value: "-Xmx19G -Xms19G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders"
         resources:
           requests:
-            memory: "22Gi"
+            memory: "21Gi"
             cpu: "4000m"
           limits:
-            memory: "22Gi"
+            memory: "21Gi"
             cpu: "6000m"
       volumes:
       - name: otpcfgmap
