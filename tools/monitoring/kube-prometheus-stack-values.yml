@@ -13,6 +13,13 @@ prometheusOperator:
 prometheus:
   enabled: true
   prometheusSpec:
+    resources:
+      requests:
+        cpu: "1000m"
+        memory: "2Gi"
+      limits:
+        cpu: "2000m"
+        memory: "4Gi"
     nodeSelector:
       agentpool: burstpool
     storageSpec:
