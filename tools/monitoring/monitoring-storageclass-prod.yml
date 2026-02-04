@@ -1,0 +1,16 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: monitoring-storageclass
+provisioner: kubernetes.io/azure-file
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=0
+  - gid=0
+  - mfsymlinks
+  - nobrl
+  - cache=strict
+parameters:
+  skuName: Standard_LRS
+  storageAccount: prodmonitoring

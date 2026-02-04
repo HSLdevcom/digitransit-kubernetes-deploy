@@ -25,7 +25,11 @@ When creating a new dashboard the option of importing a dashboard from JSON can 
 
 1. Apply monitoring storageclass to cluster.
 ```
-kubectl apply -f monitoring-storageclass.yml
+kubectl apply -f monitoring-storageclass-dev.yml
+```
+OR
+```
+kubectl apply -f monitoring-storageclass-prod.yml
 ```
 
 2. Install monitoring stack from helm chart with custom values.
@@ -60,5 +64,14 @@ helm uninstall -n monitoring monitoring-setup
 
 3. Remove monitoring storageclass from cluster.
 ```
-kubectl delete -f monitoring-storageclass.yml
+kubectl delete -f monitoring-storageclass-dev.yml
+```
+OR
+```
+kubectl delete -f monitoring-storageclass-prod.yml
+```
+
+4. View remaining persistent storage claims.
+```
+kubectl get pvc -n monitoring
 ```
