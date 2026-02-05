@@ -30,7 +30,7 @@
 "addons_to_add": "monitoring"
 "addons_to_remove": "kube-dashboard"
 "log_analytics_workspace_rg": "OMS-PROD-RG"
-"kubernetes_version": "1.33.2"
+"kubernetes_version": "1.34.1"
 
 # Application Gateway variables
 "gateway_name_postfix": ""
