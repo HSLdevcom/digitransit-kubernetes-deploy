@@ -72,7 +72,7 @@ spec:
         effect: "NoSchedule"
       containers:
       - name: opentripplanner-finland-v2
-        image: hsldevcom/opentripplanner:v2-2026-02-06T08-51-38-f364080764-finland
+        image: hsldevcom/opentripplanner:v2-2026-02-09T11-20-42-51795a3c52-finland
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
