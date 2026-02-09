@@ -27,10 +27,10 @@ prometheus:
       volumeClaimTemplate:
         spec:
           storageClassName: monitoring-storageclass
-          accessModes: ["ReadWriteMany"]
+          accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 10Gi
+              storage: 15Gi
 grafana:
   grafana.ini:
     dataproxy:
@@ -46,7 +46,7 @@ grafana:
     enabled: true
     type: sts
     storageClassName: monitoring-storageclass
-    accessModes: ["ReadWriteMany"]
-    size: 5Gi
+    accessModes: ["ReadWriteOnce"]
+    size: 1Gi
     finalizers:
       - kubernetes.io/pvc-protection
