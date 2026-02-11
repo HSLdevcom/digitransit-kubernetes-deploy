@@ -53,7 +53,7 @@ spec:
         agentpool: burstpool
       containers:
       - name: digitransit-ui-matka-v3
-        image: hsldevcom/digitransit-ui:hotfix
+        image: hsldevcom/digitransit-ui:v3-prod
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
