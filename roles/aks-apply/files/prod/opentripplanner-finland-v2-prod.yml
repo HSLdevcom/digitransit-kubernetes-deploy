@@ -107,14 +107,14 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: JAVA_OPTS
-          value: "-Xmx19G -Xms19G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -XX:+PrintGC -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders"
+          value: "-Xmx24G -Xms24G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -Xlog:gc -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders"
         resources:
           requests:
-            memory: "21Gi"
-            cpu: "4000m"
+            memory: "26Gi"
+            cpu: "7000m"
           limits:
-            memory: "21Gi"
-            cpu: "6000m"
+            memory: "26Gi"
+            cpu: "8000m"
       volumes:
       - name: otpcfgmap
         configMap:
