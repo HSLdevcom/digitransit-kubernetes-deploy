@@ -81,15 +81,15 @@ spec:
             - name: TOOLS_TAG
               value: "v3"
             - name: JAVA_OPTS
-              value: "-Xmx16G -Xms16G"
+              value: "-Xmx24G -Xms24G"
             - name: SKIP_OSM_PREPROCESSING
               value: "true"
             resources:
               requests:
-                memory: 20Gi
+                memory: 26Gi
                 cpu: 7000m
               limits:
-                memory: 20Gi
+                memory: 26Gi
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey

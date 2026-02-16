@@ -72,7 +72,7 @@ spec:
             - name: TOOLS_TAG
               value: "v3"
             - name: JAVA_OPTS
-              value: "-Xmx15G -Xms15G"
+              value: "-Xmx24G -Xms24G"
             - name: SPLIT_BUILD_TYPE
               value: "USE_PREBUILT_STREET_GRAPH"
             - name: SKIPPED_SITES
@@ -84,10 +84,10 @@ spec:
                   key: mobility-api-key
             resources:
               requests:
-                memory: 18Gi
+                memory: 26Gi
                 cpu: 7000m
               limits:
-                memory: 18Gi
+                memory: 26Gi
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
