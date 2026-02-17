@@ -61,6 +61,8 @@ spec:
               value: "v3-prod"
             - name: TOOLS_TAG
               value: "v3-prod"
+            - name: JAVA_OPTS
+              value: "-Xmx24G -Xms24G"
             - name: SKIPPED_SITES
               value: "kouvola.digitransit.fi,lahti.digitransit.fi"
             - name: SPLIT_BUILD_TYPE
@@ -69,10 +71,10 @@ spec:
               value: "true"
             resources:
               requests:
-                memory: 14Gi
+                memory: 26Gi
                 cpu: 7000m
               limits:
-                memory: 14Gi
+                memory: 26Gi
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey

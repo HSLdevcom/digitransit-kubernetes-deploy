@@ -64,15 +64,15 @@ spec:
             - name: VERSION_CHECK
               value: "HSL"
             - name: JAVA_OPTS
-              value: "-Xmx13G -Xms13G"
+              value: "-Xmx24G -Xms24G"
             - name: SPLIT_BUILD_TYPE
               value: "ONLY_BUILD_STREET_GRAPH"
             resources:
               requests:
-                memory: 16Gi
+                memory: 26Gi
                 cpu: 7000m
               limits:
-                memory: 16Gi
+                memory: 26Gi
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
