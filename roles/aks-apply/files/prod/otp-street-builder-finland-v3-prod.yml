@@ -62,17 +62,17 @@ spec:
             - name: TOOLS_TAG
               value: "v3-prod"
             - name: JAVA_OPTS
-              value: "-Xmx14G -Xms14G"
+              value: "-Xmx24G -Xms24G"
             - name: SPLIT_BUILD_TYPE
               value: "ONLY_BUILD_STREET_GRAPH"
             - name: SKIP_OSM_PREPROCESSING
               value: "true"
             resources:
               requests:
-                memory: 18Gi
+                memory: 26Gi
                 cpu: 7000m
               limits:
-                memory: 18Gi
+                memory: 26Gi
                 cpu: 8000m
           imagePullSecrets:
             - name: hsldevcomkey
