@@ -51,7 +51,7 @@ spec:
             - name: EXTRA_SRC
               value: "{\"KirkkonummiE\": {\"url\": \"https://gtfsdata.blob.core.windows.net/hsl/hsl_flex_test1-gtfs.zip\"},\"KirkkonummiP\": {\"url\": \"https://gtfsdata.blob.core.windows.net/hsl/hsl_flex_test2-gtfs.zip\"}, \"HSL\": {\"url\": \"https://geocoding.blob.core.windows.net/vrk/HSL-gtfs.zip\"}}"
             - name: EXTRA_UPDATERS
-              value: "{\"liipi\": {\"facilitiesUrl\": \"https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1\", \"utilizationsUrl\": \"https://parking-test.fintraffic.fi/api/v1/utilizations.json?limit=-1\", \"hubsUrl\": \"https://parking-test.fintraffic.fi/api/v1/hubs.json?limit=-1\"}}"
+	       value: "{\"hsl-trip-updates\": {\"topic\": \"gtfsrt/dev/fi/hsl/tu\", \"url\": \"tcp://test91.rt.hsl.fi:1883\"}, \"liipi\": {\"facilitiesUrl\": \"https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1\", \"utilizationsUrl\": \"https://parking-test.fintraffic.fi/api/v1/utilizations.json?limit=-1\", \"hubsUrl\": \"https://parking-test.fintraffic.fi/api/v1/hubs.json?limit=-1\"}}"
             - name: DOCKER_TAG
               value: "v3"
             - name: DOCKER_USER
