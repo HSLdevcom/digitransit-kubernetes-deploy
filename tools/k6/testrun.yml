@@ -1,0 +1,21 @@
+apiVersion: k6.io/v1alpha1
+kind: TestRun
+metadata:
+  name: k6-configmap-test
+spec:
+  parallelism: 1
+  script:
+    configMap:
+      name: k6-test-files
+      file: run-queries-from-file.js
+  arguments: --vus 5 --duration 1m --env API_URL=http://opentripplanner-hsl-v2.default.svc.cluster.local:8080/otp/gtfs/v1
+  runner:
+    resources:
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+      requests:
+        cpu: "250m"
+        memory: "256Mi"
+    nodeSelector:
+      agentpool: burstpool
