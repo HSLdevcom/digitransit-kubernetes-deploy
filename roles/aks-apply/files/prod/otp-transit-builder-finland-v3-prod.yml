@@ -27,7 +27,7 @@ spec:
             effect: "NoSchedule"
           containers:
           - name: otp-transit-builder-finland-v3
-            image: hsldevcom/otp-data-builder:v3-prod
+            image: hsldevcom/otp-data-builder:custom-release-2026-03-02T15.03.06-4707798
             volumeMounts:
             - mountPath: /opt/otp-data-builder/storage
               name: datastorage
@@ -68,11 +68,11 @@ spec:
                   name: slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
-              value: "v2-prod"
+              value: "custom-release-2026-03-02T07-51-03-2a145ae60e"
             - name: SEED_TAG
               value: "v3-prod"
             - name: TOOLS_TAG
-              value: "v3-prod"
+              value: "custom-release-2026-03-02T15.03.38-4707798"
             - name: JAVA_OPTS
               value: "-Xmx24G -Xms24G"
             - name: SPLIT_BUILD_TYPE
