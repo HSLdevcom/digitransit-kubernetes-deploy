@@ -29,6 +29,11 @@ export default function () {
   const index = Math.floor(vuIndex * vuIndexOffset + vu.iterationInInstance) % queries.length;
   const row = queries[index];
 
+  // Skip header row of CSV file.
+  if (row[1] === "variables") {
+    return;
+  }
+
   const payload = JSON.stringify({
     query: row[0],
     variables: JSON.parse(row[1]),

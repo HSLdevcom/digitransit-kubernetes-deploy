@@ -1,0 +1,420 @@
+﻿query,variables
+"
+  fragment PlanConnectionOTP2Alert on Alert {
+      alertSeverityLevel
+      alertHeaderText
+      effectiveStartDate
+      effectiveEndDate
+  }
+
+  fragment PlanConnectionOTP2Route on Route {
+      alerts {
+        ...PlanConnectionOTP2Alert
+      }
+      gtfsId
+      type
+      longName
+  }
+
+  fragment PlanConnectionOTP2Stop on Stop {
+    code
+    desc
+    gtfsId
+    lat
+    lon
+    locationType
+    name
+    platformCode
+    vehicleMode
+    vehicleType
+    zoneId
+  }
+
+  fragment PlanConnectionOTP2Place on Place {
+    arrival {
+      estimated {
+        delay
+        time
+      }
+      scheduledTime
+    }
+    departure {
+      estimated {
+        delay
+        time
+      }
+      scheduledTime
+    }
+    lat
+    lon
+    name
+    stop {
+      ...PlanConnectionOTP2Stop
+    }
+    vehicleRentalStation {
+      name
+      stationId
+      lat
+      lon
+      availableVehicles {
+        total
+      }
+      rentalNetwork {
+        networkId
+      }
+    }
+  }
+
+  query PlanConnectionOTP2(
+    $after: String,
+    $before: String,
+    $first: Int,
+    $last: Int,
+    $dateTime: PlanDateTimeInput,
+    $destination: PlanLabeledLocationInput!,
+    $origin: PlanLabeledLocationInput!,
+    $modes: PlanModesInput
+    $preferences: PlanPreferencesInput,
+  ) {
+    planConnection(
+      after: $after
+      before: $before
+      first: $first
+      last: $last
+      dateTime: $dateTime
+      destination: $destination
+      origin: $origin
+      modes: $modes
+      preferences: $preferences
+    ) {
+      edges {
+        cursor
+        node {
+          duration
+          end
+          legs {
+            agency {
+              name
+              fareUrl
+              gtfsId
+            }
+            distance
+            duration
+            end {
+              estimated {
+                delay
+                time
+              }
+              scheduledTime
+            }
+            fareProducts {
+              id
+              product {
+                id
+                medium {
+                  id
+                  name
+                }
+                name
+                riderCategory {
+                  id
+                  name
+                }
+              }
+            }
+            from {
+              ...PlanConnectionOTP2Place
+            }
+            headsign
+            interlineWithPreviousLeg
+            intermediatePlace
+            intermediatePlaces {
+              ...PlanConnectionOTP2Place
+            }
+            legGeometry {
+              length
+              points
+            }
+            mode
+            realTime
+            realtimeState
+            rentedBike
+            route {
+              ...PlanConnectionOTP2Route
+            }
+            serviceDate
+            start {
+              estimated {
+                delay
+                time
+              }
+              scheduledTime
+            }
+            to {
+              ...PlanConnectionOTP2Place
+            }
+            transitLeg
+            trip {
+              directionId
+              pattern {
+                  code
+                  route {
+                      ...PlanConnectionOTP2Route
+                  }
+              }
+              routeShortName
+              tripHeadsign
+              departureStoptime {
+                scheduledDeparture
+              }
+            }
+            walkingBike
+            steps {
+              feature {
+                __typename
+                ... on Entrance {
+                  entranceId
+                  name
+                  publicCode
+                  wheelchairAccessible
+                }
+              }
+              lat
+              lon
+            }
+          }
+          numberOfTransfers
+          start
+          systemNotices {
+            tag
+            text
+          }
+          waitingTime
+          walkDistance
+          walkTime
+          emissionsPerPerson {
+            co2
+          }
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+      routingErrors {
+        code
+        description
+        inputField
+      }
+      searchDateTime
+    }
+  }
+","{""origin"":{""label"":""Valittu sijainti"",""location"":{""coordinate"":{""latitude"":60.16751,""longitude"":24.95479}}},""destination"":{""label"":""Järvenpään asema, Järvenpää"",""location"":{""stopLocation"":{""stopLocationId"":""HSL:9500001""}}},""first"":10,""last"":5,""locale"":""fi"",""modes"":{""transit"":{""transit"":[{""mode"":""TRAM""},{""mode"":""FERRY""},{""mode"":""SUBWAY""},{""mode"":""RAIL""}]},""directOnly"":false},""preferences"":{""accessibility"":{""wheelchair"":{""enabled"":false}},""street"":{""walk"":{""reluctance"":1.8,""speed"":1.2,""boardCost"":120}},""transit"":{""transfer"":{""cost"":0,""slack"":""PT90S""}}}}"
+"query NearYouPageContentQuery(
+  $lat: Float!
+  $lon: Float!
+  $filterByPlaceTypes: [FilterPlaceType]
+  $filterByModes: [Mode]
+  $first: Int!
+  $maxResults: Int!
+  $maxDistance: Int!
+  $omitNonPickups: Boolean!
+  $filterByNetwork: [String!]
+) {
+  places: viewer {
+    ...NearYouContainer_places_4cZs6P
+  }
+}
+
+fragment NearYouContainer_places_4cZs6P on QueryType {
+  nearest(lat: $lat, lon: $lon, filterByPlaceTypes: $filterByPlaceTypes, filterByModes: $filterByModes, first: $first, maxResults: $maxResults, maxDistance: $maxDistance, filterByNetwork: $filterByNetwork) {
+    edges {
+      node {
+        distance
+        place {
+          __typename
+          ... on VehicleRentalStation {
+            ...VehicleRentalStationNearYou_station
+            stationId
+            rentalNetwork {
+              networkId
+            }
+          }
+          ... on VehicleParking {
+            ...ParkNearYou_park
+            vehicleParkingId
+          }
+          ... on Stop {
+            ...StopNearYouContainer_stop_4x1DdO
+            id
+            name
+            gtfsId
+            stoptimesWithoutPatterns(startTime: 0, omitNonPickups: $omitNonPickups) {
+              scheduledArrival
+            }
+            routes {
+              alerts {
+                feed
+                id
+                alertSeverityLevel
+                alertHeaderText
+                alertEffect
+                alertCause
+                alertDescriptionText
+                effectiveStartDate
+                effectiveEndDate
+                entities {
+                  __typename
+                  ... on Route {
+                    mode
+                    shortName
+                  }
+                  ... on Node {
+                    __isNode: __typename
+                    id
+                  }
+                }
+              }
+              id
+            }
+          }
+          id
+        }
+        id
+        __typename
+      }
+      cursor
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}
+
+fragment ParkContainer_vehicleParking on VehicleParking {
+  availability {
+    bicycleSpaces
+    carSpaces
+  }
+  parkCapacity: capacity {
+    carSpaces
+  }
+  name
+  lat
+  lon
+  tags
+  realtime
+}
+
+fragment ParkNearYou_park on VehicleParking {
+  ...ParkContainer_vehicleParking
+  vehicleParkingId
+  name
+  lat
+  lon
+  availability {
+    bicycleSpaces
+    carSpaces
+  }
+  parkCapacity: capacity {
+    carSpaces
+  }
+  tags
+  realtime
+}
+
+fragment StopNearYouContainer_stop_4x1DdO on Stop {
+  id
+  name
+  gtfsId
+  code
+  desc
+  lat
+  lon
+  alerts {
+    alertSeverityLevel
+    alertDescriptionText
+    alertHeaderText
+    entities {
+      __typename
+      ... on Node {
+        __isNode: __typename
+        id
+      }
+    }
+    id
+  }
+  zoneId
+  platformCode
+  locationType
+  stops {
+    zoneId
+    id
+  }
+  stoptimesWithoutPatterns(startTime: 0, omitNonPickups: $omitNonPickups) {
+    realtimeDeparture
+    realtime
+    realtimeState
+    serviceDay
+    headsign
+    stop {
+      platformCode
+      id
+    }
+    trip {
+      gtfsId
+      tripHeadsign
+      occupancy {
+        occupancyStatus
+      }
+      pattern {
+        code
+        route {
+          gtfsId
+          id
+        }
+        id
+      }
+      route {
+        alerts {
+          alertSeverityLevel
+          effectiveStartDate
+          effectiveEndDate
+          id
+        }
+        type
+        shortName
+        longName
+        gtfsId
+        mode
+        color
+        patterns {
+          headsign
+          id
+        }
+        id
+      }
+      id
+    }
+  }
+}
+
+fragment VehicleRentalStationNearYou_station on VehicleRentalStation {
+  stationId
+  name
+  availableVehicles {
+    total
+  }
+  availableSpaces {
+    total
+  }
+  capacity
+  rentalNetwork {
+    networkId
+  }
+  operative
+}
+","{""lat"":60.17108,""lon"":24.94014,""filterByPlaceTypes"":[""STOP"",""STATION""],""filterByModes"":[""TRAM""],""first"":5,""maxResults"":10,""maxDistance"":20000,""omitNonPickups"":true,""filterByNetwork"":[]}"
