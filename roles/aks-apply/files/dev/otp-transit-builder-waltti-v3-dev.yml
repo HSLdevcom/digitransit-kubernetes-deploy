@@ -48,6 +48,26 @@ spec:
                 secretKeyRef:
                   name: docker-auth
                   key: docker-auth
+            - name: EXTRA_SRC
+              value: "{\"Lahti\":{\"url\":\"http://digitransit-proxy:8080/out/waltti-cloudtest-agent.frendsapp.com/api/GTFS/v1/protobuf/dailyzip/223\",\"replacements\":{\"fare_attributes.txt\":\"digitransit_fare_attributes.txt\",\"fare_rules.txt\":\"digitransit_fare_rules.txt\"}}}"
+            - name: EXTRA_UPDATERS
+              value: >
+                {
+                  "lahti-alerts": {
+                    "url": "http://digitransit-proxy:8080/out/waltti-cloudtest-agent.frendsapp.com/api/GTFS/v1/protobuf/servicealerts/223"
+                  },
+                  "lahti-trip-updates": {
+                    "url": "http://digitransit-proxy:8080/out/waltti-cloudtest-agent.frendsapp.com/api/GTFS/v1/protobuf/tripupdates/223"
+                  },
+                  "lahti-vehicle-positions": {
+                    "type": "vehicle-positions",
+                    "url": "http://digitransit-proxy:8080/out/waltti-cloudtest-agent.frendsapp.com/api/GTFS/v1/protobuf/vehicleposition/223",
+                    "feedId": "Lahti",
+                    "frequency": "30s",
+                    "fuzzyTripMatching": false,
+                    "features": ["stop-position", "occupancy"]
+                  }
+                }
             - name: SKIPPED_SITES
               value: "all"
             - name: DOCKER_TAG
