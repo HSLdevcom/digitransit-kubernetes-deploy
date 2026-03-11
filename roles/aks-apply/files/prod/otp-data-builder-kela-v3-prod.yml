@@ -80,8 +80,6 @@ spec:
               value: "v3-prod"
             - name: JAVA_OPTS
               value: "-Xmx24G -Xms24G"
-            - name: EXTRA_OSM
-              value: "{\"finland\": \"https://download.geofabrik.de/europe/finland-latest.osm.pbf\"}"
             - name: SKIP_OSM_PREPROCESSING
               value: "true"
             resources:
