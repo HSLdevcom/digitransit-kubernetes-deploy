@@ -64,9 +64,9 @@ spec:
                    - opentripplanner-finland-v2
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        agentpool: megapool
+        agentpool: turinpool
       tolerations:
-      - key: "megaPod"
+      - key: "turinPod"
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"

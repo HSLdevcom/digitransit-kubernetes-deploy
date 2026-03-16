@@ -41,9 +41,9 @@ spec:
         app: opentripplanner-hsl-v2
     spec:
       nodeSelector:
-        agentpool: megapool
+        agentpool: turinpool
       tolerations:
-      - key: "megaPod"
+      - key: "turinPod"
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"
