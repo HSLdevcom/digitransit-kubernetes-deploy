@@ -36,9 +36,9 @@ spec:
         app: pelias-api
     spec:
       nodeSelector:
-        agentpool: powerpool
+        agentpool: workerpool
       tolerations:
-      - key: "powerPod"
+      - key: "workerPod"
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"

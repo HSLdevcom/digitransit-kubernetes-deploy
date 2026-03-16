@@ -41,9 +41,9 @@ spec:
         app: opentripplanner-waltti-alt-v2
     spec:
       nodeSelector:
-        agentpool: powerpool
+        agentpool: workerpool
       tolerations:
-      - key: "powerPod"
+      - key: "workerPod"
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"
