@@ -15,7 +15,7 @@
 "default_max_node_count": "20"
 "default_max_surge": "10"
 
-"worker_min_node_count": "5"
+"worker_min_node_count": "4"
 "worker_max_node_count": "30"
 "worker_max_surge": "20"
 
@@ -24,7 +24,7 @@
 "builder_max_surge": "3"
 
 "turin_min_node_count": "7"
-"turin_max_node_count": "30"
+"turin_max_node_count": "40"
 "turin_max_surge": "3"
 
 "addons_to_add": "monitoring"
