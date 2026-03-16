@@ -58,9 +58,9 @@ spec:
                   - pelias-data-container
               topologyKey: kubernetes.io/hostname
       nodeSelector:
-        agentpool: powerpool
+        agentpool: workerpool
       tolerations:
-      - key: "powerPod"
+      - key: "workerPod"
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"

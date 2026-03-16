@@ -35,9 +35,9 @@ spec:
         app: hsl-map-server
     spec:
       nodeSelector:
-        agentpool: powerpool
+        agentpool: workerpool
       tolerations:
-      - key: "powerPod"
+      - key: "workerPod"
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"
