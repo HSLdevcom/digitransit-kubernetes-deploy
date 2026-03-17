@@ -41,12 +41,7 @@ spec:
         app: opentripplanner-varely-v2
     spec:
       nodeSelector:
-        agentpool: workerpool
-      tolerations:
-      - key: "workerPod"
-        operator: "Equal"
-        value: "yes"
-        effect: "NoSchedule"
+        agentpool: burstpool
       containers:
       - name: opentripplanner-varely-v2
         image: hsldevcom/opentripplanner:v2-varely
@@ -91,7 +86,7 @@ spec:
             cpu: "1000m"
           limits:
             memory: "4Gi"
-            cpu: "4000m"
+            cpu: "2000m"
       volumes:
       - name: otpcfgmap
         configMap:
