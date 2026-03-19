@@ -55,7 +55,7 @@ spec:
           failureThreshold: 2
           httpGet:
             port: 8080
-            path: /map/v2/hsl-map/index.json
+            path: /map/v3/hsl-map/index.json
         livenessProbe:
           initialDelaySeconds: 150
           periodSeconds: 10
@@ -63,7 +63,7 @@ spec:
           failureThreshold: 10
           httpGet:
             port: 8080
-            path: /map/v2/hsl-map/index.json
+            path: /map/v3/hsl-map/index.json
         env:
           # TODO update these envs to use otp2
           - name: FINLAND_OTP_URL
