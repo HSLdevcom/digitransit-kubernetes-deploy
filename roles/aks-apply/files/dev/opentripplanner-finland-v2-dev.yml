@@ -41,9 +41,9 @@ spec:
         app: opentripplanner-finland-v2
     spec:
       nodeSelector:
-        agentpool: workerpool
+        agentpool: turinpool
       tolerations:
-      - key: "workerPod"
+      - key: "turinPod"
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"
@@ -83,20 +83,20 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
         env:
-        - name: JAVA_OPTS
-          value: "-Xmx11G -Xms11G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -Xlog:gc -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders"
         - name: MOBILITY_API_KEY
           valueFrom:
             secretKeyRef:
               name: mobility-api-key
               key: mobility-api-key
+        - name: JAVA_OPTS
+          value: "-Xmx24G -Xms24G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -Xlog:gc -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders"
         resources:
           requests:
-            memory: "12Gi"
-            cpu: "3000m"
+            memory: "26Gi"
+            cpu: "7000m"
           limits:
-            memory: "12Gi"
-            cpu: "4000m"
+            memory: "26Gi"
+            cpu: "8000m"
       volumes:
       - name: otpcfgmap
         configMap:
