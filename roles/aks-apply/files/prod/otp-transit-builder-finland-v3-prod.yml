@@ -43,8 +43,6 @@ spec:
               value: "finland"
             - name: BUILDER_TYPE
               value: "Finland prod v3"
-            - name: EXTRA_SRC
-              value: "{\"flixbus\": {\"url\": \"https://mobility.mobility-database.fintraffic.fi/static/flixbus_only.zip\"}}"
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
