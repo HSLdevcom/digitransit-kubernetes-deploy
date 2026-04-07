@@ -75,6 +75,13 @@ spec:
               value: "-Xmx24G -Xms24G"
             - name: SPLIT_BUILD_TYPE
               value: "USE_PREBUILT_STREET_GRAPH"
+            - name: EXTRA_UPDATERS
+              value: >
+                {
+                  "hsl-bike-rental": {
+                    "url": "https://gbfs.theta.fifteen.eu/gbfs/2.2/helsinki/en/gbfs.json"
+                  }
+                }
             resources:
               requests:
                 memory: 26Gi
