@@ -41,9 +41,9 @@ spec:
         app: opentripplanner-hsl-v2
     spec:
       nodeSelector:
-        agentpool: workerpool
+        agentpool: turinpool
       tolerations:
-      - key: "workerPod"
+      - key: "turinPod"
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"
@@ -84,13 +84,13 @@ spec:
           allowPrivilegeEscalation: false
         env:
         - name: JAVA_OPTS
-          value: -Xmx9G -Xms9G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -Xlog:gc -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders
+          value: -Xmx12G -Xms12G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -Xlog:gc -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders
         resources:
           requests:
-            memory: "12Gi"
+            memory: "13Gi"
             cpu: "3000m"
           limits:
-            memory: "12Gi"
+            memory: "13Gi"
             cpu: "4000m"
       volumes:
       - name: otpcfgmap
