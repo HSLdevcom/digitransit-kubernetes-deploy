@@ -66,6 +66,14 @@ spec:
                     "frequency": "30s",
                     "fuzzyTripMatching": false,
                     "features": ["stop-position", "occupancy"]
+                  },
+                  "vilkku-bike-rental": {
+                    "network": "breeze_kuopio",
+                    "type": "vehicle-rental",
+                    "sourceType": "gbfs",
+                    "frequency": "30s",
+                    "url": "https://kuopio.admin.freebike.com/api/gbfs/v30/gbfs",
+                    "overloadingAllowed": true
                   }
                 }
             - name: SKIPPED_SITES
