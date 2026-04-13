@@ -49,23 +49,7 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: >
-                {
-                  "Lahti": {
-                    "url": "http://digitransit-proxy:8080/out/waltti-cloudtest-agent.frendsapp.com/api/GTFS/v1/protobuf/dailyzip/223",
-                    "replacements": {
-                      "fare_attributes.txt": "digitransit_fare_attributes.txt",
-                      "fare_rules.txt": "digitransit_fare_rules.txt"
-                    }
-                  },
-                  "Kuopio": {
-                    "url": "https://tvv.fra1.digitaloceanspaces.com/221.zip",
-                    "replacements": {
-                      "fare_attributes.txt": "digitransit_fare_attributes.txt",
-                      "fare_rules.txt": "digitransit_fare_rules.txt"
-                    }
-                  }
-                }
+              value: "{\"Lahti\":{\"url\":\"http://digitransit-proxy:8080/out/waltti-cloudtest-agent.frendsapp.com/api/GTFS/v1/protobuf/dailyzip/223\",\"replacements\":{\"fare_attributes.txt\":\"digitransit_fare_attributes.txt\",\"fare_rules.txt\":\"digitransit_fare_rules.txt\"}}}"
             - name: EXTRA_UPDATERS
               value: >
                 {
@@ -82,15 +66,6 @@ spec:
                     "frequency": "30s",
                     "fuzzyTripMatching": false,
                     "features": ["stop-position", "occupancy"]
-                  },
-                  {
-                    "id": "vilkku-bike-rental",
-                    "network": "breeze_kuopio",
-                    "type": "vehicle-rental",
-                    "sourceType": "gbfs",
-                    "frequency": "30s",
-                    "url": "https://kuopio.admin.freebike.com/api/gbfs/v30/gbfs",
-                    "overloadingAllowed": true
                   }
                 }
             - name: SKIPPED_SITES
