@@ -49,7 +49,19 @@ spec:
                   name: docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
-              value: "{\"Lahti\":{\"url\":\"http://digitransit-proxy:8080/out/waltti-cloudtest-agent.frendsapp.com/api/GTFS/v1/protobuf/dailyzip/223\",\"replacements\":{\"fare_attributes.txt\":\"digitransit_fare_attributes.txt\",\"fare_rules.txt\":\"digitransit_fare_rules.txt\"}}}"
+              value: >
+                {
+                  "Lahti": {
+                    "url": "http://digitransit-proxy:8080/out/waltti-cloudtest-agent.frendsapp.com/api/GTFS/v1/protobuf/dailyzip/223",
+                    "replacements": {
+                      "fare_attributes.txt": "digitransit_fare_attributes.txt",
+                      "fare_rules.txt": "digitransit_fare_rules.txt"
+                    }
+                  },
+                  "Hameenlinna": {
+                    "url": "https://default689b2cd7a2bf43bda2544a9d2d4f01.94.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/f44166213361420c8b92f8a6dce1d0e2/triggers/manual/paths/invoke?api-version=1&sp=%2ftriggers%2fmanual%2frun&sv=1.0&sig=v0OWU_MD0VtQ6emwfGW2bGCDttDZqZLxCFeqm6Dl0Mk"
+                  }
+                }
             - name: EXTRA_UPDATERS
               value: >
                 {
