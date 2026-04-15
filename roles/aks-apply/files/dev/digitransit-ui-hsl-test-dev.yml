@@ -147,6 +147,16 @@ spec:
               key: dev-citybike-scheduler-db-conn-string
         - name: CITYBIKE_DATABASE
           value: "citybike-scheduler-dev"
+        - name: STATIC_ASSETS_URL
+          valueFrom:
+            secretKeyRef:
+              name: hsl-static-files
+              key: hsl-static-files
+        - name: TRAVELERS_ACCOUNT_URL
+          valueFrom:
+            secretKeyRef:
+              name: hsl-travelers-account-url-dev
+              key: hsl-travelers-account-url-dev
         resources:
           requests:
             memory: "1536Mi"
