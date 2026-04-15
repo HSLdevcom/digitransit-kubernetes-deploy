@@ -79,6 +79,15 @@ spec:
                     "fuzzyTripMatching": false,
                     "features": ["stop-position", "occupancy"]
                   },
+                  "mankeli-bike-rental": {
+                    "network": "freebike_lahti",
+                    "type": "vehicle-rental",
+                    "sourceType": "gbfs",
+                    "frequency": "60s",
+                    "url": "https://integration.admin.freebike.com/api/gbfs/v30/gbfs",
+                    "overloadingAllowed": true,
+                    "rentalPickupTypes": ["station"]
+                  },
                   "vilkku-bike-rental": {
                     "network": "breeze_kuopio",
                     "type": "vehicle-rental",
