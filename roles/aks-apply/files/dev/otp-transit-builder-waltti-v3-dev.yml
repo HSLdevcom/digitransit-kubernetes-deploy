@@ -84,7 +84,7 @@ spec:
                     "type": "vehicle-rental",
                     "sourceType": "gbfs",
                     "frequency": "60s",
-                    "url": "https://integration.admin.freebike.com/api/gbfs/v30/gbfs",
+                    "url": "https://lahti.admin.freebike.com/api/gbfs/v30/gbfs",
                     "overloadingAllowed": true,
                     "rentalPickupTypes": ["station"]
                   },
