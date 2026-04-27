@@ -87,14 +87,6 @@ spec:
                     "url": "https://lahti.admin.freebike.com/api/gbfs/v30/gbfs",
                     "overloadingAllowed": true,
                     "rentalPickupTypes": ["station"]
-                  },
-                  "vilkku-bike-rental": {
-                    "network": "breeze_kuopio",
-                    "type": "vehicle-rental",
-                    "sourceType": "gbfs",
-                    "frequency": "30s",
-                    "url": "https://kuopio.admin.freebike.com/api/gbfs/v30/gbfs",
-                    "overloadingAllowed": true
                   }
                 }
             - name: SKIPPED_SITES
