@@ -78,15 +78,6 @@ spec:
                     "frequency": "30s",
                     "fuzzyTripMatching": false,
                     "features": ["stop-position", "occupancy"]
-                  },
-                  "mankeli-bike-rental": {
-                    "network": "freebike_lahti",
-                    "type": "vehicle-rental",
-                    "sourceType": "gbfs",
-                    "frequency": "60s",
-                    "url": "https://lahti.admin.freebike.com/api/gbfs/v30/gbfs",
-                    "overloadingAllowed": true,
-                    "rentalPickupTypes": ["station"]
                   }
                 }
             - name: SKIPPED_SITES
