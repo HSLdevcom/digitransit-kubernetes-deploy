@@ -24,7 +24,7 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 50%
+      maxSurge: 1
       maxUnavailable: 0
   selector:
     matchLabels:
@@ -89,9 +89,6 @@ spec:
             path: /v1/search?text=helsinki
         resources:
           requests:
-            memory: 3Gi
-            cpu: "1000m"
-          limits:
             memory: 3Gi
             cpu: "1000m"
       imagePullSecrets:
