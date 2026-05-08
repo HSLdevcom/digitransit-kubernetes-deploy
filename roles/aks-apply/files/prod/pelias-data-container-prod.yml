@@ -23,7 +23,6 @@ metadata:
   labels:
     app: pelias-data-container
     update: auto
-    restartAfterDeployments: "pelias-api"
     checkImageFreshnessAt: "10.00"
     imageFreshnessTitle: "Geocoding_data"
 spec:
