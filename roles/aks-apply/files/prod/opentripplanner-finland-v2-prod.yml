@@ -114,7 +114,6 @@ spec:
             cpu: "7000m"
           limits:
             memory: "26Gi"
-            cpu: "8000m"
       volumes:
       - name: otpcfgmap
         configMap:
