@@ -80,6 +80,8 @@ spec:
         env:
         - name: CONFIG
           value: "hsl"
+        - name: CONTENT_DOMAIN
+          value: "https://cms.hsl.fi"
         - name: HOSTNAME
           value: "https://reittiopas.hsl.fi"
         - name: API_URL
