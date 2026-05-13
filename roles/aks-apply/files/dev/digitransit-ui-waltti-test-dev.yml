@@ -71,6 +71,8 @@ spec:
           timeoutSeconds: 10
           failureThreshold: 10
         env:
+        - name: TRAFFIC_NOW_TEST
+          value: "true"
         - name: API_URL
           value: "https://dev-api.digitransit.fi"
         - name: RUN_ENV
