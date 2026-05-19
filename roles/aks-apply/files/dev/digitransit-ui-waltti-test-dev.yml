@@ -113,10 +113,10 @@ spec:
           value: "1"
         resources:
           requests:
-            memory: 1200Mi
-            cpu: 500m
+            memory: 500Mi
+            cpu: 200m
           limits:
-            memory: 1200Mi
-            cpu: 800m
+            memory: 1000Mi
+            cpu: 400m
       imagePullSecrets:
         - name: hsldevcomkey

@@ -76,11 +76,11 @@ spec:
             path: "/version.txt"
         resources:
           requests:
-            memory: "224Mi"
-            cpu: "30m"
+            memory: "10Mi"
+            cpu: "10m"
           limits:
-            memory: "224Mi"
-            cpu: "50m"
+            memory: "100Mi"
+            cpu: "100m"
       imagePullSecrets:
         - name: hsldevcomkey
       volumes:

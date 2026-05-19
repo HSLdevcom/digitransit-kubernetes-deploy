@@ -161,10 +161,10 @@ spec:
               key: hsl-travelers-account-url-dev
         resources:
           requests:
-            memory: "1536Mi"
-            cpu: 500m
+            memory: "500Mi"
+            cpu: 200m
           limits:
-            memory: "1536Mi"
-            cpu: 800m
+            memory: "1000Mi"
+            cpu: 400m
       imagePullSecrets:
         - name: hsldevcomkey
