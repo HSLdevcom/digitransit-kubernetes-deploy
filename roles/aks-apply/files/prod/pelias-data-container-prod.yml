@@ -92,7 +92,7 @@ spec:
         resources:
           requests:
             memory: 4Gi
-            cpu: 2500m
+            cpu: 2400m
           limits:
             memory: 6Gi
       imagePullSecrets:
