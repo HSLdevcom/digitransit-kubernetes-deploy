@@ -91,6 +91,9 @@ spec:
           requests:
             memory: 3Gi
             cpu: "1000m"
+          limits:
+            memory: 3Gi
+            cpu: "1000m"
       imagePullSecrets:
         - name: hsldevcomkey
 
