@@ -58,19 +58,24 @@ spec:
           name: vip0
         - containerPort: 9300
           name: vip1
-        readinessProbe:
-          initialDelaySeconds: 60
+        startupProbe:
           periodSeconds: 5
-          timeoutSeconds: 10
-          failureThreshold: 2
+          timeoutSeconds: 5
+          failureThreshold: 40
+          httpGet:
+            port: 9200
+            path: /_search?q=name.fi:helsinki
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 5
+          failureThreshold: 5
           httpGet:
             port: 9200
             path: /_search?q=name.fi:helsinki
         livenessProbe:
-          initialDelaySeconds: 600
-          periodSeconds: 10
+          periodSeconds: 12
           timeoutSeconds: 10
-          failureThreshold: 3
+          failureThreshold: 5
           httpGet:
             port: 9200
             path: /_search?q=name.fi:helsinki
