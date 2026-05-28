@@ -22,11 +22,11 @@ spec:
       stabilizationWindowSeconds: 60
       policies:
       - type: Percent
-        value: 300
+        value: 100
         periodSeconds: 60
     scaleDown:
-      stabilizationWindowSeconds: 240
+      stabilizationWindowSeconds: 300
       policies:
       - type: Pods
         value: 1
-        periodSeconds: 240
+        periodSeconds: 300
