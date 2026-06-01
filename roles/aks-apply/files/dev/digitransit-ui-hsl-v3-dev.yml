@@ -80,6 +80,11 @@ spec:
             secretKeyRef:
               name: hsl-static-files
               key: hsl-static-files
+        - name: TRAVELERS_ACCOUNT_URL
+          valueFrom:
+            secretKeyRef:
+              name: hsl-travelers-account-url-dev
+              key: hsl-travelers-account-url-dev
         - name: RUN_ENV
           value: "development"
         - name: HOSTNAME
