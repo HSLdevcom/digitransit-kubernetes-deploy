@@ -87,6 +87,11 @@ spec:
             secretKeyRef:
               name: hsl-static-files
               key: hsl-static-files
+        - name: TRAVELERS_ACCOUNT_URL
+          valueFrom:
+            secretKeyRef:
+              name: hsl-travelers-account-url-prod
+              key: hsl-travelers-account-url-prod
         - name: HOSTNAME
           value: "https://reittiopas.hsl.fi"
         - name: API_URL
