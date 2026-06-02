@@ -78,6 +78,29 @@ spec:
                     "frequency": "30s",
                     "fuzzyTripMatching": false,
                     "features": ["stop-position", "occupancy"]
+                  },
+                  "tampere-trip-updates": {
+                    "type": "stop-time-updater",
+                    "frequency": "60s",
+                    "url": "http://digitransit-proxy:8080/out/nysse.mattersoft.fi/api/gtfsrealtime/v2.0/feed/tripupdate",
+                    "feedId": "tampere",
+                    "fuzzyTripMatching": false,
+                    "backwardsDelayPropagationType": "ALWAYS"
+                  },
+                  "tampere-alerts": {
+                    "type": "real-time-alerts",
+                    "frequency": "30s",
+                    "url": "http://digitransit-proxy:8080/out/nysse.mattersoft.fi/api/gtfsrealtime/v2.0/feed/servicealert",
+                    "feedId": "tampere",
+                    "fuzzyTripMatching": false
+                  },
+                  "tampere-vehicle-positions": {
+                    "type": "vehicle-positions",
+                    "url": "http://digitransit-proxy:8080/out/nysse.mattersoft.fi/api/gtfsrealtime/v2.0/feed/vehicleposition",
+                    "feedId": "tampere",
+                    "frequency": "30s",
+                    "fuzzyTripMatching": false,
+                    "features": ["stop-position", "occupancy"]
                   }
                 }
             - name: SKIPPED_SITES
