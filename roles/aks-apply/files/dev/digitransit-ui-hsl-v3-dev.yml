@@ -76,10 +76,7 @@ spec:
         - name: CONTENT_DOMAIN
           value: "https://cms-test.hslfi.hsldev.com"
         - name: STATIC_ASSETS_URL
-          valueFrom:
-            secretKeyRef:
-              name: hsl-static-files
-              key: hsl-static-files
+          value: "https://staticfiles-test.hslfi.hsldev.com"
         - name: TRAVELERS_ACCOUNT_URL
           valueFrom:
             secretKeyRef:

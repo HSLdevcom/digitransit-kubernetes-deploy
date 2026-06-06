@@ -150,10 +150,7 @@ spec:
         - name: CITYBIKE_DATABASE
           value: "citybike-scheduler-dev"
         - name: STATIC_ASSETS_URL
-          valueFrom:
-            secretKeyRef:
-              name: hsl-static-files
-              key: hsl-static-files
+          value: "https://staticfiles-dev.hslfi.hsldev.com"
         - name: TRAVELERS_ACCOUNT_URL
           valueFrom:
             secretKeyRef:
