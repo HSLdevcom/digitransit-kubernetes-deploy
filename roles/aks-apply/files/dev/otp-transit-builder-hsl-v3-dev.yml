@@ -56,9 +56,6 @@ spec:
                   },
                   "KirkkonummiP": {
                     "url": "https://gtfsdata.blob.core.windows.net/hsl/hsl_flex_test2-gtfs.zip"
-                  },
-                  "HSL": {
-                    "url": "https://geocoding.blob.core.windows.net/vrk/HSL-gtfs.zip"
                   }
                 }
             - name: EXTRA_UPDATERS
