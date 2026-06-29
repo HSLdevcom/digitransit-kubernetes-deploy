@@ -86,6 +86,22 @@
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
+- name: "Create nodepool {{builder2_nodepool_name}}"
+  command: "az aks nodepool add \
+    --resource-group {{aks_resource_group_name}} \
+    --cluster-name {{aks_name}} \
+    --name {{builder2_nodepool_name}} \
+    --min-count {{builder2_min_node_count}} \
+    --max-count {{builder2_max_node_count}} \
+    --max-surge {{builder2_max_surge}} \
+    --node-vm-size {{builder2_node_vm_size}} \
+    --os-sku azurelinux \
+    --node-osdisk-type Ephemeral \
+    --enable-cluster-autoscaler \
+    --node-taints {{builder_taint}}
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
 - name: "Create nodepool {{turin_nodepool_name}}"
   command: "az aks nodepool add \
     --resource-group {{aks_resource_group_name}} \
