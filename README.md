@@ -134,6 +134,13 @@ az aks update \
     --load-balancer-managed-outbound-ip-count <number of ips> \
     --load-balancer-outbound-ports <number of ports>
 ```
+
+#### Node pool priority 
+
+- The autoscaler is set up to use the `priority` expander and a max node provisioning time of 10 minutes (as opposed to the `random` expander and 15 minutes).
+- `roles/aks-setup/tasks/main.yml` sets `--cluster-autoscaler-profile expander=priority,max-node-provision-time=10m` when creating a cluster, so any freshly (re)created cluster already has this enabled.
+- The actual priority order is defined by the `cluster-autoscaler-priority-expander` ConfigMap in `kube-system`. The regexes in it are matched against each node pool's underlying VM Scale Set name (e.g. `aks-builderpool-<hash>-vmss`), not the plain pool name, and higher priority numbers win.
+
 ### Pod autoscaling
 
 - We use horizontal pod autoscaling for most production services. Each service has a related hpa yaml where autoscaling settings are configured.
