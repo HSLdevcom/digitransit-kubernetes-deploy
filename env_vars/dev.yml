@@ -32,7 +32,7 @@
 "turin_max_surge": "1"
 
 "addons_to_remove": "kube-dashboard"
-"kubernetes_version": "1.35.1"
+"kubernetes_version": "1.36.2"
 
 # Application Gateway variables
 "gateway_name_postfix": "3"
