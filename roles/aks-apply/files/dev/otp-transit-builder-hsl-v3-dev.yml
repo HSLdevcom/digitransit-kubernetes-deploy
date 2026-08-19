@@ -81,6 +81,9 @@ spec:
                     "topic": "gtfsrt/dev/fi/hsl/tu",
                     "url": "tcp://test91.rt.hsl.fi:1883"
                   },
+                  "hsl-alerts": {
+                     "url": "https://transitdatadev.blob.core.windows.net/service-alerts/v2/hsl"
+                  },
                   "liipi": {
                     "facilitiesUrl": "https://parking-test.fintraffic.fi/api/v1/facilities.json?limit=-1",
                     "utilizationsUrl": "https://parking-test.fintraffic.fi/api/v1/utilizations.json?limit=-1",
