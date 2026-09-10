@@ -52,7 +52,7 @@ spec:
         agentpool: burstpool
       containers:
       - name: digitransit-ui-hsl-v3
-        image: hsldevcom/digitransit-ui:v3-prod
+        image: hsldevcom/digitransit-ui:hotfix
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
