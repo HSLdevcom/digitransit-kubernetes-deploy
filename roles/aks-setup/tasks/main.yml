@@ -70,6 +70,22 @@
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
+- name: "Create nodepool {{worker2_nodepool_name}}"
+  command: "az aks nodepool add \
+    --resource-group {{aks_resource_group_name}} \
+    --cluster-name {{aks_name}} \
+    --name {{worker2_nodepool_name}} \
+    --min-count {{worker2_min_node_count}} \
+    --max-count {{worker2_max_node_count}} \
+    --max-surge {{worker2_max_surge}} \
+    --node-vm-size {{worker2_node_vm_size}} \
+    --os-sku azurelinux \
+    --node-osdisk-type Ephemeral \
+    --enable-cluster-autoscaler \
+    --node-taints {{worker_taint}}
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
 - name: "Create nodepool {{builder_nodepool_name}}"
   command: "az aks nodepool add \
     --resource-group {{aks_resource_group_name}} \
@@ -111,6 +127,22 @@
     --max-count {{turin_max_node_count}} \
     --max-surge {{turin_max_surge}} \
     --node-vm-size {{turin_node_vm_size}} \
+    --os-sku azurelinux \
+    --node-osdisk-type Ephemeral \
+    --enable-cluster-autoscaler \
+    --node-taints {{turin_taint}}
+  delegate_to: localhost
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: "Create nodepool {{turin2_nodepool_name}}"
+  command: "az aks nodepool add \
+    --resource-group {{aks_resource_group_name}} \
+    --cluster-name {{aks_name}} \
+    --name {{turin2_nodepool_name}} \
+    --min-count {{turin2_min_node_count}} \
+    --max-count {{turin2_max_node_count}} \
+    --max-surge {{turin2_max_surge}} \
+    --node-vm-size {{turin2_node_vm_size}} \
     --os-sku azurelinux \
     --node-osdisk-type Ephemeral \
     --enable-cluster-autoscaler \

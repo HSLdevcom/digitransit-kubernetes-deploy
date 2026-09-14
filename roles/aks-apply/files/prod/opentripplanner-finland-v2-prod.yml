@@ -63,8 +63,24 @@ spec:
                   values:
                    - opentripplanner-varely-v2
               topologyKey: kubernetes.io/hostname
-      nodeSelector:
-        agentpool: turinpool
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: agentpool
+                operator: In
+                values:
+                - turinpool
+                - turinpool2
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: agentpool
+                operator: In
+                values:
+                - turinpool
       tolerations:
       - key: "turinPod"
         operator: "Equal"

@@ -35,6 +35,23 @@ spec:
         app: pelias-api
     spec:
       affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: agentpool
+                operator: In
+                values:
+                - workerpool
+                - workerpool2
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: agentpool
+                operator: In
+                values:
+                - workerpool
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
@@ -57,8 +74,6 @@ spec:
                   values:
                   - pelias-data-container
               topologyKey: kubernetes.io/hostname
-      nodeSelector:
-        agentpool: workerpool
       tolerations:
       - key: "workerPod"
         operator: "Equal"
