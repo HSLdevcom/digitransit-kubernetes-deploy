@@ -51,6 +51,9 @@ spec:
         ports:
         - containerPort: 8080
         readinessProbe:
+          # Real geocoding query: an overloaded-but-alive pod should be
+          # pulled out of the Service quickly to shed load, without being
+          # killed (that's livenessProbe's job below).
           periodSeconds: 5
           timeoutSeconds: 10
           failureThreshold: 2
@@ -58,19 +61,36 @@ spec:
             port: 8080
             path: /v1/search?text=helsinki
         livenessProbe:
+          # Deliberately decoupled from the query engine: a TCP check only
+          # confirms the process is alive and listening. Using the same
+          # expensive /v1/search query here (as before) meant that under
+          # CPU starvation the probe itself timed out, causing kubelet to
+          # restart otherwise-healthy-but-busy pods and turning an overload
+          # into a crash-loop. Restarts should only happen when the process
+          # is truly wedged, not merely slow.
           initialDelaySeconds: 150
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 5
-          httpGet:
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 8
+          tcpSocket:
             port: 8080
-            path: /v1/search?text=helsinki
         resources:
           requests:
             memory: "2560Mi"
             cpu: "1000m"
           limits:
             memory: "2560Mi"
-            cpu: "1000m"
+            # Was equal to the request (hard CPU cap, Guaranteed QoS). The
+            # app itself is single-threaded (Express event loop), but
+            # Node's libuv thread pool (fs/dns/crypto/zlib, e.g. gzip'ing
+            # responses) and V8's GC run on separate threads concurrently
+            # with the main thread. Kubernetes' CFS quota counts total
+            # cgroup CPU-time per 100ms period, so a GC pause or thread-pool
+            # burst coinciding with the main thread being busy could exceed
+            # a 1-core quota and throttle the whole process (including the
+            # event loop) even though no single thread needs a full extra
+            # core. ~1.5x the request gives slack for that without implying
+            # the app can use 2 full cores of parallel JS execution.
+            cpu: "1500m"
       imagePullSecrets:
         - name: hsldevcomkey
