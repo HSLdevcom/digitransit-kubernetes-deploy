@@ -117,12 +117,19 @@ spec:
             cpu: "1000m"
           limits:
             memory: 3Gi
-            # Was equal to the request (hard CPU cap, Guaranteed QoS),
-            # which meant any traffic spike above baseline got throttled by
-            # the CFS quota immediately, slowing responses (and probes)
-            # right when the pod needed to be fastest. Allow bursting to
-            # absorb transient spikes while HPA/cluster-autoscaler catch up.
-            cpu: "2000m"
+            # Was equal to the request (hard CPU cap, Guaranteed QoS). The
+            # app itself is single-threaded (Express event loop), but
+            # Node's libuv thread pool (fs/dns/crypto/zlib, e.g. gzip'ing
+            # responses) and V8's GC run on separate threads concurrently
+            # with the main thread. Kubernetes' CFS quota counts total
+            # cgroup CPU-time per 100ms period, so a GC pause or thread-pool
+            # burst coinciding with the main thread being busy could exceed
+            # a 1-core quota and throttle the whole process (including the
+            # event loop) even though no single thread needs a full extra
+            # core. ~1.5x the request gives slack for that without implying
+            # the app can use 2 full cores of parallel JS execution. Verify/
+            # tune using container_cpu_cfs_throttled_periods_total.
+            cpu: "1500m"
       imagePullSecrets:
         - name: hsldevcomkey
 
