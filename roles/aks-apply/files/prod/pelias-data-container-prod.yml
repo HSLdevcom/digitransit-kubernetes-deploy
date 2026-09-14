@@ -86,6 +86,8 @@ spec:
         - containerPort: 9300
           name: vip1
         startupProbe:
+          # Needs a real query: the index must actually be loaded and
+          # queryable before this pod can be trusted, not just "ES is up".
           periodSeconds: 5
           timeoutSeconds: 5
           failureThreshold: 40
@@ -93,6 +95,8 @@ spec:
             port: 9200
             path: /_search?q=name.fi:helsinki
         readinessProbe:
+          # Real query, kept strict: an overloaded pod should be pulled
+          # from the Service quickly to shed load without being restarted.
           periodSeconds: 5
           timeoutSeconds: 5
           failureThreshold: 5
@@ -100,12 +104,18 @@ spec:
             port: 9200
             path: /_search?q=name.fi:helsinki
         livenessProbe:
-          periodSeconds: 12
-          timeoutSeconds: 10
-          failureThreshold: 5
-          httpGet:
+          # Decoupled from the query engine on purpose: reusing the same
+          # /_search query for liveness meant that under CPU starvation
+          # (e.g. GC pauses, node overload) the query itself timed out,
+          # so kubelet restarted an otherwise-healthy-but-busy ES process.
+          # For a container this heavy to warm up (see startupProbe above),
+          # that restart cost made the overload worse, not better. A TCP
+          # check only kills pods that are truly wedged/not listening.
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 8
+          tcpSocket:
             port: 9200
-            path: /_search?q=name.fi:helsinki
         env:
         - name: ES_HEAP_SIZE
           value: 3g
@@ -115,6 +125,12 @@ spec:
             cpu: 2200m
           limits:
             memory: 4Gi
+            # Previously unbounded, so this pod could consume all spare
+            # node CPU indefinitely under load, at the expense of the
+            # co-located pelias-api pod (podAffinity pairs them on the
+            # same node). Bound it so it can still burst for GC/merge
+            # spikes without starving its neighbor.
+            cpu: "4000m"
       imagePullSecrets:
         - name: hsldevcomkey
 
