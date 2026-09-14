@@ -91,6 +91,13 @@ spec:
               value: "-Xmx24G -Xms24G"
             - name: SPLIT_BUILD_TYPE
               value: "USE_PREBUILT_STREET_GRAPH"
+            - name: EXTRA_SRC
+              value: >
+                {
+                  "flixbus": {
+                    "remove": true
+                  }
+                }
             - name: SKIPPED_SITES
               value: "all"
             - name: MOBILITY_API_KEY

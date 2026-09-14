@@ -33,7 +33,8 @@
     --node-osdisk-type Ephemeral \
     --mode System \
     --node-taints CriticalAddonsOnly=true:NoSchedule \
-    --nodepool-name {{system_nodepool_name}}
+    --nodepool-name {{system_nodepool_name}} \
+    --cluster-autoscaler-profile expander=priority,max-node-provision-time=10m
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
   with_items:
