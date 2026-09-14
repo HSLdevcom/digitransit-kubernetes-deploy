@@ -40,8 +40,24 @@ spec:
       labels:
         app: opentripplanner-waltti-v2
     spec:
-      nodeSelector:
-        agentpool: turinpool
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: agentpool
+                operator: In
+                values:
+                - turinpool
+                - turinpool2
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            preference:
+              matchExpressions:
+              - key: agentpool
+                operator: In
+                values:
+                - turinpool
       tolerations:
       - key: "turinPod"
         operator: "Equal"
