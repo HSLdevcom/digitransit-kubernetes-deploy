@@ -94,32 +94,32 @@ spec:
         - name: SLACK_WEBHOOK_URL
           valueFrom:
             secretKeyRef:
-              name: slack-webhook
+              name: kv-slack-webhook
               key: slack-webhook
         - name: SLACK_ACCESS_TOKEN
           valueFrom:
             secretKeyRef:
-              name: slack-access-token
+              name: kv-slack-access-token
               key: slack-access-token
         - name: MONITORING_SLACK_CHANNEL_ID
           valueFrom:
             secretKeyRef:
-              name: slack-dev-monitoring-channel-id
+              name: kv-slack-dev-monitoring-channel-id
               key: slack-dev-monitoring-channel-id
         - name: ALERT_SLACK_CHANNEL_ID
           valueFrom:
             secretKeyRef:
-              name: slack-ci-channel-id
+              name: kv-slack-ci-channel-id
               key: slack-ci-channel-id
         - name: DOCKER_USER
           valueFrom:
             secretKeyRef:
-              name: docker-user
+              name: kv-docker-user
               key: docker-user
         - name: DOCKER_AUTH
           valueFrom:
             secretKeyRef:
-              name: docker-auth
+              name: kv-docker-auth
               key: docker-auth
         resources:
           requests:
@@ -129,4 +129,4 @@ spec:
             memory: 252Mi
             cpu: 1000m
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey

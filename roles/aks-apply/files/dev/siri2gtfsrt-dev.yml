@@ -79,4 +79,4 @@ spec:
             memory: "128Mi"
             cpu: "200m"
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey

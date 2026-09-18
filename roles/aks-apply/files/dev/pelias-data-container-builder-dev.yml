@@ -39,34 +39,34 @@ spec:
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
-                  name: docker-auth
+                  name: kv-docker-auth
                   key: docker-auth
             - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
               valueFrom:
                 secretKeyRef:
-                  name: "digitransit-subscription-key-name"
+                  name: "kv-digitransit-subscription-key-name"
                   key: "digitransit-subscription-key-name"
             - name: API_SUBSCRIPTION_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: "dev-pelias-data-container-builder-apim-key"
+                  name: "kv-dev-pelias-data-container-builder-apim-key"
                   key: "dev-pelias-data-container-builder-apim-key"
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
-                  name: docker-user
+                  name: kv-docker-user
                   key: docker-user
             - name: GTFS_AUTH
               valueFrom:
                 secretKeyRef:
-                  name: next-waltti-basic
+                  name: kv-next-waltti-basic
                   key: next-waltti-basic
             - name: BUILDER_TYPE
               value: "dev"
             - name: MMLAPIKEY
               valueFrom:
                 secretKeyRef:
-                  name: mmlapikey
+                  name: kv-mmlapikey
                   key: mmlapikey
             - name: BUILD_INTERVAL
               value: "-1" # builder shuts down after first build
@@ -75,12 +75,12 @@ spec:
             - name: SLACK_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: slack-access-token
+                  name: kv-slack-access-token
                   key: slack-access-token
             - name: SLACK_CHANNEL_ID
               valueFrom:
                 secretKeyRef:
-                  name: slack-ci-channel-id
+                  name: kv-slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: EXTRA_SRC
               value: "waltti-alt"
@@ -92,7 +92,7 @@ spec:
                 memory: 12Gi
                 cpu: 8000m
           imagePullSecrets:
-            - name: hsldevcomkey
+            - name: kv-hsldevcomkey
 
 ---
 

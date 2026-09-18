@@ -66,12 +66,12 @@ spec:
             - name: SLACK_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: slack-access-token
+                  name: kv-slack-access-token
                   key: slack-access-token
             - name: SLACK_CHANNEL_ID
               valueFrom:
                 secretKeyRef:
-                  name: slack-ci-channel-id
+                  name: kv-slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
               value: "v2"
@@ -91,7 +91,7 @@ spec:
                 memory: 26Gi
                 cpu: 8000m
           imagePullSecrets:
-            - name: hsldevcomkey
+            - name: kv-hsldevcomkey
           volumes:
             - name: "datastorage"
               nfs:

@@ -86,7 +86,7 @@ spec:
         - name: MOBILITY_API_KEY
           valueFrom:
             secretKeyRef:
-              name: mobility-api-key
+              name: kv-mobility-api-key
               key: mobility-api-key
         - name: JAVA_OPTS
           value: "-Xmx24G -Xms24G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10 -Xlog:gc -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders"
@@ -107,4 +107,4 @@ spec:
           path: /digitransitdevaksstrg/finland
           readOnly: true
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
