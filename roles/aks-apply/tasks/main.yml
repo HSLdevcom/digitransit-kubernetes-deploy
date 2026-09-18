@@ -7,9 +7,29 @@
   ignore_errors: "{{ ansible_check_mode }}"
 
 - block:
-    - name: "Apply keyvaultsecrets"
+    - name: "Apply keyvault SecretProviderClass"
       command: "kubectl apply -f \
-        {{ role_path }}/files/{{ az_environment }}/keyvaultsecrets-{{ az_environment }}.yml"
+        {{ role_path }}/files/{{ az_environment }}/secretproviderclass-{{ az_environment }}.yml"
+      delegate_to: localhost
+      ignore_errors: "{{ ansible_check_mode }}"
+      register: out
+
+    - debug: var=out.stdout_lines
+
+    # This deployment must exist before anything else: the kv-* secrets only live
+    # as long as a pod mounts the SecretProviderClass volume.
+    - name: "Apply keyvault secrets sync"
+      command: "kubectl apply -f \
+        {{ role_path }}/files/{{ az_environment }}/keyvault-secrets-sync-{{ az_environment }}.yml"
+      delegate_to: localhost
+      ignore_errors: "{{ ansible_check_mode }}"
+      register: out
+
+    - debug: var=out.stdout_lines
+
+    - name: "Wait for keyvault secrets sync to be available"
+      command: "kubectl rollout status deployment/keyvault-secrets-sync \
+        --namespace default --timeout=5m"
       delegate_to: localhost
       ignore_errors: "{{ ansible_check_mode }}"
       register: out
