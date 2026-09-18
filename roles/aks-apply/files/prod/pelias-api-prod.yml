@@ -131,7 +131,7 @@ spec:
             # tune using container_cpu_cfs_throttled_periods_total.
             cpu: "1500m"
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
 
 ---
 apiVersion: policy/v1

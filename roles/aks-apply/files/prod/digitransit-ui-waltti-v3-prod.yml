@@ -1,3 +1,54 @@
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: "keyvault-digitransit-ui-waltti-v3"
+  namespace: default
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "false"
+    clientID: "REPLACE_ME_UAMI_CLIENT_ID"
+    tenantId: "REPLACE_ME_TENANT_ID"
+    keyvaultName: "digitransit-dev-keyvault"
+    objects: |
+      array:
+        - |
+          objectName: prod-citybike-scheduler-db-conn-string
+          objectType: secret
+        - |
+          objectName: GTM-ID
+          objectAlias: gtm-id
+          objectType: secret
+        - |
+          objectName: digitransit-ui-waltti-v3-apim-key
+          objectType: secret
+        - |
+          objectName: digitransit-subscription-key-name
+          objectType: secret
+  secretObjects:
+    - secretName: "kv-prod-citybike-scheduler-db-conn-string"
+      type: Opaque
+      data:
+        - objectName: prod-citybike-scheduler-db-conn-string
+          key: prod-citybike-scheduler-db-conn-string
+    - secretName: "kv-gtm-id"
+      type: Opaque
+      data:
+        - objectName: gtm-id
+          key: gtm-id
+    - secretName: "kv-digitransit-ui-waltti-v3-apim-key"
+      type: Opaque
+      data:
+        - objectName: digitransit-ui-waltti-v3-apim-key
+          key: digitransit-ui-waltti-v3-apim-key
+    - secretName: "kv-digitransit-subscription-key-name"
+      type: Opaque
+      data:
+        - objectName: digitransit-subscription-key-name
+          key: digitransit-subscription-key-name
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -35,6 +86,7 @@ spec:
   template:
     metadata:
       labels:
+        azure.workload.identity/use: "true"
         app: digitransit-ui-waltti-v3
     spec:
       affinity:
@@ -51,8 +103,20 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: burstpool
+      volumes:
+        - name: keyvault
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: keyvault-digitransit-ui-waltti-v3
+      serviceAccountName: keyvault-secrets
       containers:
       - name: digitransit-ui-waltti-v3
+        volumeMounts:
+          - name: keyvault
+            mountPath: /mnt/keyvault
+            readOnly: true
         image: hsldevcom/digitransit-ui:v3-prod
         imagePullPolicy: Always
         ports:
@@ -86,29 +150,29 @@ spec:
         - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
           valueFrom:
             secretKeyRef:
-              name: "digitransit-subscription-key-name"
+              name: "kv-digitransit-subscription-key-name"
               key: "digitransit-subscription-key-name"
         - name: API_SUBSCRIPTION_HEADER_NAME
           valueFrom:
             secretKeyRef:
-              name: "digitransit-subscription-key-name"
+              name: "kv-digitransit-subscription-key-name"
               key: "digitransit-subscription-key-name"
         - name: API_SUBSCRIPTION_TOKEN
           valueFrom:
             secretKeyRef:
-              name: "digitransit-ui-waltti-v3-apim-key"
+              name: "kv-digitransit-ui-waltti-v3-apim-key"
               key: "digitransit-ui-waltti-v3-apim-key"
         - name: GTM_ID
           valueFrom:
             secretKeyRef:
-              name: gtm-id
+              name: kv-gtm-id
               key: gtm-id
         - name: BASE_CONFIG
           value: "waltti"
         - name: CITYBIKE_DB_CONN_STRING
           valueFrom:
             secretKeyRef:
-              name: prod-citybike-scheduler-db-conn-string
+              name: kv-prod-citybike-scheduler-db-conn-string
               key: prod-citybike-scheduler-db-conn-string
         - name: CITYBIKE_DATABASE
           value: "citybike-scheduler-prod"
@@ -122,7 +186,7 @@ spec:
             memory: 3Gi
             cpu: 1000m
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
 
 ---
 

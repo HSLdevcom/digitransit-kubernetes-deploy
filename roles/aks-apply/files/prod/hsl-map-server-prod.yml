@@ -86,7 +86,7 @@ spec:
             memory: 10Gi
             cpu: 4000m
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
 
 ---
 

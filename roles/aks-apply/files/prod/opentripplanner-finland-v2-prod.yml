@@ -140,7 +140,7 @@ spec:
           path: /digitransitprdaksstorage/finland
           readOnly: true
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
 
 ---
 
