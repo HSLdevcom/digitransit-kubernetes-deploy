@@ -116,7 +116,7 @@ spec:
           limits:
             memory: 4Gi
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
 
 ---
 apiVersion: policy/v1

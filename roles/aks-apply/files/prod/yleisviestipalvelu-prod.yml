@@ -78,7 +78,7 @@ spec:
         - name: HTPASSWD
           valueFrom:
             secretKeyRef:
-              name: ht-password
+              name: kv-ht-password
               key: ht-password
         resources:
           requests:
@@ -88,7 +88,7 @@ spec:
             memory: "64Mi"
             cpu: "200m"
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
       volumes:
         - name: "yleisviestipalvelumessages"
           persistentVolumeClaim:

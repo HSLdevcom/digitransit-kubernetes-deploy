@@ -86,29 +86,29 @@ spec:
         - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
           valueFrom:
             secretKeyRef:
-              name: "digitransit-subscription-key-name"
+              name: "kv-digitransit-subscription-key-name"
               key: "digitransit-subscription-key-name"
         - name: API_SUBSCRIPTION_HEADER_NAME
           valueFrom:
             secretKeyRef:
-              name: "digitransit-subscription-key-name"
+              name: "kv-digitransit-subscription-key-name"
               key: "digitransit-subscription-key-name"
         - name: API_SUBSCRIPTION_TOKEN
           valueFrom:
             secretKeyRef:
-              name: "digitransit-ui-waltti-v3-apim-key"
+              name: "kv-digitransit-ui-waltti-v3-apim-key"
               key: "digitransit-ui-waltti-v3-apim-key"
         - name: GTM_ID
           valueFrom:
             secretKeyRef:
-              name: gtm-id
+              name: kv-gtm-id
               key: gtm-id
         - name: BASE_CONFIG
           value: "waltti"
         - name: CITYBIKE_DB_CONN_STRING
           valueFrom:
             secretKeyRef:
-              name: prod-citybike-scheduler-db-conn-string
+              name: kv-prod-citybike-scheduler-db-conn-string
               key: prod-citybike-scheduler-db-conn-string
         - name: CITYBIKE_DATABASE
           value: "citybike-scheduler-prod"
@@ -122,7 +122,7 @@ spec:
             memory: 3Gi
             cpu: 1000m
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
 
 ---
 
