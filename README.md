@@ -74,27 +74,47 @@ Creating Azure key vault if you don't existing one already.
 
 - Run `ansible-playbook play_setup_keyvault.yml -e @env_vars/<dev or prod>.yml`
 
-#### Install azure key vault controller
+#### Enable the Secrets Store CSI Driver
 
-Install [Helm](https://helm.sh/docs/using_helm/) v3 if you don't have it
+Secrets are read from Azure Key Vault with the [Secrets Store CSI Driver](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver) using Azure Workload Identity.
 
-```sh
-helm repo add spv-charts http://charts.spvapi.no
-
-helm repo update
-
-helm install spv-charts/azure-key-vault-controller --generate-name --version 1.0.2
-```
-
-Run following commands to give AKS-cluster permissions to read from key vault
+Enable the provider addon and workload identity on the cluster:
 
 ```sh
-az role assignment create --role Reader --assignee <service_principal_clientid> --scope <keyvault_resource_id>
+az aks update --resource-group <aks_resource_group> --name <aks_name> \
+  --enable-oidc-issuer --enable-workload-identity
 
-az keyvault set-policy -n <keyvault_name> --key-permissions get --spn <YOUR SPN CLIENT ID>
-az keyvault set-policy -n <keyvault_name> --secret-permissions get --spn <YOUR SPN CLIENT ID>
-az keyvault set-policy -n <keyvault_name> --certificate-permissions get --spn <YOUR SPN CLIENT ID>
+az aks enable-addons --resource-group <aks_resource_group> --name <aks_name> \
+  --addons azure-keyvault-secrets-provider --enable-secret-rotation --rotation-poll-interval 2m
 ```
+
+Create a user-assigned managed identity, grant it read access to the key vault, and federate it to the
+`keyvault-secrets-sync` service account in the `default` namespace:
+
+```sh
+az identity create --resource-group <identity_resource_group> --name <identity_name>
+
+az keyvault set-policy -n <keyvault_name> --secret-permissions get \
+  --object-id <identity_principal_id>
+
+az identity federated-credential create --name <aks_name> \
+  --resource-group <identity_resource_group> --identity-name <identity_name> \
+  --issuer "$(az aks show --resource-group <aks_resource_group> --name <aks_name> --query oidcIssuerProfile.issuerURL -o tsv)" \
+  --subject system:serviceaccount:default:keyvault-secrets-sync \
+  --audience api://AzureADTokenExchange
+```
+
+Both environments read from the same key vault, so one identity with one federated credential per
+cluster is enough.
+
+Finally replace the `REPLACE_ME_UAMI_CLIENT_ID` and `REPLACE_ME_TENANT_ID` placeholders in
+`roles/aks-apply/files/<dev or prod>/secretproviderclass-<dev or prod>.yml` and
+`roles/aks-apply/files/<dev or prod>/keyvault-secrets-sync-<dev or prod>.yml` with the identity's
+client id and your tenant id.
+
+The `SecretProviderClass` syncs each key vault secret into a Kubernetes secret named `kv-<secret>`.
+Those secrets exist only while a pod mounts the volume, which is why the `keyvault-secrets-sync`
+deployment must keep running.
 
 ### Deploy kubernetes manifests
 

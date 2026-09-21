@@ -78,167 +78,167 @@ spec:
           - name: JOJO_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: jojo-basic-key
+                name: kv-jojo-basic-key
                 key: jojo-basic-key
           - name: LINKKI_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: linkki-basic-key
+                name: kv-linkki-basic-key
                 key: linkki-basic-key
           - name: VILKKU_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: vilkku-basic-key
+                name: kv-vilkku-basic-key
                 key: vilkku-basic-key
           - name: NEW_LISSU_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: new-lissu-basic-key
+                name: kv-new-lissu-basic-key
                 key: new-lissu-basic-key
           - name: LAPPEENRANTA_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: lappeenranta-basic-key
+                name: kv-lappeenranta-basic-key
                 key: lappeenranta-basic-key
           - name: LAHTI_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: lahti-basic-key
+                name: kv-lahti-basic-key
                 key: lahti-basic-key
           - name: HAMEENLINNA_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: hameenlinna-basic-key
+                name: kv-hameenlinna-basic-key
                 key: hameenlinna-basic-key
           - name: LMJ_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: lmj-basic-key
+                name: kv-lmj-basic-key
                 key: lmj-basic-key
           - name: MIKKELI_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: mikkeli-basic-key
+                name: kv-mikkeli-basic-key
                 key: mikkeli-basic-key
           - name: VAASA_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: vaasa-basic-key
+                name: kv-vaasa-basic-key
                 key: vaasa-basic-key
           - name: VARELY_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: varely-basic-key
+                name: kv-varely-basic-key
                 key: varely-basic-key
           - name: SALO_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: salo-basic-key
+                name: kv-salo-basic-key
                 key: salo-basic-key
           - name: KOUVOLA_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: kouvola-basic-key
+                name: kv-kouvola-basic-key
                 key: kouvola-basic-key
           - name: GIRAVOLTA_TAMPERE_AUTH
             valueFrom:
               secretKeyRef:
-                name: giravolta-tampere-key
+                name: kv-giravolta-tampere-key
                 key: giravolta-tampere-key
           - name: KOTKA_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: kotka-basic-key
+                name: kv-kotka-basic-key
                 key: kotka-basic-key
           - name: ROVANIEMI_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: rovaniemi-basic-key
+                name: kv-rovaniemi-basic-key
                 key: rovaniemi-basic-key
           - name: KAJAANI_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: kajaani-basic-key
+                name: kv-kajaani-basic-key
                 key: kajaani-basic-key
           - name: GIRAVOLTA_VANTAA_AUTH
             valueFrom:
               secretKeyRef:
-                name: giravolta-vantaa-key
+                name: kv-giravolta-vantaa-key
                 key: giravolta-vantaa-key
           - name: RAUMA_RT_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: rauma-rt-basic-key
+                name: kv-rauma-rt-basic-key
                 key: rauma-rt-basic-key
           - name: OULU_RT_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: oulu-rt-basic-key
+                name: kv-oulu-rt-basic-key
                 key: oulu-rt-basic-key
           - name: PORI_RT_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: pori-rt-basic-key
+                name: kv-pori-rt-basic-key
                 key: pori-rt-basic-key
           - name: RAUMA_STATIC_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: rauma-static-basic-key
+                name: kv-rauma-static-basic-key
                 key: rauma-static-basic-key
           - name: MH_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: mh-basic-key
+                name: kv-mh-basic-key
                 key: mh-basic-key
           - name: RAASEPORI_RT_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: raasepori-rt-basic-key
+                name: kv-raasepori-rt-basic-key
                 key: raasepori-rt-basic-key
           - name: VARELY_RT_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: varely-rt-basic-key
+                name: kv-varely-rt-basic-key
                 key: varely-rt-basic-key
           - name: NYSSE_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: nysse-basic-key
+                name: kv-nysse-basic-key
                 key: nysse-basic-key
           - name: WALTTI_TEST_CREDENTIALS_USER
             valueFrom:
               secretKeyRef:
-                name: waltti-test-credentials-user
+                name: kv-waltti-test-credentials-user
                 key: waltti-test-credentials-user
           - name: WALTTI_TEST_CREDENTIALS_PASS
             valueFrom:
               secretKeyRef:
-                name: waltti-test-credentials-pass
+                name: kv-waltti-test-credentials-pass
                 key: waltti-test-credentials-pass
           - name: WALTTI_TEST_STATIC_BASIC_AUTH
             valueFrom:
               secretKeyRef:
-                name: waltti-test-static-key
+                name: kv-waltti-test-static-key
                 key: waltti-test-static-key
           - name: DEBUG_UI_CREDENTIALS_USER
             valueFrom:
               secretKeyRef:
-                name: debug-ui-credentials-user
+                name: kv-debug-ui-credentials-user
                 key: debug-ui-credentials-user
           - name: DEBUG_UI_CREDENTIALS_PASS
             valueFrom:
               secretKeyRef:
-                name: debug-ui-credentials-pass
+                name: kv-debug-ui-credentials-pass
                 key: debug-ui-credentials-pass
           - name: MOBILITY_API_KEY
             valueFrom:
               secretKeyRef:
-                name: mobility-api-key
+                name: kv-mobility-api-key
                 key: mobility-api-key
           - name: FRENDS_API_KEY
             valueFrom:
               secretKeyRef:
-                name: frends-api-key
+                name: kv-frends-api-key
                 key: frends-api-key
           - name: CDN_BASE_URL
             value: "https://cdn.digitransit.fi"
@@ -250,7 +250,7 @@ spec:
               memory: 3Gi
               cpu: "800m"
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
 
 ---
 
