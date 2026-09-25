@@ -1,3 +1,285 @@
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: "keyvault-digitransit-proxy"
+  namespace: default
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "false"
+    clientID: "8274e895-09f9-424f-afa1-9ed7c6fc23e6"
+    tenantId: "572a41dd-c389-4f0a-b256-aefd1bf149d7"
+    keyvaultName: "digitransit-dev-keyvault"
+    objects: |
+      array:
+        - |
+          objectName: debug-ui-credentials-pass
+          objectType: secret
+        - |
+          objectName: debug-ui-credentials-user
+          objectType: secret
+        - |
+          objectName: frends-api-key
+          objectType: secret
+        - |
+          objectName: giravolta-tampere-key
+          objectType: secret
+        - |
+          objectName: giravolta-vantaa-key
+          objectType: secret
+        - |
+          objectName: hameenlinna-basic-key
+          objectType: secret
+        - |
+          objectName: jojo-basic-key
+          objectType: secret
+        - |
+          objectName: kajaani-basic-key
+          objectType: secret
+        - |
+          objectName: kotka-basic-key
+          objectType: secret
+        - |
+          objectName: kouvola-basic-key
+          objectType: secret
+        - |
+          objectName: lahti-basic-key
+          objectType: secret
+        - |
+          objectName: lappeenranta-basic-key
+          objectType: secret
+        - |
+          objectName: linkki-basic-key
+          objectType: secret
+        - |
+          objectName: lmj-basic-key
+          objectType: secret
+        - |
+          objectName: mh-basic-key
+          objectType: secret
+        - |
+          objectName: mikkeli-basic-key
+          objectType: secret
+        - |
+          objectName: mobility-api-key
+          objectType: secret
+        - |
+          objectName: new-lissu-basic-key
+          objectType: secret
+        - |
+          objectName: nysse-basic-key
+          objectType: secret
+        - |
+          objectName: oulu-rt-basic-key
+          objectType: secret
+        - |
+          objectName: pori-rt-basic-key
+          objectType: secret
+        - |
+          objectName: raasepori-rt-basic-key
+          objectType: secret
+        - |
+          objectName: rauma-rt-basic-key
+          objectType: secret
+        - |
+          objectName: rauma-static-basic-key
+          objectType: secret
+        - |
+          objectName: rovaniemi-basic-key
+          objectType: secret
+        - |
+          objectName: salo-basic-key
+          objectType: secret
+        - |
+          objectName: vaasa-basic-key
+          objectType: secret
+        - |
+          objectName: varely-basic-key
+          objectType: secret
+        - |
+          objectName: varely-rt-basic-key
+          objectType: secret
+        - |
+          objectName: vilkku-basic-key
+          objectType: secret
+        - |
+          objectName: waltti-test-credentials-pass
+          objectType: secret
+        - |
+          objectName: waltti-test-credentials-user
+          objectType: secret
+        - |
+          objectName: waltti-test-static-key
+          objectType: secret
+  secretObjects:
+    - secretName: "kv-debug-ui-credentials-pass"
+      type: Opaque
+      data:
+        - objectName: debug-ui-credentials-pass
+          key: debug-ui-credentials-pass
+    - secretName: "kv-debug-ui-credentials-user"
+      type: Opaque
+      data:
+        - objectName: debug-ui-credentials-user
+          key: debug-ui-credentials-user
+    - secretName: "kv-frends-api-key"
+      type: Opaque
+      data:
+        - objectName: frends-api-key
+          key: frends-api-key
+    - secretName: "kv-giravolta-tampere-key"
+      type: Opaque
+      data:
+        - objectName: giravolta-tampere-key
+          key: giravolta-tampere-key
+    - secretName: "kv-giravolta-vantaa-key"
+      type: Opaque
+      data:
+        - objectName: giravolta-vantaa-key
+          key: giravolta-vantaa-key
+    - secretName: "kv-hameenlinna-basic-key"
+      type: Opaque
+      data:
+        - objectName: hameenlinna-basic-key
+          key: hameenlinna-basic-key
+    - secretName: "kv-jojo-basic-key"
+      type: Opaque
+      data:
+        - objectName: jojo-basic-key
+          key: jojo-basic-key
+    - secretName: "kv-kajaani-basic-key"
+      type: Opaque
+      data:
+        - objectName: kajaani-basic-key
+          key: kajaani-basic-key
+    - secretName: "kv-kotka-basic-key"
+      type: Opaque
+      data:
+        - objectName: kotka-basic-key
+          key: kotka-basic-key
+    - secretName: "kv-kouvola-basic-key"
+      type: Opaque
+      data:
+        - objectName: kouvola-basic-key
+          key: kouvola-basic-key
+    - secretName: "kv-lahti-basic-key"
+      type: Opaque
+      data:
+        - objectName: lahti-basic-key
+          key: lahti-basic-key
+    - secretName: "kv-lappeenranta-basic-key"
+      type: Opaque
+      data:
+        - objectName: lappeenranta-basic-key
+          key: lappeenranta-basic-key
+    - secretName: "kv-linkki-basic-key"
+      type: Opaque
+      data:
+        - objectName: linkki-basic-key
+          key: linkki-basic-key
+    - secretName: "kv-lmj-basic-key"
+      type: Opaque
+      data:
+        - objectName: lmj-basic-key
+          key: lmj-basic-key
+    - secretName: "kv-mh-basic-key"
+      type: Opaque
+      data:
+        - objectName: mh-basic-key
+          key: mh-basic-key
+    - secretName: "kv-mikkeli-basic-key"
+      type: Opaque
+      data:
+        - objectName: mikkeli-basic-key
+          key: mikkeli-basic-key
+    - secretName: "kv-mobility-api-key"
+      type: Opaque
+      data:
+        - objectName: mobility-api-key
+          key: mobility-api-key
+    - secretName: "kv-new-lissu-basic-key"
+      type: Opaque
+      data:
+        - objectName: new-lissu-basic-key
+          key: new-lissu-basic-key
+    - secretName: "kv-nysse-basic-key"
+      type: Opaque
+      data:
+        - objectName: nysse-basic-key
+          key: nysse-basic-key
+    - secretName: "kv-oulu-rt-basic-key"
+      type: Opaque
+      data:
+        - objectName: oulu-rt-basic-key
+          key: oulu-rt-basic-key
+    - secretName: "kv-pori-rt-basic-key"
+      type: Opaque
+      data:
+        - objectName: pori-rt-basic-key
+          key: pori-rt-basic-key
+    - secretName: "kv-raasepori-rt-basic-key"
+      type: Opaque
+      data:
+        - objectName: raasepori-rt-basic-key
+          key: raasepori-rt-basic-key
+    - secretName: "kv-rauma-rt-basic-key"
+      type: Opaque
+      data:
+        - objectName: rauma-rt-basic-key
+          key: rauma-rt-basic-key
+    - secretName: "kv-rauma-static-basic-key"
+      type: Opaque
+      data:
+        - objectName: rauma-static-basic-key
+          key: rauma-static-basic-key
+    - secretName: "kv-rovaniemi-basic-key"
+      type: Opaque
+      data:
+        - objectName: rovaniemi-basic-key
+          key: rovaniemi-basic-key
+    - secretName: "kv-salo-basic-key"
+      type: Opaque
+      data:
+        - objectName: salo-basic-key
+          key: salo-basic-key
+    - secretName: "kv-vaasa-basic-key"
+      type: Opaque
+      data:
+        - objectName: vaasa-basic-key
+          key: vaasa-basic-key
+    - secretName: "kv-varely-basic-key"
+      type: Opaque
+      data:
+        - objectName: varely-basic-key
+          key: varely-basic-key
+    - secretName: "kv-varely-rt-basic-key"
+      type: Opaque
+      data:
+        - objectName: varely-rt-basic-key
+          key: varely-rt-basic-key
+    - secretName: "kv-vilkku-basic-key"
+      type: Opaque
+      data:
+        - objectName: vilkku-basic-key
+          key: vilkku-basic-key
+    - secretName: "kv-waltti-test-credentials-pass"
+      type: Opaque
+      data:
+        - objectName: waltti-test-credentials-pass
+          key: waltti-test-credentials-pass
+    - secretName: "kv-waltti-test-credentials-user"
+      type: Opaque
+      data:
+        - objectName: waltti-test-credentials-user
+          key: waltti-test-credentials-user
+    - secretName: "kv-waltti-test-static-key"
+      type: Opaque
+      data:
+        - objectName: waltti-test-static-key
+          key: waltti-test-static-key
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -37,6 +319,7 @@ spec:
   template:
     metadata:
       labels:
+        azure.workload.identity/use: "true"
         app: digitransit-proxy
     spec:
       affinity:
@@ -53,8 +336,20 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: burstpool
+      volumes:
+        - name: keyvault
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: keyvault-digitransit-proxy
+      serviceAccountName: keyvault-secrets
       containers:
       - name: digitransit-proxy
+        volumeMounts:
+          - name: keyvault
+            mountPath: /mnt/keyvault
+            readOnly: true
         image: hsldevcom/digitransit-proxy:latest
         imagePullPolicy: Always
         ports:

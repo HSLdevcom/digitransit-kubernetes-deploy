@@ -1,3 +1,29 @@
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: "keyvault-yleisviestipalvelu"
+  namespace: default
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "false"
+    clientID: "8274e895-09f9-424f-afa1-9ed7c6fc23e6"
+    tenantId: "572a41dd-c389-4f0a-b256-aefd1bf149d7"
+    keyvaultName: "digitransit-dev-keyvault"
+    objects: |
+      array:
+        - |
+          objectName: ht-password
+          objectType: secret
+  secretObjects:
+    - secretName: "kv-ht-password"
+      type: Opaque
+      data:
+        - objectName: ht-password
+          key: ht-password
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -32,6 +58,7 @@ spec:
   template:
     metadata:
       labels:
+        azure.workload.identity/use: "true"
         app: yleisviestipalvelu
     spec:
       affinity:
@@ -48,10 +75,14 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: burstpool
+      serviceAccountName: keyvault-secrets
       containers:
       - name: yleisviestipalvelu
         image: hsldevcom/yleisviestipalvelu
         volumeMounts:
+          - name: keyvault
+            mountPath: /mnt/keyvault
+            readOnly: true
           - mountPath: /yleisviestipalvelu/messages
             name: yleisviestipalvelumessages
         imagePullPolicy: Always
@@ -90,6 +121,12 @@ spec:
       imagePullSecrets:
         - name: kv-hsldevcomkey
       volumes:
+        - name: keyvault
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: keyvault-yleisviestipalvelu
         - name: "yleisviestipalvelumessages"
           persistentVolumeClaim:
             claimName: yleisviesti-fileshare

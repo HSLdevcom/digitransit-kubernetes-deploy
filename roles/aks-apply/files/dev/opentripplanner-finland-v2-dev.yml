@@ -1,3 +1,29 @@
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: "keyvault-opentripplanner-finland-v2"
+  namespace: default
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "false"
+    clientID: "8274e895-09f9-424f-afa1-9ed7c6fc23e6"
+    tenantId: "572a41dd-c389-4f0a-b256-aefd1bf149d7"
+    keyvaultName: "digitransit-dev-keyvault"
+    objects: |
+      array:
+        - |
+          objectName: mobility-api-key
+          objectType: secret
+  secretObjects:
+    - secretName: "kv-mobility-api-key"
+      type: Opaque
+      data:
+        - objectName: mobility-api-key
+          key: mobility-api-key
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -38,6 +64,7 @@ spec:
   template:
     metadata:
       labels:
+        azure.workload.identity/use: "true"
         app: opentripplanner-finland-v2
     spec:
       nodeSelector:
@@ -47,6 +74,7 @@ spec:
         operator: "Equal"
         value: "yes"
         effect: "NoSchedule"
+      serviceAccountName: keyvault-secrets
       containers:
       - name: opentripplanner-finland-v2
         image: hsldevcom/opentripplanner:v2-finland
@@ -54,6 +82,9 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
+          - name: keyvault
+            mountPath: /mnt/keyvault
+            readOnly: true
           - name: otpcfgmap
             mountPath: /logback-include-extensions.xml
             subPath: file-from-cfgmap
@@ -98,6 +129,12 @@ spec:
             memory: "26Gi"
             cpu: "8000m"
       volumes:
+      - name: keyvault
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: keyvault-opentripplanner-finland-v2
       - name: otpcfgmap
         configMap:
           name: opentripplanner-cfgmap
