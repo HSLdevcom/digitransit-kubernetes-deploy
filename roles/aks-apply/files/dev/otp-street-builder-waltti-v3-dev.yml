@@ -43,7 +43,7 @@ spec:
   failedJobsHistoryLimit: 4
   jobTemplate:
     spec:
-      backoffLimit: 2 # max two retries
+      backoffLimit: 3 # max two retries + initial attempt that might fail due to missing secrets
       template:
         metadata:
           labels:
