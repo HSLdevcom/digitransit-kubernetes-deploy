@@ -102,4 +102,4 @@ spec:
           path: /digitransitdevaksstrg/hsl
           readOnly: true
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey

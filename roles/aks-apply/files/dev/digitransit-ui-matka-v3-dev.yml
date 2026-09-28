@@ -1,3 +1,45 @@
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: "keyvault-digitransit-ui-matka-v3"
+  namespace: default
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "false"
+    clientID: "8274e895-09f9-424f-afa1-9ed7c6fc23e6"
+    tenantId: "572a41dd-c389-4f0a-b256-aefd1bf149d7"
+    keyvaultName: "digitransit-dev-keyvault"
+    objects: |
+      array:
+        - |
+          objectName: dev-citybike-scheduler-db-conn-string
+          objectType: secret
+        - |
+          objectName: dev-digitransit-ui-matka-v3-apim-key
+          objectType: secret
+        - |
+          objectName: digitransit-subscription-key-name
+          objectType: secret
+  secretObjects:
+    - secretName: "kv-dev-citybike-scheduler-db-conn-string"
+      type: Opaque
+      data:
+        - objectName: dev-citybike-scheduler-db-conn-string
+          key: dev-citybike-scheduler-db-conn-string
+    - secretName: "kv-dev-digitransit-ui-matka-v3-apim-key"
+      type: Opaque
+      data:
+        - objectName: dev-digitransit-ui-matka-v3-apim-key
+          key: dev-digitransit-ui-matka-v3-apim-key
+    - secretName: "kv-digitransit-subscription-key-name"
+      type: Opaque
+      data:
+        - objectName: digitransit-subscription-key-name
+          key: digitransit-subscription-key-name
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -35,6 +77,7 @@ spec:
   template:
     metadata:
       labels:
+        azure.workload.identity/use: "true"
         app: digitransit-ui-matka-v3
     spec:
       affinity:
@@ -51,8 +94,20 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: burstpool
+      volumes:
+        - name: keyvault
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: keyvault-digitransit-ui-matka-v3
+      serviceAccountName: keyvault-secrets
       containers:
       - name: digitransit-ui-matka-v3
+        volumeMounts:
+          - name: keyvault
+            mountPath: /mnt/keyvault
+            readOnly: true
         image: hsldevcom/digitransit-ui:v3
         imagePullPolicy: Always
         ports:
@@ -90,22 +145,22 @@ spec:
         - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
           valueFrom:
             secretKeyRef:
-              name: "digitransit-subscription-key-name"
+              name: "kv-digitransit-subscription-key-name"
               key: "digitransit-subscription-key-name"
         - name: API_SUBSCRIPTION_HEADER_NAME
           valueFrom:
             secretKeyRef:
-              name: "digitransit-subscription-key-name"
+              name: "kv-digitransit-subscription-key-name"
               key: "digitransit-subscription-key-name"
         - name: API_SUBSCRIPTION_TOKEN
           valueFrom:
             secretKeyRef:
-              name: "dev-digitransit-ui-matka-v3-apim-key"
+              name: "kv-dev-digitransit-ui-matka-v3-apim-key"
               key: "dev-digitransit-ui-matka-v3-apim-key"
         - name: CITYBIKE_DB_CONN_STRING
           valueFrom:
             secretKeyRef:
-              name: dev-citybike-scheduler-db-conn-string
+              name: kv-dev-citybike-scheduler-db-conn-string
               key: dev-citybike-scheduler-db-conn-string
         - name: CITYBIKE_DATABASE
           value: "citybike-scheduler-dev"
@@ -121,4 +176,4 @@ spec:
             memory: 1000Mi
             cpu: 400m
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey

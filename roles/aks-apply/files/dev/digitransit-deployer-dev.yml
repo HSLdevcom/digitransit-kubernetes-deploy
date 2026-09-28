@@ -1,9 +1,76 @@
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: "keyvault-digitransit-deployer"
+  namespace: default
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "false"
+    clientID: "8274e895-09f9-424f-afa1-9ed7c6fc23e6"
+    tenantId: "572a41dd-c389-4f0a-b256-aefd1bf149d7"
+    keyvaultName: "digitransit-dev-keyvault"
+    objects: |
+      array:
+        - |
+          objectName: docker-auth
+          objectType: secret
+        - |
+          objectName: docker-user
+          objectType: secret
+        - |
+          objectName: slack-access-token
+          objectType: secret
+        - |
+          objectName: slack-ci-channel-id
+          objectType: secret
+        - |
+          objectName: slack-dev-monitoring-channel-id
+          objectType: secret
+        - |
+          objectName: slack-webhook
+          objectType: secret
+  secretObjects:
+    - secretName: "kv-docker-auth"
+      type: Opaque
+      data:
+        - objectName: docker-auth
+          key: docker-auth
+    - secretName: "kv-docker-user"
+      type: Opaque
+      data:
+        - objectName: docker-user
+          key: docker-user
+    - secretName: "kv-slack-access-token"
+      type: Opaque
+      data:
+        - objectName: slack-access-token
+          key: slack-access-token
+    - secretName: "kv-slack-ci-channel-id"
+      type: Opaque
+      data:
+        - objectName: slack-ci-channel-id
+          key: slack-ci-channel-id
+    - secretName: "kv-slack-dev-monitoring-channel-id"
+      type: Opaque
+      data:
+        - objectName: slack-dev-monitoring-channel-id
+          key: slack-dev-monitoring-channel-id
+    - secretName: "kv-slack-webhook"
+      type: Opaque
+      data:
+        - objectName: slack-webhook
+          key: slack-webhook
 ---  
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: digitransit-deployer
   namespace: default
+  annotations:
+    azure.workload.identity/client-id: "8274e895-09f9-424f-afa1-9ed7c6fc23e6"
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
@@ -65,6 +132,7 @@ spec:
   template:
     metadata:
       labels:
+        azure.workload.identity/use: "true"
         app: digitransit-deployer
     spec:
       serviceAccountName: digitransit-deployer
@@ -82,8 +150,19 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: burstpool
+      volumes:
+        - name: keyvault
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: keyvault-digitransit-deployer
       containers:
       - name: digitransit-deployer
+        volumeMounts:
+          - name: keyvault
+            mountPath: /mnt/keyvault
+            readOnly: true
         image: hsldevcom/digitransit-deployer:latest
         imagePullPolicy: Always
         securityContext:
@@ -94,32 +173,32 @@ spec:
         - name: SLACK_WEBHOOK_URL
           valueFrom:
             secretKeyRef:
-              name: slack-webhook
+              name: kv-slack-webhook
               key: slack-webhook
         - name: SLACK_ACCESS_TOKEN
           valueFrom:
             secretKeyRef:
-              name: slack-access-token
+              name: kv-slack-access-token
               key: slack-access-token
         - name: MONITORING_SLACK_CHANNEL_ID
           valueFrom:
             secretKeyRef:
-              name: slack-dev-monitoring-channel-id
+              name: kv-slack-dev-monitoring-channel-id
               key: slack-dev-monitoring-channel-id
         - name: ALERT_SLACK_CHANNEL_ID
           valueFrom:
             secretKeyRef:
-              name: slack-ci-channel-id
+              name: kv-slack-ci-channel-id
               key: slack-ci-channel-id
         - name: DOCKER_USER
           valueFrom:
             secretKeyRef:
-              name: docker-user
+              name: kv-docker-user
               key: docker-user
         - name: DOCKER_AUTH
           valueFrom:
             secretKeyRef:
-              name: docker-auth
+              name: kv-docker-auth
               key: docker-auth
         resources:
           requests:
@@ -129,4 +208,4 @@ spec:
             memory: 252Mi
             cpu: 1000m
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey

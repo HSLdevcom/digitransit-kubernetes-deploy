@@ -1,4 +1,53 @@
 ---
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: "keyvault-otp-transit-builder-waltti-v3"
+  namespace: default
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "false"
+    clientID: "8274e895-09f9-424f-afa1-9ed7c6fc23e6"
+    tenantId: "572a41dd-c389-4f0a-b256-aefd1bf149d7"
+    keyvaultName: "digitransit-dev-keyvault"
+    objects: |
+      array:
+        - |
+          objectName: docker-auth
+          objectType: secret
+        - |
+          objectName: docker-user
+          objectType: secret
+        - |
+          objectName: slack-access-token
+          objectType: secret
+        - |
+          objectName: slack-ci-channel-id
+          objectType: secret
+  secretObjects:
+    - secretName: "kv-docker-auth"
+      type: Opaque
+      data:
+        - objectName: docker-auth
+          key: docker-auth
+    - secretName: "kv-docker-user"
+      type: Opaque
+      data:
+        - objectName: docker-user
+          key: docker-user
+    - secretName: "kv-slack-access-token"
+      type: Opaque
+      data:
+        - objectName: slack-access-token
+          key: slack-access-token
+    - secretName: "kv-slack-ci-channel-id"
+      type: Opaque
+      data:
+        - objectName: slack-ci-channel-id
+          key: slack-ci-channel-id
+---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -10,10 +59,11 @@ spec:
   failedJobsHistoryLimit: 4
   jobTemplate:
     spec:
-      backoffLimit: 2 # max two retries
+      backoffLimit: 3 # max two retries + initial attempt that might fail due to missing secrets
       template:
         metadata:
           labels:
+            azure.workload.identity/use: "true"
             app: otp-transit-builder-waltti-v3
         spec:
           activeDeadlineSeconds: 9000 # one build can take max 2 hours and 30 minutes
@@ -41,10 +91,14 @@ spec:
             operator: "Equal"
             value: "yes"
             effect: "NoSchedule"
+          serviceAccountName: keyvault-secrets
           containers:
           - name: otp-transit-builder-waltti-v3
             image: hsldevcom/otp-data-builder:v3
             volumeMounts:
+            - name: keyvault
+              mountPath: /mnt/keyvault
+              readOnly: true
             - mountPath: /opt/otp-data-builder/storage
               name: datastorage
             imagePullPolicy: Always
@@ -62,7 +116,7 @@ spec:
             - name: DOCKER_AUTH
               valueFrom:
                 secretKeyRef:
-                  name: docker-auth
+                  name: kv-docker-auth
                   key: docker-auth
             - name: EXTRA_SRC
               value: >
@@ -103,17 +157,17 @@ spec:
             - name: DOCKER_USER
               valueFrom:
                 secretKeyRef:
-                  name: docker-user
+                  name: kv-docker-user
                   key: docker-user
             - name: SLACK_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: slack-access-token
+                  name: kv-slack-access-token
                   key: slack-access-token
             - name: SLACK_CHANNEL_ID
               valueFrom:
                 secretKeyRef:
-                  name: slack-ci-channel-id
+                  name: kv-slack-ci-channel-id
                   key: slack-ci-channel-id
             - name: OTP_TAG
               value: "v2"
@@ -133,8 +187,14 @@ spec:
                 memory: 26Gi
                 cpu: 8000m
           imagePullSecrets:
-            - name: hsldevcomkey
+            - name: kv-hsldevcomkey
           volumes:
+            - name: keyvault
+              csi:
+                driver: secrets-store.csi.k8s.io
+                readOnly: true
+                volumeAttributes:
+                  secretProviderClass: keyvault-otp-transit-builder-waltti-v3
             - name: "datastorage"
               nfs:
                 server: digitransitdevaksstrg.file.core.windows.net

@@ -97,4 +97,4 @@ spec:
           path: /digitransitdevaksstrg/varely
           readOnly: true
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey

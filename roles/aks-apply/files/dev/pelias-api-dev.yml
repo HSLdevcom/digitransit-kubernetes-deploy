@@ -93,4 +93,4 @@ spec:
             # the app can use 2 full cores of parallel JS execution.
             cpu: "1500m"
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey

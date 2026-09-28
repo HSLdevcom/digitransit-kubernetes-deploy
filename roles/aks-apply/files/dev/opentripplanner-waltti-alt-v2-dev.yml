@@ -102,4 +102,4 @@ spec:
           path: /digitransitdevaksstrg/waltti-alt
           readOnly: true
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
