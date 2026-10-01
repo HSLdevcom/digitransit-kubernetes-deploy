@@ -24,6 +24,9 @@ spec:
           objectName: mobility-api-key
           objectType: secret
         - |
+          objectName: mobility-api-test-key
+          objectType: secret
+        - |
           objectName: slack-access-token
           objectType: secret
         - |
@@ -45,6 +48,11 @@ spec:
       data:
         - objectName: mobility-api-key
           key: mobility-api-key
+    - secretName: "kv-mobility-api-test-key"
+      type: Opaque
+      data:
+        - objectName: mobility-api-test-key
+          key: mobility-api-test-key
     - secretName: "kv-slack-access-token"
       type: Opaque
       data:
@@ -153,13 +161,6 @@ spec:
               value: "-Xmx24G -Xms24G"
             - name: SPLIT_BUILD_TYPE
               value: "USE_PREBUILT_STREET_GRAPH"
-            - name: EXTRA_SRC
-              value: >
-                {
-                  "flixbus": {
-                    "remove": true
-                  }
-                }
             - name: SKIPPED_SITES
               value: "all"
             - name: MOBILITY_API_KEY
@@ -167,6 +168,11 @@ spec:
                 secretKeyRef:
                   name: kv-mobility-api-key
                   key: mobility-api-key
+            - name: MOBILITY_API_TEST_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: kv-mobility-api-test-key
+                  key: mobility-api-test-key
             resources:
               requests:
                 memory: 26Gi
