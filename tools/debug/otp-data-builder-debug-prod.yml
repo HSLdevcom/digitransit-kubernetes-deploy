@@ -46,7 +46,7 @@ spec:
             memory: 1Gi
             cpu: 1000m
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
       volumes:
         - name: "datastorage-finland"
           nfs:

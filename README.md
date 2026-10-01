@@ -74,27 +74,31 @@ Creating Azure key vault if you don't existing one already.
 
 - Run `ansible-playbook play_setup_keyvault.yml -e @env_vars/<dev or prod>.yml`
 
-#### Install azure key vault controller
+#### Keyvault integration using the Secrets Store CSI Driver
 
-Install [Helm](https://helm.sh/docs/using_helm/) v3 if you don't have it
-
-```sh
-helm repo add spv-charts http://charts.spvapi.no
-
-helm repo update
-
-helm install spv-charts/azure-key-vault-controller --generate-name --version 1.0.2
-```
-
-Run following commands to give AKS-cluster permissions to read from key vault
+Secrets are read from Azure Key Vault with the [Secrets Store CSI Driver](https://learn.microsoft.com/en-us/azure/aks/csi-secrets-store-driver) using Azure Workload Identity.
+It's partly enabled as part of the setup, but we still need to create a user-assigned managed identity, grant it read access to the key vault, and federate it to the
+`keyvault-secrets` and `digitransit-deployer` service accounts in the `default` namespace:
 
 ```sh
-az role assignment create --role Reader --assignee <service_principal_clientid> --scope <keyvault_resource_id>
+az identity create --resource-group <identity_resource_group> --name <identity_name>
 
-az keyvault set-policy -n <keyvault_name> --key-permissions get --spn <YOUR SPN CLIENT ID>
-az keyvault set-policy -n <keyvault_name> --secret-permissions get --spn <YOUR SPN CLIENT ID>
-az keyvault set-policy -n <keyvault_name> --certificate-permissions get --spn <YOUR SPN CLIENT ID>
+az keyvault set-policy -n <keyvault_name> --secret-permissions get \
+  --object-id <identity_principal_id>
+
+for sa in keyvault-secrets digitransit-deployer; do
+  az identity federated-credential create --name <aks_name>-$sa \
+    --resource-group <identity_resource_group> --identity-name <identity_name> \
+    --issuer "$(az aks show --resource-group <aks_resource_group> --name <aks_name> --query oidcIssuerProfile.issuerURL -o tsv)" \
+    --subject system:serviceaccount:default:$sa \
+    --audience api://AzureADTokenExchange
+done
 ```
+
+Each workload has its own `SecretProviderClass` that syncs the key vault secrets it needs into
+Kubernetes secrets named `kv-<secret>`. Those secrets exist only while a pod mounts the volume.
+The image pull secret `kv-hsldevcomkey` is the exception: the kubelet needs it before any pod starts,
+so the `image-pull-secret-syncer` deployment keeps it synced and must keep running.
 
 ### Deploy kubernetes manifests
 

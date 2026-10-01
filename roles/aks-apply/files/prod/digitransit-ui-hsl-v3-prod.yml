@@ -1,3 +1,105 @@
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: "keyvault-digitransit-ui-hsl-v3"
+  namespace: default
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "false"
+    clientID: "REPLACE_ME_UAMI_CLIENT_ID"
+    tenantId: "REPLACE_ME_TENANT_ID"
+    keyvaultName: "digitransit-dev-keyvault"
+    objects: |
+      array:
+        - |
+          objectName: prod-citybike-scheduler-db-conn-string
+          objectType: secret
+        - |
+          objectName: GTM-ID
+          objectAlias: gtm-id
+          objectType: secret
+        - |
+          objectName: hsl-travelers-account-url-prod
+          objectType: secret
+        - |
+          objectName: prod-redis-host
+          objectAlias: redis-host
+          objectType: secret
+        - |
+          objectName: prod-redis-primary-key
+          objectAlias: redis-key
+          objectType: secret
+        - |
+          objectName: prod-session-secret
+          objectAlias: session-secret
+          objectType: secret
+        - |
+          objectName: prod-oidc-client-id
+          objectType: secret
+        - |
+          objectName: prod-oidc-client-secret
+          objectType: secret
+        - |
+          objectName: digitransit-ui-hsl-v3-apim-key
+          objectType: secret
+        - |
+          objectName: digitransit-subscription-key-name
+          objectType: secret
+  secretObjects:
+    - secretName: "kv-prod-citybike-scheduler-db-conn-string"
+      type: Opaque
+      data:
+        - objectName: prod-citybike-scheduler-db-conn-string
+          key: prod-citybike-scheduler-db-conn-string
+    - secretName: "kv-gtm-id"
+      type: Opaque
+      data:
+        - objectName: gtm-id
+          key: gtm-id
+    - secretName: "kv-hsl-travelers-account-url-prod"
+      type: Opaque
+      data:
+        - objectName: hsl-travelers-account-url-prod
+          key: hsl-travelers-account-url-prod
+    - secretName: "kv-redis-host"
+      type: Opaque
+      data:
+        - objectName: redis-host
+          key: redis-host
+    - secretName: "kv-redis-key"
+      type: Opaque
+      data:
+        - objectName: redis-key
+          key: redis-key
+    - secretName: "kv-session-secret"
+      type: Opaque
+      data:
+        - objectName: session-secret
+          key: session-secret
+    - secretName: "kv-prod-oidc-client-id"
+      type: Opaque
+      data:
+        - objectName: prod-oidc-client-id
+          key: prod-oidc-client-id
+    - secretName: "kv-prod-oidc-client-secret"
+      type: Opaque
+      data:
+        - objectName: prod-oidc-client-secret
+          key: prod-oidc-client-secret
+    - secretName: "kv-digitransit-ui-hsl-v3-apim-key"
+      type: Opaque
+      data:
+        - objectName: digitransit-ui-hsl-v3-apim-key
+          key: digitransit-ui-hsl-v3-apim-key
+    - secretName: "kv-digitransit-subscription-key-name"
+      type: Opaque
+      data:
+        - objectName: digitransit-subscription-key-name
+          key: digitransit-subscription-key-name
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -34,6 +136,7 @@ spec:
   template:
     metadata:
       labels:
+        azure.workload.identity/use: "true"
         app: digitransit-ui-hsl-v3
     spec:
       affinity:
@@ -50,8 +153,20 @@ spec:
               topologyKey: kubernetes.io/hostname
       nodeSelector:
         agentpool: burstpool
+      volumes:
+        - name: keyvault
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: keyvault-digitransit-ui-hsl-v3
+      serviceAccountName: keyvault-secrets
       containers:
       - name: digitransit-ui-hsl-v3
+        volumeMounts:
+          - name: keyvault
+            mountPath: /mnt/keyvault
+            readOnly: true
         image: hsldevcom/digitransit-ui:v3-prod
         imagePullPolicy: Always
         ports:
@@ -87,7 +202,7 @@ spec:
         - name: TRAVELERS_ACCOUNT_URL
           valueFrom:
             secretKeyRef:
-              name: hsl-travelers-account-url-prod
+              name: kv-hsl-travelers-account-url-prod
               key: hsl-travelers-account-url-prod
         - name: HOSTNAME
           value: "https://reittiopas.hsl.fi"
@@ -108,51 +223,51 @@ spec:
         - name: API_SUBSCRIPTION_QUERY_PARAMETER_NAME
           valueFrom:
             secretKeyRef:
-              name: "digitransit-subscription-key-name"
+              name: "kv-digitransit-subscription-key-name"
               key: "digitransit-subscription-key-name"
         - name: API_SUBSCRIPTION_HEADER_NAME
           valueFrom:
             secretKeyRef:
-              name: "digitransit-subscription-key-name"
+              name: "kv-digitransit-subscription-key-name"
               key: "digitransit-subscription-key-name"
         - name: API_SUBSCRIPTION_TOKEN
           valueFrom:
             secretKeyRef:
-              name: "digitransit-ui-hsl-v3-apim-key"
+              name: "kv-digitransit-ui-hsl-v3-apim-key"
               key: "digitransit-ui-hsl-v3-apim-key"
         - name: GTM_ID
           valueFrom:
             secretKeyRef:
-              name: gtm-id
+              name: kv-gtm-id
               key: gtm-id
         - name: REDIS_HOST
           valueFrom:
             secretKeyRef:
-              name: redis-host
+              name: kv-redis-host
               key: redis-host
         - name: REDIS_PORT
           value: "6380"
         - name: REDIS_KEY
           valueFrom:
             secretKeyRef:
-              name: redis-key
+              name: kv-redis-key
               key: redis-key
         - name: OIDCHOST
           value: "https://id.hsl.fi"
         - name: SESSION_SECRET
           valueFrom:
             secretKeyRef:
-              name: session-secret
+              name: kv-session-secret
               key: session-secret
         - name: OIDC_CLIENT_ID
           valueFrom:
             secretKeyRef:
-              name: prod-oidc-client-id
+              name: kv-prod-oidc-client-id
               key: prod-oidc-client-id
         - name: OIDC_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              name: prod-oidc-client-secret
+              name: kv-prod-oidc-client-secret
               key: prod-oidc-client-secret
         - name: NOTIFICATION_HOST
           value: "https://www.hsl.fi/user/api/v1/notifications"
@@ -167,7 +282,7 @@ spec:
         - name: CITYBIKE_DB_CONN_STRING
           valueFrom:
             secretKeyRef:
-              name: prod-citybike-scheduler-db-conn-string
+              name: kv-prod-citybike-scheduler-db-conn-string
               key: prod-citybike-scheduler-db-conn-string
         - name: CITYBIKE_DATABASE
           value: "citybike-scheduler-prod"
@@ -181,7 +296,7 @@ spec:
             memory: 4Gi
             cpu: 1000m
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
 
 ---
 
