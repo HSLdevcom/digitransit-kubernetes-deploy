@@ -166,7 +166,7 @@ spec:
           - name: keyvault
             mountPath: /mnt/keyvault
             readOnly: true
-        image: hsldevcom/digitransit-ui:hotfix
+        image: hsldevcom/digitransit-ui:v3
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
