@@ -1,16 +1,4 @@
 ---
-- name: "Create service principal"
-  command: "az ad sp create-for-rbac \
-    -n {{aks_name}} \
-    --skip-assignment \
-    --years 100"
-  delegate_to: localhost
-  ignore_errors: "{{ ansible_check_mode }}"
-  register: out
-
-- set_fact:
-    json: "{{(out.stdout|from_json)}}"
-
 - name: "Create {{aks_resource_group_name}}"
   command: "az group create \
     --name {{aks_resource_group_name}} \
@@ -26,19 +14,21 @@
     --node-vm-size {{system_node_vm_size}} \
     --kubernetes-version {{kubernetes_version}} \
     --generate-ssh-keys \
-    --service-principal {{item.appId}} \
-    --client-secret {{item.password}} \
+    --enable-managed-identity \
     --uptime-sla \
     --os-sku azurelinux \
     --node-osdisk-type Ephemeral \
     --mode System \
     --node-taints CriticalAddonsOnly=true:NoSchedule \
     --nodepool-name {{system_nodepool_name}} \
-    --cluster-autoscaler-profile expander=priority,max-node-provision-time=10m
+    --enable-oidc-issuer \
+    --enable-workload-identity \
+    --enable-addons azure-keyvault-secrets-provider \
+    --enable-secret-rotation \
+    --rotation-poll-interval 2m \
+    --cluster-autoscaler-profile expander=priority,max-node-provision-time=10m"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
-  with_items:
-    - { appId: "{{json.appId}}", password: "{{json.password}}" }
 
 - name: "Create nodepool {{default_nodepool_name}}"
   command: "az aks nodepool add \
@@ -67,7 +57,7 @@
     --os-sku azurelinux \
     --node-osdisk-type Ephemeral \
     --enable-cluster-autoscaler \
-    --node-taints {{worker_taint}}
+    --node-taints {{worker_taint}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
@@ -83,7 +73,7 @@
     --os-sku azurelinux \
     --node-osdisk-type Ephemeral \
     --enable-cluster-autoscaler \
-    --node-taints {{worker_taint}}
+    --node-taints {{worker_taint}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
@@ -99,7 +89,7 @@
     --os-sku azurelinux \
     --node-osdisk-type Ephemeral \
     --enable-cluster-autoscaler \
-    --node-taints {{builder_taint}}
+    --node-taints {{builder_taint}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
@@ -115,7 +105,7 @@
     --os-sku azurelinux \
     --node-osdisk-type Ephemeral \
     --enable-cluster-autoscaler \
-    --node-taints {{builder_taint}}
+    --node-taints {{builder_taint}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
@@ -131,7 +121,7 @@
     --os-sku azurelinux \
     --node-osdisk-type Ephemeral \
     --enable-cluster-autoscaler \
-    --node-taints {{turin_taint}}
+    --node-taints {{turin_taint}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"
 
@@ -147,6 +137,6 @@
     --os-sku azurelinux \
     --node-osdisk-type Ephemeral \
     --enable-cluster-autoscaler \
-    --node-taints {{turin_taint}}
+    --node-taints {{turin_taint}}"
   delegate_to: localhost
   ignore_errors: "{{ ansible_check_mode }}"

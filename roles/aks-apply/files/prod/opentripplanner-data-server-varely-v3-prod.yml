@@ -82,7 +82,7 @@ spec:
             memory: "224Mi"
             cpu: "50m"
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
       volumes:
         - name: "datastorage"
           nfs:

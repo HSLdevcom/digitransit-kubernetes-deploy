@@ -7,9 +7,28 @@
   ignore_errors: "{{ ansible_check_mode }}"
 
 - block:
-    - name: "Apply keyvaultsecrets"
+    - name: "Apply keyvault service account"
       command: "kubectl apply -f \
-        {{ role_path }}/files/{{ az_environment }}/keyvaultsecrets-{{ az_environment }}.yml"
+        {{ role_path }}/files/{{ az_environment }}/keyvault-service-account-{{ az_environment }}.yml"
+      delegate_to: localhost
+      ignore_errors: "{{ ansible_check_mode }}"
+      register: out
+
+    - debug: var=out.stdout_lines
+
+    # kv-hsldevcomkey must exist before any other pod can pull its image.
+    - name: "Apply image pull secret syncer"
+      command: "kubectl apply -f \
+        {{ role_path }}/files/{{ az_environment }}/image-pull-secret-syncer-{{ az_environment }}.yml"
+      delegate_to: localhost
+      ignore_errors: "{{ ansible_check_mode }}"
+      register: out
+
+    - debug: var=out.stdout_lines
+
+    - name: "Wait for image pull secret syncer to be available"
+      command: "kubectl rollout status deployment/image-pull-secret-syncer \
+        --namespace default --timeout=5m"
       delegate_to: localhost
       ignore_errors: "{{ ansible_check_mode }}"
       register: out

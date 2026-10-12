@@ -15,6 +15,7 @@
       --resource-group {{aks_resource_group_name}} \
       --name {{aks_name}} \
       --addons {{addons_to_add}} \
+      --enable-msi-auth-for-monitoring \
       --workspace-resource-id {{item}}"
     delegate_to: localhost
     ignore_errors: "{{ ansible_check_mode }}"

@@ -117,7 +117,7 @@ spec:
           path: /digitransitprdaksstorage/waltti
           readOnly: true
       imagePullSecrets:
-        - name: hsldevcomkey
+        - name: kv-hsldevcomkey
 
 ---
 
