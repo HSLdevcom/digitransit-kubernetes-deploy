@@ -9,8 +9,8 @@ spec:
   parameters:
     usePodIdentity: "false"
     useVMManagedIdentity: "false"
-    clientID: "REPLACE_ME_UAMI_CLIENT_ID"
-    tenantId: "REPLACE_ME_TENANT_ID"
+    clientID: "fad2a598-a6ca-4694-926b-bd36c1cd595a"
+    tenantId: "572a41dd-c389-4f0a-b256-aefd1bf149d7"
     keyvaultName: "digitransit-dev-keyvault"
     objects: |
       array:
