@@ -74,6 +74,13 @@ spec:
                   values:
                   - pelias-data-container
               topologyKey: kubernetes.io/hostname
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: pelias-api
       tolerations:
       - key: "workerPod"
         operator: "Equal"
