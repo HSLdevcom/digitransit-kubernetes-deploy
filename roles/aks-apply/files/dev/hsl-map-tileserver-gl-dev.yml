@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hsl-map-tileserver-gl
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: hsl-map-tileserver-gl-service-port
+    protocol: TCP
+  selector:
+    app: hsl-map-tileserver-gl
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hsl-map-tileserver-gl
+  labels:
+    app: hsl-map-tileserver-gl
+    update: auto
+    restartDelay: "5"
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: hsl-map-tileserver-gl
+  template:
+    metadata:
+      labels:
+        app: hsl-map-tileserver-gl
+    spec:
+      nodeSelector:
+        agentpool: workerpool
+      tolerations:
+      - key: "workerPod"
+        operator: "Equal"
+        value: "yes"
+        effect: "NoSchedule"
+      containers:
+      - name: hsl-map-tileserver-gl
+        image: hsldevcom/hsl-map-tileserver-gl:dev
+        imagePullPolicy: Always
+        # Run without --public_url (baked into the image) so that the TileJSON
+        # URLs are derived from the proxied request headers
+        command: ["/usr/src/app/docker-entrypoint.sh"]
+        securityContext:
+          allowPrivilegeEscalation: false
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          periodSeconds: 5
+          timeoutSeconds: 10
+          failureThreshold: 2
+          httpGet:
+            port: 8080
+            path: /health
+        livenessProbe:
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 10
+          httpGet:
+            port: 8080
+            path: /health
+        resources:
+          requests:
+            memory: 4Gi
+            cpu: 2000m
+          limits:
+            memory: 4Gi
+            cpu: 4000m
+      imagePullSecrets:
+        - name: kv-hsldevcomkey
