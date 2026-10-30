@@ -150,6 +150,9 @@ spec:
                 {
                   "KoivistonAuto": {
                     "remove": true
+                  },
+                  "Kuopio": {
+                    "url": "https://tvv.fra1.digitaloceanspaces.com/221.zip"
                   }
                 }
             resources:
