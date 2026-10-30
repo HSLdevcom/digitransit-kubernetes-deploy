@@ -122,7 +122,7 @@ spec:
               value: >
                 {
                   "Lahti": {
-                    "url": "http://digitransit-proxy:8080/out/waltti-cloudtest-agent.frendsapp.com/api/GTFS/v1/protobuf/dailyzip/223",
+                    "url": "http://digitransit-proxy:8080/out/https://waltti-cloudtest-agent.frendsapp.com/api/GTFS/v1/zip/223",
                     "replacements": {
                       "fare_attributes.txt": "digitransit_fare_attributes.txt",
                       "fare_rules.txt": "digitransit_fare_rules.txt"
