@@ -46,9 +46,6 @@ spec:
       - name: hsl-map-tileserver-gl
         image: hsldevcom/hsl-map-tileserver-gl:dev
         imagePullPolicy: Always
-        # Run without --public_url (baked into the image) so that the TileJSON
-        # URLs are derived from the proxied request headers
-        command: ["/usr/src/app/docker-entrypoint.sh"]
         securityContext:
           allowPrivilegeEscalation: false
         ports:
