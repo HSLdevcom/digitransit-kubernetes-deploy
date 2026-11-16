@@ -67,10 +67,10 @@ spec:
             path: /health
         resources:
           requests:
-            memory: 4Gi
+            memory: 10Gi
             cpu: 2000m
           limits:
-            memory: 4Gi
-            cpu: 4000m
+            memory: 10Gi
+            cpu: 3500m
       imagePullSecrets:
         - name: kv-hsldevcomkey
