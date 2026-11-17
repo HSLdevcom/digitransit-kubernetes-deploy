@@ -1,0 +1,14 @@
+# Service stub only: the shared proxy config references this host, so it must resolve in prod.
+# The deployment is added when prod is migrated to the new map server.
+apiVersion: v1
+kind: Service
+metadata:
+  name: hsl-map-tileserver-gl
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    name: hsl-map-tileserver-gl-service-port
+    protocol: TCP
+  selector:
+    app: hsl-map-tileserver-gl
