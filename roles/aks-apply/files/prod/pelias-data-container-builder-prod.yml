@@ -38,6 +38,9 @@ spec:
         - |
           objectName: digitransit-subscription-key-name
           objectType: secret
+        - |
+          objectName: geocoding-blob-sas
+          objectType: secret
   secretObjects:
     - secretName: "kv-docker-auth"
       type: Opaque
@@ -79,6 +82,11 @@ spec:
       data:
         - objectName: digitransit-subscription-key-name
           key: digitransit-subscription-key-name
+    - secretName: "kv-geocoding-blob-sas"
+      type: Opaque
+      data:
+        - objectName: geocoding-blob-sas
+          key: geocoding-blob-sas
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -174,6 +182,11 @@ spec:
                 secretKeyRef:
                   name: kv-slack-ci-channel-id
                   key: slack-ci-channel-id
+            - name: BLOB_SAS
+              valueFrom:
+                secretKeyRef:
+                  name: kv-geocoding-blob-sas
+                  key: geocoding-blob-sas
             resources:
               requests:
                 memory: 12Gi
