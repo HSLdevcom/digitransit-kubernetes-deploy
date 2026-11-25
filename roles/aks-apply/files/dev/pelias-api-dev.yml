@@ -19,6 +19,7 @@ metadata:
   labels:
     app: pelias-api
     update: auto
+    restartAfterDeployments: "pelias-data-container"
 spec:
   replicas: 1
   strategy:
